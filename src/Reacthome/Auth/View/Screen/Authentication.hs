@@ -24,6 +24,6 @@ authentication =
                 H.div do
                     H.input ! A.name "login" ! A.type_ "text" ! A.placeholder "Login" ! A.autocomplete "on" ! A.autofocus mempty
                 H.div do
-                    H.button ! A.type_ "submit" $ "Sign up"
-                    H.a ! A.href "/register" $ "Sign in"
+                    H.button ! A.type_ "submit" $ "Sign ip"
+                    H.a ! A.href "/register" $ "Sign up"
             H.div ! A.id "debug" $ mempty
