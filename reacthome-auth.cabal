@@ -13,6 +13,7 @@ common common-extensions
   default-language: GHC2021
   default-extensions:
     BlockArguments
+    DataKinds
     DeriveAnyClass
     DerivingStrategies
     DuplicateRecordFields
@@ -124,7 +125,7 @@ library
     crypton,
     hashable,
     http-types,
-    lucid2,
+    type-of-html,
     unordered-containers,
     wai,
     wai-app-static,

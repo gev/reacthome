@@ -1,0 +1,6 @@
+packages: *.cabal
+
+source-repository-package
+    type:     git
+    location: https://github.com/knupfer/type-of-html.git
+    tag:      eb89e30fcf5ab43103e0382f2521e715380d82eb

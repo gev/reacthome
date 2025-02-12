@@ -4,8 +4,8 @@ import Control.Monad
 import Control.Monad.Trans.Except
 import Data.Aeson
 import Data.ByteString
+import Data.ByteString.Lazy qualified as Lazy
 import Data.String
-import Lucid
 import Network.HTTP.Types
 import Network.Wai
 
@@ -32,12 +32,11 @@ makeJSON req respond runController = do
             respond $
                 badRequest "Content-Type is not application/json"
 
-makeHTML :: Html () -> Response
-makeHTML html =
+makeHTML :: Lazy.ByteString -> Response
+makeHTML =
     responseLBS
         status200
         [(hContentType, ctApplicationHtml)]
-        (renderBS html)
 
 ok :: (ToJSON a) => a -> Response
 ok content =

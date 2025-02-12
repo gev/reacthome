@@ -1,29 +1,38 @@
+{-# LANGUAGE QualifiedDo #-}
+{-# LANGUAGE RebindableSyntax #-}
+{-# LANGUAGE NoOverloadedStrings #-}
+{-# OPTIONS_GHC -Wno-unused-do-bind #-}
+
 module Reacthome.Auth.View.Screen.Registration where
 
-import Lucid
+import Data.ByteString.Lazy
+import Html
+import Html.QualifiedDo qualified as H
 
-registration :: Html ()
+registration :: ByteString
 registration =
-    doctypehtml_ do
-        head_ do
-            title_ "Reacthome. Registration"
-            meta_ [charset_ "utf-8"]
-            meta_ [name_ "description", content_ "Reacthome Auth Service"]
-            meta_ [name_ "viewport", content_ "width=device-width, initial-scale=1.0"]
-            link_ [rel_ "icon", type_ "image/png", href_ "/icon.png"]
-            link_ [rel_ "stylesheet", href_ "/styles.css"]
-            script_ [src_ "/auth.js"] (mempty :: Html ())
-        body_ [onload_ "init(register)"] do
-            div_ do
-                img_ [width_ "150px", src_ "/icon.png", alt_ "Reacthome logo"]
-                h2_ "Reacthome"
-                h1_ "Registration"
-            form_ [id_ "form"] do
-                div_ do
-                    input_ [name_ "login", type_ "text", placeholder_ "Login", autocomplete_ "on", autofocus_]
-                div_ do
-                    input_ [name_ "name", type_ "text", placeholder_ "Name", autocomplete_ "on"]
-                div_ do
-                    button_ [type_ "submit"] "Sign up"
-                    a_ [href_ "/"] "Sign in"
-            div_ [id_ "debug"] mempty
+    renderByteString H.do
+        DOCTYPE
+        Html :> H.do
+            Head :> H.do
+                Title :> "Reacthome. Registration"
+                Meta :@ (NameA "charset" # ContentA "utf-8")
+                Meta :@ (NameA "description" # ContentA "Reacthome Auth Service")
+                Meta :@ (NameA "viewport" # ContentA "width=device-width, initial-scale=1.0")
+                Link :@ (RelA "icon" # TypeA "image/png" # HrefA "/icon.png")
+                Link :@ (RelA "stylesheet" # HrefA "/styles.css")
+                Script :@ SrcA "/auth.js"
+            Body :@ OnloadA "init(register)" :> H.do
+                Div :> H.do
+                    Img :@ (WidthA "150px" # SrcA "/icon.png" # AltA "Reacthome logo")
+                    H2 :> "Reacthome"
+                    H1 :> "Registration"
+                Form :@ IdA "form" :> H.do
+                    Div :> H.do
+                        Input :@ (NameA "login" # TypeA "text" # PlaceholderA "Login" # AutocompleteA "on" # AutofocusA)
+                    Div :> H.do
+                        Input :@ (NameA "name" # TypeA "text" # PlaceholderA "Name" # AutocompleteA "on")
+                    Div :> H.do
+                        Button :@ TypeA "submit" :> "Sign up"
+                        A :@ HrefA "/" :> "Sign in"
+                Div :@ IdA "debug"
