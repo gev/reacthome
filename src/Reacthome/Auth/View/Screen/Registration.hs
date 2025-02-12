@@ -1,33 +1,31 @@
-{-# LANGUAGE NoImplicitPrelude #-}
-
 module Reacthome.Auth.View.Screen.Registration where
 
-import Text.Blaze.Html5 as E
-import Text.Blaze.Html5.Attributes as A
-import Prelude (mempty, ($))
+import Text.Blaze.Html
+import Text.Blaze.Html5 qualified as H
+import Text.Blaze.Html5.Attributes qualified as A
 
 registration :: Html
 registration =
-    docTypeHtml do
-        E.head do
-            E.title "Reacthome. Registration"
-            meta ! charset "utf-8"
-            meta ! name "description" ! content "Reacthome Auth Service"
-            meta ! name "viewport" ! content "width=device-width, initial-scale=1.0"
-            link ! rel "icon" ! type_ "image/png" ! href "/icon.png"
-            link ! rel "stylesheet" ! href "/styles.css"
-            script ! src "/auth.js" $ mempty
-        body ! onload "init(register)" $ do
-            E.div do
-                img ! width "150px" ! src "/icon.png" ! alt "Reacthome logo"
-                h2 "Reacthome"
-                h1 "Registration"
-            E.form ! A.id "form" $ do
-                div do
-                    input ! name "login" ! type_ "text" ! placeholder "Login" ! autocomplete "on" ! autofocus mempty
-                div do
-                    input ! name "name" ! type_ "text" ! placeholder "Name" ! autocomplete "on"
-                div do
-                    button ! type_ "submit" $ "Sign up"
-                    a ! href "/" $ "Sign in"
-            div ! A.id "debug" $ mempty
+    H.docTypeHtml do
+        H.head do
+            H.title "Reacthome. Registration"
+            H.meta ! A.charset "utf-8"
+            H.meta ! A.name "description" ! A.content "Reacthome Auth Service"
+            H.meta ! A.name "viewport" ! A.content "width=device-width, initial-scale=1.0"
+            H.link ! A.rel "icon" ! A.type_ "image/png" ! A.href "/icon.png"
+            H.link ! A.rel "stylesheet" ! A.href "/styles.css"
+            H.script ! A.src "/auth.js" $ mempty
+        H.body ! A.onload "init(register)" $ do
+            H.div do
+                H.img ! A.width "150px" ! A.src "/icon.png" ! A.alt "Reacthome logo"
+                H.h2 "Reacthome"
+                H.h1 "Registration"
+            H.form ! A.id "form" $ do
+                H.div do
+                    H.input ! A.name "login" ! A.type_ "text" ! A.placeholder "Login" ! A.autocomplete "on" ! A.autofocus mempty
+                H.div do
+                    H.input ! A.name "name" ! A.type_ "text" ! A.placeholder "Name" ! A.autocomplete "on"
+                H.div do
+                    H.button ! A.type_ "submit" $ "Sign up"
+                    H.a ! A.href "/" $ "Sign in"
+            H.div ! A.id "debug" $ mempty
