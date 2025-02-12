@@ -5,9 +5,10 @@ import Control.Monad.Trans.Except
 import Data.Aeson
 import Data.ByteString
 import Data.String
-import Lucid
 import Network.HTTP.Types
 import Network.Wai
+import Text.Blaze.Html
+import Text.Blaze.Html.Renderer.Utf8
 
 makeJSON ::
     (FromJSON req, ToJSON res) =>
@@ -32,12 +33,12 @@ makeJSON req respond runController = do
             respond $
                 badRequest "Content-Type is not application/json"
 
-makeHTML :: Html () -> Response
+makeHTML :: Html -> Response
 makeHTML html =
     responseLBS
         status200
         [(hContentType, ctApplicationHtml)]
-        (renderBS html)
+        (renderHtml html)
 
 ok :: (ToJSON a) => a -> Response
 ok content =
