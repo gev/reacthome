@@ -8,7 +8,7 @@ authentication :: Html
 authentication =
     H.docTypeHtml do
         H.head do
-            H.title "Reacthome. Registration"
+            H.title "Reacthome. Authentication"
             H.meta ! A.charset "utf-8"
             H.meta ! A.name "description" ! A.content "Reacthome Auth Service"
             H.meta ! A.name "viewport" ! A.content "width=device-width, initial-scale=1.0"
@@ -19,11 +19,11 @@ authentication =
             H.div do
                 H.img ! A.width "150px" ! A.src "/icon.png" ! A.alt "Reacthome logo"
                 H.h2 "Reacthome"
-                H.h1 "Registration"
+                H.h1 "Authentication"
             H.form ! A.id "form" $ do
                 H.div do
                     H.input ! A.name "login" ! A.type_ "text" ! A.placeholder "Login" ! A.autocomplete "on" ! A.autofocus mempty
                 H.div do
                     H.button ! A.type_ "submit" $ "Sign up"
-                    H.a ! A.href "/" $ "Sign in"
+                    H.a ! A.href "/register" $ "Sign in"
             H.div ! A.id "debug" $ mempty
