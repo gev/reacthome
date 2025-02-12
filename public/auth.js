@@ -153,7 +153,6 @@ const debug = data => {
 }
 
 const init = (handle) => {
-    const params = new URLSearchParams(document.location.search)
     document.getElementById("form").addEventListener("submit", event => {
         event.preventDefault()
         handle(new FormData(event.target))
