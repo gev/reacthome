@@ -26,16 +26,6 @@ app ::
     ScottyM ()
 app = do
     middleware $ staticPolicy (addBase "public")
-    router
-
-router ::
-    ( ?environment :: Environment
-    , ?challenges :: Challenges
-    , ?users :: Users
-    , ?publicKeys :: PublicKeys
-    ) =>
-    ScottyM ()
-router = do
     get "/" $ html' authentication
     get "/register" $ html' registration
     post "/authentication/begin" $ json' beginAuthentication
