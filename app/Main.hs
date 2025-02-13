@@ -1,9 +1,9 @@
-import Network.Wai.Handler.Warp
 import Reacthome.Auth.App
 import Reacthome.Auth.Environment
 import Reacthome.Auth.Repository.InMemory.Challenges
 import Reacthome.Auth.Repository.InMemory.Credential.PublicKeys
 import Reacthome.Auth.Repository.InMemory.Users
+import Web.Scotty
 
 main :: IO ()
 main = do
@@ -11,7 +11,7 @@ main = do
         Environment
           { name = "Reacthome Auth Service"
           , domain = "reacthome.net"
-          , timeout
+          , timeout = 60_000
           , challengeSize = 20
           }
   challenges <- makeChallenges
@@ -20,8 +20,4 @@ main = do
   let ?challenges = challenges
   let ?users = users
   let ?publicKeys = publicKeys
-  let port = 3000
-  putStrLn $ "Serving on port " <> show port
-  run port app
- where
-  timeout = 60_000
+  scotty 3000 app

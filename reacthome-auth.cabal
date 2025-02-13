@@ -115,7 +115,6 @@ library
     Util.Base64.URL.Lazy
     Util.Error
     Util.MVar
-    Util.Wai
 
   build-depends:
     aeson,
@@ -125,6 +124,7 @@ library
     hashable,
     http-types,
     lucid2,
+    scotty,
     unordered-containers,
     wai,
     wai-middleware-static,
@@ -137,6 +137,7 @@ executable reacthome-auth-service
   hs-source-dirs: app
   build-depends:
     reacthome-auth,
+    scotty,
     warp,
 
 test-suite reacthome-auth-test

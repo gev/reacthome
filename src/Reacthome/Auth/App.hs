@@ -1,9 +1,8 @@
 module Reacthome.Auth.App where
 
+import Control.Monad.Trans.Class
 import Control.Monad.Trans.Except
-import Data.Aeson
-import Network.HTTP.Types
-import Network.Wai
+import Lucid
 import Network.Wai.Middleware.Static
 import Reacthome.Auth.Controller.Authentication.Begin
 import Reacthome.Auth.Controller.Authentication.Complete
@@ -15,7 +14,7 @@ import Reacthome.Auth.Environment
 import Reacthome.Auth.Service.Challenges (Challenges)
 import Reacthome.Auth.View.Screen.Authentication
 import Reacthome.Auth.View.Screen.Registration
-import Util.Wai
+import Web.Scotty
 
 app ::
     ( ?environment :: Environment
@@ -23,8 +22,10 @@ app ::
     , ?users :: Users
     , ?publicKeys :: PublicKeys
     ) =>
-    Application
-app = staticPolicy (addBase "public") router
+    ScottyM ()
+app = do
+    middleware $ staticPolicy (addBase "public")
+    router
 
 router ::
     ( ?environment :: Environment
@@ -32,25 +33,15 @@ router ::
     , ?users :: Users
     , ?publicKeys :: PublicKeys
     ) =>
-    Application
-router req respond =
-    if
-        | req.requestMethod == methodGet || req.requestMethod == methodHead -> do
-            let respond' = respond . makeHTML
-            case req.pathInfo of
-                [] -> respond' authentication
-                ["register"] -> respond' registration
-                _ -> respond notFound
-        | req.requestMethod == methodPost -> do
-            let respond' ::
-                    (FromJSON req, ToJSON res) =>
-                    (req -> ExceptT String IO res) ->
-                    IO ResponseReceived
-                respond' = makeJSON req respond
-            case req.pathInfo of
-                ["registration", "begin"] -> respond' beginRegistration
-                ["registration", "complete"] -> respond' completeRegistration
-                ["authentication", "begin"] -> respond' beginAuthentication
-                ["authentication", "complete"] -> respond' completeAuthentication
-                _ -> respond notAllowed
-        | otherwise -> respond notAllowed
+    ScottyM ()
+router = do
+    get "/" $ html' authentication
+    get "/register" $ html' registration
+    post "/authentication/begin" $ json' beginAuthentication
+    post "/authentication/complete" $ json' completeAuthentication
+    post "/registration/begin" $ json' beginRegistration
+    post "/registration/complete" $ json' completeRegistration
+  where
+    html' = html . renderText
+    json' action =
+        either json json =<< lift . runExceptT . action =<< jsonData
