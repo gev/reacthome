@@ -115,7 +115,6 @@ library
     Util.Base64.URL.Lazy
     Util.Error
     Util.MVar
-    Util.Wai
 
   build-depends:
     aeson,
@@ -125,6 +124,7 @@ library
     hashable,
     http-types,
     lucid2,
+    twain,
     unordered-containers,
     wai,
     wai-middleware-static,

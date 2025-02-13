@@ -1,8 +1,8 @@
 module Reacthome.Auth.App where
 
+import Control.Monad.IO.Class
 import Control.Monad.Trans.Except
-import Data.Aeson
-import Network.HTTP.Types
+import Lucid
 import Network.Wai
 import Network.Wai.Middleware.Static
 import Reacthome.Auth.Controller.Authentication.Begin
@@ -15,7 +15,7 @@ import Reacthome.Auth.Environment
 import Reacthome.Auth.Service.Challenges (Challenges)
 import Reacthome.Auth.View.Screen.Authentication
 import Reacthome.Auth.View.Screen.Registration
-import Util.Wai
+import Web.Twain
 
 app ::
     ( ?environment :: Environment
@@ -24,7 +24,7 @@ app ::
     , ?publicKeys :: PublicKeys
     ) =>
     Application
-app = staticPolicy (addBase "public") router
+app = foldr ($) (notFound missing) router
 
 router ::
     ( ?environment :: Environment
@@ -32,25 +32,21 @@ router ::
     , ?users :: Users
     , ?publicKeys :: PublicKeys
     ) =>
-    Application
-router req respond =
-    if
-        | req.requestMethod == methodGet || req.requestMethod == methodHead -> do
-            let respond' = respond . makeHTML
-            case req.pathInfo of
-                [] -> respond' authentication
-                ["register"] -> respond' registration
-                _ -> respond notFound
-        | req.requestMethod == methodPost -> do
-            let respond' ::
-                    (FromJSON req, ToJSON res) =>
-                    (req -> ExceptT String IO res) ->
-                    IO ResponseReceived
-                respond' = makeJSON req respond
-            case req.pathInfo of
-                ["registration", "begin"] -> respond' beginRegistration
-                ["registration", "complete"] -> respond' completeRegistration
-                ["authentication", "begin"] -> respond' beginAuthentication
-                ["authentication", "complete"] -> respond' completeAuthentication
-                _ -> respond notAllowed
-        | otherwise -> respond notAllowed
+    [Middleware]
+router =
+    staticPolicy (addBase "public")
+        : [ get "/" $ html' authentication
+          , get "/register" $ html' registration
+          , post "/authentication/begin" $ json' beginAuthentication
+          , post "/authentication/complete" $ json' completeAuthentication
+          , post "/registration/begin" $ json' beginRegistration
+          , post "/registration/complete" $ json' completeRegistration
+          ]
+  where
+    html' = send . html . renderBS
+    json' action = do
+        res <- liftIO . runExceptT . action =<< fromBody
+        send $ either json json res
+
+missing :: ResponderM a
+missing = send $ html "Not found"
