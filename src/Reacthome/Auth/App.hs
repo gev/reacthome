@@ -34,13 +34,13 @@ router ::
     , ?publicKeys :: PublicKeys
     ) =>
     [Middleware]
-router =
+router = do
     staticPolicy (addBase "public")
         : [ get "/" $ html' authentication
           , get "/register" $ html' registration
           , post "/authentication/begin" $ json' beginAuthentication
           , post "/authentication/complete" $ json' completeAuthentication
-          , post "/registration/begin" do json' beginRegistration
+          , post "/registration/begin" $ json' beginRegistration
           , post "/registration/complete" $ json' completeRegistration
           ]
   where
