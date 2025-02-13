@@ -2,6 +2,7 @@ module Reacthome.Auth.App where
 
 import Control.Monad.IO.Class
 import Control.Monad.Trans.Except
+import Data.String
 import Lucid
 import Network.Wai
 import Network.Wai.Middleware.Static
@@ -39,14 +40,14 @@ router =
           , get "/register" $ html' registration
           , post "/authentication/begin" $ json' beginAuthentication
           , post "/authentication/complete" $ json' completeAuthentication
-          , post "/registration/begin" $ json' beginRegistration
+          , post "/registration/begin" do json' beginRegistration
           , post "/registration/complete" $ json' completeRegistration
           ]
   where
     html' = send . html . renderBS
     json' action = do
         res <- liftIO . runExceptT . action =<< fromBody
-        send $ either json json res
+        send $ either (status status400 . text . fromString) json res
 
 missing :: ResponderM a
 missing = send $ html "Not found"
