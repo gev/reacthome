@@ -2,6 +2,7 @@ module Reacthome.Auth.App where
 
 import Control.Monad.Trans.Class
 import Control.Monad.Trans.Except
+import Data.String
 import Lucid
 import Network.Wai.Middleware.Static
 import Reacthome.Auth.Controller.Authentication.Begin
@@ -44,4 +45,4 @@ router = do
   where
     html' = html . renderText
     json' action =
-        either json json =<< lift . runExceptT . action =<< jsonData
+        either (text . fromString) json =<< lift . runExceptT . action =<< jsonData
