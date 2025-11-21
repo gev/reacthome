@@ -7,7 +7,7 @@ import Reacthome.Relay.Stat (RelayHits (hits), RelayStat (..), makeRelayStat)
 import Web.WebSockets.Client (runWebSocketClient)
 
 concurrency :: Int
-concurrency = 10
+concurrency = 5
 
 main :: IO ()
 main = do
@@ -28,10 +28,10 @@ main = do
     traverse_ run stats
 
     forever do
-        rx0 <- summarize rx
         tx0 <- summarize tx
+        rx0 <- summarize rx
         threadDelay 1_000_000
-        rx1 <- summarize rx
         tx1 <- summarize tx
-        putStrLn $ "Rx: " <> rps rx1 rx0
+        rx1 <- summarize rx
         putStrLn $ "Tx: " <> rps tx1 tx0
+        putStrLn $ "Rx: " <> rps rx1 rx0

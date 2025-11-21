@@ -1,19 +1,18 @@
 module Reacthome.Relay.Server where
 
+import Control.Concurrent (forkIO, threadDelay)
+import Control.Concurrent.STM (atomically, dupTChan, newBroadcastTChan, newTVarIO, readTVar, retry, tryReadTChan, writeTChan, writeTVar)
 import Control.Exception (catch)
-import Control.Monad (forever)
+import Control.Monad (forever, unless, void, when)
 import Data.ByteString (toStrict)
-import Data.Foldable (for_)
-import Data.IORef (newIORef, readIORef, writeIORef)
 import Data.UUID (UUID, toByteString)
 import Reacthome.Relay.Error (RelayError (..), logError)
 import Reacthome.Relay.Message (RelayMessage (..), parseMessage, serializeMessage)
-import Reacthome.Relay.Relay (Relay (..))
-import Reacthome.Relay.Repository (add, get, makeRelayRepository, remove)
+import StmContainers.Map (insert, lookup, newIO)
 import Web.WebSockets.Connection (WebSocketConnection (..))
 import Web.WebSockets.Error (WebSocketError)
 import Web.WebSockets.PendingConnection (WebSocketPendingConnection (..))
-import Prelude hiding (length, splitAt, tail, take)
+import Prelude hiding (lookup, splitAt, tail, take)
 
 newtype RelayServer = RelayServer
     { accept :: WebSocketPendingConnection -> UUID -> IO ()
@@ -21,24 +20,47 @@ newtype RelayServer = RelayServer
 
 makeRelayServer :: IO RelayServer
 makeRelayServer = do
-    repository <- makeRelayRepository
-    uid <- newIORef 0
+    repository <- newIO
+    count <- newTVarIO 0
     let
         accept pending peer = do
             let from = toStrict $ toByteString peer
+            chan <- atomically do
+                maybe
+                    do
+                        ch <- newBroadcastTChan
+                        insert ch from repository
+                        dupTChan ch
+                    dupTChan
+                    =<< lookup from repository
+
             catch @WebSocketError
-                do run from =<< pending.accept
+                do
+                    connection <- pending.accept
+                    runTx connection chan
+                    runRx connection from
                 do logError . WebSocketError from
 
-        run from connection = do
-            uid' <- readIORef uid
-            let relay = Relay uid' connection
-            writeIORef uid $ uid' + 1
-            repository.add from relay
+        runTx connection chan = void . forkIO $ forever do
+            messages <- atomically do
+                writeTVar count 0
+                readAll chan []
+            unless (null messages) do
+                print $ length messages
+                connection.sendMessages $ reverse messages
+                threadDelay 1_000
+
+        readAll chan xs =
+            maybe
+                do pure xs
+                do readAll chan . (: xs)
+                =<< tryReadTChan chan
+
+        runRx connection from = do
             catch @WebSocketError
                 do
                     forever do
-                        message <- relay.connection.receiveMessage
+                        message <- connection.receiveMessage
                         catch @RelayError
                             do
                                 let message' = parseMessage message
@@ -49,25 +71,26 @@ makeRelayServer = do
                                         , content = message'.content
                                         }
                             logError
-                \e -> do
-                    repository.remove from relay
-                    logError $ WebSocketError from e
+                do
+                    logError . WebSocketError from
 
-        send to message = do
-            relays <- repository.get to
-            if null relays
-                then logError $ NoPeersFound to
-                else do
-                    let message' = serializeMessage message
-                    for_ relays \relay -> do
-                        catch @WebSocketError
-                            do
-                                relay.connection.sendMessage message'
-                            \e -> do
-                                repository.remove to relay
-                                logError $ WebSocketError to e
+        send to message =
+            maybe
+                do
+                    logError $ NoPeersFound to
+                do
+                    \chan -> atomically do
+                        count' <- readTVar count
+                        when (count' == bound) retry
+                        writeTChan chan $ serializeMessage message
+                        writeTVar count $ count' + 1
+                =<< atomically do
+                    lookup to repository
 
     pure RelayServer{..}
 
 headerLength :: Int
 headerLength = 16
+
+bound :: Int
+bound = 1_000
