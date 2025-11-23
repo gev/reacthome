@@ -3,7 +3,7 @@ module Reacthome.Relay.Relay where
 import Control.Concurrent.STM (readTBQueue, writeTChan)
 import Control.Concurrent.STM.TBQueue (newTBQueueIO, writeTBQueue)
 import Control.Concurrent.STM.TChan (TChan, dupTChan, newBroadcastTChan)
-import Control.Exception (catch, throw)
+import Control.Exception (catch, throwIO)
 import Control.Monad (forever, void)
 import Control.Monad.STM (atomically)
 import Data.HashMap.Strict (empty, insert, lookup)
@@ -47,7 +47,7 @@ makeRelay bound = do
                     message <- atomically $ readTBQueue sink
                     let destination = getMessageDestination message
                     case lookup destination sources' of
-                        Nothing -> throw $ NoPeersFound destination
+                        Nothing -> throwIO $ NoPeersFound destination
                         Just source -> atomically $ writeTChan source message
                 logError
 
