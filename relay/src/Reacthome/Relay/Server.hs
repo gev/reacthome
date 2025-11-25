@@ -28,14 +28,14 @@ makeRelayServer dispatcher = do
     let
         accept pending peer = do
             let
-                from = toStrict $ toByteString peer
+                !from = toStrict $ toByteString peer
 
-                onError = logError . WebSocketError from
+                !onError = logError . WebSocketError from
 
-                wrap = handle @WebSocketError onError
+                !wrap = handle @WebSocketError onError
 
-            source <- dispatcher.getSource from
-            connection <- pending.accept
+            (!source, !free) <- dispatcher.getSource from
+            !connection <- pending.accept
             print $ "Peer connected " <> show peer
             finally
                 do
@@ -44,11 +44,12 @@ makeRelayServer dispatcher = do
                         do wrap $ runTx connection source
                 do
                     print $ "Peer disconnected " <> show peer
+                    free
 
         runRx connection = forever do
             dispatcher.sendMessage =<< connection.receiveMessage
 
-        runTx connection source = do
+        runTx !connection !source = do
             buffer <- newIORef []
             deadlineRef <- newIORef =<< getTime Monotonic
             let

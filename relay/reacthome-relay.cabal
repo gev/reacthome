@@ -53,6 +53,7 @@ library
     text,
     time,
     transformers,
+    ttrie,
     unagi-chan,
     unordered-containers,
     uuid,
