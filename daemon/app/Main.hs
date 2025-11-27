@@ -12,7 +12,7 @@ import Web.WebSockets.Client (runWebSocketClient)
 import Prelude hiding (last)
 
 concurrency :: Int
-concurrency = 100
+concurrency = 10000
 
 main :: IO ()
 main = do
@@ -29,6 +29,7 @@ main = do
             let path = "/" <> show peer
             putStrLn $ "Connect to Reacthome Relay on " <> host <> ":" <> show port <> path
             runWebSocketClient host port path $ application peer
+            threadDelay 100_000
 
         summarize x = sum <$> traverse (hits . x) stats
 

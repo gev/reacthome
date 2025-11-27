@@ -15,7 +15,7 @@ import Web.WebSockets.Connection (WebSocketConnection (..))
 import Web.WebSockets.Error (WebSocketError)
 
 messagesPerChunk :: Int
-messagesPerChunk = 40
+messagesPerChunk = 1
 
 application :: (?stat :: RelayStat) => UUID -> WebSocketClientApplication
 application peer connection = do
@@ -38,11 +38,13 @@ application peer connection = do
         runTx = forever do
             connection.sendMessages chunk
             ?stat.tx.hit messagesPerChunk
-            threadDelay 100
+            threadDelay 1_000_000
 
         runRx = forever do
             void connection.receiveMessage
             ?stat.rx.hit 1
+
+    threadDelay 1_000_000
 
     finally
         do
