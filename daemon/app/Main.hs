@@ -72,5 +72,5 @@ main = do
             threadDelay 1_000_000
 
     race_
-        do mapConcurrently_ run $ zip stats [10_000, 20_000 ..]
+        do mapConcurrently_ run $ zip stats [5_000, 10_000 ..]
         showStat

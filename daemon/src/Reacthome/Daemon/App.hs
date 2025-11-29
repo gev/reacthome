@@ -41,7 +41,7 @@ application peer connection = do
         runTx = forever do
             connection.sendMessages chunk
             ?stat.tx.hit messagesPerChunk
-            threadDelay 1_000_000
+            threadDelay 250_000
 
         runRx = forever do
             void connection.receiveMessage
