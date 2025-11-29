@@ -68,4 +68,4 @@ makeRelayDispatcher = do
     pure RelayDispatcher{..}
 
 bound :: Int
-bound = 1
+bound = 40
