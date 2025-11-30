@@ -1,7 +1,7 @@
 module Web.WebSockets.Connection where
 
 import Control.Exception (IOException, catch, throwIO)
-import Data.ByteString (ByteString)
+import Data.ByteString.Lazy (ByteString)
 import Data.Text (Text)
 import Data.Text.Encoding (encodeUtf8)
 import Network.WebSockets (ConnectionException)

@@ -6,7 +6,7 @@ import Data.Foldable (for_)
 import Data.HashMap.Strict (delete, empty, insert, lookup)
 import Data.IORef (newIORef, readIORef, writeIORef)
 import Data.Traversable (for)
-import Reacthome.Relay (StrictRaw, Uid)
+import Reacthome.Relay (LazyRaw, Uid)
 import Prelude hiding (lookup, show)
 
 data RelayDispatcher = RelayDispatcher
@@ -16,11 +16,11 @@ data RelayDispatcher = RelayDispatcher
     }
 
 newtype RelaySource = RelaySource
-    { tryReceiveMessage :: IO (Maybe StrictRaw, IO StrictRaw)
+    { tryReceiveMessage :: IO (Maybe LazyRaw, IO LazyRaw)
     }
 
 newtype RelaySink = RelaySink
-    { sendMessage :: StrictRaw -> IO ()
+    { sendMessage :: LazyRaw -> IO ()
     }
 
 makeRelayDispatcher :: IO RelayDispatcher
