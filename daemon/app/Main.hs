@@ -15,7 +15,7 @@ import Web.WebSockets.Error (WebSocketError)
 import Prelude hiding (last)
 
 concurrency :: Int
-concurrency = 16_000
+concurrency = 100
 
 main :: IO ()
 main = do
