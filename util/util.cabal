@@ -15,11 +15,14 @@ library
   exposed-modules:
     Util.ASN1
     Util.Aeson
-    Util.Base64
-    Util.Base64.Lazy
-    Util.Base64.URL
-    Util.Base64.URL.Lazy
     Util.Channel
+    Util.Encoding.Base64
+    Util.Encoding.Base64.Lazy
+    Util.Encoding.Base64.URL
+    Util.Encoding.Base64.URL.Lazy
+    Util.Encoding.Error
+    Util.Encoding.Utf8
+    Util.Encoding.Utf8.Lazy
     Util.MVar
     Util.SQLite
     Util.Timer
