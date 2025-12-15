@@ -1,5 +1,5 @@
 import Control.Concurrent (forkIO, threadDelay)
-import Control.Concurrent.Chan.Unagi.Bounded (Element (tryRead), newChan, tryReadChan, writeChan)
+import Control.Concurrent.Chan.Unagi.Bounded (Element (..), newChan, tryReadChan, writeChan)
 import Control.Monad (filterM, forever, replicateM, void, when)
 import Data.ByteString (toStrict)
 import Data.Foldable (for_, traverse_)
