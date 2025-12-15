@@ -1,6 +1,11 @@
-module Rest.ContentType where
+module Rest.ContentType
+    ( ContentType
+    , ctTextPlane
+    , ctApplicationJson
+    , ctApplicationHtml
+    ) where
 
-import Data.ByteString
+import Data.ByteString (ByteString)
 
 type ContentType = ByteString
 

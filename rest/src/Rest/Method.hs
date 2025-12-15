@@ -1,8 +1,12 @@
-module Rest.Method where
+module Rest.Method
+    ( get
+    , post
+    , match
+    ) where
 
-import Network.HTTP.Types
-import Rest
-import Rest.Status
+import Network.HTTP.Types (Method, methodGet, methodPost)
+import Rest (Request (..), Response)
+import Rest.Status (notAllowed)
 
 type Handler m =
     (?request :: Request) =>

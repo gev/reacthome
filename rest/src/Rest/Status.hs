@@ -1,13 +1,33 @@
-module Rest.Status where
+module Rest.Status
+    ( ok
+    , redirect
+    , badRequest
+    , notFound
+    , notAllowed
+    , unsupportedMediaType
+    ) where
 
-import Data.ByteString
+import Data.ByteString (ByteString)
 import Data.ByteString.Lazy qualified as Lazy
-import Data.CaseInsensitive
-import Data.String
+import Data.CaseInsensitive (CI (..), mk)
+import Data.String (IsString (..))
 import Network.HTTP.Types
-import Network.HTTP.Types.Header
-import Network.Wai
-import Rest.ContentType
+    ( Method
+    , ResponseHeaders
+    , Status
+    , hAccept
+    , hContentType
+    , hLocation
+    , status200
+    , status302
+    , status400
+    , status404
+    , status405
+    , status415
+    )
+import Network.HTTP.Types.Header (hAllow)
+import Network.Wai (Response, responseLBS)
+import Rest.ContentType (ctTextPlane)
 
 ok :: (Applicative a) => ByteString -> ResponseHeaders -> Lazy.ByteString -> a Response
 ok contentType headers =
