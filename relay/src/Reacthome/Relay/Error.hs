@@ -1,4 +1,7 @@
-module Reacthome.Relay.Error where
+module Reacthome.Relay.Error
+    ( RelayError (..)
+    , logError
+    ) where
 
 import Control.Exception (Exception)
 import Debug.Trace (traceIO)

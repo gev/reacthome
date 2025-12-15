@@ -1,4 +1,8 @@
-module Reacthome.Relay where
+module Reacthome.Relay
+    ( Uid
+    , StrictRaw
+    , LazyRaw
+    ) where
 
 import Data.ByteString qualified as S
 import Data.ByteString.Lazy qualified as L

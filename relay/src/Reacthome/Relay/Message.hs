@@ -1,4 +1,9 @@
-module Reacthome.Relay.Message where
+module Reacthome.Relay.Message
+    ( RelayMessage (..)
+    , serializeMessage
+    , getMessageDestination
+    , isMessageDestinationValid
+    ) where
 
 import Data.ByteString qualified as S
 import Reacthome.Relay (StrictRaw, Uid)

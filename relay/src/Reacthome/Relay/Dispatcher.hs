@@ -1,4 +1,7 @@
-module Reacthome.Relay.Dispatcher where
+module Reacthome.Relay.Dispatcher
+    ( RelayDispatcher (..)
+    , makeRelayDispatcher
+    ) where
 
 import Control.Concurrent (newMVar, putMVar, takeMVar)
 import Control.Concurrent.Chan.Unagi.Bounded (dupChan, newChan, tryRead, tryReadChan, writeChan)

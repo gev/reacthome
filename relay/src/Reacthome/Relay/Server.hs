@@ -1,4 +1,7 @@
-module Reacthome.Relay.Server where
+module Reacthome.Relay.Server
+    ( RelayServer (..)
+    , makeRelayServer
+    ) where
 
 import Control.Concurrent.Async (race)
 import Data.ByteString (toStrict)

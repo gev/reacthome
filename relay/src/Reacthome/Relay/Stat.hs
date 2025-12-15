@@ -1,4 +1,10 @@
-module Reacthome.Relay.Stat where
+module Reacthome.Relay.Stat
+    ( RelayHits (..)
+    , RelayStat (..)
+    , RelayStatHits (..)
+    , makeRelayStat
+    , makeRelayHits
+    ) where
 
 import Data.IORef (modifyIORef', newIORef, readIORef)
 import Prelude hiding (length, splitAt, tail)

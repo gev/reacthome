@@ -1,4 +1,6 @@
-module Reacthome.Relay.App where
+module Reacthome.Relay.App
+    ( application
+    ) where
 
 import Control.Error (exceptT)
 import Control.Monad (when)
