@@ -3,12 +3,13 @@ module Reacthome.Assist.Controller.Dialog.Query
     ) where
 
 import Data.Aeson (encode)
-import Data.Text.Lazy.Encoding (decodeUtf8)
+import Data.Bifunctor (first)
 import Reacthome.Assist.Domain.Query (Query)
 import Reacthome.Assist.Domain.Server.Id (ServerId (..))
 import Reacthome.Assist.Service.Dialog (Container)
 import Reacthome.Gate.Connection (GateConnection (..))
 import Reacthome.Gate.Connection.Pool (GateConnectionPool (..))
+import Util.Encoding.Utf8.Lazy (decodeUtf8)
 
 sendQuery ::
     (?gateConnectionPool :: GateConnectionPool) =>
@@ -17,4 +18,7 @@ sendQuery ::
     IO ()
 sendQuery sid query = do
     gate <- ?gateConnectionPool.getConnection sid.value
-    gate.send (decodeUtf8 . encode $ query)
+    either
+        do print
+        do gate.send
+        do first show (decodeUtf8 . encode $ query)

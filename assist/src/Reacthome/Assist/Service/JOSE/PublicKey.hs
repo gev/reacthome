@@ -8,6 +8,7 @@ import Control.Monad (forever, void)
 import Control.Monad.Trans.Class (lift)
 import Control.Monad.Trans.Except (except)
 import Data.Aeson (eitherDecode)
+import Data.Bifunctor (Bifunctor (first))
 import JOSE.JWK (fromJWK)
 import JOSE.JWKS (JWKS (..))
 import JOSE.PublicKey (PublicKeys (..))
@@ -29,7 +30,7 @@ runPublicKeysUpdate = do
             -}
             response <- lift $ responseBody <$> httpLbs req manager
             jwks <- except (eitherDecode @JWKS response)
-            keys <- except (traverse fromJWK jwks.keys)
+            keys <- except (traverse (first show . fromJWK) jwks.keys)
             lift (?publicKeys.store keys)
 
     void . forkIO . forever $ exceptT error pure do

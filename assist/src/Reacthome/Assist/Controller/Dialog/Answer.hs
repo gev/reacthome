@@ -4,9 +4,9 @@ module Reacthome.Assist.Controller.Dialog.Answer
 
 import Data.Aeson (eitherDecode)
 import Data.Text.Lazy (Text)
-import Data.Text.Lazy.Encoding (encodeUtf8)
 import Reacthome.Assist.Dialog.Gate (setAnswer)
 import Reacthome.Assist.Service.Dialog (Answers, unpack)
+import Util.Encoding.Utf8.Lazy (encodeUtf8)
 
 handleAnswer ::
     (?answers :: Answers) =>

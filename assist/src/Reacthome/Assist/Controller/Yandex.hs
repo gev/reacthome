@@ -5,6 +5,7 @@ module Reacthome.Assist.Controller.Yandex
 import Control.Error.Util (exceptT, (??))
 import Control.Monad.Trans.Class (lift)
 import Control.Monad.Trans.Except (ExceptT, except, throwE)
+import Data.Bifunctor (first)
 import Data.ByteString (stripPrefix)
 import Data.Maybe (fromMaybe)
 import JOSE.JWT (Token (..), isTokenValidNow)
@@ -64,7 +65,7 @@ getAuthorizedUser ::
 getAuthorizedUser = do
     authorization <- ?request.header hAuthorization ?? "Not authorized"
     jwt <- stripPrefix "Bearer " authorization ?? "Required `Bearer` authorization"
-    token <- except =<< lift (verifySignature ?publicKeys jwt)
+    token <- except . first show =<< lift (verifySignature ?publicKeys jwt)
     isValid <- lift $ isTokenValidNow token
     if isValid
         then do
