@@ -1,6 +1,9 @@
-module Util.MVar where
+module Util.MVar
+    ( runModify
+    , runRead
+    ) where
 
-import Control.Concurrent.MVar
+import Control.Concurrent.MVar (MVar, putMVar, readMVar, takeMVar)
 
 runModify :: MVar t -> (t -> t) -> IO ()
 runModify var action = do

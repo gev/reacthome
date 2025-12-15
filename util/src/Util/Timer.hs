@@ -1,6 +1,8 @@
-{-# LANGUAGE RecordWildCards #-}
-
-module Util.Timer where
+module Util.Timer
+    ( TimerManager (..)
+    , Timer (..)
+    , makeTimerManager
+    ) where
 
 import Control.Concurrent (forkIO, threadDelay, yield)
 import Control.Monad (forever, void, when)

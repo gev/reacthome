@@ -1,8 +1,15 @@
-module Util.SQLite where
+module Util.SQLite
+    ( makePool
+    , openDB
+    , tryExecute
+    , tryExecute_
+    , tryQuery
+    , tryQuery_
+    ) where
 
 import Control.Exception (SomeException, try)
-import Data.Foldable
-import Data.Pool
+import Data.Foldable (traverse_)
+import Data.Pool (Pool, defaultPoolConfig, destroyResource, newPool, putResource, takeResource)
 import Database.SQLite.Simple qualified as SQL
 
 makePool :: String -> Double -> Int -> IO (Pool SQL.Connection)

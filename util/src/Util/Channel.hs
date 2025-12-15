@@ -1,4 +1,7 @@
-module Util.Channel where
+module Util.Channel
+    ( Channel (..)
+    , makeQueue
+    ) where
 
 import Control.Concurrent.STM (atomically, flushTBQueue, newTBQueueIO, readTBQueue, writeTBQueue)
 

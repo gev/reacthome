@@ -1,8 +1,8 @@
-module Util.ASN1 where
+module Util.ASN1 (berDecode, derDecode) where
 
-import Data.ASN1.BinaryEncoding
-import Data.ASN1.Encoding
-import Data.ASN1.Prim
+import Data.ASN1.BinaryEncoding (BER (..), DER (..))
+import Data.ASN1.Encoding (ASN1Decoding, decodeASN1')
+import Data.ASN1.Prim (ASN1)
 import Data.Bifunctor (Bifunctor (first))
 import Data.ByteString (ByteString)
 

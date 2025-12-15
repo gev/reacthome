@@ -1,6 +1,9 @@
-module Util.Aeson where
+module Util.Aeson
+    ( omitNothing
+    , typeFieldLabelModifier
+    ) where
 
-import Data.Aeson
+import Data.Aeson (Options (..), defaultOptions)
 
 omitNothing :: Options
 omitNothing =
