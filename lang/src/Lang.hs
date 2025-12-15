@@ -1,6 +1,11 @@
-module Lang where
+module Lang
+    ( Lemma (..)
+    , Form (..)
+    , Link (..)
+    , Grammeme
+    ) where
 
-import Data.Text
+import Data.Text (Text)
 
 data Lemma = Lemma
     { id :: Int

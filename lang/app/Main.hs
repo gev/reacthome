@@ -1,13 +1,13 @@
 import Data.ByteString (readFile)
-import Data.Foldable
-import Data.IORef
-import Data.Maybe
-import Data.Text
-import Data.Text.Encoding
-import Database.SQLite.Simple
-import Database.SQLite.Simple.QQ
-import Lang
-import Xeno.SAX
+import Data.Foldable (traverse_)
+import Data.IORef (newIORef, readIORef, writeIORef)
+import Data.Maybe (fromJust)
+import Data.Text (unpack)
+import Data.Text.Encoding (decodeUtf8)
+import Database.SQLite.Simple (Connection, Query, execute, execute_, open, withTransaction)
+import Database.SQLite.Simple.QQ (sql)
+import Lang (Form (..), Lemma (..), Link (..))
+import Xeno.SAX (Process (..), process)
 import Prelude hiding (id, readFile)
 
 createLemmasTable :: Query
