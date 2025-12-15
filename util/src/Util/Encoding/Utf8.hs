@@ -1,4 +1,7 @@
-module Util.Encoding.Utf8 where
+module Util.Encoding.Utf8
+    ( decodeUtf8
+    , encodeUtf8
+    ) where
 
 import Data.Bifunctor (Bifunctor (first))
 import Data.ByteString (ByteString)

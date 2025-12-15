@@ -1,4 +1,6 @@
-module Util.Encoding.Error where
+module Util.Encoding.Error
+    ( EncodingError (..)
+    ) where
 
 import Data.Text.Encoding.Error (UnicodeException)
 

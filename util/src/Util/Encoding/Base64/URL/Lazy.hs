@@ -1,4 +1,7 @@
-module Util.Encoding.Base64.URL.Lazy where
+module Util.Encoding.Base64.URL.Lazy
+    ( decodeBase64
+    , encodeBase64
+    ) where
 
 import Data.Bifunctor (first)
 import Data.ByteString.Base64.URL.Lazy (decodeUnpadded, encode)

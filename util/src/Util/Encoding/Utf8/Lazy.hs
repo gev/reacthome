@@ -1,4 +1,7 @@
-module Util.Encoding.Utf8.Lazy where
+module Util.Encoding.Utf8.Lazy
+    ( decodeUtf8
+    , encodeUtf8
+    ) where
 
 import Data.Bifunctor (first)
 import Data.ByteString.Lazy (ByteString)

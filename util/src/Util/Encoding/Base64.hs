@@ -1,4 +1,7 @@
-module Util.Encoding.Base64 where
+module Util.Encoding.Base64
+    ( decodeBase64
+    , encodeBase64
+    ) where
 
 import Data.Bifunctor (first)
 import Data.ByteString (ByteString)
