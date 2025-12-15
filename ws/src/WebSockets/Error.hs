@@ -7,9 +7,7 @@ data WebSocketError
     | ReceiveError SomeException
     | CloseError SomeException
     | HandshakeError SomeException
-    deriving (Show)
-
-instance Exception WebSocketError
+    deriving (Show, Exception)
 
 joinExceptions ::
     (Exception e1, Exception e2) =>
