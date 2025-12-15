@@ -45,10 +45,13 @@ library
     async,
     bytestring,
     clock,
+    errors,
     text,
     time,
+    transformers,
     unagi-chan,
     unordered-containers,
+    util,
     uuid,
 
   hs-source-dirs: src
