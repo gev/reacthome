@@ -1,10 +1,15 @@
-module JOSE.KeyPair where
+module JOSE.KeyPair
+    ( KeyPair (..)
+    , makeKeyPair
+    , generateKeyPair
+    ) where
 
-import Crypto.Error
+import Crypto.Error (CryptoFailable (..))
 import Crypto.PubKey.Ed25519 qualified as Ed
-import Data.ByteString
-import Data.UUID
-import Data.UUID.V4
+import Data.ByteString (ByteString)
+import Data.UUID (UUID)
+import Data.UUID.V4 (nextRandom)
+import JOSE.Error (JoseError (..))
 
 data KeyPair = KeyPair
     { kid :: UUID
@@ -13,10 +18,10 @@ data KeyPair = KeyPair
     }
     deriving stock (Show)
 
-makeKeyPair :: UUID -> ByteString -> Either String KeyPair
+makeKeyPair :: UUID -> ByteString -> Either JoseError KeyPair
 makeKeyPair kid bs = do
     case Ed.secretKey bs of
-        CryptoFailed err -> Left $ show err
+        CryptoFailed err -> Left $ InvalidSecretKeyFormat err
         CryptoPassed secretKey -> Right $ fromSecret kid secretKey
 
 generateKeyPair :: IO KeyPair

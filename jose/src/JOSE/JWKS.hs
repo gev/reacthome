@@ -1,8 +1,10 @@
-module JOSE.JWKS where
+module JOSE.JWKS
+    ( JWKS (..)
+    ) where
 
-import Data.Aeson
-import GHC.Generics
-import JOSE.JWK
+import Data.Aeson (FromJSON, ToJSON)
+import GHC.Generics (Generic)
+import JOSE.JWK (JWK)
 
 newtype JWKS = JWKS
     { keys :: [JWK]

@@ -14,6 +14,7 @@ library
   -- cabal-gild: discover src
   exposed-modules:
     JOSE.Alg
+    JOSE.Error
     JOSE.Header
     JOSE.JWK
     JOSE.JWKS
@@ -29,13 +30,13 @@ library
   build-depends:
     aeson,
     base,
-    base64-bytestring,
     bytestring,
     crypton,
     memory,
     text,
     time,
     transformers,
+    util,
     uuid,
 
   default-language: GHC2024

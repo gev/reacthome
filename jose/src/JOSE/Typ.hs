@@ -1,8 +1,10 @@
-module JOSE.Typ where
+module JOSE.Typ
+    ( Typ (..)
+    ) where
 
-import Data.Aeson
-import GHC.Generics
-import JOSE.Util
+import Data.Aeson (FromJSON (..), ToJSON (..), genericParseJSON, genericToJSON)
+import GHC.Generics (Generic)
+import JOSE.Util (aesonOptions)
 
 data Typ = JWT
     deriving stock (Generic, Show)

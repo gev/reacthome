@@ -1,6 +1,8 @@
-module JOSE.Util where
+module JOSE.Util
+    ( aesonOptions
+    ) where
 
-import Data.Aeson
+import Data.Aeson (Options (..), defaultOptions)
 
 aesonOptions :: Options
 aesonOptions =

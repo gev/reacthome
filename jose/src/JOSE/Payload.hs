@@ -1,11 +1,15 @@
-module JOSE.Payload where
+module JOSE.Payload
+    ( Payload (..)
+    , makePayload
+    , newPayload
+    ) where
 
-import Data.Aeson
-import Data.Text
-import Data.Time.Clock.POSIX
-import Data.UUID
-import Data.UUID.V4
-import GHC.Generics
+import Data.Aeson (FromJSON, ToJSON)
+import Data.Text (Text)
+import Data.Time.Clock.POSIX (getPOSIXTime)
+import Data.UUID (UUID)
+import Data.UUID.V4 (nextRandom)
+import GHC.Generics (Generic)
 import Prelude hiding (exp)
 
 data Payload = Payload
@@ -26,11 +30,4 @@ newPayload iss ttl sub = do
     jti <- nextRandom
     iat <- round <$> getPOSIXTime
     let exp = ttl + iat
-    pure $
-        Payload
-            { jti
-            , iss
-            , sub
-            , exp
-            , iat
-            }
+    pure Payload{..}

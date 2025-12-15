@@ -1,8 +1,10 @@
-module JOSE.Alg where
+module JOSE.Alg
+    ( Alg (..)
+    ) where
 
-import Data.Aeson
-import GHC.Generics
-import JOSE.Util
+import Data.Aeson (FromJSON (..), ToJSON (..), genericParseJSON, genericToJSON)
+import GHC.Generics (Generic)
+import JOSE.Util (aesonOptions)
 
 data Alg = EdDSA
     deriving stock (Generic, Eq, Show)

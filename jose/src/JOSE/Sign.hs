@@ -1,16 +1,19 @@
-module JOSE.Sign where
+module JOSE.Sign
+    ( generateToken
+    , signToken
+    ) where
 
 import Crypto.PubKey.Ed25519 qualified as Ed
-import Data.Aeson
-import Data.ByteArray.Encoding
-import Data.ByteString
-import Data.ByteString.Base64.URL (encodeUnpadded)
-import Data.Text
-import Data.UUID
-import JOSE.Header
-import JOSE.JWT
-import JOSE.KeyPair
-import JOSE.Payload
+import Data.Aeson (ToJSON, encode)
+import Data.ByteArray.Encoding (Base (..), convertToBase)
+import Data.ByteString (ByteString, toStrict)
+import Data.Text (Text)
+import Data.UUID (UUID)
+import JOSE.Header (makeHeader)
+import JOSE.JWT (Token (..), makeToken)
+import JOSE.KeyPair (KeyPair (..))
+import JOSE.Payload (newPayload)
+import Util.Encoding.Base64.URL (encodeBase64Unpadded)
 
 generateToken :: KeyPair -> Text -> Int -> UUID -> IO ByteString
 generateToken kp iss ttl sub = do
@@ -29,4 +32,4 @@ signToken kp token =
     signature = convertToBase Base64URLUnpadded $ Ed.sign kp.secretKey kp.publicKey message
 
     code :: (ToJSON a) => a -> ByteString
-    code = encodeUnpadded . toStrict . encode
+    code = encodeBase64Unpadded . toStrict . encode

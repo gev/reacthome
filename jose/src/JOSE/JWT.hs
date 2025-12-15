@@ -1,11 +1,21 @@
-module JOSE.JWT where
+module JOSE.JWT
+    ( JWT (..)
+    , Token (..)
+    , makeToken
+    , splitToken
+    , parseToken
+    , isTokenValid
+    , isTokenValidNow
+    ) where
 
-import Data.Aeson
-import Data.ByteString.Base64.URL (decodeUnpadded)
-import Data.ByteString.Char8
-import Data.Time.Clock.POSIX
-import JOSE.Header
-import JOSE.Payload
+import Data.Aeson (FromJSON, eitherDecode)
+import Data.Bifunctor (first)
+import Data.ByteString.Char8 (ByteString, fromStrict, split)
+import Data.Time.Clock.POSIX (POSIXTime, getPOSIXTime)
+import JOSE.Error (JoseError (..))
+import JOSE.Header (Header)
+import JOSE.Payload (Payload (..))
+import Util.Encoding.Base64.URL (decodeBase64)
 
 data Token = Token
     { header :: Header
@@ -22,20 +32,22 @@ data JWT = JWT
 makeToken :: Header -> Payload -> Token
 makeToken = Token
 
-splitToken :: ByteString -> Either String JWT
+splitToken :: ByteString -> Either JoseError JWT
 splitToken token = case split '.' token of
     [header, payload, signature] ->
         Right JWT{..}
-    _ -> Left "Invalid token format"
+    _ -> Left InvalidTokenFormat
 
-parseToken :: JWT -> Either String Token
+parseToken :: JWT -> Either JoseError Token
 parseToken token = do
-    header <- code token.header
-    payload <- code token.payload
+    header <- decode HeaderJsonParseError token.header
+    payload <- decode PayloadJsonParseError token.payload
     pure Token{..}
   where
-    code :: (FromJSON a) => ByteString -> Either String a
-    code bs = eitherDecode . fromStrict =<< decodeUnpadded bs
+    decode :: (FromJSON a) => (String -> JoseError) -> ByteString -> Either JoseError a
+    decode err bs = do
+        bs' <- first TokenPartDecodingError (decodeBase64 bs)
+        first err (eitherDecode $ fromStrict bs')
 
 isTokenValid :: Token -> POSIXTime -> Bool
 isTokenValid token now = round now < token.payload.exp

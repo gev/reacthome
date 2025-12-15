@@ -1,9 +1,14 @@
-module JOSE.PublicKey where
+module JOSE.PublicKey
+    ( PublicKey (..)
+    , PublicKeys (..)
+    , makePublicKey
+    ) where
 
-import Crypto.Error
+import Crypto.Error (CryptoFailable (..))
 import Crypto.PubKey.Ed25519 qualified as Ed
-import Data.ByteString
-import Data.UUID
+import Data.ByteString (ByteString)
+import Data.UUID (UUID)
+import JOSE.Error (JoseError (..))
 
 data PublicKey = PublicKey
     { kid :: UUID
@@ -12,12 +17,12 @@ data PublicKey = PublicKey
     deriving stock (Show)
 
 data PublicKeys m = PublicKeys
-    { findBy :: UUID -> m (Either String PublicKey)
+    { findBy :: UUID -> m (Either JoseError PublicKey)
     , store :: [PublicKey] -> m ()
     }
 
-makePublicKey :: UUID -> ByteString -> Either String PublicKey
-makePublicKey kid bs = do
+makePublicKey :: UUID -> ByteString -> Either JoseError PublicKey
+makePublicKey kid bs =
     case Ed.publicKey bs of
-        CryptoFailed err -> Left $ show err
+        CryptoFailed e -> Left (InvalidPublicKeyFormat e)
         CryptoPassed publicKey -> Right PublicKey{..}

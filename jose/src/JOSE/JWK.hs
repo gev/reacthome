@@ -1,14 +1,20 @@
-module JOSE.JWK where
+module JOSE.JWK
+    ( JWK (..)
+    , fromJWK
+    , toJWK
+    ) where
 
-import Data.Aeson
-import Data.ByteArray.Encoding
-import Data.ByteString.Base64.URL
-import Data.Text
-import Data.Text.Encoding
-import Data.UUID
-import GHC.Generics
-import JOSE.PublicKey
-import JOSE.Util
+import Data.Aeson (FromJSON (..), ToJSON (..), genericParseJSON, genericToJSON)
+import Data.Bifunctor (first)
+import Data.ByteArray.Encoding (Base (..), convertToBase)
+import Data.Text (Text)
+import Data.UUID (UUID)
+import GHC.Generics (Generic)
+import JOSE.Error (JoseError (..))
+import JOSE.PublicKey (PublicKey (..), makePublicKey)
+import JOSE.Util (aesonOptions)
+import Util.Encoding.Base64.URL (decodeBase64Unpadded)
+import Util.Encoding.Utf8 (decodeUtf8, encodeUtf8)
 
 data JWK = JWK
     { kty :: Kty
@@ -37,16 +43,21 @@ instance FromJSON Crv where
 instance ToJSON Crv where
     toJSON = genericToJSON aesonOptions
 
-fromJWK :: JWK -> Either String PublicKey
+fromJWK :: JWK -> Either JoseError PublicKey
 fromJWK jwk =
     makePublicKey jwk.kid
-        =<< decodeUnpadded (encodeUtf8 jwk.x)
+        =<< first
+            TokenPartDecodingError
+            do decodeBase64Unpadded (encodeUtf8 jwk.x)
 
-toJWK :: PublicKey -> JWK
+toJWK :: PublicKey -> Either JoseError JWK
 toJWK pk = do
-    JWK
-        { kty = OKP
-        , crv = Ed25519
-        , x = decodeUtf8 $ convertToBase Base64URLUnpadded pk.publicKey
-        , kid = pk.kid
-        }
+    let bs = convertToBase Base64URLUnpadded pk.publicKey
+    x <- first TokenPartDecodingError (decodeUtf8 bs)
+    pure
+        JWK
+            { kty = OKP
+            , crv = Ed25519
+            , x
+            , kid = pk.kid
+            }

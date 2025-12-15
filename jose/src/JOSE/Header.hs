@@ -1,10 +1,13 @@
-module JOSE.Header where
+module JOSE.Header
+    ( Header (..)
+    , makeHeader
+    ) where
 
-import Data.Aeson
-import Data.UUID
-import GHC.Generics
-import JOSE.Alg
-import JOSE.Typ
+import Data.Aeson (FromJSON, ToJSON)
+import Data.UUID (UUID)
+import GHC.Generics (Generic)
+import JOSE.Alg (Alg (..))
+import JOSE.Typ (Typ (..))
 
 data Header = Header
     { typ :: Typ
