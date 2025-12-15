@@ -1,9 +1,11 @@
-module Reacthome.Assist.Repository.PublicKeys where
+module Reacthome.Assist.Repository.PublicKeys
+    ( makePublicKeys
+    ) where
 
 import Control.Error (note)
-import Data.HashMap.Strict
-import Data.IORef
-import JOSE.PublicKey
+import Data.HashMap.Strict (empty, fromList, lookup)
+import Data.IORef (newIORef, readIORef, writeIORef)
+import JOSE.PublicKey (PublicKey (kid), PublicKeys (..))
 import Prelude hiding (lookup)
 
 makePublicKeys :: IO (PublicKeys IO)

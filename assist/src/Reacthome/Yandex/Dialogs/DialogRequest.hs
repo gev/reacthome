@@ -1,11 +1,13 @@
-module Reacthome.Yandex.Dialogs.DialogRequest where
+module Reacthome.Yandex.Dialogs.DialogRequest
+    ( DialogRequest (..)
+    ) where
 
-import Data.Aeson
-import Data.Aeson.KeyMap
-import Data.Text
-import Reacthome.Yandex.Dialogs.DialogRequest.Meta
-import Reacthome.Yandex.Dialogs.DialogRequest.Request
-import Reacthome.Yandex.Dialogs.DialogRequest.Session
+import Data.Aeson (FromJSON (..), withObject, (.:))
+import Data.Aeson.KeyMap (member)
+import Data.Text (Text)
+import Reacthome.Yandex.Dialogs.DialogRequest.Meta (Meta)
+import Reacthome.Yandex.Dialogs.DialogRequest.Request (Request)
+import Reacthome.Yandex.Dialogs.DialogRequest.Session (Session)
 
 data DialogRequest
     = DialogRequest

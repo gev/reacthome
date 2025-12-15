@@ -1,27 +1,26 @@
-module Reacthome.Gate.Connection (
-    GateConnection (..),
-    makeConnection,
-) where
+module Reacthome.Gate.Connection
+    ( GateConnection (..)
+    , makeConnection
+    ) where
 
-import Control.Concurrent
-import Control.Concurrent.Async
-import Control.Concurrent.STM
-import Control.Exception
-import Control.Monad
-import Data.Text.Lazy
-import Data.UUID
-import Network.HTTP.Types
-import Network.WebSockets
-import Reacthome.Assist.Environment
-import Wuss
+import Control.Concurrent (forkFinally)
+import Control.Concurrent.Async (concurrently_)
+import Control.Concurrent.STM (TBQueue, atomically, newTBQueueIO, readTBQueue, writeTBQueue)
+import Control.Exception (SomeException)
+import Control.Monad (forever, void)
+import Data.Text.Lazy (Text)
+import Data.UUID (UUID, toString)
+import Network.HTTP.Types (HeaderName)
+import Network.WebSockets (ClientApp, Connection, defaultConnectionOptions, receiveData, sendTextData)
+import Reacthome.Assist.Environment (Environment (..), GateConfig (..))
+import Wuss (runSecureClientWith)
 
 newtype GateConnection = GateConnection
     { send :: Text -> IO ()
     }
 
 makeConnection ::
-    ( ?environment :: Environment
-    ) =>
+    (?environment :: Environment) =>
     UUID ->
     (Text -> IO ()) ->
     (SomeException -> IO ()) ->

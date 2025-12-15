@@ -1,9 +1,11 @@
-module Reacthome.Yandex.Dialogs.DialogResponse.Response where
+module Reacthome.Yandex.Dialogs.DialogResponse.Response
+    ( Response (..)
+    ) where
 
-import Data.Aeson
-import Data.Text
-import GHC.Generics
-import Reacthome.Yandex.Dialogs.DialogResponse.Response.Directives
+import Data.Aeson (ToJSON)
+import Data.Text (Text)
+import GHC.Generics (Generic)
+import Reacthome.Yandex.Dialogs.DialogResponse.Response.Directives (Directives)
 
 data Response = Response
     { text :: Text

@@ -1,8 +1,10 @@
-module Reacthome.Assist.Domain.Query where
+module Reacthome.Assist.Domain.Query
+    ( Query (..)
+    ) where
 
-import Data.Aeson
-import Data.Text
-import GHC.Generics
+import Data.Aeson (ToJSON)
+import Data.Text (Text)
+import GHC.Generics (Generic)
 
 data Query = Query
     { user_agent :: Text

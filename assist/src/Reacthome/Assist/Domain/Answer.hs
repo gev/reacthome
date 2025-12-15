@@ -1,10 +1,13 @@
-module Reacthome.Assist.Domain.Answer where
+module Reacthome.Assist.Domain.Answer
+    ( AnswerID
+    , Answer (..)
+    ) where
 
-import Data.Aeson
-import Data.Text
-import Data.UUID
-import GHC.Generics
-import Util.Aeson
+import Data.Aeson (FromJSON (..), genericParseJSON)
+import Data.Text (Text)
+import Data.UUID (UUID)
+import GHC.Generics (Generic)
+import Util.Aeson (omitNothing)
 
 type AnswerID = UUID
 

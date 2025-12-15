@@ -1,11 +1,18 @@
-module Reacthome.Assist.Service.Dialog where
+module Reacthome.Assist.Service.Dialog
+    ( Answers (..)
+    , Container (..)
+    , GetAnswer
+    , SetAnswer
+    , pack
+    , unpack
+    ) where
 
-import Data.Aeson
-import Data.Text
-import GHC.Generics
-import Reacthome.Assist.Domain.Answer
-import Reacthome.Assist.Domain.Query
-import Util.Aeson
+import Data.Aeson (FromJSON (..), ToJSON (..), genericParseJSON, genericToJSON)
+import Data.Text (Text)
+import GHC.Generics (Generic)
+import Reacthome.Assist.Domain.Answer (Answer, AnswerID)
+import Reacthome.Assist.Domain.Query (Query)
+import Util.Aeson (typeFieldLabelModifier)
 
 data Answers = Answers
     { takeAnswer :: AnswerID -> IO Answer

@@ -1,4 +1,7 @@
-module Reacthome.Yandex.Dialogs.DialogResponse.Response.Directives where
+module Reacthome.Yandex.Dialogs.DialogResponse.Response.Directives
+    ( Directives (..)
+    , start'account'linking
+    ) where
 
 import Data.Aeson
 import GHC.Generics

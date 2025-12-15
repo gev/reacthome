@@ -1,8 +1,10 @@
-module Reacthome.Yandex.Dialogs.DialogRequest.Meta where
+module Reacthome.Yandex.Dialogs.DialogRequest.Meta
+    ( Meta (..)
+    ) where
 
-import Data.Aeson
-import Data.Text
-import GHC.Generics
+import Data.Aeson (FromJSON)
+import Data.Text (Text)
+import GHC.Generics (Generic)
 
 data Meta = Meta
     { locale :: Text

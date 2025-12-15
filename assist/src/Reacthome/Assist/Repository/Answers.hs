@@ -1,10 +1,11 @@
-module Reacthome.Assist.Repository.Answers where
+module Reacthome.Assist.Repository.Answers
+    ( makeAnswers
+    ) where
 
-import Control.Concurrent.MVar
-import Control.Monad.STM
-import Data.Maybe
-import Reacthome.Assist.Service.Dialog
-import StmContainers.Map
+import Control.Concurrent.MVar (newEmptyMVar, putMVar, takeMVar)
+import Control.Monad.STM (atomically)
+import Reacthome.Assist.Service.Dialog (Answers (..))
+import StmContainers.Map (insert, lookup, newIO)
 import Prelude hiding (lookup)
 
 makeAnswers :: IO Answers

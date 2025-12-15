@@ -1,17 +1,19 @@
-module Reacthome.Assist.Service.JOSE.PublicKey where
+module Reacthome.Assist.Service.JOSE.PublicKey
+    ( runPublicKeysUpdate
+    ) where
 
-import Control.Concurrent
+import Control.Concurrent (forkIO, threadDelay)
 import Control.Error.Util (exceptT)
-import Control.Monad
+import Control.Monad (forever, void)
 import Control.Monad.Trans.Class (lift)
 import Control.Monad.Trans.Except (except)
-import Data.Aeson
-import JOSE.JWK
-import JOSE.JWKS
-import JOSE.PublicKey
-import Network.HTTP.Client
-import Network.HTTP.Client.TLS
-import Reacthome.Assist.Environment
+import Data.Aeson (eitherDecode)
+import JOSE.JWK (fromJWK)
+import JOSE.JWKS (JWKS (..))
+import JOSE.PublicKey (PublicKeys (..))
+import Network.HTTP.Client (Response (..), httpLbs, newManager, parseRequest)
+import Network.HTTP.Client.TLS (tlsManagerSettings)
+import Reacthome.Assist.Environment (Environment (..))
 
 runPublicKeysUpdate ::
     ( ?environment :: Environment

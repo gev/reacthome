@@ -1,7 +1,10 @@
-module Reacthome.Assist.Environment where
+module Reacthome.Assist.Environment
+    ( Environment (..)
+    , GateConfig (..)
+    ) where
 
-import Data.ByteString
-import Network.Socket
+import Data.ByteString (ByteString)
+import Network.Socket (HostName, PortNumber)
 
 data Environment = Environment
     { gate :: GateConfig

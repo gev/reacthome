@@ -1,8 +1,11 @@
-module Reacthome.Yandex.Dialogs.DialogRequest.Session.Application where
+module Reacthome.Yandex.Dialogs.DialogRequest.Session.Application
+    ( Application (..)
+    )
+where
 
-import Data.Aeson
-import Data.Text
-import GHC.Generics
+import Data.Aeson (FromJSON)
+import Data.Text (Text)
+import GHC.Generics (Generic)
 
 newtype Application = Application
     { application_id :: Text

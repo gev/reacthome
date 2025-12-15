@@ -1,14 +1,16 @@
-module Reacthome.Assist.App where
+module Reacthome.Assist.App
+    ( app
+    ) where
 
-import JOSE.PublicKey
-import Network.Wai
-import Reacthome.Assist.Controller.Yandex
-import Reacthome.Assist.Domain.Users
-import Reacthome.Assist.Service.Dialog
-import Reacthome.Gate.Connection.Pool
-import Rest
-import Rest.Method
-import Rest.Status
+import JOSE.PublicKey (PublicKeys)
+import Network.Wai (Application, Request (..))
+import Reacthome.Assist.Controller.Yandex (runDialog)
+import Reacthome.Assist.Domain.Users (Users)
+import Reacthome.Assist.Service.Dialog (Answers)
+import Reacthome.Gate.Connection.Pool (GateConnectionPool)
+import Rest (rest)
+import Rest.Method (post)
+import Rest.Status (notFound)
 
 app ::
     ( ?answers :: Answers

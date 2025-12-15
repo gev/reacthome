@@ -1,12 +1,15 @@
-module Reacthome.Gate.Connection.Pool where
+module Reacthome.Gate.Connection.Pool
+    ( GateConnectionPool (..)
+    , makeConnectionPool
+    ) where
 
-import Control.Concurrent
-import Data.HashMap.Strict
+import Control.Concurrent (newMVar)
+import Data.HashMap.Strict (delete, empty, insert, lookup)
 import Data.Text.Lazy (Text)
-import Data.UUID
-import Reacthome.Assist.Environment
-import Reacthome.Gate.Connection
-import Util.MVar
+import Data.UUID (UUID)
+import Reacthome.Assist.Environment (Environment)
+import Reacthome.Gate.Connection (GateConnection, makeConnection)
+import Util.MVar (runModify, runRead)
 import Prelude hiding (lookup)
 
 newtype GateConnectionPool = GateConnectionPool

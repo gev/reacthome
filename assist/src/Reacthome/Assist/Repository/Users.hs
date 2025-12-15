@@ -1,16 +1,18 @@
-module Reacthome.Assist.Repository.Users where
+module Reacthome.Assist.Repository.Users
+    ( makeUsers
+    ) where
 
 import Control.Error.Util (exceptT, (!?))
 import Control.Monad.Trans.Class (lift)
-import Data.Aeson
+import Data.Aeson (FromJSON, decodeFileStrict)
 import Data.HashMap.Strict (fromList, lookup)
 import Data.Text.Lazy (Text, toStrict)
-import Data.UUID
-import GHC.Generics
-import Reacthome.Assist.Domain.Server.Id
-import Reacthome.Assist.Domain.User
-import Reacthome.Assist.Domain.User.Id
-import Reacthome.Assist.Domain.Users
+import Data.UUID (UUID, fromText)
+import GHC.Generics (Generic)
+import Reacthome.Assist.Domain.Server.Id (ServerId (..))
+import Reacthome.Assist.Domain.User (User (..))
+import Reacthome.Assist.Domain.User.Id (UserId (..))
+import Reacthome.Assist.Domain.Users (Users (..))
 import Prelude hiding (lookup)
 
 makeUsers :: String -> IO Users

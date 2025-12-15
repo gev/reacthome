@@ -1,10 +1,12 @@
-module Reacthome.Yandex.Dialogs.DialogRequest.Request where
+module Reacthome.Yandex.Dialogs.DialogRequest.Request
+    ( Request (..)
+    ) where
 
-import Data.Aeson
-import Data.Text
-import GHC.Generics
-import Reacthome.Yandex.Dialogs.DialogRequest.Request.Markup
-import Util.Aeson
+import Data.Aeson (FromJSON (..), genericParseJSON)
+import Data.Text (Text)
+import GHC.Generics (Generic)
+import Reacthome.Yandex.Dialogs.DialogRequest.Request.Markup (Markup)
+import Util.Aeson (typeFieldLabelModifier)
 
 data Request = Request
     { command :: Text

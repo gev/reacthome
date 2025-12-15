@@ -1,4 +1,6 @@
-module Reacthome.Assist.Controller.Dialog.Query where
+module Reacthome.Assist.Controller.Dialog.Query
+    ( sendQuery
+    ) where
 
 import Data.Aeson (encode)
 import Data.Text.Lazy.Encoding (decodeUtf8)

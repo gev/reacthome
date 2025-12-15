@@ -1,4 +1,6 @@
-module Reacthome.Assist.Controller.Dialog.Answer where
+module Reacthome.Assist.Controller.Dialog.Answer
+    ( handleAnswer
+    ) where
 
 import Data.Aeson (eitherDecode)
 import Data.Text.Lazy (Text)

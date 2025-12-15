@@ -1,16 +1,19 @@
-module Reacthome.Assist.Domain.User where
+module Reacthome.Assist.Domain.User
+    ( User (..)
+    , makeUser
+    ) where
 
-import Reacthome.Assist.Domain.Server.Id
-import Reacthome.Assist.Domain.User.Id
+import Reacthome.Assist.Domain.Server.Id (ServerId)
+import Reacthome.Assist.Domain.User.Id (UserId)
 
 data User = User
-  { id :: UserId
-  , servers :: [ServerId]
-  }
-  deriving stock (Show)
+    { id :: UserId
+    , servers :: [ServerId]
+    }
+    deriving stock (Show)
 
 makeUser ::
-  UserId ->
-  [ServerId] ->
-  User
+    UserId ->
+    [ServerId] ->
+    User
 makeUser = User

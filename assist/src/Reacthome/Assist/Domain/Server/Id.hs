@@ -1,6 +1,8 @@
-module Reacthome.Assist.Domain.Server.Id where
+module Reacthome.Assist.Domain.Server.Id
+    ( ServerId (..)
+    ) where
 
-import Data.UUID
+import Data.UUID (UUID)
 
 newtype ServerId = ServerId {value :: UUID}
     deriving stock (Eq, Show)

@@ -1,4 +1,6 @@
-module Reacthome.Assist.Controller.Yandex where
+module Reacthome.Assist.Controller.Yandex
+    ( runDialog
+    ) where
 
 import Control.Error.Util (exceptT, (??))
 import Control.Monad.Trans.Class (lift)

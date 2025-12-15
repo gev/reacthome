@@ -1,8 +1,12 @@
-module Reacthome.Assist.Domain.User.Id where
+module Reacthome.Assist.Domain.User.Id
+    ( UserId (..)
+    , makeUserId
+    , makeRandomUserId
+    ) where
 
-import Data.Hashable
-import Data.UUID
-import Data.UUID.V4
+import Data.Hashable (Hashable)
+import Data.UUID (UUID)
+import Data.UUID.V4 (nextRandom)
 
 newtype UserId = UserId {value :: UUID}
     deriving stock (Show)

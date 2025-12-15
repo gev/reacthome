@@ -1,12 +1,13 @@
-module Reacthome.Assist.Dialog.Gate where
+module Reacthome.Assist.Dialog.Gate
+    ( getAnswer
+    , setAnswer
+    ) where
 
-import Control.Monad
-import Data.Maybe
-import Data.UUID.V4
-import Reacthome.Assist.Controller.Dialog.Query
-import Reacthome.Assist.Domain.Server.Id
-import Reacthome.Assist.Service.Dialog
-import Reacthome.Gate.Connection.Pool
+import Data.UUID.V4 (nextRandom)
+import Reacthome.Assist.Controller.Dialog.Query (sendQuery)
+import Reacthome.Assist.Domain.Server.Id (ServerId)
+import Reacthome.Assist.Service.Dialog (Answers (..), GetAnswer, SetAnswer, pack)
+import Reacthome.Gate.Connection.Pool (GateConnectionPool)
 import Prelude hiding (lookup)
 
 getAnswer ::
