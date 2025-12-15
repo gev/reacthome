@@ -11,7 +11,7 @@ import Util.Encoding.Error (EncodingError (..))
 import Util.Encoding.Utf8.Lazy (decodeUtf8, encodeUtf8)
 
 decodeBase64 :: Text -> Either EncodingError ByteString
-decodeBase64 = first Base64Error . decodeUnpadded . encodeUtf8
+decodeBase64 = first Base64DecodeError . decodeUnpadded . encodeUtf8
 
 encodeBase64 :: ByteString -> Either EncodingError Text
 encodeBase64 = decodeUtf8 . encode

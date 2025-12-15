@@ -21,6 +21,7 @@ library
     Util.Encoding.Base64.URL
     Util.Encoding.Base64.URL.Lazy
     Util.Encoding.Error
+    Util.Encoding.UUID
     Util.Encoding.Utf8
     Util.Encoding.Utf8.Lazy
     Util.MVar
@@ -33,13 +34,16 @@ library
     base,
     base64-bytestring,
     bytestring,
+    errors,
     resource-pool,
     sqlite-simple,
     stm,
     text,
+    uuid,
 
   default-language: GHC2024
   default-extensions:
     BlockArguments
+    DeriveAnyClass
     OverloadedStrings
     RecordWildCards

@@ -10,7 +10,7 @@ import Data.Text.Lazy.Encoding qualified as T
 import Util.Encoding.Error (EncodingError (..))
 
 decodeUtf8 :: ByteString -> Either EncodingError Text
-decodeUtf8 = first Utf8Error . T.decodeUtf8'
+decodeUtf8 = first Utf8DecodeError . T.decodeUtf8'
 
 encodeUtf8 :: Text -> ByteString
 encodeUtf8 = T.encodeUtf8
