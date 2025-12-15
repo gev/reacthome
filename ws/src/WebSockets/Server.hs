@@ -1,4 +1,7 @@
-module WebSockets.Server where
+module WebSockets.Server
+    ( WebSocketServerApplication
+    , runWebSocketServer
+    ) where
 
 import Network.WebSockets (runServer)
 import WebSockets.Options (WebSocketOptions)

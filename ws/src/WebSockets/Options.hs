@@ -1,4 +1,7 @@
-module WebSockets.Options where
+module WebSockets.Options
+    ( WebSocketOptions (..)
+    , defaultWebSocketOptions
+    ) where
 
 data WebSocketOptions = WebSocketOptions
     { bound :: !Int

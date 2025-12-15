@@ -1,6 +1,9 @@
-module WebSockets.Error where
+module WebSockets.Error
+    ( WebSocketError (..)
+    , joinExceptions
+    ) where
 
-import Control.Exception (Exception (toException), SomeException)
+import Control.Exception (Exception, SomeException, toException)
 
 data WebSocketError
     = SendError SomeException

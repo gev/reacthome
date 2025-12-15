@@ -1,9 +1,13 @@
-module WebSockets.PendingConnection where
+module WebSockets.PendingConnection
+    ( Headers
+    , WebSocketPendingConnection (..)
+    , makeWebSocketPendingConnection
+    ) where
 
 import Control.Exception (try)
 import Control.Exception.Base (IOException)
 import Data.ByteString (ByteString)
-import Data.CaseInsensitive
+import Data.CaseInsensitive (CI)
 import Network.WebSockets (HandshakeException, RequestHead (..), pendingRequest)
 import Network.WebSockets.Connection (PendingConnection, acceptRequestWith, defaultAcceptRequest)
 import WebSockets.Connection (WebSocketConnection, makeWebSocketConnection)

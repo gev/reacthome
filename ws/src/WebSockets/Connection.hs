@@ -1,4 +1,9 @@
-module WebSockets.Connection where
+module WebSockets.Connection
+    ( WebSocketConnection (..)
+    , WebSocketSink
+    , WebSocketSource
+    , makeWebSocketConnection
+    ) where
 
 import Control.Concurrent (threadDelay)
 import Control.Exception (try)

@@ -1,4 +1,7 @@
-module WebSockets.Client where
+module WebSockets.Client
+    ( WebSocketClient (..)
+    , runWebSocketClient
+    ) where
 
 import Control.Concurrent (forkIO, threadDelay)
 import Control.Concurrent.Async (race)
