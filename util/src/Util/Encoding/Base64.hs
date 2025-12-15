@@ -6,12 +6,10 @@ module Util.Encoding.Base64
 import Data.Bifunctor (first)
 import Data.ByteString (ByteString)
 import Data.ByteString.Base64 (decode, encode)
-import Data.Text (Text)
 import Util.Encoding.Error (EncodingError (..))
-import Util.Encoding.Utf8 (decodeUtf8, encodeUtf8)
 
-decodeBase64 :: Text -> Either EncodingError ByteString
-decodeBase64 = first Base64DecodeError . decode . encodeUtf8
+decodeBase64 :: ByteString -> Either EncodingError ByteString
+decodeBase64 = first Base64DecodeError . decode
 
-encodeBase64 :: ByteString -> Either EncodingError Text
-encodeBase64 = decodeUtf8 . encode
+encodeBase64 :: ByteString -> ByteString
+encodeBase64 = encode
