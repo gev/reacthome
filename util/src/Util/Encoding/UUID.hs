@@ -12,4 +12,6 @@ toText :: U.UUID -> Text
 toText = U.toText
 
 fromText :: Text -> Either EncodingError U.UUID
-fromText = note UUIDDecodeError . U.fromText
+fromText text = note
+    do UUIDDecodeError text
+    do U.fromText text
