@@ -9,7 +9,6 @@ import Data.ByteString.Lazy qualified as B
 import Data.HashMap.Strict
 import Data.Text.Lazy (Text)
 import Data.Text.Lazy qualified as T
-import Data.Text.Lazy.Encoding
 import Data.UUID
 import Data.UUID.V4
 import GHC.Generics

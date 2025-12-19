@@ -9,7 +9,7 @@ import Reacthome.Auth.Domain.Credential.PublicKey.Id
 import Reacthome.Auth.Environment
 import Reacthome.Auth.Service.Authentication.Pre
 import Util.Aeson
-import Util.Base64
+import Util.Encoding.Base64
 
 data PublicKeyCredentialRequestOptions = PublicKeyCredentialRequestOptions
     { rpId :: Text
@@ -29,7 +29,7 @@ makePublicKeyCredentialRequestOptions ::
 makePublicKeyCredentialRequestOptions pre =
     PublicKeyCredentialRequestOptions
         { rpId = ?environment.domain
-        , challenge = toBase64 pre.challenge.value
+        , challenge = encodeBase64 pre.challenge.value
         , timeout = ?environment.authTimeout
-        , allowCredentials = toBase64 . (.value) . (.id) <$> pre.allowCredentials
+        , allowCredentials = encodeBase64 . (.value) . (.id) <$> pre.allowCredentials
         }

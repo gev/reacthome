@@ -4,7 +4,6 @@ import Control.Monad.Trans.Class
 import Control.Monad.Trans.Except
 import Data.Aeson
 import Data.Text
-import Data.Text.Encoding
 import GHC.Generics
 import JOSE.KeyPair
 import JOSE.Sign qualified as JOSE
@@ -13,7 +12,7 @@ import Reacthome.Auth.Domain.RefreshToken
 import Reacthome.Auth.Domain.RefreshTokens
 import Reacthome.Auth.Domain.User.Id
 import Reacthome.Auth.Environment
-import Util.Base64.URL
+import Util.Encoding.Base64.URL
 
 data TokenType = Bearer
     deriving stock (Generic, Show)
@@ -60,5 +59,5 @@ generateToken uid = do
             { access_token = decodeUtf8 access_token
             , token_type = Bearer
             , expires_in = ?environment.accessTokenTTL
-            , refresh_token = toBase64 challenge.value
+            , refresh_token = encodeBase64 challenge.value
             }

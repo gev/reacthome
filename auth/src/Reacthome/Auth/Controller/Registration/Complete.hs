@@ -18,8 +18,8 @@ import Reacthome.Auth.Service.Registration.Complete
 import Rest
 import Rest.Media
 import Rest.Status (badRequest)
-import Util.Base64
-import Util.Base64.URL qualified as URL
+import Util.Encoding.Base64
+import Util.Encoding.Base64.URL qualified as URL
 
 completeRegistration ::
     ( ?request :: Request
@@ -31,9 +31,9 @@ completeRegistration ::
     IO Response
 completeRegistration = exceptT badRequest toJSON do
     credential <- except =<< lift (fromJSON @(PublicKeyCredential AuthenticatorAttestationResponse) ?request)
-    cid <- except (makePublicKeyId <$> fromBase64 credential.id)
-    challenge <- except (makeChallenge <$> URL.fromBase64 credential.response.challenge)
+    cid <- except (makePublicKeyId <$> decodeBase64 credential.id)
+    challenge <- except (makeChallenge <$> URL.decodeBase64 credential.response.challenge)
     publicKeyAlgorithm <- makePublicKeyAlgorithm credential.response.publicKeyAlgorithm
-    publicKey <- except (fromBase64 credential.response.publicKey)
+    publicKey <- except (decodeBase64 credential.response.publicKey)
     completedRegistration <- except =<< lift (runCompleteRegistration CompleteRegistration{id = cid, ..})
     pure (makeRegistered completedRegistration)

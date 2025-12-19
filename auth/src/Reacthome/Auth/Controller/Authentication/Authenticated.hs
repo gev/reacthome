@@ -3,7 +3,6 @@ module Reacthome.Auth.Controller.Authentication.Authenticated where
 import Data.Aeson (ToJSON)
 import Data.ByteString.Base64.URL
 import Data.Text
-import Data.Text.Encoding
 import GHC.Generics
 import Reacthome.Auth.Controller.WebAuthn.PublicKeyCredentialRpEntity
 import Reacthome.Auth.Controller.WebAuthn.PublicKeyCredentialUserEntity

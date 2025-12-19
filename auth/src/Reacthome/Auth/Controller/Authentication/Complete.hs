@@ -19,8 +19,8 @@ import Reacthome.Auth.Service.Authentication.Complete
 import Rest
 import Rest.Media
 import Rest.Status (badRequest)
-import Util.Base64
-import Util.Base64.URL qualified as URL
+import Util.Encoding.Base64
+import Util.Encoding.Base64.URL qualified as URL
 
 completeAuthentication ::
     ( ?request :: Request
@@ -39,8 +39,8 @@ completeAuthentication = exceptT badRequest toJSON do
     lift (makeAuthenticated authFlow user)
   where
     authenticateBy credential = do
-        cid <- except (makePublicKeyId <$> fromBase64 credential.id)
-        challenge <- except (makeChallenge <$> URL.fromBase64 credential.response.challenge)
-        message <- except (fromBase64 credential.response.message)
-        signature <- except (fromBase64 credential.response.signature)
+        cid <- except (makePublicKeyId <$> decodeBase64 credential.id)
+        challenge <- except (makeChallenge <$> URL.decodeBase64 credential.response.challenge)
+        message <- except (decodeBase64 credential.response.message)
+        signature <- except (decodeBase64 credential.response.signature)
         except =<< lift (runCompleteAuthentication CompleteAuthentication{id = cid, ..})

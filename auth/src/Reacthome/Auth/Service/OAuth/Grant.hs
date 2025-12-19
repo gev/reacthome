@@ -5,7 +5,6 @@ import Control.Monad
 import Control.Monad.Trans.Except
 import Data.ByteString
 import Data.ByteString.Base64
-import Data.Text.Encoding
 import Data.UUID
 import Reacthome.Auth.Domain.Client
 import Reacthome.Auth.Domain.Client.Id

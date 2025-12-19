@@ -9,7 +9,7 @@ import Reacthome.Auth.Domain.Challenge
 import Reacthome.Auth.Environment
 import Reacthome.Auth.Service.Registration.Pre
 import Util.Aeson
-import Util.Base64
+import Util.Encoding.Base64
 
 data PublicKeyCredentialCreationOptions = PublicKeyCredentialCreationOptions
     { rp :: PublicKeyCredentialRpEntity
@@ -30,6 +30,6 @@ makePublicKeyCredentialCreationOptions pre =
     PublicKeyCredentialCreationOptions
         { rp = makePublicKeyCredentialRpEntity
         , user = makePublicKeyCredentialUserEntity pre.user
-        , challenge = toBase64 pre.challenge.value
+        , challenge = encodeBase64 pre.challenge.value
         , timeout = ?environment.authTimeout
         }
