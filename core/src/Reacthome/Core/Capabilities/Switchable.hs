@@ -1,4 +1,4 @@
-module Reacthome.Core.Switchable where
+module Reacthome.Core.Capabilities.Switchable where
 
 data Turn
     = TurnOn

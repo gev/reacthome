@@ -1,4 +1,4 @@
-module Reacthome.Core.Adjustable where
+module Reacthome.Core.Capabilities.Adjustable where
 
 newtype AdjustableValue t = AdjustableValue t
 

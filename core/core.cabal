@@ -13,17 +13,26 @@ library
   hs-source-dirs: src
   -- cabal-gild: discover src
   exposed-modules:
-    Reacthome.Core.Adjustable
-    Reacthome.Core.Possibilities
-    Reacthome.Core.Switchable
+    Reacthome.Core.Capabilities
+    Reacthome.Core.Capabilities.Adjustable
+    Reacthome.Core.Capabilities.Switchable
+    Reacthome.Core.Connector
+    Reacthome.Core.Device
+    Reacthome.Core.Net
+    Reacthome.Core.Site
+    Reacthome.Core.Store
 
   build-depends:
     aeson,
     base,
     containers,
     text,
+    uuid,
 
   default-language: GHC2024
   default-extensions:
     BlockArguments
+    DuplicateRecordFields
+    OverloadedRecordDot
     OverloadedStrings
+    RecordWildCards
