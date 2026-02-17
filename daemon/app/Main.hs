@@ -22,6 +22,12 @@ import Prelude hiding (last)
 concurrency :: Int
 concurrency = 10_000
 
+-- main :: IO ()
+-- main = do
+--     let port = 3012
+--         host = "0.0.0.0"
+--     putStrLn $ "Start Reacthome Daemon on " <> host <> ":" <> show port
+
 main :: IO ()
 main = do
     peers <- replicateM concurrency nextRandom
