@@ -1,8 +1,8 @@
 cabal-version: 3.8
-name: reacthome-server
+name: reacthome-domain
 version: 0.1.0.0
-synopsis: Reacthome Daemon
-description: Reacthome Device Server
+synopsis: Reacthome Domain
+description: Reacthome Domain Server
 license: BSD-3-Clause
 author: ReactHome Team
 maintainer: gazdovsky@gmail.com
@@ -31,9 +31,9 @@ library
 
   -- cabal-gild: discover src
   exposed-modules:
+    Reacthome.Domain.App
     Reacthome.RBUS.Serial
     Reacthome.RBUS.UDP
-    Reacthome.Server.App
 
   build-depends:
     text,
@@ -41,12 +41,12 @@ library
 
   hs-source-dirs: src
 
-executable reacthome-server
+executable reacthome-domain
   import:
     common-options
 
   build-depends:
-    reacthome-server
+    reacthome-domain
 
   hs-source-dirs: app
   main-is: Main.hs

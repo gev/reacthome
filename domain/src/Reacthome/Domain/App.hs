@@ -1,4 +1,4 @@
-module Reacthome.Server.App where
+module Reacthome.Domain.App where
 
 application :: IO ()
 application = pure ()
