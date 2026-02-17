@@ -1,4 +1,4 @@
-module Reacthome.Core.Capabilities where
+module Reacthome.Logic.Core.Capabilities where
 
 data Possibilities
     = Adjustable

@@ -1,11 +1,11 @@
-module Reacthome.Core.Device where
+module Reacthome.Logic.Core.Device where
 
 import Control.Monad (join)
 import Data.Set (Set, fromList)
 import Data.Text (Text)
 import Data.UUID (UUID)
 import Data.UUID.V4 (nextRandom)
-import Reacthome.Core.Connector (ConnectorType)
+import Reacthome.Logic.Core.Connector (ConnectorType)
 
 newtype DeviceId = DeviceId UUID
     deriving (Eq, Ord, Show)

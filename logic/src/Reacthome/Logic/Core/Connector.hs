@@ -1,6 +1,6 @@
-module Reacthome.Core.Connector where
+module Reacthome.Logic.Core.Connector where
 
-import Reacthome.Core.Site (SiteId)
+import Reacthome.Logic.Core.Site (SiteId)
 
 data ConnectorType
     = Electric Electric

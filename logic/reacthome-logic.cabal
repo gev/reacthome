@@ -32,8 +32,17 @@ library
   -- cabal-gild: discover src
   exposed-modules:
     Reacthome.Logic.App
+    Reacthome.Logic.Capabilities.Adjustable
+    Reacthome.Logic.Capabilities.Switchable
+    Reacthome.Logic.Core.Capabilities
+    Reacthome.Logic.Core.Connector
+    Reacthome.Logic.Core.Device
+    Reacthome.Logic.Core.Net
+    Reacthome.Logic.Core.Site
+    Reacthome.Logic.Core.Store
 
   build-depends:
+    containers,
     text,
     uuid,
 
