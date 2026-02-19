@@ -1,4 +1,20 @@
 module Reacthome.Logic.App where
 
-application :: IO ()
-application = pure ()
+import Control.Monad (when)
+import Data.Text (length, tail)
+import Data.Text.Encoding (decodeUtf8)
+import Data.UUID (fromText)
+import Reacthome.Logic.Error (LogicError (..), logError)
+import Reacthome.Logic.Server (LogicServer (..))
+import WebSockets.PendingConnection (WebSocketPendingConnection (..))
+import WebSockets.Server (WebSocketServerApplication)
+import Prelude hiding (length, splitAt, tail)
+
+application :: LogicServer -> WebSocketServerApplication
+application server pending = do
+    let path = decodeUtf8 pending.path
+    when (length path > 1) do
+        let origin = tail path
+        case fromText origin of
+            Just peer -> server.accept pending peer
+            Nothing -> logError $ InvalidUUID origin
