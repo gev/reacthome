@@ -3,7 +3,6 @@ module Reacthome.Logic.Server where
 import Control.Concurrent.Async (race)
 import Control.Concurrent.Chan.Unagi.Bounded (newChan, tryRead, tryReadChan, writeChan)
 import Data.ByteString (toStrict)
-import Data.Text (Text)
 import Data.UUID (UUID, toByteString)
 import Reacthome.Logic.Error (LogicError (..), logError)
 import WebSockets.Connection (WebSocketConnection (..))
