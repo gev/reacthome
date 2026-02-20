@@ -1,7 +1,9 @@
 module Reacthome.Logic.Server where
 
 import Control.Concurrent.Async (race)
+import Control.Concurrent.Chan.Unagi.Bounded (newChan, tryRead, tryReadChan, writeChan)
 import Data.ByteString (toStrict)
+import Data.Text (Text)
 import Data.UUID (UUID, toByteString)
 import Reacthome.Logic.Error (LogicError (..), logError)
 import WebSockets.Connection (WebSocketConnection (..))
@@ -17,13 +19,19 @@ type Peer = UUID
 
 makeLogicServer ::
     (?options :: WebSocketOptions) =>
-    LogicServer
-makeLogicServer =
+    IO LogicServer
+makeLogicServer = do
+    (inChan, outChan) <- newChan 10
     let
         accept pending peer = do
             let
-                dispatchMessage message = do
-                    pure ()
+                sink message = do
+                    print message
+                    writeChan inChan message
+                source = do
+                    (!element, !wait) <- tryReadChan outChan
+                    !message <- tryRead element
+                    pure (message, wait)
 
                 from = toStrict $ toByteString peer
 
@@ -33,8 +41,8 @@ makeLogicServer =
                 Right !connection -> do
                     res <-
                         either id id <$> race
-                            do connection.runReceiveMessageLoop dispatchMessage
-                            do connection.runSendMessageLoop undefined
+                            do connection.runReceiveMessageLoop sink
+                            do connection.runSendMessageLoop source
                     logError $ WebSocketError from res
-     in
+    pure
         LogicServer{..}

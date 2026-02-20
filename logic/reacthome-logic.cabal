@@ -49,6 +49,7 @@ library
     bytestring,
     containers,
     text,
+    unagi-chan,
     uuid,
 
   hs-source-dirs: src
