@@ -25,7 +25,6 @@ makeLogicServer = do
             (inChan, outChan) <- newChan 10
             let
                 sink message = do
-                    print message
                     writeChan inChan "(put store.cache \"main\" (center :child (text :content \"Hello Logic!\")))"
                 source = do
                     (!element, !wait) <- tryReadChan outChan
