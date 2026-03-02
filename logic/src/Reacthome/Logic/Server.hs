@@ -20,13 +20,13 @@ makeLogicServer ::
     (?options :: WebSocketOptions) =>
     IO LogicServer
 makeLogicServer = do
-    (inChan, outChan) <- newChan 10
     let
         accept pending peer = do
+            (inChan, outChan) <- newChan 10
             let
                 sink message = do
                     print message
-                    writeChan inChan message
+                    writeChan inChan "(put store.cache \"main\" (center :child (text :content \"Hello Logic!\")))"
                 source = do
                     (!element, !wait) <- tryReadChan outChan
                     !message <- tryRead element
