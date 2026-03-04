@@ -2,7 +2,7 @@ module Reacthome.Logic.Server where
 
 import Control.Concurrent.Async (race)
 import Control.Concurrent.Chan.Unagi.Bounded (newChan, tryRead, tryReadChan, writeChan)
-import Data.ByteString (toStrict)
+import Data.ByteString qualified as BS
 import Data.UUID (UUID, toByteString)
 import Reacthome.Logic.Error (LogicError (..), logError)
 import WebSockets.Connection (WebSocketConnection (..))
@@ -25,13 +25,14 @@ makeLogicServer = do
             (inChan, outChan) <- newChan 10
             let
                 sink message = do
-                    writeChan inChan "(put store.cache \"main\" (center :child (text :content \"Hello Logic!\")))"
+                    glue <- BS.readFile "./logic/glue/main.glue"
+                    writeChan inChan $ "(put store.cache \"main\" " <> glue <> ")"
                 source = do
                     (!element, !wait) <- tryReadChan outChan
                     !message <- tryRead element
                     pure (message, wait)
 
-                from = toStrict $ toByteString peer
+                from = BS.toStrict $ toByteString peer
 
             !successful <- pending.accept
             case successful of

@@ -1,0 +1,20 @@
+(center
+    :child (
+        column
+        :main-axis-size main-axis-size.min
+        :children (
+            (text :content "Hello Logic!")
+            (row
+                :main-axis-size main-axis-size.min
+                :children (
+                    (filled-button
+                        :child (text :content "< Back")
+                        :on-pressed (\ () ('navigate-pop)))
+                    (filled-button
+                        :child (text :content "Next >")
+                        :on-pressed (\ () ('navigate-push "main")))
+                )
+            )
+        )
+    )
+)
