@@ -7,7 +7,7 @@
             (row
                 :main-axis-size main-axis-size.min
                 :children (
-                    (filled-button
+                    (button
                         :child (text :content "< Back")
                         :on-pressed (\ () ('navigate-pop)))
                     (filled-button
