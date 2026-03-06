@@ -25,8 +25,10 @@ makeLogicServer = do
             (inChan, outChan) <- newChan 10
             let
                 sink message = do
-                    glue <- BS.readFile "./logic/glue/main.glue"
-                    writeChan inChan $ "(put store.cache \"main\" " <> glue <> ")"
+                    main <- BS.readFile "./logic/glue/main.glue"
+                    writeChan inChan $ "(put store.cache \"main\" " <> main <> ")"
+                    next <- BS.readFile "./logic/glue/next.glue"
+                    writeChan inChan $ "(put store.cache \"next\" " <> next <> ")"
                 source = do
                     (!element, !wait) <- tryReadChan outChan
                     !message <- tryRead element

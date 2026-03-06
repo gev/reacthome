@@ -1,4 +1,5 @@
 (
+    (def prev (\ () (pop ())))
     (def next (\ ()
             (push
                 (route
@@ -14,6 +15,9 @@
                 (row
                     :main-axis-size main-axis-size.min
                     :children (
+                        (button
+                            :child (text :content "< Назад")
+                            :on-pressed prev)
                         (filled-button
                             :child (text :content "Далее >")
                             :on-pressed next)
