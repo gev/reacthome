@@ -1,5 +1,6 @@
 {
     "haskell.formattingProvider": "fourmolu",
+    "haskell.manageHLS": "PATH",
     "sqltools.useNodeRuntime": true,
     "sqltools.connections": [
         {
