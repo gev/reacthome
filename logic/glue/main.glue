@@ -1,22 +1,29 @@
-(
-    (def next (\ ()
-            (push
-                (route
-                    (listen
-                        (lookup store.cache "next" placeholder)
-                        (\ (main) main))))))
-    (center
-        :child (
-            column
-            :main-axis-size main-axis-size.min
-            :children (
-                (text :content "Привет, мир!")
-                (row
+(let
+    (
+        :next-screen
+        (listen
+            (lookup store.cache "next" placeholder)
+            (\ (next) next))
+    )
+    (let
+        (
+            :go-next (\ () (push (route next-screen)))
+        )
+        (screen
+            (center
+                :child (
+                    column
                     :main-axis-size main-axis-size.min
                     :children (
-                        (filled-button
-                            :child (text :content "Далее >")
-                            :on-pressed next)
+                        (text :content "Привет, мир!")
+                        (row
+                            :main-axis-size main-axis-size.min
+                            :children (
+                                (filled-button
+                                    :child (text :content "Далее >")
+                                    :on-pressed go-next)
+                            )
+                        )
                     )
                 )
             )

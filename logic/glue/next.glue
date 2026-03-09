@@ -1,26 +1,33 @@
-(
-    (def prev (\ () (pop ())))
-    (def next (\ ()
-            (push
-                (route
-                    (listen
-                        (lookup store.cache "next" placeholder)
-                        (\ (main) main))))))
-    (center
-        :child (
-            column
-            :main-axis-size main-axis-size.min
-            :children (
-                (text :content "Привет, мир!")
-                (row
+(let
+    (
+        :next-screen
+        (listen
+            (lookup store.cache "next" placeholder)
+            (\ (next) next))
+    )
+    (let
+        (
+            :go-prev (\ () (pop ()))
+            :go-next (\ () (push (route next-screen)))
+        )
+        (screen
+            (center
+                :child (
+                    column
                     :main-axis-size main-axis-size.min
                     :children (
-                        (button
-                            :child (text :content "< Назад")
-                            :on-pressed prev)
-                        (filled-button
-                            :child (text :content "Далее >")
-                            :on-pressed next)
+                        (text :content "Привет, мир!")
+                        (row
+                            :main-axis-size main-axis-size.min
+                            :children (
+                                (button
+                                    :child (text :content "< Назад")
+                                    :on-pressed go-prev)
+                                (filled-button
+                                    :child (text :content "Далее >")
+                                    :on-pressed go-next)
+                            )
+                        )
                     )
                 )
             )
