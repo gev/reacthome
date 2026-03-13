@@ -31,7 +31,6 @@ library
 
   -- cabal-gild: discover src
   exposed-modules:
-    Reacthome.Logic
     Reacthome.Logic.App
     Reacthome.Logic.Capabilities.Adjustable
     Reacthome.Logic.Capabilities.Switchable

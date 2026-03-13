@@ -15,12 +15,12 @@
                     column
                     :main-axis-size main-axis-size.min
                     :children (
-                        (text :content "Привет, мир!")
+                        (text :content "Салют, мир!")
                         (row
                             :main-axis-size main-axis-size.min
                             :children (
                                 (filled-button
-                                    :child (text :content "Далее >")
+                                    :child (text :content "Вперед >")
                                     :on-pressed go-next)
                             )
                         )
