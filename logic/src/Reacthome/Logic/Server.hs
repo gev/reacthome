@@ -15,7 +15,7 @@ newtype LogicServer = LogicServer
 
 makeLogicServer ::
     (?options :: WebSocketOptions) =>
-    IO LogicServer
+    LogicServer
 makeLogicServer = do
     let
         accept pending = do
@@ -39,5 +39,4 @@ makeLogicServer = do
                             do connection.runReceiveMessageLoop sink
                             do connection.runSendMessageLoop source
                     logError $ WebSocketError res
-    pure
-        LogicServer{..}
+    LogicServer{..}
