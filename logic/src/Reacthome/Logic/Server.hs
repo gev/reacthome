@@ -2,8 +2,8 @@ module Reacthome.Logic.Server where
 
 import Control.Concurrent.Async (race)
 import Control.Concurrent.Chan.Unagi.Bounded (newChan, tryRead, tryReadChan, writeChan)
-import Data.ByteString qualified as BS
 import Reacthome.Logic.Error (LogicError (..), logError)
+import Reacthome.Logic.Glue.Controller (runGlueController)
 import WebSockets.Connection (WebSocketConnection (..))
 import WebSockets.Options (WebSocketOptions)
 import WebSockets.PendingConnection (WebSocketPendingConnection (..))
@@ -24,19 +24,15 @@ makeLogicServer = do
                 Left !e -> logError $ WebSocketError e
                 Right !connection -> do
                     (inChan, outChan) <- newChan 10
-                    let
-                        sink message = do
-                            main <- BS.readFile "./logic/glue/main.glue"
-                            writeChan inChan $ "(put store.cache \"main\" " <> main <> ")"
-                            next <- BS.readFile "./logic/glue/next.glue"
-                            writeChan inChan $ "(put store.cache \"next\" " <> next <> ")"
-                        source = do
-                            (!element, !wait) <- tryReadChan outChan
-                            !message <- tryRead element
-                            pure (message, wait)
                     res <-
                         either id id <$> race
-                            do connection.runReceiveMessageLoop sink
-                            do connection.runSendMessageLoop source
+                            do
+                                let ?sink = writeChan inChan
+                                connection.runReceiveMessageLoop runGlueController
+                            do
+                                connection.runSendMessageLoop do
+                                    (!element, !wait) <- tryReadChan outChan
+                                    !message <- tryRead element
+                                    pure (message, wait)
                     logError $ WebSocketError res
     LogicServer{..}

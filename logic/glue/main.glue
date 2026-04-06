@@ -2,7 +2,7 @@
     (
         :next-screen
         (listen
-            (lookup store.cache "next" placeholder)
+            (lookup store.cache "next" (screen placeholder))
             (\ (next) next))
     )
     (let

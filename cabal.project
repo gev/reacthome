@@ -4,11 +4,17 @@ constraints:
     base >= 4.19 && < 5
 
 package *
-    ghc-options: 
-        -O2 
-        -rtsopts 
-        -threaded 
-        -with-rtsopts=-N 
+    ghc-options:
+        -O2
+        -rtsopts
+        -threaded
+        -with-rtsopts=-N
         -Wall
 
     split-sections: True
+
+source-repository-package
+    type:     git
+    location: https://github.com/gev/glue.git
+    tag:      b23f45d706c50b2897376b5b0ad315f2a46b4479
+    subdir:   haskell/glue
