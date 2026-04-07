@@ -32,14 +32,14 @@ library
   -- cabal-gild: discover src
   exposed-modules:
     Reacthome.Logic.App
-    Reacthome.Logic.Capabilities.Adjustable
-    Reacthome.Logic.Capabilities.Switchable
-    Reacthome.Logic.Core.Capabilities
-    Reacthome.Logic.Core.Connector
-    Reacthome.Logic.Core.Device
-    Reacthome.Logic.Core.Net
-    Reacthome.Logic.Core.Site
-    Reacthome.Logic.Core.Store
+    Reacthome.Logic.Data.Capabilities.Adjustable
+    Reacthome.Logic.Data.Capabilities.Switchable
+    Reacthome.Logic.Data.Core.Capabilities
+    Reacthome.Logic.Data.Core.Connector
+    Reacthome.Logic.Data.Core.Device
+    Reacthome.Logic.Data.Core.Net
+    Reacthome.Logic.Data.Core.Site
+    Reacthome.Logic.Data.Core.Store
     Reacthome.Logic.Error
     Reacthome.Logic.Glue.Controller
     Reacthome.Logic.Glue.Env
