@@ -1,4 +1,4 @@
-module Reacthome.Logic.Core.Site where
+module Reacthome.Logic.Data.Core.Site where
 
 import Data.Set (Set, insert)
 import Data.Text (Text)

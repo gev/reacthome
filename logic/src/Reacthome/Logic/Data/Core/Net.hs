@@ -1,10 +1,10 @@
-module Reacthome.Logic.Core.Net where
+module Reacthome.Logic.Data.Core.Net where
 
 import Data.Set (Set)
 import Data.Text (Text)
 import Data.UUID (UUID)
 import Data.UUID.V4 (nextRandom)
-import Reacthome.Logic.Core.Device
+import Reacthome.Logic.Data.Core.Device
 
 newtype NetId = NetId UUID
 

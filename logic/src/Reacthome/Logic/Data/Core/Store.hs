@@ -1,4 +1,4 @@
-module Reacthome.Logic.Core.Store where
+module Reacthome.Logic.Data.Core.Store where
 
 data Nets k v m = Nets
     { store :: v -> m ()
