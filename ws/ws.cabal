@@ -29,6 +29,7 @@ library
     text,
     vector,
     websockets,
+    wuss,
 
   default-language: GHC2024
   default-extensions:

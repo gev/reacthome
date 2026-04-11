@@ -1,4 +1,8 @@
-module WebSockets.Client where
+module WebSockets.Client (
+    WebSocketClient (..),
+    runWebSocketClient,
+    runSecureWebSocketClient,
+) where
 
 import Control.Concurrent (forkIO, threadDelay)
 import Control.Concurrent.Async (race)
@@ -7,14 +11,18 @@ import Control.Exception.Base (IOException)
 import Control.Monad (void)
 import Data.IORef (newIORef, readIORef, writeIORef)
 import Network.WebSockets (HandshakeException, runClient)
+import Network.WebSockets.Client (ClientApp)
 import System.Random (newStdGen, uniformR)
 import WebSockets.Connection (WebSocketConnection (..), WebSocketSink, WebSocketSource, makeWebSocketConnection)
 import WebSockets.Error (WebSocketError (..), joinExceptions)
 import WebSockets.Options (WebSocketOptions (..))
+import Wuss (runSecureClient)
 
 newtype WebSocketClient = WebSocketClient
     { isConnected :: IO Bool
     }
+
+type RunClientApp a = ClientApp a -> IO a
 
 runWebSocketClient ::
     ( ?options :: WebSocketOptions
@@ -22,7 +30,27 @@ runWebSocketClient ::
     , ?source :: WebSocketSource
     ) =>
     String -> Int -> String -> IO WebSocketClient
-runWebSocketClient host port path = do
+runWebSocketClient host port path =
+    runWebSocketClientWith $
+        runClient host port path
+
+runSecureWebSocketClient ::
+    ( ?options :: WebSocketOptions
+    , ?sink :: WebSocketSink
+    , ?source :: WebSocketSource
+    ) =>
+    String -> Int -> String -> IO WebSocketClient
+runSecureWebSocketClient host port path =
+    runWebSocketClientWith $
+        runSecureClient host (fromIntegral port) path
+
+runWebSocketClientWith ::
+    ( ?options :: WebSocketOptions
+    , ?sink :: WebSocketSink
+    , ?source :: WebSocketSource
+    ) =>
+    RunClientApp WebSocketError -> IO WebSocketClient
+runWebSocketClientWith runClientApp = do
     connected <- newIORef False
 
     let
@@ -45,7 +73,7 @@ runWebSocketClient host port path = do
             selectError . joinExceptions HandshakeError
                 <$> try @IOException do
                     try @HandshakeException do
-                        runClient host port path $ application . makeWebSocketConnection
+                        runClientApp $ application . makeWebSocketConnection
 
         application connection = do
             writeIORef connected True
