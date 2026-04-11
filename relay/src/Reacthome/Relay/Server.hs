@@ -12,7 +12,7 @@ import WebSockets.PendingConnection (WebSocketPendingConnection (..))
 import Prelude hiding (lookup, take)
 
 newtype RelayServer = RelayServer
-    { accept :: WebSocketPendingConnection -> Peer -> IO ()
+    { accept :: Peer -> WebSocketPendingConnection -> IO ()
     }
 
 type Peer = UUID
@@ -24,7 +24,7 @@ makeRelayServer ::
     RelayServer
 makeRelayServer =
     let
-        accept pending peer = do
+        accept peer pending = do
             let
                 dispatchMessage message = do
                     let destination = getMessageDestination message

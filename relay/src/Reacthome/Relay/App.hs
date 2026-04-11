@@ -1,20 +1,43 @@
-module Reacthome.Relay.App where
+module Reacthome.Relay.App (
+    application,
+) where
 
-import Control.Monad (when)
-import Data.Text (length, tail)
-import Data.Text.Encoding (decodeUtf8)
+import Control.Monad (join)
+import Data.ByteString (ByteString)
+import Data.Function ((&))
+import Data.Text (Text, pack)
+import Data.Text.Encoding (decodeUtf8', encodeUtf8)
 import Data.UUID (fromText)
+import Network.HTTP.Types (Query, decodePath)
 import Reacthome.Relay.Error (RelayError (..), logError)
-import Reacthome.Relay.Server
+import Reacthome.Relay.Server (RelayServer (..))
 import WebSockets.PendingConnection (WebSocketPendingConnection (..))
 import WebSockets.Server (WebSocketServerApplication)
 import Prelude hiding (length, splitAt, tail)
 
 application :: RelayServer -> WebSocketServerApplication
 application server pending = do
-    let path = decodeUtf8 pending.path
-    when (length path > 1) do
-        let origin = tail path
-        case fromText origin of
-            Just peer -> server.accept pending peer
-            Nothing -> logError $ InvalidUUID origin
+    let (path, query) = decodePath pending.path
+    pending & case path of
+        ["v1"] -> acceptV1 server query
+        [version] -> rejectWith $ InvalidVersion version
+        _ -> rejectWith $ InvalidUri pending.path
+
+acceptV1 :: RelayServer -> Query -> WebSocketPendingConnection -> IO ()
+acceptV1 server query =
+    case lookupQuery "peer" query of
+        Just peer -> case fromText peer of
+            Just uid -> server.accept uid
+            _ -> rejectWith $ InvalidPeer peer
+        _ -> rejectWith NoPeerPresent
+
+rejectWith :: RelayError -> WebSocketPendingConnection -> IO ()
+rejectWith err pending = do
+    logError err
+    pending.reject $ encodeUtf8 . pack $ show err
+
+lookupQuery :: ByteString -> Query -> Maybe Text
+lookupQuery key query =
+    case decodeUtf8' <$> join (lookup key query) of
+        Just (Right value) -> Just value
+        _ -> Nothing
