@@ -15,12 +15,12 @@ import GHC.IORef (atomicModifyIORef'_)
 import Reacthome.Relay.Message (RelayMessage (..), serializeMessage)
 import Reacthome.Relay.Stat (RelayHits (hit, hits), RelayStat (rx, tx), makeRelayStat)
 import System.Clock (Clock (..), diffTimeSpec, getTime, toNanoSecs)
-import WebSockets.Client (WebSocketClient (..), runWebSocketClient)
+import WebSockets.Client (WebSocketClient (..), runSecureWebSocketClient)
 import WebSockets.Options (bound, defaultWebSocketOptions)
 import Prelude hiding (last)
 
 concurrency :: Int
-concurrency = 10_000
+concurrency = 100
 
 -- main :: IO ()
 -- main = do
@@ -35,13 +35,13 @@ main = do
     clients <- newIORef empty
     let ?options = defaultWebSocketOptions
     let
-        port = 3003
-        host = "172.16.1.1"
+        port = 443
+        host = "dev.relay.reacthome.net"
 
         run (peer, stat, delay) = forkIO do
             threadDelay delay
             let uid = toStrict $ toByteString peer
-            let path = "/" <> show peer
+            let path = "/v1?peer=" <> show peer
             let ?stat = stat
             (inChan, outChan) <- newChan ?options.bound
             let ?sink = const $ stat.rx.hit 1
@@ -50,7 +50,7 @@ main = do
                         (!element, !wait) <- tryReadChan outChan
                         !message <- tryRead element
                         pure (message, wait)
-            client <- runWebSocketClient host port path
+            client <- runSecureWebSocketClient host port path
             void $ atomicModifyIORef'_ clients $ insert uid (uid, inChan, client, stat)
 
         summarize x = sum <$> traverse (hits . x) stats
@@ -67,7 +67,7 @@ main = do
         showStat = forever do
             t0 <- getTime Monotonic
             (rx0, tx0) <- summarizeStat
-            threadDelay 1_000_000
+            threadDelay 5_000_000
             t1 <- getTime Monotonic
             (rx1, tx1) <- summarizeStat
             let !dt = fromInteger $ toNanoSecs (diffTimeSpec t1 t0) `div` 1_000_000_000
@@ -79,7 +79,7 @@ main = do
                 putStrLn $ "Rx: " <> rps rx1 rx0 dt
 
         doWork = do
-            threadDelay 20_000_000
+            threadDelay 1_000
             forever do
                 clients' <- elems <$> readIORef clients
                 for_
