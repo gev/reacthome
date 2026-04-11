@@ -4,7 +4,7 @@ import Control.Exception (try)
 import Control.Exception.Base (IOException)
 import Data.ByteString (ByteString)
 import Data.CaseInsensitive
-import Network.WebSockets (HandshakeException, RequestHead (..), pendingRequest)
+import Network.WebSockets (HandshakeException, RequestHead (..), pendingRequest, rejectRequest)
 import Network.WebSockets.Connection (PendingConnection, acceptRequestWith, defaultAcceptRequest)
 import WebSockets.Connection (WebSocketConnection, makeWebSocketConnection)
 import WebSockets.Error (WebSocketError (..), joinExceptions)
@@ -16,6 +16,7 @@ data WebSocketPendingConnection = WebSocketPendingConnection
     { headers :: Headers
     , path :: ByteString
     , accept :: IO (Either WebSocketError WebSocketConnection)
+    , reject :: ByteString -> IO ()
     }
 
 makeWebSocketPendingConnection ::
@@ -26,6 +27,7 @@ makeWebSocketPendingConnection pending =
         { headers = request.requestHeaders
         , path = request.requestPath
         , accept
+        , reject
         }
   where
     request = pendingRequest pending
@@ -35,3 +37,4 @@ makeWebSocketPendingConnection pending =
                 try @HandshakeException do
                     connection <- acceptRequestWith pending defaultAcceptRequest
                     pure $ makeWebSocketConnection connection
+    reject = rejectRequest pending
