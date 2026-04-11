@@ -9,23 +9,31 @@ import Data.Text (Text, pack)
 import Data.Text.Encoding (decodeUtf8', encodeUtf8)
 import Data.UUID (fromText)
 import Network.HTTP.Types (Query, decodePath)
+import Reacthome.Relay.Dispatcher (makeRelayDispatcher)
 import Reacthome.Relay.Error (RelayError (..), logError)
-import Reacthome.Relay.Server (RelayServer (..))
+import Reacthome.Relay.Server (RelayServer (..), makeRelayServer)
+import WebSockets.Options (WebSocketOptions)
 import WebSockets.PendingConnection (WebSocketPendingConnection (..))
 import WebSockets.Server (WebSocketServerApplication)
 import Prelude hiding (length, splitAt, tail)
 
-application :: RelayServer -> WebSocketServerApplication
-application server pending = do
+application ::
+    (?options :: WebSocketOptions) =>
+    WebSocketServerApplication
+application pending = do
     let (path, query) = decodePath pending.path
     pending & case path of
-        ["v1"] -> acceptV1 server query
+        ["v1"] -> acceptV1 query
         [version] -> rejectWith $ InvalidVersion version
         _ -> rejectWith $ InvalidUri pending.path
 
-acceptV1 :: RelayServer -> Query -> WebSocketPendingConnection -> IO ()
-acceptV1 server query =
-    case lookupQuery "peer" query of
+acceptV1 ::
+    (?options :: WebSocketOptions) =>
+    Query -> WebSocketPendingConnection -> IO ()
+acceptV1 query pending = do
+    dispatcher <- makeRelayDispatcher
+    let server = makeRelayServer dispatcher
+    pending & case lookupQuery "peer" query of
         Just peer -> case fromText peer of
             Just uid -> server.accept uid
             _ -> rejectWith $ InvalidPeer peer

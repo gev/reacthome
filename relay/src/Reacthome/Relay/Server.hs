@@ -18,11 +18,9 @@ newtype RelayServer = RelayServer
 type Peer = UUID
 
 makeRelayServer ::
-    ( ?options :: WebSocketOptions
-    , ?dispatcher :: RelayDispatcher
-    ) =>
-    RelayServer
-makeRelayServer =
+    (?options :: WebSocketOptions) =>
+    RelayDispatcher -> RelayServer
+makeRelayServer dispatcher =
     let
         accept peer pending = do
             let
@@ -30,7 +28,7 @@ makeRelayServer =
                     let destination = getMessageDestination message
                     if isMessageDestinationValid destination
                         then do
-                            !found <- ?dispatcher.getSink destination
+                            !found <- dispatcher.getSink destination
                             case found of
                                 Just !sendMessage -> sendMessage message
                                 Nothing -> logError $ NoPeersFound destination
@@ -42,13 +40,13 @@ makeRelayServer =
             case successful of
                 Left !e -> logError $ WebSocketError from e
                 Right !connection -> do
-                    !tryReceiveMessage <- ?dispatcher.getSource from
+                    !tryReceiveMessage <- dispatcher.getSource from
                     -- print $ "Peer connected " <> show peer
                     res <-
                         either id id <$> race
                             do connection.runReceiveMessageLoop dispatchMessage
                             do connection.runSendMessageLoop tryReceiveMessage
                     logError $ WebSocketError from res
-                    ?dispatcher.freeSource from
+                    dispatcher.freeSource from
      in
         RelayServer{..}

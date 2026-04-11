@@ -42,10 +42,10 @@ library
     Reacthome.Relay.Stat
 
   build-depends:
-    http-types,
     async,
     bytestring,
     clock,
+    http-types,
     text,
     time,
     unagi-chan,
