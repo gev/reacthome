@@ -12,7 +12,7 @@ import Data.Text.Format.Numbers (prettyI)
 import Data.UUID (toByteString)
 import Data.UUID.V4 (nextRandom)
 import GHC.IORef (atomicModifyIORef'_)
-import Reacthome.Relay.Message (RelayMessage (..), serializeMessage)
+import Reacthome.Relay.Message (RelayMessage (..), RelayMessageHeader (..), serializeMessage)
 import Reacthome.Relay.Stat (RelayHits (hit, hits), RelayStat (rx, tx), makeRelayStat)
 import System.Clock (Clock (..), diffTimeSpec, getTime, toNanoSecs)
 import WebSockets.Client (WebSocketClient (..), runSecureWebSocketClient)
@@ -88,8 +88,11 @@ main = do
                         let message =
                                 serializeMessage
                                     RelayMessage
-                                        { to = uid
-                                        , from = uid
+                                        { header =
+                                            RelayMessageHeader
+                                                { to = uid
+                                                , from = uid
+                                                }
                                         , content = encodeUtf8 "Hello Reacthome Relay ;)"
                                         }
                         writeChan inChan message
