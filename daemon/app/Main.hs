@@ -36,7 +36,7 @@ main = do
     let ?options = defaultWebSocketOptions
     let
         port = 443
-        host = "dev.relay.reacthome.net"
+        host = "relay.reacthome.net"
 
         run (peer, stat, delay) = forkIO do
             threadDelay delay
@@ -79,7 +79,7 @@ main = do
                 putStrLn $ "Rx: " <> rps rx1 rx0 dt
 
         doWork = do
-            threadDelay 1_000
+            threadDelay 10_000
             forever do
                 clients' <- elems <$> readIORef clients
                 for_

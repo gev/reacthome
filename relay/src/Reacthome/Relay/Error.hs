@@ -13,7 +13,8 @@ data RelayError
     | InvalidVersion Text
     | NoPeerPresent
     | InvalidPeer Text
-    | InvalidDestination Uid
+    | InvalidMessageSource Uid
+    | InvalidMessage ByteString
     | NoPeersFound Uid
     | WebSocketError Uid WebSocketError
     | InvalidMessageLength
@@ -36,7 +37,9 @@ logError err =
                 "No peer present"
             InvalidPeer peer ->
                 "Invalid peer UUID: " <> show peer
-            InvalidDestination uid ->
+            InvalidMessageSource uid ->
+                "Invalid source UUID: " <> show uid
+            InvalidMessage uid ->
                 "Invalid destination UUID: " <> show uid
             NoPeersFound peer ->
                 "No peers found for UUID: " <> show peer

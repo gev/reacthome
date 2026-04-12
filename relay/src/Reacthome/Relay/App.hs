@@ -3,11 +3,11 @@ module Reacthome.Relay.App (
 ) where
 
 import Control.Monad (join)
-import Data.ByteString (ByteString)
+import Data.ByteString (ByteString, toStrict)
 import Data.Function ((&))
 import Data.Text (Text, pack)
 import Data.Text.Encoding (decodeUtf8', encodeUtf8)
-import Data.UUID (fromText)
+import Data.UUID (fromText, toByteString)
 import Network.HTTP.Types (Query, decodePath)
 import Reacthome.Relay.Dispatcher (makeRelayDispatcher)
 import Reacthome.Relay.Error (RelayError (..), logError)
@@ -35,7 +35,7 @@ acceptV1 query pending = do
     let server = makeRelayServer dispatcher
     pending & case lookupQuery "peer" query of
         Just peer -> case fromText peer of
-            Just uid -> server.accept uid
+            Just uid -> server.accept $ toStrict $ toByteString uid
             _ -> rejectWith $ InvalidPeer peer
         _ -> rejectWith NoPeerPresent
 
