@@ -1,7 +1,7 @@
 cabal-version: 3.8
-name: reacthome-daemon
+name: reacthome-ux
 version: 0.1.0.0
-synopsis: Reacthome Daemon
+synopsis: Reacthome UX
 description: Reacthome UX server
 license: BSD-3-Clause
 author: ReactHome Team
@@ -42,7 +42,7 @@ library
 
   hs-source-dirs: src
 
-executable reacthome-daemon
+executable reacthome-ux
   import:
     common-options
 
@@ -51,7 +51,7 @@ executable reacthome-daemon
     bytestring,
     clock,
     format-numbers,
-    reacthome-daemon,
+    reacthome-ux,
     reacthome-relay,
     text,
     unagi-chan,
