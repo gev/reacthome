@@ -40,5 +40,5 @@ getMessageHeader raw =
 {-# INLINEABLE getMessageHeader #-}
 
 isMessageValid :: StrictRaw -> Bool
-isMessageValid = (== 32) . S.length
+isMessageValid = (> 32) . S.length
 {-# INLINEABLE isMessageValid #-}
