@@ -135,7 +135,7 @@ library
     http-types,
     jose,
     lucid2,
-    memory,
+    ram,
     resource-pool,
     rest,
     sqlite-simple,
