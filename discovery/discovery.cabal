@@ -1,0 +1,61 @@
+cabal-version: 3.8
+name: discovery
+version: 0.1.0.0
+synopsis: Auto Discovery
+description: Multicat Auto Discovery service
+license: BSD-3-Clause
+author: ReactHome Team
+maintainer: gazdovsky@gmail.com
+category: Web
+build-type: Simple
+
+common common-options
+  build-depends:
+    base,
+    text,
+    util,
+    ws,
+
+  default-language: GHC2024
+  default-extensions:
+    BlockArguments
+    DeriveAnyClass
+    DerivingStrategies
+    DuplicateRecordFields
+    ImplicitParams
+    OverloadedRecordDot
+    OverloadedStrings
+    RecordWildCards
+
+library
+  import:
+    common-options
+
+  -- cabal-gild: discover src
+  exposed-modules:
+    Discovery.Consumer.Monitor
+    Discovery.Consumer.Probe
+    Discovery.Producer.Monitor
+    Discovery.Producer.Probe
+
+  build-depends:
+    bytestring,
+    network,
+    text,
+    uuid,
+
+  hs-source-dirs: src
+
+executable discovery
+  import:
+    common-options
+
+  build-depends:
+    async,
+    bytestring,
+    discovery,
+    text,
+    uuid,
+
+  hs-source-dirs: app
+  main-is: Main.hs
