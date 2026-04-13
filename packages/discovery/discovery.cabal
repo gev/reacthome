@@ -33,10 +33,9 @@ library
 
   -- cabal-gild: discover src
   exposed-modules:
-    Discovery.Consumer.Monitor
-    Discovery.Consumer.Probe
-    Discovery.Producer.Monitor
-    Discovery.Producer.Probe
+    Discovery.Anoncer
+    Discovery.Responder
+    Discovery.Scanner
 
   build-depends:
     bytestring,
