@@ -1,4 +1,6 @@
-packages: */*.cabal
+packages:
+    apps/*/*.cabal
+    packages/*/*.cabal
 
 constraints:
     base >= 4.19 && < 5

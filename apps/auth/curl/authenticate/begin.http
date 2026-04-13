@@ -1,0 +1,2 @@
+### Begin authentication
+POST http://localhost:3000/authentication/begin HTTP/1.1

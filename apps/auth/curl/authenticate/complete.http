@@ -1,0 +1,2 @@
+### Complete authentication
+POST http://localhost:3000/authentication/complete HTTP/1.1
