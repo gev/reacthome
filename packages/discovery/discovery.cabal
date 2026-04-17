@@ -53,6 +53,7 @@ executable discovery
     async,
     bytestring,
     discovery,
+    network,
     text,
     uuid,
 
