@@ -1,34 +1,24 @@
-import Control.Concurrent (forkFinally, forkIO, threadDelay)
+import Control.Concurrent (forkIO, threadDelay)
 import Control.Exception qualified as E
 import Control.Monad (forever, unless, void)
 import Data.ByteString qualified as S
 import Data.ByteString.Char8 qualified as C
 import Data.List.NonEmpty qualified as NE
 import Network.Socket
-import Network.Socket.ByteString (recv, sendAll)
+import Network.Socket.ByteString (recvFrom, sendTo)
 
 main :: IO ()
 main = do
     void $ forkIO do
-        runTCPServer Nothing "3000" talk
+        runUDPServer Nothing "3000"
 
     threadDelay 1_000_000
 
-    runTCPClient "127.0.0.1" "3000" $ \s -> forever do
-        sendAll s "Hello, world!"
-        msg <- recv s 1024
-        putStr "Received: "
-        C.putStrLn msg
-        threadDelay 1_000_000
-  where
-    talk s = forever do
-        msg <- recv s 1024
-        unless (S.null msg) $ do
-            sendAll s msg
+    runUDPClient "127.0.0.1" "3000"
 
--- from the "network-run" package.
-runTCPServer :: Maybe HostName -> ServiceName -> (Socket -> IO a) -> IO a
-runTCPServer mhost port server = do
+-- UDP Server: listens for datagrams and echoes them back
+runUDPServer :: Maybe HostName -> ServiceName -> IO ()
+runUDPServer mhost port = do
     addr <- resolve
     E.bracket (open addr) close loop
   where
@@ -36,34 +26,31 @@ runTCPServer mhost port server = do
         let hints =
                 defaultHints
                     { addrFlags = [AI_PASSIVE]
-                    , addrSocketType = Stream
+                    , addrSocketType = Datagram
                     }
         NE.head <$> getAddrInfo (Just hints) mhost (Just port)
     open addr = E.bracketOnError (openSocket addr) close $ \sock -> do
         setSocketOption sock ReuseAddr 1
         withFdSocket sock setCloseOnExecIfNeeded
         bind sock $ addrAddress addr
-        listen sock 1024
         return sock
-    loop sock = forever $
-        E.bracketOnError (accept sock) (close . fst) $
-            \(conn, _peer) ->
-                void $
-                    -- 'forkFinally' alone is unlikely to fail thus leaking @conn@,
-                    -- but 'E.bracketOnError' above will be necessary if some
-                    -- non-atomic setups (e.g. spawning a subprocess to handle
-                    -- @conn@) before proper cleanup of @conn@ is your case
-                    forkFinally (server conn) (const $ gracefulClose conn 5000)
+    loop sock = forever $ do
+        (msg, peer) <- recvFrom sock 1024
+        unless (S.null msg) $ do
+            void $ sendTo sock msg peer
 
--- from the "network-run" package.
-runTCPClient :: HostName -> ServiceName -> (Socket -> IO a) -> IO a
-runTCPClient host port client = do
-    addr <- resolve
-    E.bracket (open addr) close client
+-- UDP Client: sends messages and receives responses
+runUDPClient :: HostName -> ServiceName -> IO ()
+runUDPClient host port = do
+    serverAddr <- resolve
+    E.bracket (openSocket serverAddr) close (client serverAddr)
   where
     resolve = do
-        let hints = defaultHints{addrSocketType = Stream}
+        let hints = defaultHints{addrSocketType = Datagram}
         NE.head <$> getAddrInfo (Just hints) (Just host) (Just port)
-    open addr = E.bracketOnError (openSocket addr) close $ \sock -> do
-        connect sock $ addrAddress addr
-        return sock
+    client serverAddr sock = forever $ do
+        void $ sendTo sock "Hello, world!" (addrAddress serverAddr)
+        (msg, _peer) <- recvFrom sock 1024
+        putStr "Received: "
+        C.putStrLn msg
+        threadDelay 1_000_000
