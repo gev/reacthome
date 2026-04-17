@@ -1,70 +1,31 @@
 import Control.Concurrent (forkIO, threadDelay)
-import Control.Exception qualified as E
-import Control.Monad (forever, unless, void)
-import Data.ByteString qualified as S
-import Data.ByteString.Char8 qualified as C
-import Data.List.NonEmpty qualified as NE
-import Network.Socket
-import Network.Socket.ByteString (recvFrom, sendTo)
-
--- Discovery server and client configuration
-discoveryHost :: HostName
-discoveryHost = "127.0.0.1"
-
-discoveryPort :: ServiceName
-discoveryPort = "3000"
+import Control.Monad (forever, void)
+import Discovery.Anoncer (startAnoncer)
+import Discovery.Responder (startResponder)
+import Discovery.Scanner (startScanner)
 
 main :: IO ()
 main = do
-    void $ forkIO do
-        runDiscoveryServer discoveryPort
+    putStrLn "Starting Discovery System..."
 
-    threadDelay 1_000_000
+    -- Start responder (listens for discovery requests and responds with unicast)
+    void $ forkIO $ do
+        putStrLn "Starting Responder..."
+        startResponder "TestService:192.168.1.100:8080"
 
-    runDiscoveryClient discoveryHost discoveryPort
+    threadDelay 500_000 -- Small delay to ensure responder is ready
 
--- Discovery Server: listens for discovery messages on localhost
-runDiscoveryServer :: ServiceName -> IO ()
-runDiscoveryServer port = do
-    addr <- resolve
-    E.bracket (open addr) close loop
+    -- Start anoncer (periodically announces to the announcement group)
+    void $ forkIO $ do
+        putStrLn "Starting Anoncer..."
+        startAnoncer "TestService:192.168.1.100:8080"
+
+    threadDelay 500_000 -- Small delay to ensure anoncer is running
+
+    -- Start scanner (sends discovery requests and listens for announcements)
+    putStrLn "Starting Scanner..."
+    scanner
   where
-    resolve = do
-        let hints =
-                defaultHints
-                    { addrFlags = [AI_PASSIVE]
-                    , addrSocketType = Datagram
-                    , addrFamily = AF_INET
-                    }
-        NE.head <$> getAddrInfo (Just hints) Nothing (Just port)
-    open addr = E.bracketOnError (openSocket addr) close $ \sock -> do
-        setSocketOption sock ReuseAddr 1
-        withFdSocket sock setCloseOnExecIfNeeded
-        bind sock $ addrAddress addr
-        return sock
-    loop sock = forever $ do
-        (msg, peer) <- recvFrom sock 1024
-        unless (S.null msg) $ do
-            putStr "Server received from "
-            putStr (show peer)
-            putStr ": "
-            C.putStrLn msg
-            -- Echo the message back to the client
-            void $ sendTo sock msg peer
-
--- Discovery Client: sends discovery messages to localhost
-runDiscoveryClient :: HostName -> ServiceName -> IO ()
-runDiscoveryClient host port = do
-    serverAddr <- resolve
-    E.bracket (openSocket serverAddr) close $ \sock -> do
-        forever $ do
-            void $ sendTo sock "DISCOVERY_REQUEST" (addrAddress serverAddr)
-            putStrLn "Client sent: DISCOVERY_REQUEST"
-            (msg, _peer) <- recvFrom sock 1024
-            putStr "Client received: "
-            C.putStrLn msg
-            threadDelay 1_000_000
-  where
-    resolve = do
-        let hints = defaultHints{addrSocketType = Datagram, addrFamily = AF_INET}
-        NE.head <$> getAddrInfo (Just hints) (Just host) (Just port)
+    scanner = forever $ do
+        startScanner
+        threadDelay 3_000_000 -- Restart scanner every 30 seconds
