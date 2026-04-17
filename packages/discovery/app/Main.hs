@@ -7,18 +7,25 @@ import Data.List.NonEmpty qualified as NE
 import Network.Socket
 import Network.Socket.ByteString (recvFrom, sendTo)
 
+-- Discovery server and client configuration
+discoveryHost :: HostName
+discoveryHost = "127.0.0.1"
+
+discoveryPort :: ServiceName
+discoveryPort = "3000"
+
 main :: IO ()
 main = do
     void $ forkIO do
-        runUDPServer Nothing "3000"
+        runDiscoveryServer discoveryPort
 
     threadDelay 1_000_000
 
-    runUDPClient "127.0.0.1" "3000"
+    runDiscoveryClient discoveryHost discoveryPort
 
--- UDP Server: listens for datagrams and echoes them back
-runUDPServer :: Maybe HostName -> ServiceName -> IO ()
-runUDPServer mhost port = do
+-- Discovery Server: listens for discovery messages on localhost
+runDiscoveryServer :: ServiceName -> IO ()
+runDiscoveryServer port = do
     addr <- resolve
     E.bracket (open addr) close loop
   where
@@ -27,8 +34,9 @@ runUDPServer mhost port = do
                 defaultHints
                     { addrFlags = [AI_PASSIVE]
                     , addrSocketType = Datagram
+                    , addrFamily = AF_INET
                     }
-        NE.head <$> getAddrInfo (Just hints) mhost (Just port)
+        NE.head <$> getAddrInfo (Just hints) Nothing (Just port)
     open addr = E.bracketOnError (openSocket addr) close $ \sock -> do
         setSocketOption sock ReuseAddr 1
         withFdSocket sock setCloseOnExecIfNeeded
@@ -37,20 +45,26 @@ runUDPServer mhost port = do
     loop sock = forever $ do
         (msg, peer) <- recvFrom sock 1024
         unless (S.null msg) $ do
+            putStr "Server received from "
+            putStr (show peer)
+            putStr ": "
+            C.putStrLn msg
+            -- Echo the message back to the client
             void $ sendTo sock msg peer
 
--- UDP Client: sends messages and receives responses
-runUDPClient :: HostName -> ServiceName -> IO ()
-runUDPClient host port = do
+-- Discovery Client: sends discovery messages to localhost
+runDiscoveryClient :: HostName -> ServiceName -> IO ()
+runDiscoveryClient host port = do
     serverAddr <- resolve
-    E.bracket (openSocket serverAddr) close (client serverAddr)
+    E.bracket (openSocket serverAddr) close $ \sock -> do
+        forever $ do
+            void $ sendTo sock "DISCOVERY_REQUEST" (addrAddress serverAddr)
+            putStrLn "Client sent: DISCOVERY_REQUEST"
+            (msg, _peer) <- recvFrom sock 1024
+            putStr "Client received: "
+            C.putStrLn msg
+            threadDelay 1_000_000
   where
     resolve = do
-        let hints = defaultHints{addrSocketType = Datagram}
+        let hints = defaultHints{addrSocketType = Datagram, addrFamily = AF_INET}
         NE.head <$> getAddrInfo (Just hints) (Just host) (Just port)
-    client serverAddr sock = forever $ do
-        void $ sendTo sock "Hello, world!" (addrAddress serverAddr)
-        (msg, _peer) <- recvFrom sock 1024
-        putStr "Received: "
-        C.putStrLn msg
-        threadDelay 1_000_000
