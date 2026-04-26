@@ -34,6 +34,7 @@ library
   -- cabal-gild: discover src
   exposed-modules:
     Discovery.Anoncer
+    Discovery.Config
     Discovery.Responder
     Discovery.Scanner
 
