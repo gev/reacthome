@@ -90,8 +90,7 @@ makeWebSocketConnection connection =
             sendChunk !vector !size = do
                 !frozen <- unsafeFreeze vector
                 let !chunk = toList $ unsafeTake size frozen
-                !successful <- sendMessages chunk
-                case successful of
+                sendMessages chunk >>= \case
                     Right () -> Right <$> unsafeNew ?options.chunkSize
                     Left e -> pure $ Left e
      in
