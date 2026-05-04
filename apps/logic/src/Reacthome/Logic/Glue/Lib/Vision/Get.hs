@@ -19,6 +19,5 @@ getImpl _ = throwError $ wrongArgumentType ["String key"]
 
 dispatch :: (?sink :: Sink) => Text -> IO ()
 dispatch key = do
-    print $ "Get: " <> key
-    glue <- BS.readFile $ "./logic/glue/" <> unpack key <> ".glue"
+    glue <- BS.readFile $ "./apps/logic/glue/" <> unpack key <> ".glue"
     ?sink $ "(put store.cache \"" <> encodeUtf8 key <> "\" " <> glue <> ")"
