@@ -14,7 +14,6 @@ common common-options
     base,
     text,
     util,
-    ws,
 
   default-language: GHC2024
   default-extensions:
@@ -41,7 +40,6 @@ library
   build-depends:
     bytestring,
     network,
-    text,
     uuid,
 
   hs-source-dirs: src
@@ -55,7 +53,6 @@ executable discovery
     bytestring,
     discovery,
     network,
-    text,
     uuid,
 
   hs-source-dirs: app
