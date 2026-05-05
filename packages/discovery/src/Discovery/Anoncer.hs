@@ -1,3 +1,0 @@
-module Discovery.Anoncer (
-
-) where

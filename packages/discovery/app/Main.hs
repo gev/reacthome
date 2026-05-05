@@ -1,3 +1,10 @@
+import Control.Concurrent.Async
+import Control.Monad
+import Discovery.Annoncer
+import Discovery.Scanner
+
 main :: IO ()
 main = do
-    putStrLn "Multicast Discovery System"
+    void $ concurrently
+        do runAnnoncer "localhost" "2026"
+        do runScanner "localhost" "2026"
