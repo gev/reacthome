@@ -24,6 +24,7 @@ common common-options
     ImplicitParams
     OverloadedRecordDot
     OverloadedStrings
+    PatternSynonyms
     RecordWildCards
 
 library
@@ -34,7 +35,6 @@ library
   exposed-modules:
     Discovery.Annoncer
     Discovery.Config
-    Discovery.Multicast
     Discovery.Responder
     Discovery.Scanner
 
