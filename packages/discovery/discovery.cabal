@@ -54,6 +54,7 @@ executable discovery
     bytestring,
     discovery,
     network,
+    network-multicast,
     uuid,
 
   hs-source-dirs: app

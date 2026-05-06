@@ -1,7 +1,6 @@
 packages:
     apps/*/*.cabal
     packages/*/*.cabal
-    ../network/network.cabal
 
 constraints:
     base >= 4.19 && < 5

@@ -14,11 +14,13 @@ runScanner host group port = do
     group' <- resolve group
     bracket (openSocket host') close \sock -> do
         bind sock host'.addrAddress
-        setSocketOption sock AddMembership group'.addrAddress
+        -- setSockOpt sock AddMembership group'
         forever do
-            msg <- recv sock 100
+            msg <- recv sock 1024
             print msg
   where
     resolve addr = do
         let hints = defaultHints{addrSocketType = Datagram, addrFamily = AF_INET}
         NE.head <$> getAddrInfo (Just hints) (Just addr) (Just port)
+
+    get (SockAddrInet _ addr) = fromIntegral addr

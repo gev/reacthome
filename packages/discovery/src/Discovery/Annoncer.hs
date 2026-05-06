@@ -11,11 +11,11 @@ import Network.Socket.ByteString
 
 runAnnoncer :: HostName -> ServiceName -> IO ()
 runAnnoncer host port = do
-    addr <- resolve
+    host' <- resolve host
     bracket (socket AF_INET Datagram defaultProtocol) close \sock -> forever do
-        sendAllTo sock "hello" addr.addrAddress
+        sendAllTo sock "hello" host'.addrAddress
         threadDelay 1_000_000
   where
-    resolve = do
+    resolve addr = do
         let hints = defaultHints{addrSocketType = Datagram, addrFamily = AF_INET}
-        NE.head <$> getAddrInfo (Just hints) (Just host) (Just port)
+        NE.head <$> getAddrInfo (Just hints) (Just addr) (Just port)
