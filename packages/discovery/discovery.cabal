@@ -41,7 +41,7 @@ library
   build-depends:
     bytestring,
     network,
-    network-multicast,
+    -- network-multicast,
     uuid,
 
   hs-source-dirs: src
@@ -55,7 +55,6 @@ executable discovery
     bytestring,
     discovery,
     network,
-    network-multicast,
     uuid,
 
   hs-source-dirs: app

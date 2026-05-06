@@ -20,3 +20,9 @@ source-repository-package
     location: https://github.com/gev/glue.git
     tag:      b23f45d706c50b2897376b5b0ad315f2a46b4479
     subdir:   haskell/glue
+
+source-repository-package
+    type:     git
+    location: https://github.com/gev/network.git
+    tag:      297ea723ec5d2d30ad0512d613575ab8378cc50c
+    post-checkout-command:   autoreconf -i
