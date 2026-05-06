@@ -5,22 +5,18 @@ module Discovery.Scanner (
 import Control.Exception
 import Control.Monad
 import Data.List.NonEmpty qualified as NE
+import Network.Multicast (addMembership)
 import Network.Socket
 import Network.Socket.ByteString
 
 runScanner :: HostName -> HostName -> ServiceName -> IO ()
 runScanner host group port = do
     host' <- resolve host
-    group' <- resolve group
-    bracket (openSocket host') close \sock -> do
+    bracket (socket AF_INET Datagram defaultProtocol) close \sock -> do
         bind sock host'.addrAddress
-        -- setSockOpt sock AddMembership group'
+        addMembership sock group Nothing
         forever do
             msg <- recv sock 1024
             print msg
   where
-    resolve addr = do
-        let hints = defaultHints{addrSocketType = Datagram, addrFamily = AF_INET}
-        NE.head <$> getAddrInfo (Just hints) (Just addr) (Just port)
-
-    get (SockAddrInet _ addr) = fromIntegral addr
+    resolve addr = NE.head <$> getAddrInfo Nothing (Just addr) (Just port)
