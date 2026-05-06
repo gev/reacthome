@@ -25,4 +25,4 @@ source-repository-package
     type:     git
     location: https://github.com/gev/network.git
     tag:      297ea723ec5d2d30ad0512d613575ab8378cc50c
-    post-checkout-command:   autoreconf -i
+    post-checkout-command:   sh autoreconf -i
