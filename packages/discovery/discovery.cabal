@@ -37,6 +37,7 @@ library
     Discovery.Config
     Discovery.Responder
     Discovery.Scanner
+    Discovery.Utils
 
   build-depends:
     bytestring,
