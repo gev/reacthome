@@ -41,7 +41,7 @@ library
   build-depends:
     bytestring,
     network,
-    -- network-multicast,
+    network-info,
     uuid,
 
   hs-source-dirs: src
