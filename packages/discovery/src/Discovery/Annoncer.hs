@@ -1,6 +1,4 @@
-module Discovery.Annoncer (
-    runAnnoncer,
-) where
+module Discovery.Annoncer where
 
 import Control.Concurrent
 import Control.Exception

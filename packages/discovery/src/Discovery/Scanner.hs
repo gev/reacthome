@@ -1,6 +1,4 @@
-module Discovery.Scanner (
-    runScanner,
-) where
+module Discovery.Scanner where
 
 import Control.Exception
 import Control.Monad
@@ -18,7 +16,8 @@ runScanner group port = do
         handle @SomeException print $ do
             let multicast = MulticastGroup groupAddr Nothing
             bracket (openSocket hostInfo) close \sock -> do
-                setSockOpt sock ReusePort True
+                trySetSockOpt sock ReusePort True
+                trySetSockOpt sock ReuseAddr True
                 bind sock hostInfo.addrAddress
                 setSockOpt sock AddMembership multicast
                 forever do
