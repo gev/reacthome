@@ -1,26 +1,24 @@
 module Discovery.Scanner where
 
-import Control.Exception
 import Control.Monad
-import Network.Socket
-
-import Control.Concurrent (threadDelay)
+import Discovery.Config
+import Discovery.Monitor
+import Discovery.Prober
 import Discovery.Utils
-import Network.Socket.ByteString
 
-runScanner :: HostName -> ServiceName -> IO ()
-runScanner group port = do
-    hostInfo <- resolve "0.0.0.0" port
-    groupAddr <- hostAddress . addrAddress <$> resolve group port
-    forever do
-        handle @SomeException print $ do
-            let multicast = MulticastGroup groupAddr Nothing
-            bracket (openSocket hostInfo) close \sock -> do
-                trySetSockOpt sock ReusePort True
-                trySetSockOpt sock ReuseAddr True
-                bind sock hostInfo.addrAddress
-                setSockOpt sock AddMembership multicast
-                forever do
-                    (msg, addr) <- recvFrom sock 1024
-                    print $ show addr <> ": " <> show msg
-        threadDelay 1_000_000
+scan :: (?annonce :: AnnonceConfig) => IO ()
+scan = forever do
+    monitor
+        ?annonce.group
+        ?annonce.port
+        ?annonce.onMessage
+    delay ?annonce.timeout
+
+probe'n'scan :: (?annonce :: AnnonceConfig, ?probe :: ProbeConfig) => IO ()
+probe'n'scan = forever do
+    probe
+    monitor
+        ?annonce.group
+        ?annonce.port
+        ?annonce.onMessage
+    delay ?annonce.timeout
