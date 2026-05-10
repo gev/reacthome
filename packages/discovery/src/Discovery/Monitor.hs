@@ -13,8 +13,8 @@ monitor :: HostName -> PortNumber -> OnMessage -> IO ()
 monitor group port onMessage = do
     hostInfo <- resolve "0.0.0.0" port
     groupAddr <- resolveHost group
-    handle @SomeException print $ do
-        let multicast = MulticastGroup (hostAddress groupAddr.addrAddress) Nothing
+    let multicast = MulticastGroup (hostAddress groupAddr.addrAddress) Nothing
+    handle @SomeException print do
         bracket (openSocket hostInfo) close \sock -> do
             trySetSockOpt sock ReusePort True
             trySetSockOpt sock ReuseAddr True
