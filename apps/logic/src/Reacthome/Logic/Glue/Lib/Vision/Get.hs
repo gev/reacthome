@@ -1,6 +1,6 @@
 module Reacthome.Logic.Glue.Lib.Vision.Get where
 
-import Data.ByteString qualified as BS
+import Data.ByteString.Lazy qualified as L
 import Data.Text (Text, unpack)
 import Data.Text.Encoding (encodeUtf8)
 import Glue.Eval (Eval, liftIO, throwError)
@@ -19,5 +19,5 @@ getImpl _ = throwError $ wrongArgumentType ["String key"]
 
 dispatch :: (?sink :: Sink) => Text -> IO ()
 dispatch key = do
-    glue <- BS.readFile $ "./apps/logic/glue/" <> unpack key <> ".glue"
-    ?sink $ "(put store.cache \"" <> encodeUtf8 key <> "\" " <> glue <> ")"
+    glue <- L.readFile $ "./apps/logic/glue/" <> unpack key <> ".glue"
+    ?sink $ "(put store.cache \"" <> L.fromStrict (encodeUtf8 key) <> "\" " <> glue <> ")"

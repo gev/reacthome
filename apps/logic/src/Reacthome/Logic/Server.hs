@@ -2,8 +2,9 @@ module Reacthome.Logic.Server where
 
 import Control.Concurrent.Async (race)
 import Control.Concurrent.Chan.Unagi.Bounded (newChan, tryRead, tryReadChan, writeChan)
+import Data.ByteString.Lazy qualified as L
 import Reacthome.Logic.Error (LogicError (..), logError)
-import Reacthome.Logic.Glue.Controller (runGlueController)
+import Reacthome.Logic.Glue.Controller (controller)
 import WebSockets.Connection (WebSocketConnection (..))
 import WebSockets.Options (WebSocketOptions)
 import WebSockets.PendingConnection (WebSocketPendingConnection (..))
@@ -18,17 +19,16 @@ makeLogicServer ::
     LogicServer
 makeLogicServer = do
     let
-        accept pending = do
-            !successful <- pending.accept
-            case successful of
+        accept pending =
+            pending.accept >>= \case
                 Left !e -> logError $ WebSocketError e
                 Right !connection -> do
-                    (inChan, outChan) <- newChan 10
+                    (inChan, outChan) <- newChan @L.ByteString 10
                     res <-
                         either id id <$> race
                             do
                                 let ?sink = writeChan inChan
-                                connection.runReceiveMessageLoop runGlueController
+                                connection.runReceiveMessageLoop controller
                             do
                                 connection.runSendMessageLoop do
                                     (!element, !wait) <- tryReadChan outChan

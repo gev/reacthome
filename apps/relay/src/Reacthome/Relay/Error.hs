@@ -1,7 +1,8 @@
 module Reacthome.Relay.Error where
 
 import Control.Exception (Exception)
-import Data.ByteString (ByteString)
+import Data.ByteString qualified as S
+import Data.ByteString.Lazy qualified as L
 import Data.Text (Text)
 import Debug.Trace (traceIO)
 import Reacthome.Relay (Uid)
@@ -9,12 +10,12 @@ import WebSockets.Error (WebSocketError)
 import Prelude hiding (error)
 
 data RelayError
-    = InvalidUri ByteString
+    = InvalidUri S.ByteString
     | InvalidVersion Text
     | NoPeerPresent
     | InvalidPeer Text
     | InvalidMessageSource Uid
-    | InvalidMessage ByteString
+    | InvalidMessage L.ByteString
     | NoPeersFound Uid
     | WebSocketError Uid WebSocketError
     | InvalidMessageLength
