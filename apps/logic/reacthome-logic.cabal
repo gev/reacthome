@@ -23,6 +23,7 @@ common common-options
     ImplicitParams
     OverloadedRecordDot
     OverloadedStrings
+    PatternSynonyms
     RecordWildCards
 
 library
