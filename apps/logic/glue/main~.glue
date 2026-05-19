@@ -1,0 +1,32 @@
+(let
+    (
+        :next-screen
+        (listen
+            (lookup store.tmp "next" (screen placeholder))
+            (\ (next) next))
+    )
+    (let
+        (
+            :go-next (\ () (push (route next-screen)))
+        )
+        (screen
+            :body (center
+                :child (
+                    column
+                    :main-axis-size main-axis-size.min
+                    :children (
+                        (text :content "Салют, мир!")
+                        (row
+                            :main-axis-size main-axis-size.min
+                            :children (
+                                (filled-button
+                                    :child (text :content "Вперед >")
+                                    :on-pressed go-next)
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    )
+)

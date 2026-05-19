@@ -1,0 +1,36 @@
+(let
+    (
+        :next-screen
+        (listen
+            (lookup store.tmp "next" placeholder)
+            (\ (next) next))
+    )
+    (let
+        (
+            :go-prev (\ () (pop ()))
+            :go-next (\ () (push (route next-screen)))
+        )
+        (screen
+            :body (center
+                :child (
+                    column
+                    :main-axis-size main-axis-size.min
+                    :children (
+                        (text :content "Привет, мир!")
+                        (row
+                            :main-axis-size main-axis-size.min
+                            :children (
+                                (button
+                                    :child (text :content "< Назад")
+                                    :on-pressed go-prev)
+                                (filled-button
+                                    :child (text :content "Далее >")
+                                    :on-pressed go-next)
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    )
+)
