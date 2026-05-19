@@ -48,17 +48,22 @@ library
     Reacthome.Logic.Glue.Lib.Vision
     Reacthome.Logic.Glue.Lib.Vision.Get
     Reacthome.Logic.Glue.Sink
+    Reacthome.Logic.PubSub.Publisher
     Reacthome.Logic.Server
 
   build-depends:
     async,
     bytestring,
     containers,
+    fsnotify,
     glue,
+    hashable,
+    list-t,
+    stm,
+    stm-containers,
     text,
     unagi-chan,
     uuid,
-    fsnotify,
 
   hs-source-dirs: src
 
