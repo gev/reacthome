@@ -1,33 +1,40 @@
 (let
     (
-        :next-screen
-        (listen
-            (lookup store.cache "next" placeholder)
-            (\ (next) next))
+        :tile (\ (child color) (card
+                :color color
+                :child (container
+                    :padding (padding-all 16)
+                    :width 400
+                    :child child
+                )
+            )
+        )
     )
     (let
         (
-            :go-prev (\ () (pop ()))
-            :go-next (\ () (push (route next-screen)))
+            :send (\ () (back))
         )
+    
         (screen
-            (center
-                :child (
-                    column
-                    :main-axis-size main-axis-size.min
-                    :children (
-                        (text :content "Привет, мир!")
-                        (row
-                            :main-axis-size main-axis-size.min
-                            :children (
-                                (button
-                                    :child (text :content "< Назад")
-                                    :on-pressed go-prev)
-                                (filled-button
-                                    :child (text :content "Далее >")
-                                    :on-pressed go-next)
-                            )
-                        )
+            :app-bar (app-bar :title (text :content "Чат с владельцем"))
+            :body (column
+                :main-axis-alignment main-axis-alignment.spaceAround
+                :children (
+                    (card :child (container
+                            :max-width 400
+                            :padding (padding-all 16)
+                            :child (column :children (
+                                    (text :content "Выбрать готовый шаблон")
+                                    (tile (text :content "Вызвать скорую помощь") (rgba 128 255 128 100))
+                                    (tile (text :content "Устройство не работает") (rgba 255 128 128 100))
+                                    (tile (text :content "Нужна помощь") (rgba 255 255 128 100))
+                                ))
+                        ))
+                    (search-bar
+                        :hint-text "Напишите сообщение..."
+                        :trailing (filled-button
+                            :child (text :content "Отправить")
+                            :on-pressed send)
                     )
                 )
             )
