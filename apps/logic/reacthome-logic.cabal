@@ -58,6 +58,7 @@ library
     text,
     unagi-chan,
     uuid,
+    fsnotify,
 
   hs-source-dirs: src
 
