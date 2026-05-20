@@ -13,17 +13,14 @@ get :: (?sink :: Sink) => IR Eval
 get = NativeFunc getImpl
 
 getImpl :: (?sink :: Sink) => IR Eval -> Eval (IR Eval)
-getImpl store = pure $ NativeFunc (getImpl' store)
-
-getImpl' :: (?sink :: Sink) => IR Eval -> IR Eval -> Eval (IR Eval)
-getImpl' (DottedSymbol store) (String key) = do
-    liftIO $ dispatch store key
+getImpl (String key) = do
+    liftIO $ dispatch key
     pure Void
-getImpl' _ _ = throwError $ wrongArgumentType ["Get function requres `DottedSymbol` store and `String` key parameters"]
+getImpl _ = throwError $ wrongArgumentType ["Get function requres `DottedSymbol` store and `String` key parameters"]
 
-dispatch :: (?sink :: Sink) => [Text] -> Text -> IO ()
-dispatch store key = do
+dispatch :: (?sink :: Sink) => Text -> IO ()
+dispatch key = do
     glue <- L.readFile $ "./apps/logic/glue/" <> unpack key <> ".glue"
-    ?sink $ "(put " <> enc (T.intercalate "." store) <> " \"" <> enc key <> "\" " <> glue <> ")"
+    ?sink $ "(put store.tmp \"" <> enc key <> "\" " <> glue <> ")"
   where
     enc = L.fromStrict . encodeUtf8
