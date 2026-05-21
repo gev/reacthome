@@ -6,12 +6,15 @@ import Data.Text (Text, unpack)
 -- import Data.Text.Encoding (encodeUtf8)
 
 import Control.Exception (SomeException, catch)
+import Data.Text.Encoding (encodeUtf8)
+import Data.UUID (UUID)
+import Reacthome.Logic.Glue.Sink (SinkRegistry (..))
 import Reacthome.Logic.PubSub.Publisher (Publisher, makePublisher)
 
-type GluePublisher = Publisher Text Text L.ByteString
+type GluePublisher = Publisher UUID Text L.ByteString
 
-makeGluePublisher :: IO GluePublisher
-makeGluePublisher = do
+makeGluePublisher :: (?sinks :: SinkRegistry) => IO GluePublisher
+makeGluePublisher =
     makePublisher get send
   where
     get key = catch @SomeException
@@ -23,8 +26,10 @@ makeGluePublisher = do
             print err
             pure Nothing
 
-    send = undefined
+    send subscriber key value = do
+        maybeSink <- ?sinks.lookup subscriber
+        case maybeSink of
+            Just sink -> sink $ L.cons' 1 "(put store.tmp \"" <> enc key <> "\" " <> value <> ")"
+            Nothing -> print $ "Sibscriber not found: " <> show subscriber
 
---   ?sink $ "(put store.tmp \"" <> enc key <> "\" " <> glue <> ")"
--- where
---   enc = L.fromStrict . encodeUtf8
+    enc = L.fromStrict . encodeUtf8

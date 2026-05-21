@@ -7,8 +7,8 @@ import ListT qualified as L
 import StmContainers.Multimap qualified as MM
 import StmContainers.Set qualified as S
 
-type PubSubSender s k v = s -> k -> v -> IO ()
 type PubSubGetter k v = k -> IO (Maybe v)
+type PubSubSender s k v = s -> k -> v -> IO ()
 
 data Publisher s k v = Publisher
     { subscribe :: s -> k -> IO ()
