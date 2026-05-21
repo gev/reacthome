@@ -5,6 +5,7 @@ import Data.Text.Lazy (toStrict)
 import Data.Text.Lazy.Encoding (decodeUtf8')
 import Data.Word (Word8)
 import Reacthome.Logic.Glue.Evaluator (run)
+import Reacthome.Logic.Glue.Publisher (GluePublisher)
 import Reacthome.Logic.Glue.Sink (Sink)
 
 pattern HeartBeat :: Word8
@@ -14,7 +15,7 @@ pattern Glue = 1
 pattern File :: Word8
 pattern File = 2
 
-controller :: (?sink :: Sink) => ByteString -> IO ()
+controller :: (?sink :: Sink, ?pubsub :: GluePublisher) => ByteString -> IO ()
 controller message =
     case uncons message of
         Nothing -> putStrLn "Empty message"
@@ -29,7 +30,7 @@ controller message =
 heartBeat :: IO ()
 heartBeat = pure ()
 
-runGlue :: (?sink :: Sink) => ByteString -> IO ()
+runGlue :: (?pubsub :: GluePublisher) => ByteString -> IO ()
 runGlue message = do
     print message
     case decodeUtf8' message of

@@ -5,6 +5,7 @@ import Control.Concurrent.Chan.Unagi.Bounded (newChan, tryRead, tryReadChan, wri
 import Data.ByteString.Lazy qualified as L
 import Reacthome.Logic.Error (LogicError (..), logError)
 import Reacthome.Logic.Glue.Controller (controller)
+import Reacthome.Logic.Glue.Publisher (GluePublisher)
 import WebSockets.Connection (WebSocketConnection (..))
 import WebSockets.Options (WebSocketOptions)
 import WebSockets.PendingConnection (WebSocketPendingConnection (..))
@@ -15,7 +16,9 @@ newtype LogicServer = LogicServer
     }
 
 makeLogicServer ::
-    (?options :: WebSocketOptions) =>
+    ( ?options :: WebSocketOptions
+    , ?pubsub :: GluePublisher
+    ) =>
     LogicServer
 makeLogicServer = do
     let

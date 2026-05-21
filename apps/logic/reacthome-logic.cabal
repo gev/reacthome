@@ -47,6 +47,7 @@ library
     Reacthome.Logic.Glue.Evaluator
     Reacthome.Logic.Glue.Lib.Vision
     Reacthome.Logic.Glue.Lib.Vision.Get
+    Reacthome.Logic.Glue.Publisher
     Reacthome.Logic.Glue.Sink
     Reacthome.Logic.PubSub.Publisher
     Reacthome.Logic.Server

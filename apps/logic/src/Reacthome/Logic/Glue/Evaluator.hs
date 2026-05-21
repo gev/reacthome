@@ -6,9 +6,9 @@ import Glue.Error (GlueError (..))
 import Glue.Eval (eval, runEvalSimple)
 import Glue.Parse (parseGlue)
 import Reacthome.Logic.Glue.Env (env)
-import Reacthome.Logic.Glue.Sink (Sink)
+import Reacthome.Logic.Glue.Publisher (GluePublisher)
 
-run :: (?sink :: Sink) => Text -> IO (Either GlueError ())
+run :: (?pubsub :: GluePublisher) => Text -> IO (Either GlueError ())
 run expression = case parseGlue expression of
     Left err -> pure . Left $ GlueError err
     Right ast -> do

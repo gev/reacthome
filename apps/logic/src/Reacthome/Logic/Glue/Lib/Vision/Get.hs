@@ -1,26 +1,21 @@
 module Reacthome.Logic.Glue.Lib.Vision.Get where
 
-import Data.ByteString.Lazy qualified as L
-import Data.Text (Text, unpack)
-import Data.Text qualified as T
-import Data.Text.Encoding (encodeUtf8)
+import Data.Text (Text)
 import Glue.Eval (Eval, liftIO, throwError)
 import Glue.Eval.Exception (wrongArgumentType)
 import Glue.IR (IR (..))
-import Reacthome.Logic.Glue.Sink (Sink)
+import Reacthome.Logic.Glue.Publisher (GluePublisher)
+import Reacthome.Logic.PubSub.Publisher (Publisher (..))
 
-get :: (?sink :: Sink) => IR Eval
+get :: (?pubsub :: GluePublisher) => IR Eval
 get = NativeFunc getImpl
 
-getImpl :: (?sink :: Sink) => IR Eval -> Eval (IR Eval)
+getImpl :: (?pubsub :: GluePublisher) => IR Eval -> Eval (IR Eval)
 getImpl (String key) = do
     liftIO $ dispatch key
     pure Void
 getImpl _ = throwError $ wrongArgumentType ["Get function requres `DottedSymbol` store and `String` key parameters"]
 
-dispatch :: (?sink :: Sink) => Text -> IO ()
+dispatch :: (?pubsub :: GluePublisher) => Text -> IO ()
 dispatch key = do
-    glue <- L.readFile $ "./apps/logic/glue/" <> unpack key <> ".glue"
-    ?sink $ "(put store.tmp \"" <> enc key <> "\" " <> glue <> ")"
-  where
-    enc = L.fromStrict . encodeUtf8
+    ?pubsub.subscribe "" key
