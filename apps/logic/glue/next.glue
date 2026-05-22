@@ -14,7 +14,7 @@
         (
             :send (\ () (back))
         )
-    
+
         (screen
             :app-bar (app-bar :title (text :content "Чат с владельцем"))
             :body (column

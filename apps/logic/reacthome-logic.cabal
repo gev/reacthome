@@ -57,6 +57,7 @@ library
     async,
     bytestring,
     containers,
+    directory,
     fsnotify,
     glue,
     hashable,
