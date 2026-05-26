@@ -1,36 +1,26 @@
-(let
-    (
-        :next-screen
-        (listen
-            (lookup store.tmp "next" (screen placeholder))
-            (\ (next) next))
-    )
-    (let
-        (
-            :go-next (\ () (push (route next-screen)))
-        )
-        (screen
-            :body (center
-                :child (
-                    column
-                    :main-axis-size main-axis-size.min
-                    :children (
-                        (text :content "Салют, мир!")
-                        (listen
-                            (lookup store.tmp "counter" 0)
-                            (\ (counter) (text :content counter))
-                        )
-                        (row
-                            :main-axis-size main-axis-size.min
-                            :children (
-                                (filled-button
-                                    :child (text :content "Вперед >")
-                                    :on-pressed go-next)
-                            )
+(listen (lookup store.tmp "vision" ()) (\ (vision) (
+    (def x 1)
+    (screen
+        :body (center
+            :child (
+                column
+                :main-axis-size main-axis-size.min
+                :children (
+                    (text :content "Салют, мир!!!")
+                    (listen
+                        (lookup store.tmp "counter" 0)
+                        (\ (counter) (text :content counter))
+                    )
+                    (row
+                        :main-axis-size main-axis-size.min
+                        :children (
+                            (filled-button
+                                :child (text :content "Вперед >")
+                                :on-pressed (vision.go "next"))
                         )
                     )
                 )
             )
         )
     )
-)
+)))
