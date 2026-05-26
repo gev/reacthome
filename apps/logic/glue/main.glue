@@ -1,5 +1,4 @@
 (listen (lookup store.tmp "vision" ()) (\ (vision) (
-    (def x 1)
     (screen
         :body (center
             :child (
