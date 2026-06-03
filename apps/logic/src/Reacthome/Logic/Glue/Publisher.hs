@@ -21,7 +21,7 @@ makeGluePublisher =
     send subscriber key value = do
         maybeSink <- ?sinks.lookup subscriber
         case maybeSink of
-            Just sink -> sink $ L.cons' 1 "(put store.tmp \"" <> enc key <> "\" " <> value <> ")"
+            Just sink -> sink $ L.cons' 1 "(put '" <> enc key <> " " <> value <> ")"
             Nothing -> print $ "Sibscriber not found: " <> show subscriber
 
     enc = L.fromStrict . encodeUtf8

@@ -19,7 +19,7 @@ getImpl ::
     , ?pubsub :: GluePublisher
     ) =>
     IR Eval -> Eval (IR Eval)
-getImpl (String key) = do
+getImpl (Symbol key) = do
     liftIO $ ?pubsub.subscribe ?session key
     pure Void
-getImpl _ = throwError $ wrongArgumentType ["function requres `String` key parameters"]
+getImpl _ = throwError $ wrongArgumentType ["function requres `Symbol` key parameters"]

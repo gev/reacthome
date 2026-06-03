@@ -4,4 +4,3 @@
                         (lookup store.tmp name (screen placeholder))
                         (\ (next) next))))))
 )
-

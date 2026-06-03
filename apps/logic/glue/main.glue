@@ -1,4 +1,4 @@
-(listen (lookup store.tmp "vision" ()) (\ (vision) (
+(listen (lookup store.tmp 'vision ()) (\ (vision) (
     (screen
         :body (center
             :child (
@@ -7,7 +7,7 @@
                 :children (
                     (text :content "Салют, мир!!!")
                     (listen
-                        (lookup store.tmp "counter" 0)
+                        (lookup store.tmp 'counter 0)
                         (\ (counter) (text :content counter))
                     )
                     (row
@@ -15,7 +15,7 @@
                         :children (
                             (filled-button
                                 :child (text :content "Вперед >>")
-                                :on-pressed (vision.go "next"))
+                                :on-pressed (vision.go 'next))
                         )
                     )
                 )
