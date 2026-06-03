@@ -1,6 +1,6 @@
 (
-    :go (\ (name) (\ () (push (route
+    :go (\ (key) (\ () (push (route
                     (listen
-                        (lookup store.tmp name (screen placeholder))
+                        (lookup store.tmp key (screen placeholder))
                         (\ (next) next))))))
 )
