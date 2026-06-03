@@ -1,0 +1,24 @@
+(listen (lookup store.tmp 'lib.vision ()) (\ (vision) (
+            (screen
+                :body (center
+                    :child (
+                        column
+                        :main-axis-size main-axis-size.min
+                        :children (
+                            (text :content "Привет, мир!")
+                            (row
+                                :main-axis-size main-axis-size.min
+                                :children (
+                                    (button
+                                        :child (text :content "< Назад")
+                                        :on-pressed (\() (pop ())))
+                                    (filled-button
+                                        :child (text :content "Далее >>")
+                                        :on-pressed (vision.go 'screen.next))
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )))
