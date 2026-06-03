@@ -59,6 +59,7 @@ library
     bytestring,
     containers,
     directory,
+    filepath,
     fsnotify,
     glue,
     hashable,

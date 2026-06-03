@@ -4,19 +4,22 @@ import Control.Concurrent (forkIO, threadDelay)
 import Control.Exception (SomeException, catch)
 import Control.Monad (forever, void, when)
 import Data.ByteString.Lazy qualified as L
-import Data.Text (Text, pack, unpack)
+import Data.List (intercalate)
+import Data.Text (Text)
+import Data.Text qualified as T
 import System.Directory (canonicalizePath)
 import System.FSNotify (Event (..), EventIsDirectory (..), watchDir, withManager)
+import System.FilePath (pathSeparator, splitDirectories)
 
 data GlueStore = GlueStore
-    { get :: Text -> IO (Maybe L.ByteString)
-    , runWatcher :: (Text -> L.ByteString -> IO ()) -> IO ()
+    { get :: [Text] -> IO (Maybe L.ByteString)
+    , runWatcher :: ([Text] -> L.ByteString -> IO ()) -> IO ()
     }
 
-makeGlueStore :: String -> GlueStore
+makeGlueStore :: FilePath -> GlueStore
 makeGlueStore folder = GlueStore{..}
   where
-    get name = getFile $ folder <> unpack name <> ".glue"
+    get parts = getFile $ folder <> intercalate [pathSeparator] (T.unpack <$> parts) <> ".glue"
 
     runWatcher publish = void . forkIO $ withManager \mgr -> do
         void $ watchDir mgr folder (const True) (handle publish)
@@ -30,7 +33,8 @@ makeGlueStore folder = GlueStore{..}
                 let file = drop (length absolute + 1) path
                 let (key, ext) = splitAt (length file - 5) file
                 when (ext == ".glue") do
-                    publish (pack key) value
+                    let parts = splitDirectories key
+                    publish (T.pack <$> parts) value
     handle _ _ = pure ()
 
     getFile file = catch @SomeException

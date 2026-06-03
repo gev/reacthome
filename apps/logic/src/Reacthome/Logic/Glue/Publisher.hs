@@ -2,13 +2,14 @@ module Reacthome.Logic.Glue.Publisher where
 
 import Data.ByteString.Lazy qualified as L
 import Data.Text (Text)
+import Data.Text qualified as T
 import Data.Text.Encoding (encodeUtf8)
 import Data.UUID (UUID)
 import Reacthome.Logic.Glue.Sink (SinkRegistry (..))
 import Reacthome.Logic.Glue.Store (GlueStore (..))
 import Reacthome.Logic.PubSub.Publisher (Publisher, makePublisher)
 
-type GluePublisher = Publisher UUID Text L.ByteString
+type GluePublisher = Publisher UUID [Text] L.ByteString
 
 makeGluePublisher ::
     ( ?store :: GlueStore
@@ -24,4 +25,4 @@ makeGluePublisher =
             Just sink -> sink $ L.cons' 1 "(put '" <> enc key <> " " <> value <> ")"
             Nothing -> print $ "Sibscriber not found: " <> show subscriber
 
-    enc = L.fromStrict . encodeUtf8
+    enc = L.fromStrict . encodeUtf8 . T.intercalate "."
