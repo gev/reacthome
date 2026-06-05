@@ -2,8 +2,6 @@ module Reacthome.Logic.Glue.Publisher where
 
 import Data.ByteString.Lazy qualified as L
 import Data.Text (Text)
-import Data.Text qualified as T
-import Data.Text.Encoding (encodeUtf8)
 import Data.UUID (UUID)
 import Reacthome.Logic.Glue.Sink (SinkRegistry (..))
 import Reacthome.Logic.Glue.Store (GlueStore (..))
@@ -19,10 +17,8 @@ makeGluePublisher ::
 makeGluePublisher =
     makePublisher ?store.get send
   where
-    send subscriber key value = do
+    send subscriber _ value = do
         maybeSink <- ?sinks.lookup subscriber
         case maybeSink of
-            Just sink -> sink $ L.cons' 1 "(put '" <> enc key <> " " <> value <> ")"
+            Just sink -> sink $ L.cons' 1 value
             Nothing -> print $ "Sibscriber not found: " <> show subscriber
-
-    enc = L.fromStrict . encodeUtf8 . T.intercalate "."

@@ -1,1 +1,1 @@
-12345
+(put data.counter 12345)
