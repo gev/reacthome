@@ -8,7 +8,7 @@ import Data.List (intercalate)
 import Data.Text (Text)
 import Data.Text qualified as T
 import System.Directory (canonicalizePath)
-import System.FSNotify (Event (..), EventIsDirectory (..), watchDir, withManager)
+import System.FSNotify (Event (..), EventIsDirectory (..), watchTree, withManager)
 import System.FilePath (pathSeparator, splitDirectories)
 
 data GlueStore = GlueStore
@@ -22,10 +22,10 @@ makeGlueStore folder = GlueStore{..}
     get parts = getFile $ folder <> intercalate [pathSeparator] (T.unpack <$> parts) <> ".glue"
 
     runWatcher publish = void . forkIO $ withManager \mgr -> do
-        void $ watchDir mgr folder (const True) (handle publish)
+        void $ watchTree mgr folder (const True) (handle publish)
         forever $ threadDelay 1_000_000
 
-    handle publish (Modified path _ IsFile) =
+    handle publish (Modified path _ IsFile) = do
         getFile path >>= \case
             Nothing -> print $ "File not found: " <> path
             Just value -> do
