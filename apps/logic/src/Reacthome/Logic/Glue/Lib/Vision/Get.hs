@@ -12,14 +12,17 @@ get ::
     , ?pubsub :: GluePublisher
     ) =>
     IR Eval
-get = NativeFunc getImpl
+get = Special getImpl
 
 getImpl ::
     ( ?session :: UUID
     , ?pubsub :: GluePublisher
     ) =>
-    IR Eval -> Eval (IR Eval)
-getImpl (DottedSymbol key) = do
+    [IR Eval] -> Eval (IR Eval)
+getImpl [Symbol key] = do
+    liftIO $ ?pubsub.subscribe ?session [key]
+    pure Void
+getImpl [DottedSymbol key] = do
     liftIO $ ?pubsub.subscribe ?session key
     pure Void
-getImpl _ = throwError $ wrongArgumentType ["function requres `DottedSymbol` key parameters"]
+getImpl _ = throwError $ wrongArgumentType ["function requres `Symbol` or `DottedSymbol` key parameters"]
