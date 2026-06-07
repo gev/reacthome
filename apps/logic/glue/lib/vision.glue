@@ -1,15 +1,14 @@
 (module lib.vision
-    (export go)
+    (export go-back go-next)
 
-    (def (go key)
-        (\ () (push
-                (route
-                    (listen
-                        (lookup store.tmp key (screen placeholder))
-                        (\ (next) next)
-                    )
-                )
-            )
-        )
+    (def go-back
+        (\ () (pop ()))
+    )
+
+    (def go-next
+        (\ () (
+                (import screen.next)
+                (push (route next))
+            ))
     )
 )

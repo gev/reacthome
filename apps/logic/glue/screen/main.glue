@@ -2,6 +2,8 @@
     (export main)
 
     (import lib.vision)
+    (import screen.next)
+
     (def main
         (screen
             :body (center
@@ -19,7 +21,7 @@
                             :children (
                                 (filled-button
                                     :child (text :content "Вперед >>")
-                                    :on-pressed (go 'screen.next))
+                                    :on-pressed go-next)
                             )
                         )
                     )

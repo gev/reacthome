@@ -2,6 +2,7 @@
     (export next)
 
     (import lib.vision)
+
     (def next
         (screen
             :body (center
@@ -9,16 +10,16 @@
                     column
                     :main-axis-size main-axis-size.min
                     :children (
-                        (text :content "Привет, мир!")
+                        (text :content "Привет, мир!!!")
                         (row
                             :main-axis-size main-axis-size.min
                             :children (
                                 (button
                                     :child (text :content "< Назад")
-                                    :on-pressed (\() (pop ())))
+                                    :on-pressed go-back)
                                 (filled-button
                                     :child (text :content "Далее >>")
-                                    :on-pressed (go 'screen.next))
+                                    :on-pressed go-next)
                             )
                         )
                     )
