@@ -1,4 +1,6 @@
-(module lib.vision (export go)
+(module lib.vision
+    (export go)
+
     (def (go key)
         (\ () (push
                 (route
