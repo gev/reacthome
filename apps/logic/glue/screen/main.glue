@@ -1,32 +1,24 @@
+
+
 (module screen.main
     (export main)
 
     (import lib.vision)
+    (import screen.home)
     (import screen.next)
 
     (def main
-        (screen
-            :body (center
-                :child (
-                    column
-                    :main-axis-size main-axis-size.min
-                    :children (
-                        (text :content "Салют, мир!!!")
-                        (listen
-                            (lookup store.tmp 'data.counter 0)
-                            (\ (counter) (text :content counter))
-                        )
-                        (row
-                            :main-axis-size main-axis-size.min
-                            :children (
-                                (filled-button
-                                    :child (text :content "Вперед >>")
-                                    :on-pressed go-next)
-                            )
-                        )
-                    )
-                )
-            )
-        )
+        (home
+            (go (next back
+                    (go (next back
+                            (go (next back
+                                    (go (next back
+                                            (go (next back
+                                                    go (next back ()))
+                                            ))
+                                    ))
+                            ))
+                    ))
+            ))
     )
 )

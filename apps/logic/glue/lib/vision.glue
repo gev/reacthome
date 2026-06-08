@@ -1,14 +1,15 @@
-(module lib.vision
-    (export go-back go-next)
 
-    (def go-back
+
+(module lib.vision
+    (export back go)
+
+    (def back
         (\ () (pop ()))
     )
 
-    (def go-next
+    (def (go screen)
         (\ () (
-                (import screen.next)
-                (push (route next))
+                (push (route screen))
             ))
     )
 )

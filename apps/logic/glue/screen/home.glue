@@ -1,26 +1,25 @@
 
 
-(module screen.next
-    (export next)
+(module screen.home
+    (export home)
 
-    (import lib.vision)
-
-    (def (next go-back go-next)
+    (def (home go-next)
         (screen
             :body (center
                 :child (
                     column
                     :main-axis-size main-axis-size.min
                     :children (
-                        (text :content "Привет, мир!!!")
+                        (text :content "Салют, мир!!!")
+                        (listen
+                            (lookup store.tmp 'data.counter 0)
+                            (\ (counter) (text :content counter))
+                        )
                         (row
                             :main-axis-size main-axis-size.min
                             :children (
-                                (button
-                                    :child (text :content "< Назад")
-                                    :on-pressed go-back)
                                 (filled-button
-                                    :child (text :content "Далее >>")
+                                    :child (text :content "Вперед >>")
                                     :on-pressed go-next)
                             )
                         )
