@@ -1,0 +1,11 @@
+(module main
+    (export main)
+
+    (import lib.vision)
+    (import screen.home)
+    (import screen.next)
+
+    (def main
+        (home (go (next back ())))
+    )
+)
