@@ -1,11 +1,13 @@
 (module main
     (export main)
 
-    (import lib.vision)
     (import screen.home)
     (import screen.next)
 
     (def main
-        (home (go (next back ())))
+        (routes
+            :home (home-screen :title "Hello Glue!")
+            :next (next-screen :title "Salute!")
+        )
     )
 )

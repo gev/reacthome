@@ -1,25 +1,26 @@
 (module screen.next
-    (export next)
+    (export next-screen)
 
     (import lib.vision)
 
-    (def (next go-back go-next)
+    (def (next-screen props)
         (screen
             :body (center
                 :child (
                     column
                     :main-axis-size main-axis-size.min
                     :children (
-                        (text :content "Привет, мир!!!")
+                        (text :content props.title)
+                        (text :content (foo 10))
                         (row
                             :main-axis-size main-axis-size.min
                             :children (
                                 (button
                                     :child (text :content "< Назад")
-                                    :on-pressed go-back)
+                                    :on-pressed back)
                                 (filled-button
                                     :child (text :content "Далее >>")
-                                    :on-pressed go-next)
+                                    :on-pressed (go 'next))
                             )
                         )
                     )
