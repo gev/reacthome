@@ -9,7 +9,7 @@ import Data.UUID (UUID)
 import Reacthome.Logic.Glue.Sink (SinkRegistry (..))
 import Reacthome.Logic.Glue.Store (GlueStore (..))
 import Reacthome.Logic.PubSub.Publisher (Publisher, makePublisher)
-import Reacthome.Logic.PubSub.Value (Value (..))
+import Reacthome.Logic.PubSub.Versioned (Versioned (..))
 
 type GluePublisher = Publisher UUID [Text] L.ByteString Int
 
@@ -30,9 +30,9 @@ makeGluePublisher =
                         <> B.string8 "(put "
                         <> B.lazyByteString (enc key)
                         <> B.string8 " "
-                        <> B.lazyByteString value.payload
-                        <> B.string8 " "
                         <> B.intDec value.version
+                        <> B.string8 " "
+                        <> B.lazyByteString value.payload
                         <> B.string8 ")"
             Nothing -> print $ "Sibscriber not found: " <> show subscriber
 

@@ -25,4 +25,7 @@ getImpl [Symbol key, Integer value] = do
 getImpl [DottedSymbol key, Integer value] = do
     liftIO $ ?pubsub.subscribe ?session key value
     pure Void
-getImpl _ = throwError $ wrongArgumentType ["function requres `Symbol` or `DottedSymbol` key parameters"]
+getImpl _ =
+    throwError $
+        wrongArgumentType
+            ["function requres `Symbol` or `DottedSymbol` key parameters"]

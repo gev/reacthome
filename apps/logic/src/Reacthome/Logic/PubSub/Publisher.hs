@@ -5,18 +5,18 @@ import Control.Monad (mfilter)
 import Data.Foldable (traverse_)
 import Data.Hashable (Hashable)
 import ListT qualified as L
-import Reacthome.Logic.PubSub.Value (Value (..))
+import Reacthome.Logic.PubSub.Versioned (Versioned (..))
 import StmContainers.Multimap qualified as MM
 import StmContainers.Set qualified as S
 
-type PubSubGetter k t v = k -> IO (Maybe (Value t v))
-type PubSubSender k t v = k -> Value t v -> IO ()
+type PubSubGetter k t v = k -> IO (Maybe (Versioned t v))
+type PubSubSender k t v = k -> Versioned t v -> IO ()
 
 data Publisher s k t v = Publisher
     { subscribe :: s -> k -> v -> IO ()
     , unsubscribe :: s -> k -> IO ()
     , unsubscribeAll :: s -> IO ()
-    , publish :: k -> Value t v -> IO ()
+    , publish :: k -> Versioned t v -> IO ()
     }
 
 makePublisher ::

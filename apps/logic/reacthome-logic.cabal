@@ -52,8 +52,7 @@ library
     Reacthome.Logic.Glue.Sink
     Reacthome.Logic.Glue.Store
     Reacthome.Logic.PubSub.Publisher
-    Reacthome.Logic.PubSub.Store
-    Reacthome.Logic.PubSub.Value
+    Reacthome.Logic.PubSub.Versioned
     Reacthome.Logic.Server
 
   build-depends:
