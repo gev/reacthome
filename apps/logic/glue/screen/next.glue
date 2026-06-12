@@ -19,7 +19,7 @@
                                     :child (text :content "< Назад")
                                     :on-pressed back)
                                 (filled-button
-                                    :child (text :content "Далее >>")
+                                    :child (text :content "Далее >")
                                     :on-pressed (go 'next))
                             )
                         )

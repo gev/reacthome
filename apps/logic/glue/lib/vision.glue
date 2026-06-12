@@ -9,5 +9,5 @@
         (\ () (push screen))
     )
 
-    (def (foo x) (+ x x))
+    (def (foo x) (* x x))
 )

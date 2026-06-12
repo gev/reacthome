@@ -20,7 +20,7 @@
                             :main-axis-size main-axis-size.min
                             :children (
                                 (filled-button
-                                    :child (text :content "Вперед >>")
+                                    :child (text :content "Вперед >")
                                     :on-pressed (go 'next))
                             )
                         )
