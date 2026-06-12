@@ -19,10 +19,10 @@ getImpl ::
     , ?pubsub :: GluePublisher
     ) =>
     [IR Eval] -> Eval (IR Eval)
-getImpl [Symbol key] = do
-    liftIO $ ?pubsub.subscribe ?session [key]
+getImpl [Symbol key, Integer value] = do
+    liftIO $ ?pubsub.subscribe ?session [key] value
     pure Void
-getImpl [DottedSymbol key] = do
-    liftIO $ ?pubsub.subscribe ?session key
+getImpl [DottedSymbol key, Integer value] = do
+    liftIO $ ?pubsub.subscribe ?session key value
     pure Void
 getImpl _ = throwError $ wrongArgumentType ["function requres `Symbol` or `DottedSymbol` key parameters"]

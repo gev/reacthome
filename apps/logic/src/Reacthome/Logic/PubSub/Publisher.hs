@@ -1,36 +1,40 @@
 module Reacthome.Logic.PubSub.Publisher where
 
 import Control.Concurrent.STM (atomically)
+import Control.Monad (mfilter)
 import Data.Foldable (traverse_)
 import Data.Hashable (Hashable)
 import ListT qualified as L
+import Reacthome.Logic.PubSub.Value (Value (..))
 import StmContainers.Multimap qualified as MM
 import StmContainers.Set qualified as S
 
-type PubSubGetter k v = k -> IO (Maybe v)
-type PubSubSender s k v = s -> k -> v -> IO ()
+type PubSubGetter k t v = k -> IO (Maybe (Value t v))
+type PubSubSender k t v = k -> Value t v -> IO ()
 
-data Publisher s k v = Publisher
-    { subscribe :: s -> k -> IO ()
+data Publisher s k t v = Publisher
+    { subscribe :: s -> k -> v -> IO ()
     , unsubscribe :: s -> k -> IO ()
     , unsubscribeAll :: s -> IO ()
-    , publish :: k -> v -> IO ()
+    , publish :: k -> Value t v -> IO ()
     }
 
 makePublisher ::
-    (Hashable s, Hashable k) =>
-    PubSubGetter k v ->
-    PubSubSender s k v ->
-    IO (Publisher s k v)
+    (Hashable s, Hashable k, Ord v) =>
+    PubSubGetter k t v ->
+    (s -> PubSubSender k t v) ->
+    IO (Publisher s k t v)
 makePublisher get send = do
     keySubscribes <- MM.newIO
     subscribeKeys <- MM.newIO
     let
-        subscribe subscriber key = do
+        subscribe subscriber key version = do
             atomically do
                 MM.insert subscriber key keySubscribes
                 MM.insert key subscriber subscribeKeys
-            traverse_ (send subscriber key) =<< get key
+            get key
+                >>= traverse_ (send subscriber key) . mfilter
+                    \v -> v.version > version
 
         unsubscribe subscriber key = atomically do
             MM.delete subscriber key keySubscribes

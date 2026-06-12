@@ -52,6 +52,8 @@ library
     Reacthome.Logic.Glue.Sink
     Reacthome.Logic.Glue.Store
     Reacthome.Logic.PubSub.Publisher
+    Reacthome.Logic.PubSub.Store
+    Reacthome.Logic.PubSub.Value
     Reacthome.Logic.Server
 
   build-depends:
@@ -67,6 +69,7 @@ library
     stm,
     stm-containers,
     text,
+    time,
     unagi-chan,
     uuid,
 

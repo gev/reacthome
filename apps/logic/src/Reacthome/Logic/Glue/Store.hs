@@ -7,40 +7,53 @@ import Data.ByteString.Lazy qualified as L
 import Data.List (intercalate)
 import Data.Text (Text)
 import Data.Text qualified as T
-import System.Directory (canonicalizePath)
+import Data.Time.Clock (UTCTime)
+import Data.Time.Clock.POSIX (utcTimeToPOSIXSeconds)
+import Reacthome.Logic.PubSub.Publisher (PubSubGetter, PubSubSender)
+import Reacthome.Logic.PubSub.Value (Value (..))
+import System.Directory (canonicalizePath, getModificationTime)
 import System.FSNotify (Event (..), EventIsDirectory (..), watchTree, withManager)
 import System.FilePath (pathSeparator, splitDirectories)
 
 data GlueStore = GlueStore
-    { get :: [Text] -> IO (Maybe L.ByteString)
-    , runWatcher :: ([Text] -> L.ByteString -> IO ()) -> IO ()
+    { get :: PubSubGetter [Text] L.ByteString Int
+    , runWatcher :: PubSubSender [Text] L.ByteString Int -> IO ()
     }
 
 makeGlueStore :: FilePath -> GlueStore
 makeGlueStore folder = GlueStore{..}
   where
-    get parts = getFile $ folder <> intercalate [pathSeparator] (T.unpack <$> parts) <> ".glue"
+    get parts = do
+        let file = folder <> intercalate [pathSeparator] (T.unpack <$> parts) <> ".glue"
+        catch @SomeException
+            do
+                payload <- L.readFile file
+                version <- utcTimeToMillis <$> getModificationTime file
+                pure $ Just Value{..}
+            \err -> do
+                print err
+                pure Nothing
 
     runWatcher publish = void . forkIO $ withManager \mgr -> do
         void $ watchTree mgr folder (const True) (handle publish)
         forever $ threadDelay 1_000_000
 
-    handle publish (Modified path _ IsFile) = do
-        getFile path >>= \case
-            Nothing -> print $ "File not found: " <> path
-            Just value -> do
+    handle publish (Modified path time IsFile) = do
+        catch @SomeException
+            do
                 absolute <- canonicalizePath folder
                 let file = drop (length absolute + 1) path
                 let (key, ext) = splitAt (length file - 5) file
                 when (ext == ".glue") do
+                    payload <- L.readFile path
                     let parts = splitDirectories key
+                    let version = utcTimeToMillis time
+                    let value = Value{..}
                     publish (T.pack <$> parts) value
+            \err -> do
+                print err
+                pure ()
     handle _ _ = pure ()
 
-    getFile file = catch @SomeException
-        do
-            glue <- L.readFile file
-            pure $ Just glue
-        \err -> do
-            print err
-            pure Nothing
+utcTimeToMillis :: UTCTime -> Int
+utcTimeToMillis utc = round $ utcTimeToPOSIXSeconds utc * 1000
