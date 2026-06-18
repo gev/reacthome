@@ -10,12 +10,17 @@
                     column
                     :main-axis-size main-axis-size.min
                     :children (
+                        (image-network
+                            :src "https://auth.reacthome.net/icon.png"
+                            :width 100)
+                        (sized-box :height 40)
                         (text :content props.title)
                         (listen
-                            (lookup store.tmp 'data.counter 0)
+                            (lookup store.persistent 'data.counter 0)
                             (\ (counter) (text :content counter))
                         )
                         (text :content (foo 100))
+                        (sized-box :height 40)
                         (row
                             :main-axis-size main-axis-size.min
                             :children (
