@@ -43,16 +43,16 @@ sendAsset parts = do
         else void $ forkIO do
             fileSize <- getFileSize path
             chunks <- L.toChunks <$> L.readFile path
-            zipWithM_ (sendChunk name fileSize $ length chunks) chunks [0 ..]
+            let offsets = scanl (\acc chunk -> acc + S.length chunk) 0 chunks
+            zipWithM_ (sendChunk name fileSize) chunks offsets
 
-sendChunk :: (?sink :: Sink) => Text -> Integer -> Int -> S.ByteString -> Int -> IO ()
-sendChunk name fileSize total chunk index = do
+sendChunk :: (?sink :: Sink) => Text -> Integer -> S.ByteString -> Int -> IO ()
+sendChunk name fileSize chunk offset = do
     let builder =
             B.word8 2
                 <> B.word64BE (fromIntegral fileSize)
-                <> B.word32BE (fromIntegral total)
                 <> B.word32BE (fromIntegral $ S.length chunk)
-                <> B.word32BE (fromIntegral index)
+                <> B.word32BE (fromIntegral offset)
                 <> B.byteString (T.encodeUtf8 name)
                 <> B.byteString chunk
     ?sink $ B.toLazyByteString builder
