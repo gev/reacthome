@@ -1,6 +1,7 @@
 module Reacthome.Logic.Glue.Lib.Vision.GetAsset where
 
-import Control.Monad (zipWithM_)
+import Control.Concurrent (forkIO)
+import Control.Monad (void, zipWithM_)
 import Data.ByteString qualified as S
 import Data.ByteString.Builder qualified as B
 import Data.ByteString.Lazy qualified as L
@@ -35,11 +36,11 @@ getAssetImpl _ =
 sendAsset :: (?sink :: Sink) => [Text] -> IO ()
 sendAsset parts = do
     let name = T.intercalate "." parts
-    let path = T.unpack $ "../../assets/" <> name
+    let path = T.unpack $ "./assets/" <> name
     fileExists <- doesFileExist path
     if not fileExists
         then putStrLn $ "Asset not found: " <> path
-        else do
+        else void $ forkIO do
             fileSize <- getFileSize path
             chunks <- L.toChunks <$> L.readFile path
             zipWithM_ (sendChunk name fileSize $ length chunks) chunks [0 ..]
