@@ -28,4 +28,6 @@ getImpl [DottedSymbol key, Integer value] = do
 getImpl _ =
     throwError $
         wrongArgumentType
-            ["function requres `Symbol` or `DottedSymbol` key parameters"]
+            [ "Key parameter `Symbol` or `DottedSymbol`"
+            , "Version parameter should ba `Integer`"
+            ]

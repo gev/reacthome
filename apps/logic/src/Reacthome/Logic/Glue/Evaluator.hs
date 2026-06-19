@@ -8,10 +8,12 @@ import Glue.Eval (eval, runEvalSimple)
 import Glue.Parse (parseGlue)
 import Reacthome.Logic.Glue.Env (env)
 import Reacthome.Logic.Glue.Publisher (GluePublisher)
+import Reacthome.Logic.Glue.Sink (Sink)
 
 run ::
     ( ?session :: UUID
     , ?pubsub :: GluePublisher
+    , ?sink :: Sink
     ) =>
     Text -> IO (Either GlueError ())
 run expression = case parseGlue expression of

@@ -7,10 +7,12 @@ import Glue.Lib.Builtin (builtin)
 import Glue.Module (envFromModules)
 import Reacthome.Logic.Glue.Lib.Vision (vision)
 import Reacthome.Logic.Glue.Publisher (GluePublisher)
+import Reacthome.Logic.Glue.Sink (Sink)
 
 env ::
     ( ?session :: UUID
     , ?pubsub :: GluePublisher
+    , ?sink :: Sink
     ) =>
     Env Eval
 env =

@@ -7,6 +7,7 @@ import Data.UUID (UUID)
 import Data.Word (Word8)
 import Reacthome.Logic.Glue.Evaluator (run)
 import Reacthome.Logic.Glue.Publisher (GluePublisher)
+import Reacthome.Logic.Glue.Sink (Sink)
 
 pattern HeartBeat :: Word8
 pattern HeartBeat = 0
@@ -18,6 +19,7 @@ pattern File = 2
 controller ::
     ( ?session :: UUID
     , ?pubsub :: GluePublisher
+    , ?sink :: Sink
     ) =>
     ByteString -> IO ()
 controller message =
@@ -35,6 +37,7 @@ heartBeat = pure ()
 runGlue ::
     ( ?session :: UUID
     , ?pubsub :: GluePublisher
+    , ?sink :: Sink
     ) =>
     ByteString -> IO ()
 runGlue message = do
