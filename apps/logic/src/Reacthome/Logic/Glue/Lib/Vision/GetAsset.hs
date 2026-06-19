@@ -52,7 +52,7 @@ sendChunk name fileSize chunk offset = do
             B.word8 2
                 <> B.word64BE (fromIntegral fileSize)
                 <> B.word32BE (fromIntegral $ S.length chunk)
-                <> B.word32BE (fromIntegral offset)
+                <> B.word64BE (fromIntegral offset)
                 <> B.byteString (T.encodeUtf8 name)
                 <> B.byteString chunk
     ?sink $ B.toLazyByteString builder
