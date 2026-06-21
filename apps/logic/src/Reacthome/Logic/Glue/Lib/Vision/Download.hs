@@ -1,4 +1,4 @@
-module Reacthome.Logic.Glue.Lib.Vision.GetAsset where
+module Reacthome.Logic.Glue.Lib.Vision.Download where
 
 import Control.Concurrent (forkIO)
 import Control.Monad (void, zipWithM_)

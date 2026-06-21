@@ -1,4 +1,4 @@
-module Reacthome.Logic.Glue.Lib.Vision.Get where
+module Reacthome.Logic.Glue.Lib.Vision.Subscribe where
 
 import Data.UUID (UUID)
 import Glue.Eval (Eval, liftIO, throwError)
@@ -7,25 +7,25 @@ import Glue.IR (IR (..))
 import Reacthome.Logic.Glue.Publisher (GluePublisher)
 import Reacthome.Logic.PubSub.Publisher (Publisher (..))
 
-get ::
+subscribe ::
     ( ?session :: UUID
     , ?pubsub :: GluePublisher
     ) =>
     IR Eval
-get = Special getImpl
+subscribe = Special subscribeImpl
 
-getImpl ::
+subscribeImpl ::
     ( ?session :: UUID
     , ?pubsub :: GluePublisher
     ) =>
     [IR Eval] -> Eval (IR Eval)
-getImpl [Symbol key, Integer value] = do
+subscribeImpl [Symbol key, Integer value] = do
     liftIO $ ?pubsub.subscribe ?session [key] value
     pure Void
-getImpl [DottedSymbol key, Integer value] = do
+subscribeImpl [DottedSymbol key, Integer value] = do
     liftIO $ ?pubsub.subscribe ?session key value
     pure Void
-getImpl _ =
+subscribeImpl _ =
     throwError $
         wrongArgumentType
             [ "Key parameter `Symbol` or `DottedSymbol`"
