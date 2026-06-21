@@ -9,15 +9,16 @@
                 :child (
                     column
                     :main-axis-size main-axis-size.min
+                    :spacing 32
                     :children (
                         (image
                             :src "icon.png"
                             :width 100)
-                        (sized-box :height 40)
                         (text :content props.title)
                         (text :content (foo 10))
                         (row
                             :main-axis-size main-axis-size.min
+                            :spacing 32
                             :children (
                                 (button
                                     :child (text :content "< Назад")
