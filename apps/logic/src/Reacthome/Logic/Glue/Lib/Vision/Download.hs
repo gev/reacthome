@@ -1,10 +1,11 @@
 module Reacthome.Logic.Glue.Lib.Vision.Download where
 
 import Control.Concurrent (forkIO)
-import Control.Monad (void, zipWithM_)
+import Control.Monad (void)
 import Data.ByteString qualified as S
 import Data.ByteString.Builder qualified as B
 import Data.ByteString.Lazy qualified as L
+import Data.Foldable (traverse_)
 import Data.Text (Text)
 import Data.Text qualified as T
 import Data.Text.Encoding qualified as T
@@ -35,24 +36,26 @@ getAssetImpl _ =
 
 sendAsset :: (?sink :: Sink) => [Text] -> IO ()
 sendAsset parts = do
-    let name = T.intercalate "." parts
-    let path = T.unpack $ "./assets/" <> name
-    fileExists <- doesFileExist path
+    fileExists <- doesFileExist assetPath
     if not fileExists
-        then putStrLn $ "Asset not found: " <> path
+        then putStrLn $ "Asset not found: " <> assetPath
         else void $ forkIO do
-            fileSize <- getFileSize path
-            chunks <- L.toChunks <$> L.readFile path
-            let offsets = scanl (\acc chunk -> acc + S.length chunk) 0 chunks
-            zipWithM_ (sendChunk name fileSize) chunks offsets
-
-sendChunk :: (?sink :: Sink) => Text -> Integer -> S.ByteString -> Int -> IO ()
-sendChunk name fileSize chunk offset = do
-    let builder =
+            assetSize <- getFileSize assetPath
+            assetChunks <- L.toChunks <$> L.readFile assetPath
+            let offsets = scanl nextOffset 0 assetChunks
+            let chunks = zipWith (makeChunk assetSize) assetChunks offsets
+            traverse_ ?sink chunks
+  where
+    makeChunk fileSize chunk offset =
+        B.toLazyByteString $
             B.word8 2
                 <> B.word64BE (fromIntegral fileSize)
                 <> B.word32BE (fromIntegral $ S.length chunk)
                 <> B.word64BE (fromIntegral offset)
-                <> B.byteString (T.encodeUtf8 name)
+                <> B.byteString (T.encodeUtf8 assetName)
                 <> B.byteString chunk
-    ?sink $ B.toLazyByteString builder
+
+    nextOffset acc chunk = acc + S.length chunk
+
+    assetName = T.intercalate "." parts
+    assetPath = T.unpack $ "./assets/" <> assetName
