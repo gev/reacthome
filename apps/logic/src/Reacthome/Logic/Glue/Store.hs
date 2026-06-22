@@ -9,8 +9,8 @@ import Data.Text (Text)
 import Data.Text qualified as T
 import Data.Time.Clock (UTCTime)
 import Data.Time.Clock.POSIX (utcTimeToPOSIXSeconds)
-import Reacthome.Logic.PubSub.Publisher (PubSubGetter, PubSubSender)
-import Reacthome.Logic.PubSub.Versioned (Versioned (..))
+import PubSub.Publisher (PubSubGetter, PubSubSender)
+import PubSub.Revision (Revision (..))
 import System.Directory (canonicalizePath, getModificationTime)
 import System.FSNotify (Event (..), EventIsDirectory (..), watchTree, withManager)
 import System.FilePath (pathSeparator, splitDirectories)
@@ -29,7 +29,7 @@ makeGlueStore folder = GlueStore{..}
             do
                 payload <- L.readFile file
                 version <- utcTimeToMillis <$> getModificationTime file
-                pure $ Just Versioned{..}
+                pure $ Just Revision{..}
             \err -> do
                 print err
                 pure Nothing
@@ -48,7 +48,7 @@ makeGlueStore folder = GlueStore{..}
                     payload <- L.readFile path
                     let parts = splitDirectories key
                     let version = utcTimeToMillis time
-                    let value = Versioned{..}
+                    let value = Revision{..}
                     publish (T.pack <$> parts) value
             \err -> do
                 print err

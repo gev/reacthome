@@ -8,8 +8,8 @@ import Data.Text.Encoding (encodeUtf8)
 import Data.UUID (UUID)
 import Reacthome.Logic.Glue.Sink (SinkRegistry (..))
 import Reacthome.Logic.Glue.Store (GlueStore (..))
-import Reacthome.Logic.PubSub.Publisher (Publisher, makePublisher)
-import Reacthome.Logic.PubSub.Versioned (Versioned (..))
+import PubSub.Publisher (Publisher, makePublisher)
+import PubSub.Revision (Revision (..))
 
 type GluePublisher = Publisher UUID [Text] L.ByteString Int
 

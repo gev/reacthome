@@ -12,6 +12,8 @@ build-type: Simple
 common common-options
   build-depends:
     base,
+    stm,
+    stm-containers,
     ws,
 
   default-language: GHC2024
@@ -52,8 +54,6 @@ library
     Reacthome.Logic.Glue.Publisher
     Reacthome.Logic.Glue.Sink
     Reacthome.Logic.Glue.Store
-    Reacthome.Logic.PubSub.Publisher
-    Reacthome.Logic.PubSub.Versioned
     Reacthome.Logic.Server
 
   build-depends:
@@ -64,10 +64,7 @@ library
     filepath,
     fsnotify,
     glue,
-    hashable,
-    list-t,
-    stm,
-    stm-containers,
+    pubsub,
     text,
     time,
     unagi-chan,
@@ -80,7 +77,8 @@ executable reacthome-logic
     common-options
 
   build-depends:
-    reacthome-logic
+    pubsub,
+    reacthome-logic,
 
   hs-source-dirs: app
   main-is: Main.hs

@@ -1,7 +1,7 @@
+import PubSub.Publisher (Publisher (..))
 import Reacthome.Logic.Glue.Publisher (makeGluePublisher)
 import Reacthome.Logic.Glue.Sink (makeSinkRegistry)
 import Reacthome.Logic.Glue.Store (GlueStore (..), makeGlueStore)
-import Reacthome.Logic.PubSub.Publisher (Publisher (..))
 import Reacthome.Logic.Server (logicServer)
 import WebSockets.Options (defaultWebSocketOptions)
 import WebSockets.Server (runWebSocketServer)

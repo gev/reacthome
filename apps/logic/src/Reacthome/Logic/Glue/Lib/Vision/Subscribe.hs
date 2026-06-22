@@ -4,8 +4,8 @@ import Data.UUID (UUID)
 import Glue.Eval (Eval, liftIO, throwError)
 import Glue.Eval.Exception (wrongArgumentType)
 import Glue.IR (IR (..))
+import PubSub.Publisher (Publisher (..))
 import Reacthome.Logic.Glue.Publisher (GluePublisher)
-import Reacthome.Logic.PubSub.Publisher (Publisher (..))
 
 subscribe ::
     ( ?session :: UUID
