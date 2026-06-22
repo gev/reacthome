@@ -3,7 +3,7 @@ module Reacthome.Logic.Glue.Lib.Vision where
 import Data.UUID (UUID)
 import Glue.Eval (Eval)
 import Glue.Module (ModuleInfo, nativeModule)
-import Reacthome.Logic.Glue.Lib.Vision.Download (getAsset)
+import Reacthome.Logic.Glue.Lib.Vision.Download (downloadAsset)
 import Reacthome.Logic.Glue.Lib.Vision.Log (log)
 import Reacthome.Logic.Glue.Lib.Vision.Subscribe (subscribe)
 import Reacthome.Logic.Glue.Publisher (GluePublisher)
@@ -20,6 +20,6 @@ vision =
     nativeModule
         "vision"
         [ ("subscribe", subscribe)
-        , ("get-asset", getAsset)
+        , ("download", downloadAsset)
         , ("log", log)
         ]

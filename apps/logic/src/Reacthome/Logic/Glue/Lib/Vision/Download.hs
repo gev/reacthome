@@ -15,21 +15,21 @@ import Glue.IR (IR (..))
 import Reacthome.Logic.Glue.Sink (Sink)
 import System.Directory (doesFileExist, getFileSize)
 
-getAsset ::
+downloadAsset ::
     (?sink :: Sink) =>
     IR Eval
-getAsset = Special getAssetImpl
+downloadAsset = Special downloadAssetImpl
 
-getAssetImpl ::
+downloadAssetImpl ::
     (?sink :: Sink) =>
     [IR Eval] -> Eval (IR Eval)
-getAssetImpl [Symbol key] = do
+downloadAssetImpl [Symbol key] = do
     liftIO $ sendAsset [key]
     pure Void
-getAssetImpl [DottedSymbol key] = do
+downloadAssetImpl [DottedSymbol key] = do
     liftIO $ sendAsset key
     pure Void
-getAssetImpl _ =
+downloadAssetImpl _ =
     throwError $
         wrongArgumentType
             ["Name parameter should be `Symbol` or `DottedSymbol`"]
