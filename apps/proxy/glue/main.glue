@@ -1,0 +1,15 @@
+(module main
+    (export main)
+
+    (import screen.home)
+    (import screen.next)
+
+    (def main
+        (app
+            :routes (
+                :home (home-screen :title "Hello Glue!")
+                :next (next-screen :title "Salute!")
+            )
+        )
+    )
+)

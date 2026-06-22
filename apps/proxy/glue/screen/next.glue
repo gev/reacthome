@@ -1,0 +1,36 @@
+(module screen.next
+    (export next-screen)
+
+    (import lib.vision)
+
+    (def (next-screen props)
+        (screen
+            :body (center
+                :child (
+                    column
+                    :main-axis-size main-axis-size.min
+                    :spacing 32
+                    :children (
+                        (image
+                            :src "icon.png"
+                            :width 100)
+                        (text :content props.title)
+                        (text :content (foo 10))
+                        (row
+                            :main-axis-size main-axis-size.min
+                            :spacing 32
+                            :children (
+                                (button
+                                    :child (text :content "< Назад")
+                                    :on-pressed back)
+                                (filled-button
+                                    :child (text :content "Далее >")
+                                    :on-pressed (go 'next))
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    )
+)

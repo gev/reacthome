@@ -1,0 +1,84 @@
+cabal-version: 3.8
+name: reacthome-proxy
+version: 0.1.0.0
+synopsis: Reacthome Proxy
+description: Reacthome Proxy Server between Legacy Daemon and new Reacthome Flow
+license: BSD-3-Clause
+author: ReactHome Team
+maintainer: gazdovsky@gmail.com
+category: Web
+build-type: Simple
+
+common common-options
+  build-depends:
+    base,
+    stm,
+    stm-containers,
+    ws,
+
+  default-language: GHC2024
+  default-extensions:
+    BlockArguments
+    DeriveAnyClass
+    DerivingStrategies
+    DuplicateRecordFields
+    ImplicitParams
+    OverloadedRecordDot
+    OverloadedStrings
+    PatternSynonyms
+    RecordWildCards
+
+library
+  import:
+    common-options
+
+  -- cabal-gild: discover src
+  exposed-modules:
+    Reacthome.Proxy.App
+    Reacthome.Proxy.Data.Capabilities.Adjustable
+    Reacthome.Proxy.Data.Capabilities.Switchable
+    Reacthome.Proxy.Data.Core.Capabilities
+    Reacthome.Proxy.Data.Core.Connector
+    Reacthome.Proxy.Data.Core.Device
+    Reacthome.Proxy.Data.Core.Net
+    Reacthome.Proxy.Data.Core.Site
+    Reacthome.Proxy.Data.Core.Store
+    Reacthome.Proxy.Error
+    Reacthome.Proxy.Glue.Controller
+    Reacthome.Proxy.Glue.Env
+    Reacthome.Proxy.Glue.Evaluator
+    Reacthome.Proxy.Glue.Lib.Vision
+    Reacthome.Proxy.Glue.Lib.Vision.Download
+    Reacthome.Proxy.Glue.Lib.Vision.Log
+    Reacthome.Proxy.Glue.Lib.Vision.Subscribe
+    Reacthome.Proxy.Glue.Publisher
+    Reacthome.Proxy.Glue.Sink
+    Reacthome.Proxy.Glue.Store
+    Reacthome.Proxy.Server
+
+  build-depends:
+    async,
+    bytestring,
+    containers,
+    directory,
+    filepath,
+    fsnotify,
+    glue,
+    pubsub,
+    text,
+    time,
+    unagi-chan,
+    uuid,
+
+  hs-source-dirs: src
+
+executable reacthome-logic
+  import:
+    common-options
+
+  build-depends:
+    pubsub,
+    reacthome-logic,
+
+  hs-source-dirs: app
+  main-is: Main.hs

@@ -1,0 +1,13 @@
+(module lib.vision
+    (export back go foo)
+
+    (def back
+        (\ () (pop ()))
+    )
+
+    (def (go screen)
+        (\ () (push screen))
+    )
+
+    (def (foo x) (* x x))
+)
