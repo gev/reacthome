@@ -3,9 +3,9 @@ module Reacthome.Proxy.App where
 import PubSub.Publisher (Publisher (..))
 import Reacthome.Proxy.Config (Config (..))
 import Reacthome.Proxy.Glue.Publisher (makeGluePublisher)
-import Reacthome.Proxy.Glue.Sink (makeSinkRegistry)
 import Reacthome.Proxy.Glue.Store (GlueStore (..), makeGlueStore)
 import Reacthome.Proxy.Server (logicServer)
+import Reacthome.Proxy.Sink (makeSinkRegistry)
 import WebSockets.Options (defaultWebSocketOptions)
 import WebSockets.Server (runWebSocketServer)
 

@@ -1,4 +1,4 @@
-module Reacthome.Proxy.Glue.Sink where
+module Reacthome.Proxy.Sink where
 
 import Control.Concurrent.STM (atomically)
 import Data.ByteString.Lazy (ByteString)

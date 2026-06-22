@@ -8,8 +8,8 @@ import Data.Text.Encoding (encodeUtf8)
 import Data.UUID (UUID)
 import PubSub.Publisher (Publisher, makePublisher)
 import PubSub.Revision (Revision (..))
-import Reacthome.Proxy.Glue.Sink (SinkRegistry (..))
 import Reacthome.Proxy.Glue.Store (GlueStore (..))
+import Reacthome.Proxy.Sink (SinkRegistry (..))
 
 type GluePublisher = Publisher UUID [Text] L.ByteString Int
 

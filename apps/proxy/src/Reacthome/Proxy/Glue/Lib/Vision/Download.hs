@@ -4,7 +4,7 @@ import Glue.Eval (Eval, liftIO, throwError)
 import Glue.Eval.Exception (wrongArgumentType)
 import Glue.IR (IR (..))
 import Reacthome.Proxy.Assets (sendAsset)
-import Reacthome.Proxy.Glue.Sink (Sink)
+import Reacthome.Proxy.Sink (Sink)
 
 getAsset ::
     (?sink :: Sink) =>

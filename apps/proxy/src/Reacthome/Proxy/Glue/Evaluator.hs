@@ -8,7 +8,7 @@ import Glue.Eval (eval, runEvalSimple)
 import Glue.Parse (parseGlue)
 import Reacthome.Proxy.Glue.Env (env)
 import Reacthome.Proxy.Glue.Publisher (GluePublisher)
-import Reacthome.Proxy.Glue.Sink (Sink)
+import Reacthome.Proxy.Sink (Sink)
 
 run ::
     ( ?session :: UUID

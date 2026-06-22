@@ -46,9 +46,9 @@ library
     Reacthome.Proxy.Glue.Lib.Vision.Log
     Reacthome.Proxy.Glue.Lib.Vision.Subscribe
     Reacthome.Proxy.Glue.Publisher
-    Reacthome.Proxy.Glue.Sink
     Reacthome.Proxy.Glue.Store
     Reacthome.Proxy.Server
+    Reacthome.Proxy.Sink
 
   build-depends:
     async,

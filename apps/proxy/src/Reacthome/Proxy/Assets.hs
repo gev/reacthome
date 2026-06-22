@@ -9,7 +9,7 @@ import Data.Foldable (traverse_)
 import Data.Text (Text)
 import Data.Text qualified as T
 import Data.Text.Encoding qualified as T
-import Reacthome.Proxy.Glue.Sink (Sink)
+import Reacthome.Proxy.Sink (Sink)
 import System.Directory (doesFileExist, getFileSize)
 
 sendAsset :: (?sink :: Sink) => [Text] -> IO ()

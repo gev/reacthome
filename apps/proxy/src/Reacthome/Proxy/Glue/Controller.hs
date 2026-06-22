@@ -7,7 +7,7 @@ import Data.UUID (UUID)
 import Data.Word (Word8)
 import Reacthome.Proxy.Glue.Evaluator (run)
 import Reacthome.Proxy.Glue.Publisher (GluePublisher)
-import Reacthome.Proxy.Glue.Sink (Sink)
+import Reacthome.Proxy.Sink (Sink)
 
 pattern HeartBeat :: Word8
 pattern HeartBeat = 0
