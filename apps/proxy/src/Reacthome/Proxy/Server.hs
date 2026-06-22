@@ -10,13 +10,11 @@ import Reacthome.Proxy.Glue.Controller (controller)
 import Reacthome.Proxy.Glue.Publisher (GluePublisher)
 import Reacthome.Proxy.Sink (SinkRegistry (..))
 import WebSockets.Connection (WebSocketConnection (..))
-import WebSockets.Options (WebSocketOptions)
 import WebSockets.PendingConnection (WebSocketPendingConnection (..))
 import Prelude hiding (lookup, take)
 
 proxyServer ::
-    ( ?options :: WebSocketOptions
-    , ?pubsub :: GluePublisher
+    ( ?pubsub :: GluePublisher
     , ?assets :: Assets
     , ?sinks :: SinkRegistry
     ) =>
