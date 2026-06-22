@@ -14,14 +14,14 @@ import WebSockets.Options (WebSocketOptions)
 import WebSockets.PendingConnection (WebSocketPendingConnection (..))
 import Prelude hiding (lookup, take)
 
-logicServer ::
+proxyServer ::
     ( ?options :: WebSocketOptions
     , ?pubsub :: GluePublisher
     , ?assets :: Assets
     , ?sinks :: SinkRegistry
     ) =>
     WebSocketPendingConnection -> IO ()
-logicServer pending =
+proxyServer pending =
     pending.accept >>= \case
         Left !e -> logError $ WebSocketError e
         Right !connection -> do
