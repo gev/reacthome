@@ -5,9 +5,11 @@
     (import screen.next)
 
     (def main
-        (routes
-            :home (home-screen :title "Hello Glue!")
-            :next (next-screen :title "Salute!")
+        (app
+            :routes (
+                :home (home-screen :title "Hello Glue!")
+                :next (next-screen :title "Salute!")
+            )
         )
     )
 )
