@@ -35,6 +35,7 @@ library
   -- cabal-gild: discover src
   exposed-modules:
     Reacthome.Proxy.App
+    Reacthome.Proxy.Assets
     Reacthome.Proxy.Config
     Reacthome.Proxy.Error
     Reacthome.Proxy.Glue.Controller
