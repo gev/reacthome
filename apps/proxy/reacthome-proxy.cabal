@@ -35,14 +35,7 @@ library
   -- cabal-gild: discover src
   exposed-modules:
     Reacthome.Proxy.App
-    Reacthome.Proxy.Data.Capabilities.Adjustable
-    Reacthome.Proxy.Data.Capabilities.Switchable
-    Reacthome.Proxy.Data.Core.Capabilities
-    Reacthome.Proxy.Data.Core.Connector
-    Reacthome.Proxy.Data.Core.Device
-    Reacthome.Proxy.Data.Core.Net
-    Reacthome.Proxy.Data.Core.Site
-    Reacthome.Proxy.Data.Core.Store
+    Reacthome.Proxy.Config
     Reacthome.Proxy.Error
     Reacthome.Proxy.Glue.Controller
     Reacthome.Proxy.Glue.Env
@@ -72,13 +65,12 @@ library
 
   hs-source-dirs: src
 
-executable reacthome-logic
+executable reacthome-proxy
   import:
     common-options
 
   build-depends:
-    pubsub,
-    reacthome-logic,
+    reacthome-proxy
 
   hs-source-dirs: app
   main-is: Main.hs

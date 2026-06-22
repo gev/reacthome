@@ -1,29 +1,19 @@
-import PubSub.Publisher (Publisher (..))
-import Reacthome.Logic.Glue.Publisher (makeGluePublisher)
-import Reacthome.Logic.Glue.Sink (makeSinkRegistry)
-import Reacthome.Logic.Glue.Store (GlueStore (..), makeGlueStore)
-import Reacthome.Logic.Server (logicServer)
-import WebSockets.Options (defaultWebSocketOptions)
-import WebSockets.Server (runWebSocketServer)
+import Reacthome.Proxy.App (app)
+import Reacthome.Proxy.Config (Config (..))
 
 main :: IO ()
 main = do
-    let path = "./apps/logic/glue/"
-        host = "127.0.0.1"
-        port = 3005
-
-    sinks <- makeSinkRegistry
-    let ?sinks = sinks
-
-    let ?store = makeGlueStore path
-
-    pubsub <- makeGluePublisher
-    let ?pubsub = pubsub
-
-    ?store.runWatcher pubsub.publish
-
-    let ?options = defaultWebSocketOptions
-
-    putStrLn $ "Run Reacthome Relay on " <> host <> ":" <> show port
-
-    runWebSocketServer host port logicServer
+    putStrLn $
+        "Run Reacthome Relay on "
+            <> config.host
+            <> ":"
+            <> show
+                config.port
+    app config
+  where
+    config =
+        Config
+            { host = "127.0.0.1"
+            , port = 3005
+            , path = "./apps/proxy/glue/"
+            }
