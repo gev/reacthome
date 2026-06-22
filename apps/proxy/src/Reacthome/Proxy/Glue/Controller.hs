@@ -5,6 +5,7 @@ import Data.Text.Lazy (toStrict)
 import Data.Text.Lazy.Encoding (decodeUtf8')
 import Data.UUID (UUID)
 import Data.Word (Word8)
+import Reacthome.Proxy.Assets (Assets)
 import Reacthome.Proxy.Glue.Evaluator (run)
 import Reacthome.Proxy.Glue.Publisher (GluePublisher)
 import Reacthome.Proxy.Sink (Sink)
@@ -19,6 +20,7 @@ pattern File = 2
 controller ::
     ( ?session :: UUID
     , ?pubsub :: GluePublisher
+    , ?assets :: Assets
     , ?sink :: Sink
     ) =>
     ByteString -> IO ()
@@ -37,6 +39,7 @@ heartBeat = pure ()
 runGlue ::
     ( ?session :: UUID
     , ?pubsub :: GluePublisher
+    , ?assets :: Assets
     , ?sink :: Sink
     ) =>
     ByteString -> IO ()

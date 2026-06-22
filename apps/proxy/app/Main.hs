@@ -7,13 +7,13 @@ main = do
         "Run Reacthome Relay on "
             <> config.host
             <> ":"
-            <> show
-                config.port
+            <> show config.port
     app config
   where
     config =
         Config
             { host = "127.0.0.1"
             , port = 3005
-            , path = "./apps/proxy/glue/"
+            , gluePath = "./apps/proxy/glue/"
+            , assetsPath = "./assets"
             }

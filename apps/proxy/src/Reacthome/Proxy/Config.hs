@@ -3,5 +3,6 @@ module Reacthome.Proxy.Config where
 data Config = Config
     { host :: String
     , port :: Int
-    , path :: FilePath
+    , gluePath :: FilePath
+    , assetsPath :: FilePath
     }

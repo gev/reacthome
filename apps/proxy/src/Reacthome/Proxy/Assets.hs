@@ -11,29 +11,34 @@ import Data.Text qualified as T
 import Data.Text.Encoding qualified as T
 import Reacthome.Proxy.Sink (Sink)
 import System.Directory (doesFileExist, getFileSize)
+import System.FilePath ((</>))
 
-sendAsset :: (?sink :: Sink) => [Text] -> IO ()
-sendAsset parts = do
-    fileExists <- doesFileExist assetPath
-    if not fileExists
-        then putStrLn $ "Asset not found: " <> assetPath
-        else void $ forkIO do
-            assetSize <- getFileSize assetPath
-            assetChunks <- L.toChunks <$> L.readFile assetPath
-            let offsets = scanl nextOffset 0 assetChunks
-            let chunks = zipWith (makeChunk assetSize) assetChunks offsets
-            traverse_ ?sink chunks
+newtype Assets = Assets {sendAsset :: Sink -> [Text] -> IO ()}
+
+makeAssets :: FilePath -> Assets
+makeAssets path = Assets sendAsset
   where
-    makeChunk fileSize chunk offset =
-        B.toLazyByteString $
-            B.word8 2
-                <> B.word64BE (fromIntegral fileSize)
-                <> B.word32BE (fromIntegral $ S.length chunk)
-                <> B.word64BE (fromIntegral offset)
-                <> B.byteString (T.encodeUtf8 assetName)
-                <> B.byteString chunk
+    sendAsset sink parts = do
+        fileExists <- doesFileExist assetPath
+        if not fileExists
+            then putStrLn $ "Asset not found: " <> assetPath
+            else void $ forkIO do
+                assetSize <- getFileSize assetPath
+                assetChunks <- L.toChunks <$> L.readFile assetPath
+                let offsets = scanl nextOffset 0 assetChunks
+                let chunks = zipWith (makeChunk assetSize) assetChunks offsets
+                traverse_ sink chunks
+      where
+        makeChunk fileSize chunk offset =
+            B.toLazyByteString $
+                B.word8 2
+                    <> B.word64BE (fromIntegral fileSize)
+                    <> B.word32BE (fromIntegral $ S.length chunk)
+                    <> B.word64BE (fromIntegral offset)
+                    <> B.byteString (T.encodeUtf8 assetName)
+                    <> B.byteString chunk
 
-    nextOffset acc chunk = acc + S.length chunk
+        nextOffset acc chunk = acc + S.length chunk
 
-    assetName = T.intercalate "." parts
-    assetPath = T.unpack $ "./assets/" <> assetName
+        assetName = T.intercalate "." parts
+        assetPath = path </> T.unpack assetName

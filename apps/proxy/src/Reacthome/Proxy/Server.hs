@@ -4,6 +4,7 @@ import Control.Concurrent.Async (race)
 import Control.Concurrent.Chan.Unagi.Bounded (newChan, tryRead, tryReadChan, writeChan)
 import Data.ByteString.Lazy qualified as L
 import Data.UUID.V4 (nextRandom)
+import Reacthome.Proxy.Assets (Assets)
 import Reacthome.Proxy.Error (ProxyError (..), logError)
 import Reacthome.Proxy.Glue.Controller (controller)
 import Reacthome.Proxy.Glue.Publisher (GluePublisher)
@@ -15,8 +16,9 @@ import Prelude hiding (lookup, take)
 
 logicServer ::
     ( ?options :: WebSocketOptions
-    , ?sinks :: SinkRegistry
     , ?pubsub :: GluePublisher
+    , ?assets :: Assets
+    , ?sinks :: SinkRegistry
     ) =>
     WebSocketPendingConnection -> IO ()
 logicServer pending =

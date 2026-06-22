@@ -3,24 +3,28 @@ module Reacthome.Proxy.Glue.Lib.Vision.Download where
 import Glue.Eval (Eval, liftIO, throwError)
 import Glue.Eval.Exception (wrongArgumentType)
 import Glue.IR (IR (..))
-import Reacthome.Proxy.Assets (sendAsset)
+import Reacthome.Proxy.Assets (Assets (..))
 import Reacthome.Proxy.Sink (Sink)
 
-getAsset ::
-    (?sink :: Sink) =>
+download ::
+    ( ?assets :: Assets
+    , ?sink :: Sink
+    ) =>
     IR Eval
-getAsset = Special getAssetImpl
+download = Special downloadImpl
 
-getAssetImpl ::
-    (?sink :: Sink) =>
+downloadImpl ::
+    ( ?assets :: Assets
+    , ?sink :: Sink
+    ) =>
     [IR Eval] -> Eval (IR Eval)
-getAssetImpl [Symbol key] = do
-    liftIO $ sendAsset [key]
+downloadImpl [Symbol key] = do
+    liftIO $ ?assets.sendAsset ?sink [key]
     pure Void
-getAssetImpl [DottedSymbol key] = do
-    liftIO $ sendAsset key
+downloadImpl [DottedSymbol key] = do
+    liftIO $ ?assets.sendAsset ?sink key
     pure Void
-getAssetImpl _ =
+downloadImpl _ =
     throwError $
         wrongArgumentType
             ["Name parameter should be `Symbol` or `DottedSymbol`"]
