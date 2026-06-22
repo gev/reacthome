@@ -1,0 +1,30 @@
+cabal-version: 3.8
+name: pubsub
+version: 0.1.0.0
+synopsis: PubSub Publisher
+description: An object publisher for Reacthome pulications
+license: BSD-3-Clause
+author: ReactHome Team
+maintainer: gazdovsky@gmail.com
+category: Web
+build-type: Simple
+
+library
+  hs-source-dirs: src
+  -- cabal-gild: discover src
+  exposed-modules:
+    PubSub.Publisher
+    PubSub.Revision
+
+  build-depends:
+    base,
+    hashable,
+    list-t,
+    stm,
+    stm-containers,
+
+  default-language: GHC2024
+  default-extensions:
+    BlockArguments
+    OverloadedRecordDot
+    RecordWildCards
