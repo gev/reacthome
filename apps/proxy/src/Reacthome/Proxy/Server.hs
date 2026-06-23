@@ -36,7 +36,7 @@ proxyServer ::
     WebSocketPendingConnection -> IO ()
 proxyServer pending =
     pending.accept >>= \case
-        Left !e -> logError $ WebSocketError e
+        Left !e -> logError $ ProxyError e
         Right !connection -> do
             (inChan, outChan) <- newChan 10
             res <-
