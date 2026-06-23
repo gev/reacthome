@@ -7,6 +7,7 @@ import WebSockets.Options (defaultWebSocketOptions)
 
 runProxyDaemon :: DaemonConfig -> IO ()
 runProxyDaemon config = do
+    ()
     let ?options = defaultWebSocketOptions
     let ?sink = undefined
     let ?source = undefined
