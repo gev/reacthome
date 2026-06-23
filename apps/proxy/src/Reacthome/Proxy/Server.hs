@@ -10,7 +10,7 @@ import Reacthome.Proxy.Glue.Controller (controller)
 import Reacthome.Proxy.Glue.Publisher (GluePublisher)
 import Reacthome.Proxy.Sink (SinkRegistry (..))
 import WebSockets.Connection (WebSocketConnection (..))
-import WebSockets.Options (WebSocketOptions (..), defaultWebSocketOptions)
+import WebSockets.Options (defaultWebSocketOptions)
 import WebSockets.PendingConnection (WebSocketPendingConnection (..))
 import WebSockets.Server (runWebSocketServer)
 import Prelude hiding (lookup, take)
@@ -22,7 +22,7 @@ runProxyServer ::
     ) =>
     ServerConfig -> IO ()
 runProxyServer config = do
-    let ?options = defaultWebSocketOptions{bound = 10}
+    let ?options = defaultWebSocketOptions
     runWebSocketServer
         config.host
         config.port
@@ -32,14 +32,13 @@ proxyServer ::
     ( ?pubsub :: GluePublisher
     , ?assets :: Assets
     , ?sinks :: SinkRegistry
-    , ?options :: WebSocketOptions
     ) =>
     WebSocketPendingConnection -> IO ()
 proxyServer pending =
     pending.accept >>= \case
         Left !e -> logError $ WebSocketError e
         Right !connection -> do
-            (inChan, outChan) <- newChan ?options.bound
+            (inChan, outChan) <- newChan 10
             res <-
                 either id id <$> race
                     do

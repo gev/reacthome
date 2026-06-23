@@ -6,7 +6,7 @@ import WebSockets.Error (WebSocketError)
 import Prelude hiding (error)
 
 newtype ProxyError
-    = WebSocketError WebSocketError
+    = ProxyError WebSocketError
     deriving (Show)
 
 instance Exception ProxyError
@@ -15,5 +15,5 @@ logError :: ProxyError -> IO ()
 logError err =
     traceIO $
         "[ERROR] " <> case err of
-            WebSocketError e ->
+            ProxyError e ->
                 "WebSocket error, peer " <> ": " <> show e
