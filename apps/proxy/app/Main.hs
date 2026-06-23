@@ -1,19 +1,25 @@
 import Reacthome.Proxy.App (app)
-import Reacthome.Proxy.Config (Config (..))
+import Reacthome.Proxy.Config (AppConfig (..), DaemonConfig (..))
 
 main :: IO ()
 main = do
     putStrLn $
         "Run Reacthome Relay on "
-            <> config.host
+            <> appConfig.listenHost
             <> ":"
-            <> show config.port
-    app config
+            <> show appConfig.listenPort
+    app appConfig
   where
-    config =
-        Config
-            { host = "127.0.0.1"
-            , port = 3005
+    appConfig =
+        AppConfig
+            { listenHost = "127.0.0.1"
+            , listenPort = 3005
             , gluePath = "./apps/proxy/glue/"
             , assetsPath = "./assets"
+            }
+    daemonConfig =
+        DaemonConfig
+            { daemon = "02aaee3f-a050-43d5-bbf2-e0f2abd73a6e"
+            , daemonHost = "127.0.0.1"
+            , daemonPort = 2026
             }

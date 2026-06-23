@@ -1,6 +1,6 @@
 module Reacthome.Proxy.Glue.Store where
 
-import Control.Concurrent (forkIO, threadDelay)
+import Control.Concurrent (threadDelay)
 import Control.Exception (SomeException, catch)
 import Control.Monad (forever, void, when)
 import Data.ByteString.Lazy qualified as L
@@ -34,7 +34,7 @@ makeGlueStore folder = GlueStore{..}
                 print err
                 pure Nothing
 
-    runWatcher publish = void . forkIO $ withManager \mgr -> do
+    runWatcher publish = withManager \mgr -> do
         void $ watchTree mgr folder (const True) (handle publish)
         forever $ threadDelay 1_000_000
 
