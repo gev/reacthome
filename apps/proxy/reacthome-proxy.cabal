@@ -37,6 +37,7 @@ library
     Reacthome.Proxy.App
     Reacthome.Proxy.Assets
     Reacthome.Proxy.Config
+    Reacthome.Proxy.Daemon
     Reacthome.Proxy.Error
     Reacthome.Proxy.Glue.Controller
     Reacthome.Proxy.Glue.Env

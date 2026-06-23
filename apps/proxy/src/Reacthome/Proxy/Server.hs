@@ -2,16 +2,31 @@ module Reacthome.Proxy.Server where
 
 import Control.Concurrent.Async (race)
 import Control.Concurrent.Chan.Unagi.Bounded (newChan, tryRead, tryReadChan, writeChan)
-import Data.ByteString.Lazy qualified as L
 import Data.UUID.V4 (nextRandom)
 import Reacthome.Proxy.Assets (Assets)
+import Reacthome.Proxy.Config (ServerConfig (..))
 import Reacthome.Proxy.Error (ProxyError (..), logError)
 import Reacthome.Proxy.Glue.Controller (controller)
 import Reacthome.Proxy.Glue.Publisher (GluePublisher)
 import Reacthome.Proxy.Sink (SinkRegistry (..))
 import WebSockets.Connection (WebSocketConnection (..))
+import WebSockets.Options (defaultWebSocketOptions)
 import WebSockets.PendingConnection (WebSocketPendingConnection (..))
+import WebSockets.Server (runWebSocketServer)
 import Prelude hiding (lookup, take)
+
+runProxyServer ::
+    ( ?pubsub :: GluePublisher
+    , ?assets :: Assets
+    , ?sinks :: SinkRegistry
+    ) =>
+    ServerConfig -> IO ()
+runProxyServer config = do
+    let ?options = defaultWebSocketOptions
+    runWebSocketServer
+        config.host
+        config.port
+        proxyServer
 
 proxyServer ::
     ( ?pubsub :: GluePublisher
@@ -23,7 +38,7 @@ proxyServer pending =
     pending.accept >>= \case
         Left !e -> logError $ WebSocketError e
         Right !connection -> do
-            (inChan, outChan) <- newChan @L.ByteString 10
+            (inChan, outChan) <- newChan 10
             res <-
                 either id id <$> race
                     do
