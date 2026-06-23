@@ -21,5 +21,5 @@ main = do
         DaemonConfig
             { daemon = "02aaee3f-a050-43d5-bbf2-e0f2abd73a6e"
             , daemonHost = "127.0.0.1"
-            , daemonPort = 2026
+            , daemonPort = 3000
             }
