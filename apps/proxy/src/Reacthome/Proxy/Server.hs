@@ -52,4 +52,4 @@ proxyServer pending =
                             (!element, !wait) <- tryReadChan outChan
                             !message <- tryRead element
                             pure (message, wait)
-            logError $ WebSocketError res
+            logError $ ProxyError res
