@@ -6,21 +6,23 @@ import Data.Aeson.Key qualified as A
 import Data.Aeson.KeyMap qualified as A
 import Data.Bifunctor (bimap)
 import Data.ByteString.Lazy (ByteString)
-import Data.Scientific (floatingOrInteger)
+import Data.Maybe (fromMaybe)
+import Data.Scientific (floatingOrInteger, toBoundedInteger)
 import Data.Text (Text)
 import Data.Vector qualified as V
 import Glue.AST (AST (..))
 
-decodeAction :: ByteString -> Maybe AST
+decodeAction :: ByteString -> Maybe (Text, AST, Int)
 decodeAction = convert <=< A.decode
 
-convert :: A.Object -> Maybe AST
+convert :: A.Object -> Maybe (Text, AST, Int)
 convert o =
     lookupType o >>= \case
         "ACTION_SET" -> do
             id' <- lookupId o
             payload <- lookupPayload o
-            pure $ makeObject id' payload
+            let timestamp = lookupTimestamp o
+            pure (id', makeObject payload, timestamp)
         _ -> Nothing
 
 lookupType :: A.Object -> Maybe Text
@@ -41,8 +43,16 @@ lookupPayload o =
         A.Object p -> pure p
         _ -> Nothing
 
-makeObject :: Text -> A.Object -> AST
-makeObject id' payload = Object $ [("id", String id')] <> props payload
+lookupTimestamp :: A.Object -> Int
+lookupTimestamp o =
+    let sci =
+            case A.lookup "timestamp" o of
+                Just (A.Number n) -> toBoundedInteger n
+                _ -> Nothing
+     in fromMaybe 0 sci
+
+makeObject :: A.Object -> AST
+makeObject payload = Object $ props payload
 
 props :: A.Object -> [(Text, AST)]
 props payload = bimap A.toText fromAeson <$> A.toList filtered

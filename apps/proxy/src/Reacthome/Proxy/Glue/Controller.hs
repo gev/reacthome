@@ -6,6 +6,7 @@ import Data.Text.Lazy.Encoding (decodeUtf8')
 import Data.UUID (UUID)
 import Data.Word (Word8)
 import Reacthome.Proxy.Assets (Assets)
+import Reacthome.Proxy.Bridge (Bridge)
 import Reacthome.Proxy.Glue.Evaluator (run)
 import Reacthome.Proxy.Glue.PubSub.Publisher (GluePublisher)
 import Reacthome.Proxy.Sink (Sink)
@@ -22,6 +23,7 @@ controller ::
     , ?pubsub :: GluePublisher
     , ?assets :: Assets
     , ?sink :: Sink
+    , ?bridge :: Bridge
     ) =>
     ByteString -> IO ()
 controller message =
@@ -41,6 +43,7 @@ runGlue ::
     , ?pubsub :: GluePublisher
     , ?assets :: Assets
     , ?sink :: Sink
+    , ?bridge :: Bridge
     ) =>
     ByteString -> IO ()
 runGlue message = do

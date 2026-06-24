@@ -7,6 +7,7 @@ import Glue.Error (GlueError (..))
 import Glue.Eval (eval, runEvalSimple)
 import Glue.Parse (parseGlue)
 import Reacthome.Proxy.Assets (Assets)
+import Reacthome.Proxy.Bridge (Bridge)
 import Reacthome.Proxy.Glue.Env (env)
 import Reacthome.Proxy.Glue.PubSub.Publisher (GluePublisher)
 import Reacthome.Proxy.Sink (Sink)
@@ -16,6 +17,7 @@ run ::
     , ?pubsub :: GluePublisher
     , ?assets :: Assets
     , ?sink :: Sink
+    , ?bridge :: Bridge
     ) =>
     Text -> IO (Either GlueError ())
 run expression = case parseGlue expression of

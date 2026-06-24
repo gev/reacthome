@@ -2,7 +2,13 @@ module Reacthome.Proxy.Bridge where
 
 import Control.Concurrent.Chan.Unagi.Bounded (Element (tryRead), newChan, tryReadChan, writeChan)
 import Data.ByteString.Lazy (ByteString)
+import Data.Text.Lazy.Encoding (encodeUtf8)
+import Glue.Serialize (serializeAST)
+import PubSub.Publisher (Publisher (..))
+import PubSub.Revision (Revision (..))
 import Reacthome.Proxy.Daemon.Actions (decodeAction)
+import Reacthome.Proxy.Glue.PubSub.GlueOp (GlueOp (..))
+import Reacthome.Proxy.Glue.PubSub.Publisher (GluePublisher)
 import WebSockets.Connection (WebSocketSink, WebSocketSource)
 
 data Bridge = Bridge
@@ -10,7 +16,7 @@ data Bridge = Bridge
     , downstream :: Downstream
     }
 
-makeBridge :: IO Bridge
+makeBridge :: (?pubsub :: GluePublisher) => IO Bridge
 makeBridge = do
     let upstream = makeUpstream
     downstream <- makeDownstream
@@ -36,5 +42,14 @@ newtype Upstream = Upstream
     { publish :: ByteString -> IO ()
     }
 
-makeUpstream :: Upstream
-makeUpstream = Upstream $ print . decodeAction
+makeUpstream :: (?pubsub :: GluePublisher) => Upstream
+makeUpstream = Upstream{..}
+  where
+    publish action =
+        case decodeAction action of
+            Just (id', value, version) -> do
+                let key = ["proxy", id']
+                let payload = Put . encodeUtf8 . serializeAST $ value
+                let revision = Revision{..}
+                ?pubsub.publish key revision
+            Nothing -> pure ()
