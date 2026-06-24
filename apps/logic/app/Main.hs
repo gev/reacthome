@@ -1,5 +1,5 @@
 import PubSub.Publisher (Publisher (..))
-import Reacthome.Logic.Glue.Publisher (makeGluePublisher)
+import Reacthome.Logic.Glue.PubSub.Publisher (makeGluePublisher)
 import Reacthome.Logic.Glue.Sink (makeSinkRegistry)
 import Reacthome.Logic.Glue.Store (GlueStore (..), makeGlueStore)
 import Reacthome.Logic.Server (logicServer)

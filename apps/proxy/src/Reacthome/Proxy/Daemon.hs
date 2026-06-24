@@ -1,22 +1,16 @@
 module Reacthome.Proxy.Daemon where
 
-import Control.Concurrent.Chan.Unagi.Bounded (Element (tryRead), newChan, tryReadChan)
 import Control.Monad (void)
+import Reacthome.Proxy.Bridge (Bridge (..), Downstream (..), Upstream (..))
 import Reacthome.Proxy.Config (DaemonConfig (..))
-import Reacthome.Proxy.Daemon.Actions (decodeAction)
 import WebSockets.Client (runWebSocketClient)
 import WebSockets.Options (defaultWebSocketOptions)
 
-runProxyDaemon :: DaemonConfig -> IO ()
+runProxyDaemon :: (?bridge :: Bridge) => DaemonConfig -> IO ()
 runProxyDaemon config = do
     let ?options = defaultWebSocketOptions
-    (inChan, outChan) <- newChan 10
-    let ?sink = print . decodeAction
-    let ?source =
-            do
-                (!element, !wait) <- tryReadChan outChan
-                !message <- tryRead element
-                pure (message, wait)
+    let ?sink = ?bridge.upstream.publish
+    let ?source = ?bridge.downstream.receive
     void $
         runWebSocketClient
             config.host

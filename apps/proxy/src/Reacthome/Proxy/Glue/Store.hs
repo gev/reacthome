@@ -11,13 +11,14 @@ import Data.Time.Clock (UTCTime)
 import Data.Time.Clock.POSIX (utcTimeToPOSIXSeconds)
 import PubSub.Publisher (PubSubGetter, PubSubSender)
 import PubSub.Revision (Revision (..))
+import Reacthome.Proxy.Glue.PubSub.GlueOp (GlueOp (..))
 import System.Directory (canonicalizePath, getModificationTime)
 import System.FSNotify (Event (..), EventIsDirectory (..), watchTree, withManager)
 import System.FilePath (pathSeparator, splitDirectories)
 
 data GlueStore = GlueStore
     { get :: PubSubGetter [Text] L.ByteString Int
-    , runWatcher :: PubSubSender [Text] L.ByteString Int -> IO ()
+    , runWatcher :: PubSubSender [Text] GlueOp Int -> IO ()
     }
 
 makeGlueStore :: FilePath -> GlueStore
@@ -45,7 +46,7 @@ makeGlueStore folder = GlueStore{..}
                 let file = drop (length absolute + 1) path
                 let (key, ext) = splitAt (length file - 5) file
                 when (ext == ".glue") do
-                    payload <- L.readFile path
+                    payload <- Put <$> L.readFile path
                     let parts = splitDirectories key
                     let version = utcTimeToMillis time
                     let value = Revision{..}

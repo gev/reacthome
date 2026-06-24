@@ -5,7 +5,7 @@ import Glue.Eval (Eval, liftIO, throwError)
 import Glue.Eval.Exception (wrongArgumentType)
 import Glue.IR (IR (..))
 import PubSub.Publisher (Publisher (..))
-import Reacthome.Proxy.Glue.Publisher (GluePublisher)
+import Reacthome.Proxy.Glue.PubSub.Publisher (GluePublisher)
 
 subscribe ::
     ( ?session :: UUID

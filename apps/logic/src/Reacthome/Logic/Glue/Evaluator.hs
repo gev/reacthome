@@ -7,7 +7,7 @@ import Glue.Error (GlueError (..))
 import Glue.Eval (eval, runEvalSimple)
 import Glue.Parse (parseGlue)
 import Reacthome.Logic.Glue.Env (env)
-import Reacthome.Logic.Glue.Publisher (GluePublisher)
+import Reacthome.Logic.Glue.PubSub.Publisher (GluePublisher)
 import Reacthome.Logic.Glue.Sink (Sink)
 
 run ::

@@ -6,7 +6,7 @@ import Glue.Module (ModuleInfo, nativeModule)
 import Reacthome.Logic.Glue.Lib.Vision.Download (downloadAsset)
 import Reacthome.Logic.Glue.Lib.Vision.Log (log)
 import Reacthome.Logic.Glue.Lib.Vision.Subscribe (subscribe)
-import Reacthome.Logic.Glue.Publisher (GluePublisher)
+import Reacthome.Logic.Glue.PubSub.Publisher (GluePublisher)
 import Reacthome.Logic.Glue.Sink (Sink)
 import Prelude hiding (log)
 

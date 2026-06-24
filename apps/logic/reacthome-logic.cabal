@@ -51,7 +51,8 @@ library
     Reacthome.Logic.Glue.Lib.Vision.Download
     Reacthome.Logic.Glue.Lib.Vision.Log
     Reacthome.Logic.Glue.Lib.Vision.Subscribe
-    Reacthome.Logic.Glue.Publisher
+    Reacthome.Logic.Glue.PubSub.GlueOp
+    Reacthome.Logic.Glue.PubSub.Publisher
     Reacthome.Logic.Glue.Sink
     Reacthome.Logic.Glue.Store
     Reacthome.Logic.Server

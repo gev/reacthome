@@ -6,7 +6,7 @@ import Data.Text.Lazy.Encoding (decodeUtf8')
 import Data.UUID (UUID)
 import Data.Word (Word8)
 import Reacthome.Logic.Glue.Evaluator (run)
-import Reacthome.Logic.Glue.Publisher (GluePublisher)
+import Reacthome.Logic.Glue.PubSub.Publisher (GluePublisher)
 import Reacthome.Logic.Glue.Sink (Sink)
 
 pattern HeartBeat :: Word8

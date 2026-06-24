@@ -6,7 +6,7 @@ import Data.ByteString.Lazy qualified as L
 import Data.UUID.V4 (nextRandom)
 import Reacthome.Logic.Error (LogicError (..), logError)
 import Reacthome.Logic.Glue.Controller (controller)
-import Reacthome.Logic.Glue.Publisher (GluePublisher)
+import Reacthome.Logic.Glue.PubSub.Publisher (GluePublisher)
 import Reacthome.Logic.Glue.Sink (SinkRegistry (..))
 import WebSockets.Connection (WebSocketConnection (..))
 import WebSockets.Options (WebSocketOptions)
