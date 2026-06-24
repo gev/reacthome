@@ -6,6 +6,7 @@ import Data.Aeson.Key qualified as A
 import Data.Aeson.KeyMap qualified as A
 import Data.Bifunctor (bimap)
 import Data.ByteString.Lazy (ByteString)
+import Data.Scientific (floatingOrInteger)
 import Data.Text (Text)
 import Data.Vector qualified as V
 import Glue.AST (AST (..))
@@ -53,7 +54,9 @@ fromAeson = \case
     A.Object o -> Object $ bimap A.toText fromAeson <$> A.toList o
     A.Array a -> List $ fromAeson <$> V.toList a
     A.String t -> String t
-    A.Number n -> Float (realToFrac n)
+    A.Number n -> case floatingOrInteger n of
+        Left f -> Float f
+        Right i -> Integer i
     A.Bool b -> Symbol (if b then "true" else "false")
     A.Null -> Symbol "nil"
 
