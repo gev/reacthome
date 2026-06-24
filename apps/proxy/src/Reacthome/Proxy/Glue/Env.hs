@@ -6,6 +6,7 @@ import Glue.IR (Env)
 import Glue.Lib.Builtin (builtin)
 import Glue.Module (envFromModules)
 import Reacthome.Proxy.Assets (Assets)
+import Reacthome.Proxy.Glue.Lib.Actions (actions)
 import Reacthome.Proxy.Glue.Lib.Vision (vision)
 import Reacthome.Proxy.Glue.PubSub.Publisher (GluePublisher)
 import Reacthome.Proxy.Sink (Sink)
@@ -20,5 +21,6 @@ env ::
 env =
     envFromModules
         [ builtin
+        , actions
         , vision
         ]
