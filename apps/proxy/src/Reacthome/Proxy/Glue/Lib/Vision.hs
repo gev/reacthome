@@ -7,7 +7,7 @@ import Reacthome.Proxy.Assets (Assets)
 import Reacthome.Proxy.Glue.Lib.Vision.Download (download)
 import Reacthome.Proxy.Glue.Lib.Vision.Log (log)
 import Reacthome.Proxy.Glue.Lib.Vision.Subscribe (subscribe)
-import Reacthome.Proxy.Glue.PubSub.Publisher (GluePublisher)
+import Reacthome.Proxy.Glue.PubSub.GlueOp (GluePublisher)
 import Reacthome.Proxy.Sink (Sink)
 import Prelude hiding (log)
 

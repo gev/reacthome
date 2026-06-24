@@ -4,11 +4,11 @@ import Control.Concurrent.Async (race)
 import Control.Concurrent.Chan.Unagi.Bounded (newChan, tryRead, tryReadChan, writeChan)
 import Data.UUID.V4 (nextRandom)
 import Reacthome.Proxy.Assets (Assets)
-import Reacthome.Proxy.Bridge (Bridge)
+import Reacthome.Proxy.Bridge (Downstream)
 import Reacthome.Proxy.Config (ServerConfig (..))
 import Reacthome.Proxy.Error (ProxyError (..), logError)
 import Reacthome.Proxy.Glue.Controller (controller)
-import Reacthome.Proxy.Glue.PubSub.Publisher (GluePublisher)
+import Reacthome.Proxy.Glue.PubSub.GlueOp (GluePublisher)
 import Reacthome.Proxy.Sink (SinkRegistry (..))
 import WebSockets.Connection (WebSocketConnection (..))
 import WebSockets.Options (defaultWebSocketOptions)
@@ -20,7 +20,7 @@ runProxyServer ::
     ( ?pubsub :: GluePublisher
     , ?assets :: Assets
     , ?sinks :: SinkRegistry
-    , ?bridge :: Bridge
+    , ?downstream :: Downstream
     ) =>
     ServerConfig -> IO ()
 runProxyServer config = do
@@ -34,7 +34,7 @@ proxyServer ::
     ( ?pubsub :: GluePublisher
     , ?assets :: Assets
     , ?sinks :: SinkRegistry
-    , ?bridge :: Bridge
+    , ?downstream :: Downstream
     ) =>
     WebSocketPendingConnection -> IO ()
 proxyServer pending =

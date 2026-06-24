@@ -7,20 +7,8 @@ import Glue.Serialize (serializeAST)
 import PubSub.Publisher (Publisher (..))
 import PubSub.Revision (Revision (..))
 import Reacthome.Proxy.Daemon.Actions (decodeAction)
-import Reacthome.Proxy.Glue.PubSub.GlueOp (GlueOp (..))
-import Reacthome.Proxy.Glue.PubSub.Publisher (GluePublisher)
+import Reacthome.Proxy.Glue.PubSub.GlueOp (GlueOp (..), GluePublisher)
 import WebSockets.Connection (WebSocketSink, WebSocketSource)
-
-data Bridge = Bridge
-    { upstream :: Upstream
-    , downstream :: Downstream
-    }
-
-makeBridge :: (?pubsub :: GluePublisher) => IO Bridge
-makeBridge = do
-    let upstream = makeUpstream
-    downstream <- makeDownstream
-    pure Bridge{..}
 
 data Downstream = Downstream
     { send :: WebSocketSink

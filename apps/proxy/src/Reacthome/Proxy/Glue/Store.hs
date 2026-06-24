@@ -5,20 +5,18 @@ import Control.Exception (SomeException, catch)
 import Control.Monad (forever, void, when)
 import Data.ByteString.Lazy qualified as L
 import Data.List (intercalate)
-import Data.Text (Text)
 import Data.Text qualified as T
 import Data.Time.Clock (UTCTime)
 import Data.Time.Clock.POSIX (utcTimeToPOSIXSeconds)
-import PubSub.Publisher (PubSubGetter, PubSubSender)
 import PubSub.Revision (Revision (..))
-import Reacthome.Proxy.Glue.PubSub.GlueOp (GlueOp (..))
+import Reacthome.Proxy.Glue.PubSub.GlueOp (GlueOp (..), GluePubSubGetter, GluePubSubSender)
 import System.Directory (canonicalizePath, getModificationTime)
 import System.FSNotify (Event (..), EventIsDirectory (..), watchTree, withManager)
 import System.FilePath (pathSeparator, splitDirectories)
 
 data GlueStore = GlueStore
-    { get :: PubSubGetter [Text] L.ByteString Int
-    , runWatcher :: PubSubSender [Text] GlueOp Int -> IO ()
+    { get :: GluePubSubGetter
+    , runWatcher :: GluePubSubSender
     }
 
 makeGlueStore :: FilePath -> GlueStore

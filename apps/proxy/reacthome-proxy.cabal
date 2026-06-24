@@ -42,6 +42,7 @@ library
     Reacthome.Proxy.Daemon.Actions
     Reacthome.Proxy.Error
     Reacthome.Proxy.Glue.Controller
+    Reacthome.Proxy.Glue.Dispatcher
     Reacthome.Proxy.Glue.Env
     Reacthome.Proxy.Glue.Evaluator
     Reacthome.Proxy.Glue.Lib.Actions
