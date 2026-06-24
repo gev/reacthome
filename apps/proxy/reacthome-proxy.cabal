@@ -38,6 +38,7 @@ library
     Reacthome.Proxy.Assets
     Reacthome.Proxy.Config
     Reacthome.Proxy.Daemon
+    Reacthome.Proxy.Daemon.Actions
     Reacthome.Proxy.Error
     Reacthome.Proxy.Glue.Controller
     Reacthome.Proxy.Glue.Env
@@ -52,6 +53,7 @@ library
     Reacthome.Proxy.Sink
 
   build-depends:
+    aeson,
     async,
     bytestring,
     containers,
@@ -64,6 +66,7 @@ library
     time,
     unagi-chan,
     uuid,
+    vector,
 
   hs-source-dirs: src
 
