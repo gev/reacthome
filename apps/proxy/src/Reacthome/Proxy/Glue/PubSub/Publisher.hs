@@ -38,6 +38,6 @@ makeGluePublisher =
                             <> B.string8 " "
                             <> B.lazyByteString payload
                             <> B.string8 ")"
-            Nothing -> print $ "Sibscriber not found: " <> show subscriber
+            Nothing -> print $ "Subscriber not found: " <> show subscriber
 
     enc = L.fromStrict . encodeUtf8 . T.intercalate "."
