@@ -69,5 +69,6 @@ allowed =
     , "temperature"
     , "humidity"
     , "illumination"
+    , "wheteher"
     , "timestamp"
     ]
