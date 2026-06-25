@@ -24,19 +24,21 @@ makeGluePublisher =
     send subscriber key value = do
         maybeSink <- ?sinks.lookup subscriber
         case maybeSink of
-            Just sink ->
+            Just sink -> do
                 let (cmd, payload) = case value.payload of
                         Put p -> ("(put ", p)
                         Patch p -> ("(patch ", p)
-                 in sink . B.toLazyByteString $
-                        B.word8 1
-                            <> B.string8 cmd
-                            <> B.lazyByteString (enc key)
-                            <> B.string8 " "
-                            <> B.intDec value.version
-                            <> B.string8 " "
-                            <> B.lazyByteString payload
-                            <> B.string8 ")"
+                    message =
+                        B.toLazyByteString $
+                            B.word8 1
+                                <> B.string8 cmd
+                                <> B.lazyByteString (enc key)
+                                <> B.string8 " "
+                                <> B.intDec value.version
+                                <> B.string8 " "
+                                <> B.lazyByteString payload
+                                <> B.string8 ")"
+                sink message
             Nothing -> print $ "Subscriber not found: " <> show subscriber
 
     enc = L.fromStrict . encodeUtf8 . T.intercalate "."
