@@ -10,22 +10,21 @@ import StmContainers.Multimap qualified as MM
 import StmContainers.Set qualified as S
 
 type PubSubGetter k t v = k -> IO (Maybe (Revision t v))
-type PubSubSender k o v = k -> Revision o v -> IO ()
+type PubSubSender k t v = k -> Revision t v -> IO ()
 
-data Publisher s k t o v = Publisher
+data Publisher s k t v = Publisher
     { subscribe :: s -> k -> v -> IO ()
     , unsubscribe :: s -> k -> IO ()
     , unsubscribeAll :: s -> IO ()
-    , publish :: k -> Revision o v -> IO ()
+    , publish :: k -> Revision t v -> IO ()
     }
 
 makePublisher ::
     (Hashable s, Hashable k, Ord v) =>
     PubSubGetter k t v ->
-    (t -> o) ->
-    (s -> PubSubSender k o v) ->
-    IO (Publisher s k t o v)
-makePublisher get toOp send = do
+    (s -> PubSubSender k t v) ->
+    IO (Publisher s k t v)
+makePublisher get send = do
     keySubscribes <- MM.newIO
     subscribeKeys <- MM.newIO
     let
@@ -35,7 +34,7 @@ makePublisher get toOp send = do
                     MM.insert subscriber key keySubscribes
                     MM.insert key subscriber subscribeKeys
                 get key
-                    >>= traverse_ (send subscriber key . \rev -> rev{payload = toOp rev.payload}) . mfilter
+                    >>= traverse_ (send subscriber key) . mfilter
                         \v -> v.version > version
         unsubscribe subscriber key = atomically do
             MM.delete subscriber key keySubscribes

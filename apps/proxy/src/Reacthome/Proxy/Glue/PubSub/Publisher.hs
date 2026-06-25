@@ -8,7 +8,7 @@ import PubSub.Publisher (makePublisher)
 import PubSub.Revision (Revision (..))
 import Reacthome.Proxy.Bridge (Downstream)
 import Reacthome.Proxy.Glue.Dispatcher (dispatch)
-import Reacthome.Proxy.Glue.PubSub.GlueOp (GlueOp (..), GluePublisher)
+import Reacthome.Proxy.Glue.PubSub.GlueOp (GluePublisher)
 import Reacthome.Proxy.Glue.Store (GlueStore)
 import Reacthome.Proxy.Sink (SinkRegistry (..))
 
@@ -19,24 +19,21 @@ makeGluePublisher ::
     ) =>
     IO GluePublisher
 makeGluePublisher =
-    makePublisher dispatch Put send
+    makePublisher dispatch send
   where
     send subscriber key value = do
         maybeSink <- ?sinks.lookup subscriber
         case maybeSink of
             Just sink -> do
-                let (cmd, payload) = case value.payload of
-                        Put p -> ("(put ", p)
-                        Patch p -> ("(patch ", p)
-                    message =
+                let message =
                         B.toLazyByteString $
                             B.word8 1
-                                <> B.string8 cmd
+                                <> B.string8 "(put "
                                 <> B.lazyByteString (enc key)
                                 <> B.string8 " "
                                 <> B.intDec value.version
                                 <> B.string8 " "
-                                <> B.lazyByteString payload
+                                <> B.lazyByteString value.payload
                                 <> B.string8 ")"
                 sink message
             Nothing -> print $ "Subscriber not found: " <> show subscriber

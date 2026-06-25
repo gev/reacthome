@@ -7,7 +7,7 @@ import Glue.Serialize (serializeAST)
 import PubSub.Publisher (Publisher (..))
 import PubSub.Revision (Revision (..))
 import Reacthome.Proxy.Daemon.Actions (decodeAction)
-import Reacthome.Proxy.Glue.PubSub.GlueOp (GlueOp (..), GluePublisher)
+import Reacthome.Proxy.Glue.PubSub.GlueOp (GluePublisher)
 import WebSockets.Connection (WebSocketSink, WebSocketSource)
 
 data Downstream = Downstream
@@ -38,7 +38,7 @@ makeUpstream = Upstream{..}
     publish action =
         case decodeAction action of
             Just (key, value, version) -> do
-                let payload = Patch . encodeUtf8 . serializeAST $ value
+                let payload = encodeUtf8 . serializeAST $ value
                 let revision = Revision{..}
                 print revision
                 ?pubsub.publish key revision
