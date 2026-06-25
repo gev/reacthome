@@ -16,7 +16,7 @@ dispatch ["proxy", id'] = do
     let json =
             A.Object $
                 A.fromList
-                    [ ("type", "GET")
+                    [ ("type", "get")
                     , ("state", A.Array $ V.fromList [A.String id'])
                     ]
     let message = A.encode json
