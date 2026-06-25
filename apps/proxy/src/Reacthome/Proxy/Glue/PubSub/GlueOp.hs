@@ -8,6 +8,7 @@ import PubSub.Publisher (PubSubGetter, PubSubSender, Publisher)
 data GlueOp
     = Put L.ByteString
     | Patch L.ByteString
+    deriving (Show)
 
 type GluePubSubGetter = PubSubGetter [Text] L.ByteString Int
 type GluePubSubSender = PubSubSender [Text] GlueOp Int -> IO ()
