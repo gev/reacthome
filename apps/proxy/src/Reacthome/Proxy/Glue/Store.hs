@@ -9,7 +9,7 @@ import Data.Text qualified as T
 import Data.Time.Clock (UTCTime)
 import Data.Time.Clock.POSIX (utcTimeToPOSIXSeconds)
 import PubSub.Revision (Revision (..))
-import Reacthome.Proxy.Glue.PubSub.GlueOp (GluePubSubGetter, GluePubSubSender)
+import Reacthome.Proxy.Glue.PubSub.Types (GluePubSubGetter, GluePubSubSender)
 import System.Directory (canonicalizePath, getModificationTime)
 import System.FSNotify (Event (..), EventIsDirectory (..), watchTree, withManager)
 import System.FilePath (pathSeparator, splitDirectories)

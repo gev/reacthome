@@ -4,7 +4,7 @@ import Data.Aeson qualified as A
 import Data.Aeson.KeyMap qualified as A
 import Data.Vector qualified as V
 import Reacthome.Proxy.Bridge (Downstream (..))
-import Reacthome.Proxy.Glue.PubSub.GlueOp (GluePubSubGetter)
+import Reacthome.Proxy.Glue.PubSub.Types (GluePubSubGetter)
 import Reacthome.Proxy.Glue.Store (GlueStore (..))
 
 dispatch ::

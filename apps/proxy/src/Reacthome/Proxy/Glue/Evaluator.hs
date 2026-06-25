@@ -9,7 +9,7 @@ import Glue.Parse (parseGlue)
 import Reacthome.Proxy.Assets (Assets)
 import Reacthome.Proxy.Bridge (Downstream)
 import Reacthome.Proxy.Glue.Env (env)
-import Reacthome.Proxy.Glue.PubSub.GlueOp (GluePublisher)
+import Reacthome.Proxy.Glue.PubSub.Types (GluePublisher)
 import Reacthome.Proxy.Sink (Sink)
 
 run ::

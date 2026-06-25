@@ -52,8 +52,8 @@ library
     Reacthome.Proxy.Glue.Lib.Vision.Download
     Reacthome.Proxy.Glue.Lib.Vision.Log
     Reacthome.Proxy.Glue.Lib.Vision.Subscribe
-    Reacthome.Proxy.Glue.PubSub.GlueOp
     Reacthome.Proxy.Glue.PubSub.Publisher
+    Reacthome.Proxy.Glue.PubSub.Types
     Reacthome.Proxy.Glue.Store
     Reacthome.Proxy.Server
     Reacthome.Proxy.Sink

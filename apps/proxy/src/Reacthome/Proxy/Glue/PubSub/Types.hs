@@ -1,4 +1,4 @@
-module Reacthome.Proxy.Glue.PubSub.GlueOp where
+module Reacthome.Proxy.Glue.PubSub.Types where
 
 import Data.ByteString.Lazy qualified as L
 import Data.Text (Text)

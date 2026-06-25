@@ -7,7 +7,7 @@ import Glue.Serialize (serializeAST)
 import PubSub.Publisher (Publisher (..))
 import PubSub.Revision (Revision (..))
 import Reacthome.Proxy.Daemon.Actions (decodeAction)
-import Reacthome.Proxy.Glue.PubSub.GlueOp (GluePublisher)
+import Reacthome.Proxy.Glue.PubSub.Types (GluePublisher)
 import WebSockets.Connection (WebSocketSink, WebSocketSource)
 
 data Downstream = Downstream

@@ -8,7 +8,7 @@ import PubSub.Publisher (makePublisher)
 import PubSub.Revision (Revision (..))
 import Reacthome.Proxy.Bridge (Downstream)
 import Reacthome.Proxy.Glue.Dispatcher (dispatch)
-import Reacthome.Proxy.Glue.PubSub.GlueOp (GluePublisher)
+import Reacthome.Proxy.Glue.PubSub.Types (GluePublisher)
 import Reacthome.Proxy.Glue.Store (GlueStore)
 import Reacthome.Proxy.Sink (SinkRegistry (..))
 
