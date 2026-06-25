@@ -12,17 +12,17 @@ import Data.Text (Text)
 import Data.Vector qualified as V
 import Glue.AST (AST (..))
 
-decodeAction :: ByteString -> Maybe ([Text], AST, Int)
+decodeAction :: ByteString -> Maybe (Text, [(Text, AST)], Int)
 decodeAction = convert <=< A.decode
 
-convert :: A.Object -> Maybe ([Text], AST, Int)
+convert :: A.Object -> Maybe (Text, [(Text, AST)], Int)
 convert o =
     lookupType o >>= \case
         "ACTION_SET" -> do
             id' <- lookupId o
             payload <- lookupPayload o
             let timestamp = lookupTimestamp payload
-            pure (["proxy", id'], makeObject payload, timestamp)
+            pure (id', makeObject payload, timestamp)
         _ -> Nothing
 
 lookupType :: A.Object -> Maybe Text
@@ -51,11 +51,8 @@ lookupTimestamp o =
                 _ -> Nothing
      in fromMaybe 0 sci
 
-makeObject :: A.Object -> AST
-makeObject payload = Object $ props payload
-
-props :: A.Object -> [(Text, AST)]
-props payload = bimap A.toText fromAeson <$> A.toList filtered
+makeObject :: A.Object -> [(Text, AST)]
+makeObject payload = bimap A.toText fromAeson <$> A.toList filtered
   where
     filtered = A.filterWithKey (const . (`elem` allowed)) payload
 
@@ -84,3 +81,24 @@ allowed =
     , "illumination"
     , "wheteher"
     ]
+
+getAction :: Text -> A.Object
+getAction uid =
+    A.fromList
+        [ ("type", "get")
+        , ("state", A.Array $ V.fromList [A.String uid])
+        ]
+
+onAction :: Text -> A.Object
+onAction uid =
+    A.fromList
+        [ ("type", "ACTION_ON")
+        , ("id", A.String uid)
+        ]
+
+offAction :: Text -> A.Object
+offAction uid =
+    A.fromList
+        [ ("type", "ACTION_OFF")
+        , ("id", A.String uid)
+        ]

@@ -1,7 +1,8 @@
 module Reacthome.Proxy.Daemon where
 
 import Control.Monad (void)
-import Reacthome.Proxy.Bridge (Downstream (..), Upstream (..))
+import Reacthome.Proxy.Bridge.Downstream (Downstream (..))
+import Reacthome.Proxy.Bridge.Upstream (Upstream (..))
 import Reacthome.Proxy.Config (DaemonConfig (..))
 import WebSockets.Client (runWebSocketClient)
 import WebSockets.Options (defaultWebSocketOptions)

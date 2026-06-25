@@ -6,16 +6,16 @@ import Data.Text qualified as T
 import Data.Text.Encoding (encodeUtf8)
 import PubSub.Publisher (makePublisher)
 import PubSub.Revision (Revision (..))
-import Reacthome.Proxy.Bridge (Downstream)
+import Reacthome.Proxy.Bridge.Downstream (Downstream)
 import Reacthome.Proxy.Glue.Dispatcher (dispatch)
 import Reacthome.Proxy.Glue.PubSub.Types (GluePublisher)
 import Reacthome.Proxy.Glue.Store (GlueStore)
 import Reacthome.Proxy.Sink (SinkRegistry (..))
 
 makeGluePublisher ::
-    ( ?downstream :: Downstream
-    , ?store :: GlueStore
+    ( ?store :: GlueStore
     , ?sinks :: SinkRegistry
+    , ?downstream :: Downstream
     ) =>
     IO GluePublisher
 makeGluePublisher =
