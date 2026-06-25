@@ -18,7 +18,9 @@ data Downstream = Downstream
 makeDownstream :: IO Downstream
 makeDownstream = do
     (inChan, outChan) <- newChan 10
-    let send = writeChan inChan
+    let send message = do
+            print message
+            writeChan inChan message
     let receive =
             do
                 (!element, !wait) <- tryReadChan outChan
@@ -35,9 +37,9 @@ makeUpstream = Upstream{..}
   where
     publish action =
         case decodeAction action of
-            Just (id', value, version) -> do
-                let key = ["proxy", id']
-                let payload = Put . encodeUtf8 . serializeAST $ value
+            Just (key, value, version) -> do
+                let payload = Patch . encodeUtf8 . serializeAST $ value
                 let revision = Revision{..}
+                print revision
                 ?pubsub.publish key revision
             Nothing -> pure ()
