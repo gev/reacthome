@@ -9,20 +9,20 @@ import PubSub.Revision (Revision (..))
 import StmContainers.Multimap qualified as MM
 import StmContainers.Set qualified as S
 
-type PubSubGetter k t v = k -> IO (Maybe (Revision t v))
-type PubSubSender k t v = k -> Revision t v -> IO ()
+type Lookup k t v = k -> IO (Maybe (Revision t v))
+type Publish k t v = k -> Revision t v -> IO ()
 
 data Publisher s k t v = Publisher
     { subscribe :: s -> k -> v -> IO ()
     , unsubscribe :: s -> k -> IO ()
     , unsubscribeAll :: s -> IO ()
-    , publish :: k -> Revision t v -> IO ()
+    , publish :: Publish k t v
     }
 
 makePublisher ::
     (Hashable s, Hashable k, Ord v) =>
-    PubSubGetter k t v ->
-    (s -> PubSubSender k t v) ->
+    Lookup k t v ->
+    (s -> Publish k t v) ->
     IO (Publisher s k t v)
 makePublisher get send = do
     keySubscribes <- MM.newIO
