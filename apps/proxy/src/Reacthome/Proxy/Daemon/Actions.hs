@@ -12,17 +12,17 @@ import Data.Text (Text)
 import Data.Vector qualified as V
 import Glue.AST (AST (..))
 
-decodeAction :: ByteString -> Maybe (Text, AST, Int)
+decodeAction :: ByteString -> Maybe ([Text], AST, Int)
 decodeAction = convert <=< A.decode
 
-convert :: A.Object -> Maybe (Text, AST, Int)
+convert :: A.Object -> Maybe ([Text], AST, Int)
 convert o =
     lookupType o >>= \case
         "ACTION_SET" -> do
             id' <- lookupId o
             payload <- lookupPayload o
-            let timestamp = lookupTimestamp o
-            pure (id', makeObject payload, timestamp)
+            let timestamp = lookupTimestamp payload
+            pure (["proxy", id'], makeObject payload, timestamp)
         _ -> Nothing
 
 lookupType :: A.Object -> Maybe Text
@@ -83,5 +83,4 @@ allowed =
     , "humidity"
     , "illumination"
     , "wheteher"
-    , "timestamp"
     ]
