@@ -7,7 +7,7 @@ import Glue.Serialize (serializeAST)
 import PubSub.Publisher (Publisher (..))
 import PubSub.Revision (Revision (..))
 import Reacthome.Proxy.Bridge.Cache (Cache (..))
-import Reacthome.Proxy.Daemon.Actions (decodeAction)
+import Reacthome.Proxy.Daemon.Actions.Decode (decodeAction)
 import Reacthome.Proxy.Glue.PubSub.Types (GluePublisher)
 
 newtype Upstream = Upstream

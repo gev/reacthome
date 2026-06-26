@@ -1,4 +1,4 @@
-module Reacthome.Proxy.Daemon.Actions where
+module Reacthome.Proxy.Daemon.Actions.Decode where
 
 import Control.Monad ((<=<))
 import Data.Aeson qualified as A
@@ -147,24 +147,3 @@ reference ref = Symbol ("'proxy." <> ref)
 
 processKeyDefault :: A.Value -> Maybe AST
 processKeyDefault = Just . fromAeson
-
-getAction :: Text -> A.Object
-getAction uid =
-    A.fromList
-        [ ("type", "get")
-        , ("state", A.Array $ V.fromList [A.String uid])
-        ]
-
-onAction :: Text -> A.Object
-onAction uid =
-    A.fromList
-        [ ("type", "ACTION_ON")
-        , ("id", A.String uid)
-        ]
-
-offAction :: Text -> A.Object
-offAction uid =
-    A.fromList
-        [ ("type", "ACTION_OFF")
-        , ("id", A.String uid)
-        ]

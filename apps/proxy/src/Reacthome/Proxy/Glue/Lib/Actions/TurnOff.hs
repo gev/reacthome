@@ -4,7 +4,7 @@ import Glue.Eval (Eval (..), liftIO, throwError)
 import Glue.Eval.Exception (wrongArgumentType)
 import Glue.IR (IR (..))
 import Reacthome.Proxy.Bridge.Downstream (Downstream (..))
-import Reacthome.Proxy.Daemon.Actions (offAction)
+import Reacthome.Proxy.Daemon.Actions.Encode (actionOff)
 
 turnOff :: (?downstream :: Downstream) => IR Eval
 turnOff = NativeFunc turnOffImpl
@@ -14,6 +14,6 @@ turnOffImpl ::
     IR Eval -> Eval (IR Eval)
 turnOffImpl = \case
     DottedSymbol ["proxy", uid] -> do
-        liftIO $ ?downstream.send $ offAction uid
+        liftIO $ ?downstream.send $ actionOff uid
         pure Void
     _ -> throwError $ wrongArgumentType ["String `id` required"]

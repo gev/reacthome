@@ -41,7 +41,8 @@ library
     Reacthome.Proxy.Bridge.Upstream
     Reacthome.Proxy.Config
     Reacthome.Proxy.Daemon
-    Reacthome.Proxy.Daemon.Actions
+    Reacthome.Proxy.Daemon.Actions.Decode
+    Reacthome.Proxy.Daemon.Actions.Encode
     Reacthome.Proxy.Error
     Reacthome.Proxy.Glue.Controller
     Reacthome.Proxy.Glue.Dispatcher
