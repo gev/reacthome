@@ -12,7 +12,7 @@
                     :spacing 32
                     :children (
                         (listen
-                            (lookup store.persistent 'proxy.b9b35b14-2d39-492c-ae72-48adfef50b8e (:title "test"))
+                            (lookup store.persistent 'proxy.6589baa2-3dc0-45d4-a04b-6b56344a07e7 (:title "test"))
                             (\ (props)
                                 (column :spacing 16 :children (
                                         (text :content props.type)
