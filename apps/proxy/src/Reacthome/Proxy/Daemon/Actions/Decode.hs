@@ -74,7 +74,6 @@ processKey :: A.Key -> A.Value -> Maybe AST
 processKey "type" = processKeyString
 processKey "title" = processKeyString
 processKey "code" = processKeyString
-processKey "image" = processKeyString
 -- Process as Boolean
 processKey "enabled" = processKeyBoolean
 processKey "disabled" = processKeyBoolean
@@ -114,6 +113,7 @@ processKey "leakage" = processKeyReference
 processKey "water_counter" = processKeyReference
 processKey "electricity_meter" = processKeyReference
 processKey "security" = processKeyReference
+processKey "image" = processKeyReference
 -- Process as default
 processKey "palette" = processKeyDefault
 processKey "weather" = processKeyDefault
