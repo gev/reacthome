@@ -7,7 +7,7 @@ import Data.Aeson.KeyMap qualified as A
 import Data.Bifunctor (bimap)
 import Data.ByteString.Lazy (ByteString)
 import Data.Maybe (fromMaybe)
-import Data.Scientific (floatingOrInteger, toBoundedInteger)
+import Data.Scientific (floatingOrInteger, toBoundedInteger, toRealFloat)
 import Data.Text (Text)
 import Data.Vector qualified as V
 import Glue.AST (AST (..))
@@ -52,9 +52,11 @@ lookupTimestamp o =
      in fromMaybe 0 sci
 
 makeObject :: A.Object -> [(Text, AST)]
-makeObject payload = bimap A.toText fromAeson <$> A.toList filtered
-  where
-    filtered = A.filterWithKey (const . (`elem` allowed)) payload
+makeObject payload =
+    [ (A.toText k, ast)
+    | (k, v) <- A.toList payload
+    , Just ast <- [processKey k v]
+    ]
 
 fromAeson :: A.Value -> AST
 fromAeson = \case
@@ -67,47 +69,84 @@ fromAeson = \case
     A.Bool b -> Symbol (if b then "true" else "false")
     A.Null -> Symbol "nil"
 
-allowed :: [A.Key]
-allowed =
-    [ "type"
-    , "title"
-    , "code"
-    , "bind"
-    , "value"
-    , "site"
-    , "parent"
-    , "project"
-    , "temperature"
-    , "humidity"
-    , "illumination"
-    , "wheteher"
-    , "image"
-    , "palette"
-    , "scene"
-    , "light_220"
-    , "light_LED"
-    , "light_RGB"
-    , "curtains"
-    , "leakage_sensor"
-    , "valve_water"
-    , "valve_heating"
-    , "warm_floor"
-    , "TV"
-    , "AC"
-    , "fan"
-    , "socket_220"
-    , "thermostat"
-    , "multiroom"
-    , "camera"
-    , "intercom"
-    , "hygrostat"
-    , "co2_stat"
-    , "din_rail"
-    , "leakage"
-    , "water_counter"
-    , "electricity_meter"
-    , "security"
-    ]
+processKey :: A.Key -> A.Value -> Maybe AST
+-- Process as String
+processKey "type" = processKeyString
+processKey "title" = processKeyString
+processKey "code" = processKeyString
+processKey "image" = processKeyString
+-- Process as Boolean
+processKey "enabled" = processKeyBoolean
+processKey "disabled" = processKeyBoolean
+processKey "dimmable" = processKeyBoolean
+-- Process as Float
+processKey "temperature" = processKeyFloat
+processKey "humidity" = processKeyFloat
+processKey "illumination" = processKeyFloat
+-- Process as Value
+processKey "value" = processKeyValue
+-- Process as Reference
+processKey "bind" = processKeyReference
+processKey "site" = processKeyReference
+processKey "parent" = processKeyReference
+processKey "project" = processKeyReference
+processKey "scene" = processKeyReference
+processKey "light_220" = processKeyReference
+processKey "light_LED" = processKeyReference
+processKey "light_RGB" = processKeyReference
+processKey "curtains" = processKeyReference
+processKey "leakage_sensor" = processKeyReference
+processKey "valve_water" = processKeyReference
+processKey "valve_heating" = processKeyReference
+processKey "warm_floor" = processKeyReference
+processKey "TV" = processKeyReference
+processKey "AC" = processKeyReference
+processKey "fan" = processKeyReference
+processKey "socket_220" = processKeyReference
+processKey "thermostat" = processKeyReference
+processKey "multiroom" = processKeyReference
+processKey "camera" = processKeyReference
+processKey "intercom" = processKeyReference
+processKey "hygrostat" = processKeyReference
+processKey "co2_stat" = processKeyReference
+processKey "din_rail" = processKeyReference
+processKey "leakage" = processKeyReference
+processKey "water_counter" = processKeyReference
+processKey "electricity_meter" = processKeyReference
+processKey "security" = processKeyReference
+-- Process as default
+processKey "palette" = processKeyDefault
+processKey "weather" = processKeyDefault
+-- Skipp other
+processKey _ = const Nothing
+
+processKeyString :: A.Value -> Maybe AST
+processKeyString (A.String str) = Just $ String str
+processKeyString _ = Nothing
+
+processKeyBoolean :: A.Value -> Maybe AST
+processKeyBoolean (A.Bool b) = Just $ Symbol if b then "true" else "false"
+processKeyBoolean _ = Nothing
+
+processKeyFloat :: A.Value -> Maybe AST
+processKeyFloat (A.Number sci) = Just $ Float (toRealFloat sci)
+processKeyFloat _ = Nothing
+
+processKeyValue :: A.Value -> Maybe AST
+processKeyValue (A.Number sci) = Just $ Float (toRealFloat sci)
+processKeyValue (A.Bool b) = Just $ Symbol if b then "true" else "false"
+processKeyValue _ = Nothing
+
+processKeyReference :: A.Value -> Maybe AST
+processKeyReference (A.String ref) = Just $ reference ref
+processKeyReference (A.Array val) = Just $ List [reference ref | (A.String ref) <- V.toList val]
+processKeyReference _ = Nothing
+
+reference :: Text -> AST
+reference ref = Symbol ("'proxy." <> ref)
+
+processKeyDefault :: A.Value -> Maybe AST
+processKeyDefault = Just . fromAeson
 
 getAction :: Text -> A.Object
 getAction uid =
