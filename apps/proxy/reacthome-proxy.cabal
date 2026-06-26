@@ -36,6 +36,7 @@ library
   exposed-modules:
     Reacthome.Proxy.App
     Reacthome.Proxy.Assets
+    Reacthome.Proxy.Bridge.Cache
     Reacthome.Proxy.Bridge.Downstream
     Reacthome.Proxy.Bridge.Upstream
     Reacthome.Proxy.Config

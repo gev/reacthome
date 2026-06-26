@@ -4,6 +4,7 @@ import Control.Concurrent (forkIO)
 import Control.Monad (void)
 import PubSub.Publisher (Publisher (..))
 import Reacthome.Proxy.Assets (makeAssets)
+import Reacthome.Proxy.Bridge.Cache (makeCache)
 import Reacthome.Proxy.Bridge.Downstream (makeDownstream)
 import Reacthome.Proxy.Bridge.Upstream (makeUpstream)
 import Reacthome.Proxy.Config (AppConfig (..))
@@ -23,11 +24,13 @@ runApp config = do
     downstream <- makeDownstream
     let ?downstream = downstream
 
+    cache <- makeCache
+    let ?cache = cache
+
     pubsub <- makeGluePublisher
     let ?pubsub = pubsub
 
-    upstream <- makeUpstream
-    let ?upstream = upstream
+    let ?upstream = makeUpstream
 
     let ?assets = makeAssets config.assetsPath
 
