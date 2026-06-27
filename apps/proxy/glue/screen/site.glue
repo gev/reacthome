@@ -5,25 +5,18 @@
 
     (def (site-screen props)
         (screen
-            :body (center
-                :child (
-                    column
-                    :main-axis-size main-axis-size.min
-                    :spacing 32
-                    :children (
-                        (listen
-                            (lookup store.persistent "proxy.b9b35b14-2d39-492c-ae72-48adfef50b8e" ())
-                            (\ (props)
-                                (map
-                                    (\ (site) (
-                                            (listen
-                                                (lookup store.persistent site ())
-                                                site-card
-                                            )
-                                        )
-                                    )
-                                    props.site
-                                )
+            :body (column
+                :main-axis-size main-axis-size.min
+                :spacing 32
+                :children (
+                    (column
+                        :spacing 16
+                        :children (
+                            (text
+                                :content "Site!!!"
+                            )
+                            (text
+                                :content "A site is a collection of pages and content that can be accessed by users."
                             )
                         )
                     )
