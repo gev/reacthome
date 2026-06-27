@@ -38,22 +38,24 @@ makeGlueStore folder = GlueStore{..}
         void $ watchTree mgr folder (const True) (handle publish)
         forever $ threadDelay 1_000_000
 
-    handle publish (Modified path time IsFile) = do
-        catch @SomeException
-            do
-                absolute <- canonicalizePath folder
-                let file = drop (length absolute + 1) path
-                let (key, ext) = splitAt (length file - 5) file
-                when (ext == ".glue") do
-                    payload <- L.readFile path
-                    let parts = splitDirectories key
-                    let version = utcTimeToMillis time
-                    let value = Revision{..}
-                    publish (T.pack <$> parts) value
-            \err -> do
-                print err
-                pure ()
+    handle publish (Modified path time IsFile) = send publish path time
+    handle publish (Added path time IsFile) = send publish path time
     handle _ _ = pure ()
+
+    send publish path time = catch @SomeException
+        do
+            absolute <- canonicalizePath folder
+            let file = drop (length absolute + 1) path
+            let (key, ext) = splitAt (length file - 5) file
+            when (ext == ".glue") do
+                payload <- L.readFile path
+                let parts = splitDirectories key
+                let version = utcTimeToMillis time
+                let value = Revision{..}
+                publish (T.pack <$> parts) value
+        \err -> do
+            print err
+            pure ()
 
 utcTimeToMillis :: UTCTime -> Int
 utcTimeToMillis utc = round $ utcTimeToPOSIXSeconds utc * 1000
