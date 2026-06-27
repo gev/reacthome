@@ -1,19 +1,16 @@
 (module widget.site.card
     (export site-card)
 
+    (import widget.title)
+
     (def (site-card props)
         (card
-            :child (center
-                :child (
-                    column
-                    :main-axis-size main-axis-size.min
-                    :spacing 32
-                    :children (
-                        (column :spacing 16 :children (
-                                (text :content props.type)
-                                (text :content props.code)
-                                (text :content props.title)
-                            )
+            :child (column
+                :spacing 32
+                :children (
+                    (column :spacing 16 :children (
+                            (text :content props.type)
+                            (title props)
                         )
                     )
                 )

@@ -1,0 +1,7 @@
+(module widget.title
+    (export title)
+
+    (def (title props)
+        (text :content (if (props.title) props.title props.code))
+    )
+)

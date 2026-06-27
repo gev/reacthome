@@ -1,5 +1,5 @@
 (module lib.vision
-    (export back go foo)
+    (export back go select select-persistent)
 
     (def back
         (\ () (pop ()))
@@ -9,5 +9,14 @@
         (\ () (push screen))
     )
 
-    (def (foo x) (* x x))
+    (def (select source go key)
+        (listen
+            (lookup source key ())
+            go
+        )
+    )
+
+    (def select-persistent
+        (select store.persistent)
+    )
 )
