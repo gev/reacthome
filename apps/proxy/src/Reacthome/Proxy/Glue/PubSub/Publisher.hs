@@ -28,9 +28,9 @@ makeGluePublisher =
                 let message =
                         B.toLazyByteString $
                             B.word8 1
-                                <> B.string8 "(put "
+                                <> B.string8 "(put \""
                                 <> B.lazyByteString (enc key)
-                                <> B.string8 " "
+                                <> B.string8 "\" "
                                 <> B.intDec value.version
                                 <> B.string8 " "
                                 <> B.lazyByteString value.payload

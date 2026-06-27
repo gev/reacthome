@@ -1,5 +1,6 @@
 module Reacthome.Proxy.Glue.Lib.Vision.Download where
 
+import Data.Text qualified as T
 import Glue.Eval (Eval, liftIO, throwError)
 import Glue.Eval.Exception (wrongArgumentType)
 import Glue.IR (IR (..))
@@ -18,6 +19,9 @@ downloadImpl ::
     , ?sink :: Sink
     ) =>
     [IR Eval] -> Eval (IR Eval)
+downloadImpl [String key] = do
+    liftIO $ ?assets.sendAsset ?sink (T.split (== '.') key)
+    pure Void
 downloadImpl [Symbol key] = do
     liftIO $ ?assets.sendAsset ?sink [key]
     pure Void

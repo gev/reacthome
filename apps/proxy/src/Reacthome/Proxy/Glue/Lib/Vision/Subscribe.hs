@@ -1,5 +1,6 @@
 module Reacthome.Proxy.Glue.Lib.Vision.Subscribe where
 
+import Data.Text qualified as T
 import Data.UUID (UUID)
 import Glue.Eval (Eval, liftIO, throwError)
 import Glue.Eval.Exception (wrongArgumentType)
@@ -19,6 +20,9 @@ subscribeImpl ::
     , ?pubsub :: GluePublisher
     ) =>
     [IR Eval] -> Eval (IR Eval)
+subscribeImpl [String key, Integer value] = do
+    liftIO $ ?pubsub.subscribe ?session (T.split (== '.') key) value
+    pure Void
 subscribeImpl [Symbol key, Integer value] = do
     liftIO $ ?pubsub.subscribe ?session [key] value
     pure Void
