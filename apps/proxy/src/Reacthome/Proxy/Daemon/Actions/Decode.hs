@@ -143,7 +143,7 @@ processKeyReference (A.Array val) = Just $ List [reference ref | (A.String ref) 
 processKeyReference _ = Nothing
 
 reference :: Text -> AST
-reference ref = Symbol ("'proxy." <> ref)
+reference ref = String ("proxy." <> ref)
 
 processKeyDefault :: A.Value -> Maybe AST
 processKeyDefault = Just . fromAeson
