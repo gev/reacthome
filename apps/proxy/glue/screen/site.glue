@@ -12,16 +12,17 @@
                     :spacing 32
                     :children (
                         (listen
-                            (lookup store.persistent 'proxy.b9b35b14-2d39-492c-ae72-48adfef50b8e (:site ()))
+                            (lookup store.persistent "proxy.b9b35b14-2d39-492c-ae72-48adfef50b8e" ())
                             (\ (props)
                                 (map
                                     (\ (site) (
                                             (listen
                                                 (lookup store.persistent site ())
-                                                (\ (props) site-card props)
-                                            ) props.site
+                                                site-card
+                                            )
                                         )
                                     )
+                                    props.site
                                 )
                             )
                         )
