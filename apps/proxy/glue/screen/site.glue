@@ -1,0 +1,33 @@
+(module screen.site
+    (export site-screen)
+
+    (import widget.site.card)
+
+    (def (site-screen props)
+        (screen
+            :body (center
+                :child (
+                    column
+                    :main-axis-size main-axis-size.min
+                    :spacing 32
+                    :children (
+                        (listen
+                            (lookup store.persistent 'proxy.b9b35b14-2d39-492c-ae72-48adfef50b8e (:site ()))
+                            (\ (props)
+                                (map
+                                    (\ (site) (
+                                            (listen
+                                                (lookup store.persistent site ())
+                                                (\ (props) site-card props)
+                                            ) props.site
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    )
+)
