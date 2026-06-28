@@ -8,7 +8,6 @@
             :clip-behavior clip.anti-alias
             :child (column
                 :cross-axis-alignment cross-axis-alignment.stretch
-                :spacing 32
                 :children (
                     (? props.image
                         (aspect-ratio

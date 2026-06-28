@@ -7,9 +7,11 @@
     (def (site-screen props)
         (screen
             :body (list-view
-                :spacing 16
                 :children (
-                    (text :content props.title)
+                    (padding
+                        :padding (edge-insets-all 16)
+                        :child (text :content props.title)
+                    )
                     (select-persistent
                         (\ (props) (site-list props.site))
                         'proxy.b9b35b14-2d39-492c-ae72-48adfef50b8e
