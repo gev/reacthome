@@ -5,14 +5,14 @@
         (\ () (pop ()))
     )
 
-    (def (go screen)
-        (\ () (push screen))
+    (def (go route)
+        (\ () (push route))
     )
 
     (def (select source go key)
         (listen
             (lookup source key ())
-            go
+            (go key)
         )
     )
 

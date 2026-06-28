@@ -1,12 +1,14 @@
 (module main
     (export main)
 
+    (import screen.project)
     (import screen.site)
 
     (def main
         (app
             :routes (
-                :home (site-screen :title "Hello Site!")
+                :home (project-screen 'proxy.b9b35b14-2d39-492c-ae72-48adfef50b8e)
+                :site (site-screen ())
             )
         )
     )

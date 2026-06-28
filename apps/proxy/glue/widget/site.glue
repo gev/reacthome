@@ -1,0 +1,19 @@
+(module widget.site
+    (export site)
+
+    (import widget.site.list)
+    (import widget.title)
+    (import lib.vision)
+
+    (def (site id props)
+        (list-view
+            :children (
+                (padding
+                    :padding (edge-insets-all 16)
+                    :child (title props)
+                )
+                (? props.site (site-list props.site))
+            )
+        )
+    )
+)

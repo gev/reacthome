@@ -2,8 +2,9 @@
     (export site-card)
 
     (import widget.title)
+    (import lib.vision)
 
-    (def (site-card props)
+    (def (site-card id props)
         (card
             :clip-behavior clip.anti-alias
             :child (column
@@ -20,7 +21,10 @@
                     )
                     (padding
                         :padding (edge-insets-all 16)
-                        :child (title props)
+                        :child (filled-button
+                            :child (title props)
+                            :on-pressed (go :route 'site :id id)
+                        )
                     )
                 )
             )
