@@ -2,6 +2,6 @@
     (export title)
 
     (def (title props)
-        (text :content (? props.title props.title props.code))
+        (text :content (|| props.title props.code))
     )
 )
