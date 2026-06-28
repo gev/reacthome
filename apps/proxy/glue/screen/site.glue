@@ -6,7 +6,7 @@
 
     (def (site-screen props)
         (screen
-            :body (column
+            :body (list-view
                 :spacing 16
                 :children (
                     (text :content props.title)

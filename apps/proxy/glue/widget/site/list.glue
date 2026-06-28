@@ -6,6 +6,7 @@
 
     (def (site-list sites)
         (column
+            :cross-axis-alignment: cross-axis-alignment.stretch
             :spacing 16
             :children (map (select-persistent site-card) sites)
         )

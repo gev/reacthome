@@ -5,13 +5,23 @@
 
     (def (site-card props)
         (card
+            :clip-behavior clip.anti-alias
             :child (column
+                :cross-axis-alignment cross-axis-alignment.stretch
                 :spacing 32
                 :children (
-                    (column :spacing 16 :children (
-                            (text :content props.type)
-                            (title props)
+                    (? props.image
+                        (aspect-ratio
+                            :aspect-ratio 1.7778
+                            :child (image
+                                :src props.image
+                                :fit box-fit.fit-width
+                            )
                         )
+                    )
+                    (padding
+                        :padding (edge-insets-all 16)
+                        :child (title props)
                     )
                 )
             )
