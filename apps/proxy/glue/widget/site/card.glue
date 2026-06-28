@@ -14,8 +14,8 @@
                         (aspect-ratio
                             :aspect-ratio 1.7778
                             :child (image
-                                :src props.image
                                 :fit box-fit.fit-width
+                                :src props.image
                             )
                         )
                     )

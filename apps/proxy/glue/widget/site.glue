@@ -8,6 +8,12 @@
     (def (site id props)
         (list-view
             :children (
+                (? props.image
+                    (image
+                        :src props.image
+                        :fit box-fit.fit-width
+                    )
+                )
                 (padding
                     :padding (edge-insets-all 16)
                     :child (title props)
