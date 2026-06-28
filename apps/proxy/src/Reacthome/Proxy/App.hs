@@ -32,7 +32,7 @@ runApp config = do
 
     let ?upstream = makeUpstream
 
-    let ?assets = makeAssets config.assetsPath
+    let ?assets = makeAssets config.assets
 
     void . forkIO $ runProxyServer config.server
     void . forkIO $ runProxyDaemon config.daemon

@@ -4,7 +4,7 @@ data AppConfig = AppConfig
     { server :: ServerConfig
     , daemon :: DaemonConfig
     , gluePath :: FilePath
-    , assetsPath :: FilePath
+    , assets :: AssetsConfig
     }
 
 data ServerConfig = ServerConfig
@@ -17,4 +17,9 @@ data DaemonConfig = DaemonConfig
     , host :: String
     , port :: Int
     , uri :: String
+    }
+
+data AssetsConfig = AssetsConfig
+    { path :: String
+    , proxy :: String
     }

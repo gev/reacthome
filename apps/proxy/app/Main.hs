@@ -1,5 +1,5 @@
 import Reacthome.Proxy.App (runApp)
-import Reacthome.Proxy.Config (AppConfig (..), DaemonConfig (..), ServerConfig (..))
+import Reacthome.Proxy.Config (AppConfig (..), AssetsConfig (..), DaemonConfig (..), ServerConfig (..))
 
 main :: IO ()
 main = do
@@ -18,7 +18,11 @@ main = do
                         , uri = "/"
                         }
                 , gluePath = "./apps/proxy/glue/"
-                , assetsPath = "./assets"
+                , assets =
+                    AssetsConfig
+                        { path = "./assets"
+                        , proxy = "/Users/evgenygazdovsky/workspace/reacthome-daemon-legacy/var/assets"
+                        }
                 }
     putStrLn $
         "Run Reacthome Relay on "

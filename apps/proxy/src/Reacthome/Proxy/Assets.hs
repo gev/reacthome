@@ -9,14 +9,15 @@ import Data.Foldable (traverse_)
 import Data.Text (Text)
 import Data.Text qualified as T
 import Data.Text.Encoding qualified as T
+import Reacthome.Proxy.Config (AssetsConfig (..))
 import Reacthome.Proxy.Sink (Sink)
 import System.Directory (doesFileExist, getFileSize)
 import System.FilePath ((</>))
 
 newtype Assets = Assets {sendAsset :: Sink -> [Text] -> IO ()}
 
-makeAssets :: FilePath -> Assets
-makeAssets path = Assets sendAsset
+makeAssets :: AssetsConfig -> Assets
+makeAssets config = Assets sendAsset
   where
     sendAsset sink parts = do
         fileExists <- doesFileExist assetPath
@@ -35,10 +36,15 @@ makeAssets path = Assets sendAsset
                     <> B.word64BE (fromIntegral fileSize)
                     <> B.word32BE (fromIntegral $ S.length chunk)
                     <> B.word64BE (fromIntegral offset)
-                    <> B.byteString (T.encodeUtf8 assetName)
+                    <> B.byteString (T.encodeUtf8 $ assetName parts)
                     <> B.byteString chunk
 
         nextOffset acc chunk = acc + S.length chunk
 
-        assetName = T.intercalate "." parts
-        assetPath = path </> T.unpack assetName
+        assetName = T.intercalate "."
+
+        assetPath = baseDir </> T.unpack (assetName remainingParts)
+
+        (baseDir, remainingParts) = case parts of
+            "proxy" : xs -> (config.proxy, xs)
+            _ -> (config.path, parts)
