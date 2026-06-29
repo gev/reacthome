@@ -1,0 +1,16 @@
+(module iconic.plus
+    (export iconic-plus)
+
+    (def (plus-iconic offset size style)
+        (paint style
+            (path
+                (move-to (- offset.dx size) offset.dy)
+                (line-to (+ offset.dx size) offset.dy)
+            )
+            (path
+                (move-to offset.dx (- offset.dy size))
+                (line-to offset.dx (+ offset.dy size))
+            )
+        )
+    )
+)
