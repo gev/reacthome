@@ -1,5 +1,5 @@
 (module lib.vision
-    (export back go select select-persistent ??)
+    (export back go select select-persistent)
 
     (def back
         (\ () (pop ()))
@@ -20,7 +20,4 @@
         (select store.persistent)
     )
 
-    (def (?? go pred)
-        (? pred (go pred))
-    )
 )

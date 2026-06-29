@@ -10,7 +10,7 @@
             :child (column
                 :cross-axis-alignment cross-axis-alignment.stretch
                 :children (
-                    (? props.image
+                    (if (is-exist props.image)
                         (aspect-ratio
                             :aspect-ratio 1.7778
                             :child (image

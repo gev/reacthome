@@ -8,7 +8,7 @@
     (def (site id props)
         (list-view
             :children (
-                (? props.image
+                (if (is-exist props.image)
                     (image
                         :src props.image
                         :fit box-fit.fit-width
@@ -18,7 +18,7 @@
                     :padding (edge-insets-all 16)
                     :child (title props)
                 )
-                (?? site-list props.site)
+                (maybe site-list props.site)
             )
         )
     )

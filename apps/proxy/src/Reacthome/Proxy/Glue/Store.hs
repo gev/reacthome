@@ -39,7 +39,7 @@ makeGlueStore folder = GlueStore{..}
         forever $ threadDelay 1_000_000
 
     handle publish (Modified path time IsFile) = send publish path time
-    handle publish (Added path time IsFile) = send publish path time
+    -- handle publish (Added path time IsFile) = send publish path time
     handle _ _ = pure ()
 
     send publish path time = catch @SomeException
