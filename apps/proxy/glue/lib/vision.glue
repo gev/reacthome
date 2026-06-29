@@ -1,10 +1,8 @@
 (module lib.vision
     (export back go select select-persistent)
 
-    (def back
-        (\ () (pop ()))
-    )
-
+    (def back pop)
+ 
     (def (go route)
         (\ () (push route))
     )
