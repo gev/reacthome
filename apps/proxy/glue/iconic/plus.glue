@@ -2,12 +2,12 @@
     (export iconic-plus)
 
     (def (plus-iconic offset size style)
-        (paint style
-            (path
+        (paint
+            (path style
                 (move-to (- offset.dx size) offset.dy)
                 (line-to (+ offset.dx size) offset.dy)
             )
-            (path
+            (path style
                 (move-to offset.dx (- offset.dy size))
                 (line-to offset.dx (+ offset.dy size))
             )
