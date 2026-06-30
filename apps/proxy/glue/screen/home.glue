@@ -1,0 +1,37 @@
+(module screen.home
+    (export home-screen)
+
+    (import iconic.plus)
+    (import lib.vision)
+
+    (def icon-style
+        (paint-style
+            :style painting-style.stroke
+            :color colors.red
+            :stroke-width 10
+            :stroke-cap stroke-cap.round
+        )
+    )
+
+    (def (home-screen props)
+        (screen
+            :body (column
+                :children(
+                    (text :content props.title)
+                    (canvas
+                        (iconic-cross
+                            :dx 0 :dy 160
+                            :size 60
+                            :style icon-style
+                        )
+                        (iconic-plus
+                            :dx 0 :dy 460
+                            :size 80
+                            :style icon-style
+                        )
+                    )
+                )
+            )
+        )
+    )
+)

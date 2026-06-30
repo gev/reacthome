@@ -1,16 +1,25 @@
 (module iconic.plus
-    (export iconic-plus)
+    (export iconic-plus iconic-cross)
 
-    (def (plus-iconic offset size style)
-        (paint
-            (path style
-                (move-to (- offset.dx size) offset.dy)
-                (line-to (+ offset.dx size) offset.dy)
+    (def (iconic-plus props)
+        (group
+            (path props.style
+                (move-to (- props.dx props.size) props.dy)
+                (line-to (+ props.dx props.size) props.dy)
             )
-            (path style
-                (move-to offset.dx (- offset.dy size))
-                (line-to offset.dx (+ offset.dy size))
+            (path props.style
+                (move-to props.dx (- props.dy props.size))
+                (line-to props.dx (+ props.dy (* 1 props.size)))
             )
+        )
+    )
+
+    (def (iconic-cross props)
+        (path props.style
+            (move-to (- props.dx props.size) (- props.dy props.size))
+            (line-to (+ props.dx props.size) (+ props.dy props.size))
+            (move-to (- props.dx props.size) (+ props.dy props.size))
+            (line-to (+ props.dx props.size) (- props.dy props.size))
         )
     )
 )
