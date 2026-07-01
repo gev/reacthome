@@ -8,7 +8,7 @@
         (paint-style
             :style painting-style.stroke
             :color colors.red
-            :stroke-width 10
+            :stroke-width 15
             :stroke-cap stroke-cap.round
         )
     )
