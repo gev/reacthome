@@ -22,7 +22,7 @@ convert o =
             id' <- lookupId o
             payload <- lookupPayload o
             let timestamp = lookupTimestamp payload
-            pure (id', makeObject payload, timestamp)
+            pure (id', ("id", reference id') : makeObject payload, timestamp)
         _ -> Nothing
 
 lookupType :: A.Object -> Maybe Text
