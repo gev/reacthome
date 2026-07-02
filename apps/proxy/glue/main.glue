@@ -8,7 +8,7 @@
     (def main
         (app
             :routes (
-                :home (home-screen :title "Test Canvas")
+                :home (home-screen :title "Test a Canvas")
                 :project (project-screen 'proxy.b9b35b14-2d39-492c-ae72-48adfef50b8e)
                 :site (site-screen ())
             )

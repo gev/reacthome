@@ -1,0 +1,28 @@
+(module widget.iconic
+    (export iconic)
+
+    (import iconic.sign)
+
+    (def (icon-style props)
+        (paint-style
+            :style painting-style.stroke
+            :color (?? props.color theme.color-scheme.on-surface)
+            :stroke-width (+ (* 0.03 props.size) 0.03)
+            :stroke-cap stroke-cap.round
+        )
+    )
+
+    (def (iconic props)
+        (def offset (/ props.size 2))
+        (canvas
+            :width props.size
+            :height props.size
+            :background (props.icon
+                :dx offset
+                :dy offset
+                :size props.size
+                :style (icon-style props)
+            )
+        )
+    )
+)

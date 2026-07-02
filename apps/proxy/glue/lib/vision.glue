@@ -17,5 +17,4 @@
     (def select-persistent
         (select store.persistent)
     )
-
 )

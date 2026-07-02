@@ -1,0 +1,11 @@
+(module lib.log
+    (export log-info log-warning log-error)
+
+    (def (log tag message)
+        (post ('log (:tag tag :message message)))
+    )
+
+    (def log-info (log "info"))
+    (def log-warning (log  "warning"))
+    (def log-error (log "error"))
+)

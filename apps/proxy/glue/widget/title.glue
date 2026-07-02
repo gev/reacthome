@@ -2,6 +2,9 @@
     (export title)
 
     (def (title props)
-        (text :content (fallback props.title props.code))
+        (text
+            :content (?? props.of.title props.of.code)
+            :style props.style
+        )
     )
 )

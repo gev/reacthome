@@ -6,6 +6,7 @@
 
     (def (site-card id props)
         (card
+            :key id
             :clip-behavior clip.anti-alias
             :child (column
                 :cross-axis-alignment cross-axis-alignment.stretch
@@ -21,8 +22,8 @@
                     )
                     (padding
                         :padding (edge-insets-all 16)
-                        :child (filled-button
-                            :child (title props)
+                        :child (outlined-button
+                            :child (title :of props)
                             :on-pressed (go :route 'site :id id)
                         )
                     )

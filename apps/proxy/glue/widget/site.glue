@@ -16,7 +16,10 @@
                 )
                 (padding
                     :padding (edge-insets-all 16)
-                    :child (title props)
+                    :child (title
+                        :of props
+                        :style theme.text-theme.headline-large
+                    )
                 )
                 (maybe site-list props.site)
             )
