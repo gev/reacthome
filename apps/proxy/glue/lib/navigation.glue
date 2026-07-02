@@ -1,0 +1,9 @@
+(module lib.navigation
+    (export back go select select-persistent)
+
+    (def back pop)
+ 
+    (def (go route)
+        (\ () (push route))
+    )
+)

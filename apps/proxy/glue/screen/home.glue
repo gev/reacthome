@@ -1,10 +1,9 @@
 (module screen.home
     (export home-screen)
 
+    (import lib.navigation)
     (import widget.iconic)
     (import iconic.sign)
-    (import lib.vision)
-    (import lib.log)
 
     (def (home-screen props)
         (screen

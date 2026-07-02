@@ -1,11 +1,11 @@
 (module widget.site
     (export site)
 
+    (import lib.navigation)
     (import widget.site.list)
     (import widget.title)
-    (import lib.vision)
 
-    (def (site id props)
+    (def (site props)
         (list-view
             :children (
                 (if (is-exist props.image)

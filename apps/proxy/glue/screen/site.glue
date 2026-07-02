@@ -1,12 +1,12 @@
 (module screen.site
     (export site-screen)
 
+    (import lib.data)
     (import widget.site)
-    (import lib.vision)
 
     (def (site-screen props)
         (screen
-            :body (select-persistent site args.id)
+            :body (select site args.id)
         )
     )
 )

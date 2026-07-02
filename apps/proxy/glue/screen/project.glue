@@ -1,12 +1,12 @@
 (module screen.project
     (export project-screen)
 
+    (import lib.data)
     (import widget.site)
-    (import lib.vision)
 
     (def (project-screen project)
         (screen
-            :body (select-persistent site project)
+            :body (select site project)
         )
     )
 )
