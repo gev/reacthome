@@ -8,11 +8,4 @@
     (def select
         (select-from store.persistent)
     )
-
-    (def (select-bind go key)
-        (def (bind props)
-            (select (go props) props.bind)
-        )
-        (select bind key)
-    )
 )

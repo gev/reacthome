@@ -1,5 +1,5 @@
 (module lib.navigation
-    (export back go select select-persistent)
+    (export back go)
 
     (def back pop)
  
