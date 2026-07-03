@@ -1,4 +1,4 @@
-(module widget.site.card
+(module widget.card.site
     (export site-card)
 
     (import lib.data)

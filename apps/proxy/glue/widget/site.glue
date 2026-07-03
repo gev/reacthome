@@ -1,8 +1,12 @@
 (module widget.site
     (export site)
 
+    (import lib.log)
+    (import lib.data)
     (import lib.navigation)
-    (import widget.site.list)
+    (import widget.containers)
+    (import widget.card.site)
+    (import widget.card.light)
     (import widget.title)
 
     (def (site props)
@@ -21,7 +25,18 @@
                         :style theme.text-theme.headline-large
                     )
                 )
-                (maybe site-list props.site)
+                (column
+                    :spacing 16
+                    :children (
+                        (column
+                            :children (
+                                (select-in-row light-card props.light_220)
+                                (select-in-row light-card props.light_LED)
+                            )
+                        )
+                        (select-in-column site-card props.site)
+                    )
+                )
             )
         )
     )

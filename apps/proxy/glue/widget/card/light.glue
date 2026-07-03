@@ -1,0 +1,24 @@
+(module widget.card.light
+    (export light-card)
+
+    (import lib.data)
+    (import lib.navigation)
+    (import widget.title)
+
+    (def (light-card props)
+        (card
+            :key props.id
+            :clip-behavior clip.anti-alias
+            :child (column
+                :children (
+                    (padding
+                        :padding (edge-insets-all 8)
+                        :child (outlined-button
+                            :child (title :of props)
+                        )
+                    )
+                )
+            )
+        )
+    )
+)
