@@ -27,12 +27,8 @@
                 (column
                     :spacing 16
                     :children (
-                        (column
-                            :children (
-                                (select-in-row light-card props.light_220)
-                                (select-in-row light-card props.light_LED)
-                            )
-                        )
+                        (select-in-row light-card props.light_220)
+                        (select-in-row light-card props.light_LED)
                         (select-in-column site-card props.site)
                     )
                 )

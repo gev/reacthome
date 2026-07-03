@@ -1,24 +1,68 @@
 (module widget.card.light
     (export light-card)
 
+    (import lib.log)
     (import lib.data)
-    (import lib.navigation)
+
+    (import widget.iconic)
     (import widget.title)
 
-    (def (light-card props)
-        (card
+    (import iconic.light)
+
+    (def (light container status props)
+        (container
             :key props.id
             :clip-behavior clip.anti-alias
-            :child (column
-                :children (
-                    (padding
-                        :padding (edge-insets-all 8)
-                        :child (outlined-button
-                            :child (title :of props)
+            :child (padding
+                :padding (edge-insets-symmetric :horizontal 16 :vertical 8)
+                :child (row
+                    :spacing 16
+                    :children (
+                        (column
+                            :cross-axis-alignment cross-axis-alignment.start
+                            :children (
+                                (title
+                                    :of props
+                                    :style theme.text-theme-label-medium
+                                )
+                                (text
+                                    :content status
+                                    :style theme.text-theme.title-large
+                                )
+                            )
                         )
+                        (iconic :icon iconic-lamp :size 40)
                     )
                 )
             )
+        )
+    )
+
+    (def (light-dimmable props bind)
+        (if (bind.value)
+            (light filled-card (round (* (/ bind.value 255) 100)) props)
+            (light outlined-card "OFF" props)
+        )
+    )
+
+    (def (light-non-dimmable props bind)
+        (if (bind.value)
+            (light filled-card "ON" props)
+            (light outlined-card "OFF" props)
+        )
+    )
+
+    (def (light-bound props bind)
+        (if (bind.dimmable)
+            (light-dimmable props bind)
+            (light-non-dimmable props bind)
+        )
+    )
+
+    (def (light-card props)
+        (if (is-exist props.bind)
+            (select (light-bound props) props.bind)
+            (light outlined-card "N/A" props)
         )
     )
 )

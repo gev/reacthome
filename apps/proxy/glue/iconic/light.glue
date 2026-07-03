@@ -1,0 +1,14 @@
+(module iconic.light
+    (export iconic-lamp)
+
+    (def (iconic-lamp props)
+        (def size (* props.size 0.5))
+        (path props.style
+            (move-to (- props.dx size) props.dy)
+            (line-to (+ props.dx size) props.dy)
+            (move-to props.dx (- props.dy size))
+            (line-to props.dx (+ props.dy size))
+        )
+    )
+
+)
