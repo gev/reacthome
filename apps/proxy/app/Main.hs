@@ -7,13 +7,13 @@ main = do
             AppConfig
                 { server =
                     ServerConfig
-                        { host = "127.0.0.1"
+                        { host = "0.0.0.0"
                         , port = 3005
                         }
                 , daemon =
                     DaemonConfig
                         { uid = "02aaee3f-a050-43d5-bbf2-e0f2abd73a6e"
-                        , host = "127.0.0.1"
+                        , host = "server.local"
                         , port = 3000
                         , uri = "/"
                         }
