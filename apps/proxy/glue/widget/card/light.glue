@@ -9,46 +9,78 @@
 
     (import iconic.light)
 
-    (def (light container status props)
+    (def (light status props)
+        (padding
+            :padding (edge-insets-symmetric :horizontal 16 :vertical 8)
+            :child (row
+                :spacing 16
+                :children (
+                    (column
+                        :cross-axis-alignment cross-axis-alignment.start
+                        :children (
+                            (title
+                                :of props
+                                :style theme.text-theme-label-medium
+                            )
+                            (text
+                                :content status
+                                :style theme.text-theme.title-large
+                            )
+                        )
+                    )
+                    (iconic :icon iconic-lamp :size 40)
+                )
+            )
+        )
+    )
+
+    (def (show container status props)
         (container
             :key props.id
             :clip-behavior clip.anti-alias
-            :child (padding
-                :padding (edge-insets-symmetric :horizontal 16 :vertical 8)
-                :child (row
-                    :spacing 16
-                    :children (
-                        (column
-                            :cross-axis-alignment cross-axis-alignment.start
-                            :children (
-                                (title
-                                    :of props
-                                    :style theme.text-theme-label-medium
-                                )
-                                (text
-                                    :content status
-                                    :style theme.text-theme.title-large
-                                )
-                            )
-                        )
-                        (iconic :icon iconic-lamp :size 40)
-                    )
-                )
+            :child (light status props)
+        )
+    )
+
+    (def (run action) (\ () (post action)))
+    (def (turn-on uid) (run ('on uid)))
+    (def (turn-off uid) (run ('off uid)))
+    (def (convert value) (round (* (/ value 255) 100)))
+
+
+    (def (show-dimmable container action status props)
+        (container
+            :key props.id
+            :clip-behavior clip.anti-alias
+            :child (ink-well
+                :on-tap (action props.id)
+                :child (light status props)
+            )
+        )
+    )
+
+    (def (show-non-dimmable container action status props)
+        (container
+            :key props.id
+            :clip-behavior clip.anti-alias
+            :child (ink-well
+                :on-tap (action props.id)
+                :child (light status props)
             )
         )
     )
 
     (def (light-dimmable props bind)
         (if (bind.value)
-            (light filled-card (round (* (/ bind.value 255) 100)) props)
-            (light outlined-card "OFF" props)
+            (show-dimmable filled-card turn-off (convert bind.value) props)
+            (show-dimmable outlined-card turn-on "OFF" props)
         )
     )
 
     (def (light-non-dimmable props bind)
         (if (bind.value)
-            (light filled-card "ON" props)
-            (light outlined-card "OFF" props)
+            (show-non-dimmable filled-card turn-off "ON" props)
+            (show-non-dimmable outlined-card turn-on "OFF" props)
         )
     )
 
@@ -62,7 +94,7 @@
     (def (light-card props)
         (if (is-exist props.bind)
             (select (light-bound props) props.bind)
-            (light outlined-card "N/A" props)
+            (show outlined-card "N/A" props)
         )
     )
 )
