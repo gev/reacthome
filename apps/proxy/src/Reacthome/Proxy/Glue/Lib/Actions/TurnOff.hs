@@ -1,5 +1,7 @@
 module Reacthome.Proxy.Glue.Lib.Actions.TurnOff where
 
+import Control.Monad (void)
+import Data.Text qualified as T
 import Glue.Eval (Eval (..), liftIO, throwError)
 import Glue.Eval.Exception (wrongArgumentType)
 import Glue.IR (IR (..))
@@ -13,7 +15,14 @@ turnOffImpl ::
     (?downstream :: Downstream) =>
     IR Eval -> Eval (IR Eval)
 turnOffImpl = \case
-    DottedSymbol ["proxy", uid] -> do
-        liftIO $ ?downstream.send $ actionOff uid
+    String key -> go $ T.split (== '.') key
+    Symbol key -> go $ T.split (== '.') key
+    DottedSymbol key -> go key
+    _ -> err
+  where
+    go ["proxy", uid] = do
+        void . liftIO $ ?downstream.send $ actionOff uid
         pure Void
-    _ -> throwError $ wrongArgumentType ["String `id` required"]
+    go _ = err
+
+    err = throwError $ wrongArgumentType ["String `id` required"]
