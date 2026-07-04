@@ -1,15 +1,11 @@
 (module widget.card.light
     (export light-card)
 
-    (import lib.log)
     (import lib.data)
-
     (import widget.iconic)
-    (import widget.title)
-
     (import iconic.light)
 
-    (def (light status props)
+    (def (light label status)
         (padding
             :padding (edge-insets-symmetric :horizontal 16 :vertical 8)
             :child (row
@@ -18,8 +14,8 @@
                     (column
                         :cross-axis-alignment cross-axis-alignment.start
                         :children (
-                            (title
-                                :of props
+                            (text
+                                :content label
                                 :style theme.text-theme-label-medium
                             )
                             (text
@@ -54,7 +50,7 @@
             :clip-behavior clip.anti-alias
             :child (ink-well
                 :on-tap (action props.id)
-                :child (light status props)
+                :child (light (title props) status)
             )
         )
     )
@@ -65,7 +61,7 @@
             :clip-behavior clip.anti-alias
             :child (ink-well
                 :on-tap (action props.id)
-                :child (light status props)
+                :child (light (title props) status)
             )
         )
     )

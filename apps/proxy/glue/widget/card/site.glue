@@ -3,7 +3,6 @@
 
     (import lib.data)
     (import lib.navigation)
-    (import widget.title)
 
     (def (site-card props)
         (card
@@ -24,7 +23,7 @@
                     (padding
                         :padding (edge-insets-all 16)
                         :child (outlined-button
-                            :child (title :of props)
+                            :child (text :content (title props))
                             :on-pressed (go :route 'site :id props.id)
                         )
                     )

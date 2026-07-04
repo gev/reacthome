@@ -6,7 +6,6 @@
     (import widget.containers)
     (import widget.card.site)
     (import widget.card.light)
-    (import widget.title)
 
     (def (site props)
         (list-view
@@ -19,8 +18,8 @@
                 )
                 (padding
                     :padding (edge-insets-all 16)
-                    :child (title
-                        :of props
+                    :child (text
+                        :content (title props)
                         :style theme.text-theme.headline-large
                     )
                 )

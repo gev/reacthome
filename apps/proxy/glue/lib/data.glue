@@ -1,5 +1,5 @@
 (module lib.data
-    (export select-from select select-bind)
+    (export select-from select select-bind title)
 
     (def (select-from source go key)
         (listen (lookup source key) go)
@@ -7,5 +7,9 @@
 
     (def select
         (select-from store.persistent)
+    )
+
+    (def (title props)
+        (?? props.title props.code)
     )
 )
