@@ -1,0 +1,17 @@
+(module widget.light-dimmer
+    (export light-dimmer)
+
+    (def (light-dimmer props)
+        (alert-dialog
+            :content (vertical-slider
+                :value props.value
+                :min 0
+                :max 100
+                :jump-to-tap false
+                :display-value false
+                :on-changed (\ (value) (log-info value))
+            )
+        )
+    )
+
+)

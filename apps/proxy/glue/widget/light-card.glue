@@ -1,9 +1,10 @@
-(module widget.card.light
+(module widget.light-card
     (export light-card)
 
     (import lib.data)
-    (import widget.iconic)
     (import iconic.light)
+    (import widget.iconic)
+    (import widget.light-dimmer)
 
     (def (run action) (\ () (post action)))
     (def (turn-on uid) (run ('on uid)))
@@ -81,6 +82,11 @@
             :color props.card-color
             :child (ink-well
                 :on-tap (props.action props.id)
+                :on-long-press
+                (\ () (show-dialog
+                        :dialog (light-dimmer props)
+                    )
+                )
                 :child (light props)
             )
         )
@@ -100,20 +106,24 @@
 
     (def (light-dimmable props bind)
         (if (bind.value)
-            (show-dimmable
-                :id props.id
-                :label (title props)
-                :status (convert bind.value)
-                :action turn-off
-                :color theme.color-scheme.on-surface
-                :card-color theme.color-scheme.surface-bright
-                :icon-color theme.color-scheme.primary
-                :elevation elevation-on
+            (let (:value (convert bind.value))
+                (show-dimmable
+                    :id props.id
+                    :label (title props)
+                    :status value
+                    :value value
+                    :action turn-off
+                    :color theme.color-scheme.on-surface
+                    :card-color theme.color-scheme.surface-bright
+                    :icon-color theme.color-scheme.primary
+                    :elevation elevation-on
+                )
             )
             (show-dimmable
                 :id props.id
                 :action turn-on
                 :label (title props)
+                :value 0
                 :status "OFF"
                 :color theme.color-scheme.on-surface
                 :card-color theme.color-scheme.surface-dim
