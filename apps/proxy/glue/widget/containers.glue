@@ -1,5 +1,9 @@
 (module widget.containers
-    (export select-in-column select-in-row)
+    (export
+        select-in-column
+        select-in-row
+        select-in-wrap
+    )
 
     (import lib.data)
 
@@ -16,6 +20,16 @@
         (if (is-exist items)
             (row
                 :spacing 16
+                :children (map (select go) items)
+            )
+        )
+    )
+
+    (def (select-in-wrap go items)
+        (if (is-exist items)
+            (wrap
+                :spacing 16
+                :run-spacing 16
                 :children (map (select go) items)
             )
         )

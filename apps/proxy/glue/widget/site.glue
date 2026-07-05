@@ -24,10 +24,11 @@
                     )
                 )
                 (column
+                    :cross-axis-alignment cross-axis-alignment.start
                     :spacing 16
                     :children (
-                        (select-in-row light-card props.light_220)
-                        (select-in-row light-card props.light_LED)
+                        (select-in-wrap light-card props.light_220)
+                        (select-in-wrap light-card props.light_LED)
                         (select-in-column site-card props.site)
                     )
                 )

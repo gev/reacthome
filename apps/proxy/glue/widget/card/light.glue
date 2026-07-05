@@ -5,78 +5,146 @@
     (import widget.iconic)
     (import iconic.light)
 
-    (def (light label status)
-        (padding
-            :padding (edge-insets-symmetric :horizontal 16 :vertical 8)
-            :child (row
-                :spacing 16
-                :children (
-                    (column
-                        :cross-axis-alignment cross-axis-alignment.start
-                        :children (
-                            (text
-                                :content label
-                                :style theme.text-theme-label-medium
-                            )
-                            (text
-                                :content status
-                                :style theme.text-theme.title-large
-                            )
-                        )
-                    )
-                    (iconic :icon iconic-lamp :size 40)
-                )
-            )
-        )
-    )
-
-    (def (show container status props)
-        (container
-            :key props.id
-            :clip-behavior clip.anti-alias
-            :child (light status props)
-        )
-    )
-
     (def (run action) (\ () (post action)))
     (def (turn-on uid) (run ('on uid)))
     (def (turn-off uid) (run ('off uid)))
     (def (convert value) (round (* (/ value 255) 100)))
 
+    (def elevation-unbound 0)
+    (def elevation-off 1)
+    (def elevation-on 4)
 
-    (def (show-dimmable container action status props)
+    (def (light props)
+        (def screen-width media-query.width)
+        (def n (floor (/ screen-width 160)))
+        (def space (* n 16))
+        (def width (/ (- screen-width space) n))
         (container
-            :key props.id
-            :clip-behavior clip.anti-alias
-            :child (ink-well
-                :on-tap (action props.id)
-                :child (light (title props) status)
+            :width width
+            :constraints (box-constraints
+                :min-width 160
+                :max-width 320
+            )
+            :child (padding
+                :padding (edge-insets-symmetric :horizontal 16 :vertical 8)
+                :child (row
+                    :spacing 16
+                    :children (
+                        (column
+                            :cross-axis-alignment cross-axis-alignment.start
+                            :children (
+                                (text
+                                    :content props.label
+                                    :style (text-style
+                                        :font-size theme.text-theme.label-large.font-size
+                                        :color theme.color-scheme.on-surface-variant
+                                        :font-weight font-weight.w400
+                                    )
+                                )
+                                (text
+                                    :content props.status
+                                    :style (text-style
+                                        :color props.color
+                                        :font-size theme.text-theme.title-large.font-size
+                                        :font-weight font-weight.w600
+                                    )
+                                )
+                            )
+                        )
+                        (spacer :flex 1)
+                        (iconic
+                            :icon iconic-lamp
+                            :color props.icon-color
+                            :size 40
+                        )
+                    )
+                )
             )
         )
     )
 
-    (def (show-non-dimmable container action status props)
-        (container
+    (def (show props)
+        (card
             :key props.id
             :clip-behavior clip.anti-alias
+            :color props.card-color
+            :elevation props.elevation
+            :child (light props)
+        )
+    )
+
+    (def (show-dimmable props)
+        (card
+            :key props.id
+            :clip-behavior clip.anti-alias
+            :elevation props.elevation
+            :color props.card-color
             :child (ink-well
-                :on-tap (action props.id)
-                :child (light (title props) status)
+                :on-tap (props.action props.id)
+                :child (light props)
+            )
+        )
+    )
+
+    (def (show-non-dimmable props)
+        (card
+            :key props.id
+            :clip-behavior clip.anti-alias
+            :color props.card-color
+            :child (ink-well
+                :on-tap (props.action props.id)
+                :child (light props)
             )
         )
     )
 
     (def (light-dimmable props bind)
         (if (bind.value)
-            (show-dimmable filled-card turn-off (convert bind.value) props)
-            (show-dimmable outlined-card turn-on "OFF" props)
+            (show-dimmable
+                :id props.id
+                :label (title props)
+                :status (convert bind.value)
+                :action turn-off
+                :color theme.color-scheme.on-surface
+                :card-color theme.color-scheme.surface-bright
+                :icon-color theme.color-scheme.primary
+                :elevation elevation-on
+            )
+            (show-dimmable
+                :id props.id
+                :action turn-on
+                :label (title props)
+                :status "OFF"
+                :color theme.color-scheme.on-surface
+                :card-color theme.color-scheme.surface-dim
+                :icon-color theme.color-scheme.outline-variant
+                :elevation elevation-off
+            )
         )
     )
 
     (def (light-non-dimmable props bind)
         (if (bind.value)
-            (show-non-dimmable filled-card turn-off "ON" props)
-            (show-non-dimmable outlined-card turn-on "OFF" props)
+            (show-non-dimmable
+                :id props.id
+                :label (title props)
+                :status "ON"
+                :action turn-off
+                :color theme.color-scheme.on-surface
+                :card-color theme.color-scheme.surface-bright
+                :icon-color theme.color-scheme.primary
+                :elevation elevation-on
+            )
+            (show-non-dimmable
+                :id props.id
+                :label (title props)
+                :status "OFF"
+                :action turn-on
+                :color theme.color-scheme.on-surface
+                :card-color theme.color-scheme.surface-dim
+                :icon-color theme.color-scheme.outline-variant
+                :elevation elevation-off
+            )
         )
     )
 
@@ -90,7 +158,15 @@
     (def (light-card props)
         (if (is-exist props.bind)
             (select (light-bound props) props.bind)
-            (show outlined-card "N/A" props)
+            (show
+                :id props.id
+                :label (title props)
+                :status "N/A"
+                :color theme.color-scheme.on-surface-variant
+                :card-color theme.color-scheme.surface-variant
+                :icon-color theme.color-scheme.outline-variant
+                :elevation elevation-unbound
+            )
         )
     )
 )
