@@ -1,7 +1,9 @@
 (module widget.light-dimmer
-    (export light-dimmer)
+    (export show-light-dimmer)
 
-    (def (light-dimmer props)
+    (import lib.log)
+
+    (def (light-dimmer-dialog props)
         (alert-dialog
             :content (vertical-slider
                 :value props.value
@@ -11,6 +13,12 @@
                 :display-value false
                 :on-changed (\ (value) (log-info value))
             )
+        )
+    )
+
+    (def (show-light-dimmer props)
+        (\ ()
+            (show-dialog (light-dimmer-dialog props))
         )
     )
 

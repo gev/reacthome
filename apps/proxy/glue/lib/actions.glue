@@ -1,0 +1,19 @@
+(module lib.actions
+    (export
+        turn-on
+        turn-off
+
+        to-percents
+        from-percents
+    )
+
+    (def (run action) (\ () (post action)))
+    (def (turn-on uid) (run ('on uid)))
+    (def (turn-off uid) (run ('off uid)))
+
+
+    (def (from-percents value) (round (* value 2.55)))
+    (def (to-percents value) (round (/ value 2.55)))
+
+
+)

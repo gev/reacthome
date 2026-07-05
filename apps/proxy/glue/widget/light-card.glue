@@ -1,15 +1,14 @@
 (module widget.light-card
     (export light-card)
 
+    (import lib.actions)
     (import lib.data)
+
     (import iconic.light)
+
+    (import widget.cards)
     (import widget.iconic)
     (import widget.light-dimmer)
-
-    (def (run action) (\ () (post action)))
-    (def (turn-on uid) (run ('on uid)))
-    (def (turn-off uid) (run ('off uid)))
-    (def (convert value) (round (* (/ value 255) 100)))
 
     (def elevation-unbound 0)
     (def elevation-off 1)
@@ -64,96 +63,60 @@
         )
     )
 
-    (def (show props)
-        (card
-            :key props.id
-            :clip-behavior clip.anti-alias
-            :color props.card-color
-            :elevation props.elevation
-            :child (light props)
-        )
-    )
-
-    (def (show-dimmable props)
-        (card
-            :key props.id
-            :clip-behavior clip.anti-alias
-            :elevation props.elevation
-            :color props.card-color
-            :child (ink-well
-                :on-tap (props.action props.id)
-                :on-long-press
-                (\ () (show-dialog
-                        :dialog (light-dimmer props)
-                    )
-                )
-                :child (light props)
-            )
-        )
-    )
-
-    (def (show-non-dimmable props)
-        (card
-            :key props.id
-            :clip-behavior clip.anti-alias
-            :color props.card-color
-            :child (ink-well
-                :on-tap (props.action props.id)
-                :child (light props)
-            )
-        )
-    )
-
     (def (light-dimmable props bind)
         (if (bind.value)
-            (let (:value (convert bind.value))
-                (show-dimmable
-                    :id props.id
+            (active-card
+                :key props.id
+                :on-pressed (turn-off props.id)
+                :color theme.color-scheme.on-surface
+                :card-color theme.color-scheme.surface-bright
+                :icon-color theme.color-scheme.primary
+                :elevation elevation-on
+                :child (light
                     :label (title props)
-                    :status value
-                    :value value
-                    :action turn-off
-                    :color theme.color-scheme.on-surface
-                    :card-color theme.color-scheme.surface-bright
-                    :icon-color theme.color-scheme.primary
-                    :elevation elevation-on
+                    :status (to-percents bind.value)
                 )
             )
-            (show-dimmable
-                :id props.id
-                :action turn-on
-                :label (title props)
-                :value 0
-                :status "OFF"
+            (active-card
+                :key props.id
+                :on-pressed (turn-on props.id)
                 :color theme.color-scheme.on-surface
                 :card-color theme.color-scheme.surface-dim
                 :icon-color theme.color-scheme.outline-variant
                 :elevation elevation-off
+                :child (light
+                    :label (title props)
+                    :status "OFF"
+                )
             )
         )
     )
 
     (def (light-non-dimmable props bind)
         (if (bind.value)
-            (show-non-dimmable
-                :id props.id
-                :label (title props)
-                :status "ON"
-                :action turn-off
+            (active-card
+                :key props.id
+                :on-pressed (turn-off props.id)
                 :color theme.color-scheme.on-surface
                 :card-color theme.color-scheme.surface-bright
                 :icon-color theme.color-scheme.primary
                 :elevation elevation-on
+                :child (light
+                    :label (title props)
+                    :status "ON"
+                )
             )
-            (show-non-dimmable
-                :id props.id
-                :label (title props)
-                :status "OFF"
-                :action turn-on
+            (active-card
+                :key props.id
+                :on-pressed (turn-on props.id)
                 :color theme.color-scheme.on-surface
                 :card-color theme.color-scheme.surface-dim
                 :icon-color theme.color-scheme.outline-variant
                 :elevation elevation-off
+                :child (light
+                    :label (title props)
+                    :status "OFF"
+                )
             )
         )
     )
@@ -168,14 +131,16 @@
     (def (light-card props)
         (if (is-exist props.bind)
             (select (light-bound props) props.bind)
-            (show
-                :id props.id
-                :label (title props)
-                :status "N/A"
+            (inactive-card
+                :key props.id
                 :color theme.color-scheme.on-surface-variant
                 :card-color theme.color-scheme.surface-variant
                 :icon-color theme.color-scheme.outline-variant
                 :elevation elevation-unbound
+                :child (light
+                    :label (title props)
+                    :status "N/A"
+                )
             )
         )
     )

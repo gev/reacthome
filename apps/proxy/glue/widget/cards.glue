@@ -1,0 +1,29 @@
+(module widget.cards
+    (export
+        active-card
+        inactive-card
+    )
+
+    (def (inactive-card props)
+        (card
+            :key props.key
+            :clip-behavior clip.anti-alias
+            :color props.card-color
+            :elevation props.elevation
+            :child props.child
+        )
+    )
+
+    (def (active-card props)
+        (card
+            :key props.key
+            :clip-behavior clip.anti-alias
+            :color props.card-color
+            :child (ink-well
+                :on-tap props.on-pressed
+                :on-long-press props.on-long-press
+                :child props.child
+            )
+        )
+    )
+)
