@@ -3,10 +3,10 @@
 
     (import lib.log)
 
-    (def (light-dimmer-dialog props)
+    (def (light-dimmer-dialog id)
         (alert-dialog
             :content (vertical-slider
-                :value props.value
+                :value 50
                 :min 0
                 :max 100
                 :jump-to-tap false
@@ -16,9 +16,12 @@
         )
     )
 
-    (def (show-light-dimmer props)
+    (def (show-light-dimmer id)
         (\ ()
-            (show-dialog (light-dimmer-dialog props))
+            (show-dialog
+                :dialog (light-dimmer-dialog id
+                )
+            )
         )
     )
 

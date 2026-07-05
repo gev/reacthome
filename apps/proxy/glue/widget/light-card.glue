@@ -15,49 +15,35 @@
     (def elevation-on 2)
 
     (def (light props)
-        (def screen-width media-query.width)
-        (def n (floor (/ screen-width 160)))
-        (def space (* n 16))
-        (def width (/ (- screen-width space) n))
-        (container
-            :width width
-            :constraints (box-constraints
-                :min-width 160
-                :max-width 320
-            )
-            :child (padding
-                :padding (edge-insets-symmetric :horizontal 16 :vertical 8)
-                :child (row
-                    :spacing 16
+        (row
+            :spacing 16
+            :children (
+                (column
+                    :cross-axis-alignment cross-axis-alignment.start
                     :children (
-                        (column
-                            :cross-axis-alignment cross-axis-alignment.start
-                            :children (
-                                (text
-                                    :content props.label
-                                    :style (text-style
-                                        :font-size theme.text-theme.label-large.font-size
-                                        :color theme.color-scheme.on-surface-variant
-                                        :font-weight font-weight.w400
-                                    )
-                                )
-                                (text
-                                    :content props.status
-                                    :style (text-style
-                                        :color props.color
-                                        :font-size theme.text-theme.title-large.font-size
-                                        :font-weight font-weight.w600
-                                    )
-                                )
+                        (text
+                            :content props.label
+                            :style (text-style
+                                :font-size theme.text-theme.label-large.font-size
+                                :color theme.color-scheme.on-surface-variant
+                                :font-weight font-weight.w400
                             )
                         )
-                        (spacer :flex 1)
-                        (iconic
-                            :icon iconic-lamp
-                            :color props.icon-color
-                            :size 40
+                        (text
+                            :content props.status
+                            :style (text-style
+                                :color props.color
+                                :font-size theme.text-theme.title-large.font-size
+                                :font-weight font-weight.w600
+                            )
                         )
                     )
+                )
+                (spacer :flex 1)
+                (iconic
+                    :icon iconic-lamp
+                    :color props.icon-color
+                    :size 40
                 )
             )
         )
@@ -68,6 +54,7 @@
             (active-card
                 :key props.id
                 :on-pressed (turn-off props.id)
+                :on-long-press (show-light-dimmer props.id)
                 :color theme.color-scheme.on-surface
                 :card-color theme.color-scheme.surface-bright
                 :icon-color theme.color-scheme.primary
@@ -80,6 +67,7 @@
             (active-card
                 :key props.id
                 :on-pressed (turn-on props.id)
+                :on-long-press (show-light-dimmer props.id)
                 :color theme.color-scheme.on-surface
                 :card-color theme.color-scheme.surface-dim
                 :icon-color theme.color-scheme.outline-variant
