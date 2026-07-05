@@ -1,5 +1,6 @@
 (module lib.actions
     (export
+        dim
         turn-on
         turn-off
 
@@ -7,13 +8,13 @@
         from-percents
     )
 
-    (def (run action) (\ () (post action)))
-    (def (turn-on uid) (run ('on uid)))
-    (def (turn-off uid) (run ('off uid)))
-
-
     (def (from-percents value) (round (* value 2.55)))
     (def (to-percents value) (round (/ value 2.55)))
 
+    (def (run action) (\ () (post action)))
+
+    (def (dim uid value) (post ('dim uid (from-percents value))))
+    (def (turn-on uid) (run ('on uid)))
+    (def (turn-off uid) (run ('off uid)))
 
 )

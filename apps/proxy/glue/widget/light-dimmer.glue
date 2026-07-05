@@ -1,28 +1,39 @@
 (module widget.light-dimmer
     (export show-light-dimmer)
 
+    (import lib.actions)
+    (import lib.data)
     (import lib.log)
 
-    (def (light-dimmer-dialog id)
+    (def (light-dimmer props bind)
+        (vertical-slider
+            :value (to-percents bind.value)
+            :min 0
+            :max 100
+            :on-changed (dim props.id)
+            :jump-to-tap false
+            :display-value false
+        )
+    )
+
+    (def (light-dimmer-bottom-sheet props)
+        (bottom-sheet
+            :content (select (light-dimmer props) props.bind)
+        )
+    )
+
+    (def (light-dimmer-dialog props)
         (alert-dialog
-            :content (vertical-slider
-                :value 50
-                :min 0
-                :max 100
-                :jump-to-tap false
-                :display-value false
-                :on-changed (\ (value) (log-info value))
-            )
+            :content (select (light-dimmer props) props.bind)
         )
     )
 
     (def (show-light-dimmer id)
         (\ ()
             (show-dialog
-                :dialog (light-dimmer-dialog id
-                )
+                :child (select light-dimmer-dialog id)
             )
+            
         )
     )
-
 )
