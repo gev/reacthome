@@ -1,6 +1,7 @@
 (module widget.site
     (export site)
 
+    (import lib.log)
     (import lib.data)
     (import lib.navigation)
     (import widget.containers)
@@ -27,6 +28,14 @@
                     :cross-axis-alignment cross-axis-alignment.start
                     :spacing 16
                     :children (
+                        (vertical-slider
+                            :value 50
+                            :min 0
+                            :max 100
+                            :jump-to-tap false
+                            :display-value false
+                            :on-changed (\ (value) (log-info value))
+                        )
                         (select-in-wrap light-card props.light_220)
                         (select-in-wrap light-card props.light_LED)
                         (select-in-column site-card props.site)

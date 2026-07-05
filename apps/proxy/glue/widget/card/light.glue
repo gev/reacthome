@@ -12,7 +12,7 @@
 
     (def elevation-unbound 0)
     (def elevation-off 1)
-    (def elevation-on 4)
+    (def elevation-on 2)
 
     (def (light props)
         (def screen-width media-query.width)
