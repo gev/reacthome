@@ -3,6 +3,7 @@ where
 
 import Data.Aeson qualified as A
 import Data.Aeson.KeyMap qualified as A
+import Data.Scientific (fromFloatDigits)
 import Data.Text (Text)
 import Data.Vector qualified as V
 
@@ -25,4 +26,12 @@ actionOff uid =
     A.fromList
         [ ("type", "ACTION_OFF")
         , ("id", A.String uid)
+        ]
+
+actionDim :: Text -> Double -> A.Object
+actionDim uid value =
+    A.fromList
+        [ ("type", "ACTION_DIM")
+        , ("id", A.String uid)
+        , ("value", A.Number $ fromFloatDigits value)
         ]

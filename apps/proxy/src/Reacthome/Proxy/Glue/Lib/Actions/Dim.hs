@@ -5,24 +5,33 @@ import Data.Text qualified as T
 import Glue.Eval (Eval (..), liftIO, throwError)
 import Glue.Eval.Exception (wrongArgumentType)
 import Glue.IR (IR (..))
+import Glue.IR qualified as IR
 import Reacthome.Proxy.Bridge.Downstream (Downstream (..))
-import Reacthome.Proxy.Daemon.Actions.Encode (actionOff)
+import Reacthome.Proxy.Daemon.Actions.Encode (actionDim)
 
 dim :: (?downstream :: Downstream) => IR Eval
-dim = NativeFunc dimOffImpl
+dim = NativeFunc dimImpl
 
-dimOffImpl ::
+dimImpl ::
     (?downstream :: Downstream) =>
     IR Eval -> Eval (IR Eval)
-dimOffImpl = \case
-    String key -> go $ T.split (== '.') key
-    Symbol key -> go $ T.split (== '.') key
-    DottedSymbol key -> go key
-    _ -> err
+dimImpl = \case
+    String key -> dimId $ T.split (== '.') key
+    Symbol key -> dimId $ T.split (== '.') key
+    DottedSymbol key -> dimId key
+    _ -> errId
   where
-    go ["proxy", uid] = do
-        void . liftIO $ ?downstream.send $ actionOff uid
-        pure Void
-    go _ = err
+    dimId ["proxy", uid] = do
+        pure $ IR.NativeFunc (dimValue uid)
+    dimId _ = errId
 
-    err = throwError $ wrongArgumentType ["String `id` required"]
+    dimValue uid (Float value) = go uid value
+    dimValue uid (Integer value) = go uid $ fromIntegral value
+    dimValue _ _ = errValue
+
+    go uid value = do
+        void . liftIO $ ?downstream.send $ actionDim uid value
+        pure Void
+
+    errId = throwError $ wrongArgumentType ["String `id` required"]
+    errValue = throwError $ wrongArgumentType ["`Double` or `Integer` `value` required"]
