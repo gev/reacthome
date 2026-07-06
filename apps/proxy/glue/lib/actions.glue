@@ -11,10 +11,22 @@
     (def (from-percents value) (round (* value 2.55)))
     (def (to-percents value) (round (/ value 2.55)))
 
-    (def (run action) (\ () (post action)))
+    (def (dim uid)
+        (\ (value)
+            (post ('dim uid (from-percents value)))
+        )
+    )
+    
+    (def (turn-on uid)
+        (\ ()
+            (post ('on uid))
+        )
+    )
 
-    (def (dim uid value) (post ('dim uid (from-percents value))))
-    (def (turn-on uid) (run ('on uid)))
-    (def (turn-off uid) (run ('off uid)))
+    (def (turn-off uid)
+        (\ ()
+            (post ('off uid))
+        )
+    )
 
 )

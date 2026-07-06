@@ -5,35 +5,68 @@
     (import lib.data)
     (import lib.log)
 
-    (def (light-dimmer props bind)
-        (vertical-slider
-            :value (to-percents bind.value)
-            :min 0
-            :max 100
-            :on-changed (dim props.id)
-            :jump-to-tap false
-            :display-value false
+    (def (light-slider props bind)
+        (def value (to-percents bind.value))
+        (container
+            :padding (edge-insets-all 16)
+            :child (row
+                :spacing 32
+                :main-axis-alignment main-axis-alignment.center
+                :children (
+                    (column
+                        :spacing 16
+                        :children (
+                            (text
+                                :content (title props)
+                                :style (text-style
+                                    :font-size theme.text-theme.title-large.font-size
+                                    :color theme.color-scheme.on-surface-variant
+                                    :font-weight font-weight.w400
+                                )
+                            )
+                            (text
+                                :content value
+                                :style (text-style
+                                    :font-size theme.text-theme.display-large.font-size
+                                    :color theme.color-scheme.on-surface
+                                    :font-weight font-weight.w600
+                                )
+                            )
+                        )
+                    )
+                    (vertical-slider
+                        :value value
+                        :min 0
+                        :max 100
+                        :width 60
+                        :focused-width 90
+                        :height 20
+                        :on-changed (dim props.id)
+                        :jump-to-tap false
+                        :display-value false
+                        
+                    )
+                )
+            )
         )
     )
 
-    (def (light-dimmer-bottom-sheet props)
-        (bottom-sheet
-            :content (select (light-dimmer props) props.bind)
-        )
+    (def (light-dimmer props)
+        (select (light-slider props) props.bind)
     )
-
-    (def (light-dimmer-dialog props)
-        (alert-dialog
-            :content (select (light-dimmer props) props.bind)
-        )
-    )
+    
 
     (def (show-light-dimmer id)
         (\ ()
-            (show-dialog
-                :child (select light-dimmer-dialog id)
+            (def dimmer (select light-dimmer id))
+            (if (< media-query.width 600)
+                (show-modal-bottom-sheet
+                    :child dimmer
+                )
+                (show-dialog
+                    :child dimmer
+                )
             )
-            
         )
     )
 )
