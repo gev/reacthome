@@ -7,7 +7,7 @@
 
     (def (light-dimmer props bind)
         (def value (to-percents bind.value))
-        (container
+        (padding
             :padding (edge-insets-all 16)
             :child (column
                 :main-axis-size main-axis-size.min

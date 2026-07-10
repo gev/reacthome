@@ -1,7 +1,39 @@
 (module main
     (export main)
 
-    (import routes)
+    (import screen.home)
+    (import screen.project)
+    (import screen.site)
+    (import screen.light-dimmer)
+
+    (def (home-route args)
+        (route
+            :screen (home-screen :title "Test a Canvas!")
+        )
+    )
+
+    (def (project-route args)
+        (route
+            :screen (project-screen 'proxy.b9b35b14-2d39-492c-ae72-48adfef50b8e)
+        )
+    )
+
+    (def (site-route args)
+        (route
+            :screen (site-screen args)
+        )
+    )
+
+    (def (light-dimmer-route args)
+        (overlay-route
+            :tag args.id
+            :screen (light-dimmer-screen args)
+            :duration 500
+            :border-radius 12
+            :opacity 0.8
+            :blur 40
+        )
+    )
 
     (def main
         (app
