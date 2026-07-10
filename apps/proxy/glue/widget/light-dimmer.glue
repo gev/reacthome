@@ -7,36 +7,38 @@
 
     (def (light-dimmer props bind)
         (def value (to-percents bind.value))
-        (column
-            :main-axis-size main-axis-size.min
-            :spacing 32
-            :children (
-                (text
-                    :content (title props)
-                    :style (text-style
-                        :font-size theme.text-theme.title-large.font-size
-                        :color theme.color-scheme.on-surface-variant
-                        :font-weight font-weight.w400
+        (container
+            :padding (edge-insets-all 16)
+            :child (column
+                :main-axis-size main-axis-size.min
+                :spacing 32
+                :children (
+                    (text
+                        :content (title props)
+                        :style (text-style
+                            :font-size theme.text-theme.title-large.font-size
+                            :color theme.color-scheme.on-surface-variant
+                            :font-weight font-weight.w400
+                        )
                     )
-                )
-                (text
-                    :content value
-                    :style (text-style
-                        :font-size theme.text-theme.display-large.font-size
-                        :color theme.color-scheme.on-surface
-                        :font-weight font-weight.w600
+                    (text
+                        :content value
+                        :style (text-style
+                            :font-size theme.text-theme.display-large.font-size
+                            :color theme.color-scheme.on-surface
+                            :font-weight font-weight.w600
+                        )
                     )
-                )
-                (vertical-slider
-                    :value value
-                    :min 0
-                    :max 100
-                    :width 60
-                    :focused-width 90
-                    :on-changed (dim props.id)
-                    :jump-to-tap false
-                    :display-value false
-                        
+                    (vertical-slider
+                        :value value
+                        :min 0
+                        :max 100
+                        :width 60
+                        :focused-width 90
+                        :on-changed (dim props.id)
+                        :jump-to-tap false
+                        :display-value false
+                    )
                 )
             )
         )
