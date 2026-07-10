@@ -5,7 +5,7 @@
     (import widget.iconic)
     (import iconic.sign)
 
-    (def (home-screen props)
+    (def (home-screen props args)
         (screen
             :body (column
                 :spacing 80

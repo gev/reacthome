@@ -3,12 +3,13 @@
 
     (import lib.actions)
     (import lib.data)
+    (import lib.log)
+    (import lib.navigation)
 
     (import iconic.light)
 
     (import widget.cards)
     (import widget.iconic)
-    (import widget.light-dimmer)
 
     (def elevation-unbound 0)
     (def elevation-off 1)
@@ -48,33 +49,36 @@
             )
         )
     )
+    
 
     (def (light-dimmable props bind)
         (if (bind.value)
             (active-card
                 :key props.id
                 :on-pressed (turn-off props.id)
-                :on-long-press (show-light-dimmer props.id)
+                :on-long-press (go :route 'light-dimmer :id props.id)
                 :color theme.color-scheme.on-surface
                 :card-color theme.color-scheme.surface-bright
-                :icon-color theme.color-scheme.primary
                 :elevation elevation-on
                 :child (light
+                    :id props.id
                     :label (title props)
                     :status (to-percents bind.value)
+                    :icon-color theme.color-scheme.primary
                 )
             )
             (active-card
                 :key props.id
                 :on-pressed (turn-on props.id)
-                :on-long-press (show-light-dimmer props.id)
+                :on-long-press (go :route 'light-dimmer :id props.id)
                 :color theme.color-scheme.on-surface
                 :card-color theme.color-scheme.surface-dim
-                :icon-color theme.color-scheme.outline-variant
                 :elevation elevation-off
                 :child (light
+                    :id props.id
                     :label (title props)
                     :status "OFF"
+                    :icon-color theme.color-scheme.outline-variant
                 )
             )
         )
@@ -87,11 +91,12 @@
                 :on-pressed (turn-off props.id)
                 :color theme.color-scheme.on-surface
                 :card-color theme.color-scheme.surface-bright
-                :icon-color theme.color-scheme.primary
                 :elevation elevation-on
                 :child (light
+                    :id props.id
                     :label (title props)
                     :status "ON"
+                    :icon-color theme.color-scheme.primary
                 )
             )
             (active-card
@@ -99,11 +104,12 @@
                 :on-pressed (turn-on props.id)
                 :color theme.color-scheme.on-surface
                 :card-color theme.color-scheme.surface-dim
-                :icon-color theme.color-scheme.outline-variant
                 :elevation elevation-off
                 :child (light
+                    :id props.id
                     :label (title props)
                     :status "OFF"
+                    :icon-color theme.color-scheme.outline-variant
                 )
             )
         )
@@ -126,10 +132,12 @@
                 :icon-color theme.color-scheme.outline-variant
                 :elevation elevation-unbound
                 :child (light
+                    :id props.id
                     :label (title props)
                     :status "N/A"
                 )
             )
+            
         )
     )
 )

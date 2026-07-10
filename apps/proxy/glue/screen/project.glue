@@ -4,7 +4,7 @@
     (import lib.data)
     (import widget.site)
 
-    (def (project-screen project)
+    (def (project-screen project args)
         (screen
             :body (select site project)
         )

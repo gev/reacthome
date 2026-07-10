@@ -1,16 +1,16 @@
 (module main
     (export main)
 
-    (import screen.home)
-    (import screen.project)
-    (import screen.site)
+    (import routes)
 
     (def main
         (app
+            :seed-color colors.blue
             :routes (
-                :home (home-screen :title "Test a Canvas")
-                :project (project-screen 'proxy.b9b35b14-2d39-492c-ae72-48adfef50b8e)
-                :site (site-screen ())
+                :home home-route
+                :project project-route
+                :site site-route
+                :light-dimmer light-dimmer-route
             )
         )
     )

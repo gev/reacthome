@@ -33,14 +33,17 @@
     )
 
     (def (active-card props)
-        (card
+        (hero
+            :tag props.key
             :key props.key
-            :clip-behavior clip.anti-alias
-            :color props.card-color
-            :child (ink-well
-                :on-tap props.on-pressed
-                :on-long-press props.on-long-press
-                :child (adopt-width props.child)
+            :child (card
+                :clip-behavior clip.anti-alias
+                :color props.card-color
+                :child (ink-well
+                    :on-tap props.on-pressed
+                    :on-long-press props.on-long-press
+                    :child (adopt-width props.child)
+                )
             )
         )
     )

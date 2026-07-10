@@ -9,28 +9,32 @@
     (import widget.light-card)
 
     (def (site props)
-        (list-view
-            :children (
-                (if (is-exist props.image)
-                    (image
-                        :src props.image
-                        :fit box-fit.fit-width
+        (container
+            :color theme.color-scheme.surface-container
+            :child
+            (list-view
+                :children (
+                    (if (is-exist props.image)
+                        (image
+                            :src props.image
+                            :fit box-fit.fit-width
+                        )
                     )
-                )
-                (padding
-                    :padding (edge-insets-all 16)
-                    :child (text
-                        :content (title props)
-                        :style theme.text-theme.headline-large
+                    (padding
+                        :padding (edge-insets-all 16)
+                        :child (text
+                            :content (title props)
+                            :style theme.text-theme.headline-large
+                        )
                     )
-                )
-                (column
-                    :cross-axis-alignment cross-axis-alignment.start
-                    :spacing 16
-                    :children (
-                        (select-in-wrap light-card props.light_220)
-                        (select-in-wrap light-card props.light_LED)
-                        (select-in-column site-card props.site)
+                    (column
+                        :cross-axis-alignment cross-axis-alignment.start
+                        :spacing 16
+                        :children (
+                            (select-in-wrap light-card props.light_220)
+                            (select-in-wrap light-card props.light_LED)
+                            (select-in-column site-card props.site)
+                        )
                     )
                 )
             )
