@@ -41,11 +41,10 @@
                         :min 0
                         :max 100
                         :width 60
-                        :height 250
+                        :height 200
                         :focused-width 90
                         :border-radius 30
                         :on-changed (dim props.id)
-                        :jump-to-tap true
                     )
                     (circular-slider
                         :value value
@@ -53,10 +52,19 @@
                         :max 100
                         :width 30
                         :focused-width 45
-                        :diameter 250
+                        :diameter 255
                         :cap stroke-cap.round
                         :on-changed (dim props.id)
-                        :jump-to-tap true
+                    )
+                    (horizontal-slider
+                        :value value
+                        :min 0
+                        :max 100
+                        :height 60
+                        :width 200
+                        :focused-height 90
+                        :border-radius 30
+                        :on-changed (dim props.id)
                     )
                 )
             )
