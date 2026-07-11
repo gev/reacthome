@@ -46,7 +46,6 @@
                         :focused-width 90
                         :on-changed (dim props.id)
                         :jump-to-tap false
-                        :display-value false
                     )
                 )
             )
