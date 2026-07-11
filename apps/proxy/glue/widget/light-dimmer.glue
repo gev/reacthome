@@ -3,15 +3,22 @@
 
     (import lib.actions)
     (import lib.data)
-    (import lib.log)
+
+    (import widget.modal)
 
     (def (light-dimmer props bind)
         (def value (to-percents bind.value))
-        (padding
-            :padding (edge-insets-all 16)
+        (def color
+            (if bind.value
+                theme.color-scheme.surface-bright
+                theme.color-scheme.surface-dim
+            )
+        )
+        (modal
+            :color color
             :child (column
                 :main-axis-size main-axis-size.min
-                :spacing 32
+                :spacing 24
                 :children (
                     (text
                         :content (title props)
@@ -34,6 +41,7 @@
                         :min 0
                         :max 100
                         :width 60
+                        :height 255
                         :focused-width 90
                         :on-changed (dim props.id)
                         :jump-to-tap false
