@@ -1,0 +1,18 @@
+(module widget.modal
+    (export modal)
+
+    (def (modal props)
+        (def size media-query.width)
+        (def width (if (< size 600) (* size 0.9) 600))
+        (container
+            :width width
+            :color props.color
+            :constraints (box-constraints :min-height 200)
+            :padding (edge-insets-only
+                :top 24 :bottom 40 :left 32 :right 32
+            )
+            :child props.child
+        )
+    )
+    
+)
