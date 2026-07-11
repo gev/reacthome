@@ -36,16 +36,27 @@
                             :font-weight font-weight.w600
                         )
                     )
+                    (vertical-slider
+                        :value value
+                        :min 0
+                        :max 100
+                        :width 60
+                        :height 250
+                        :focused-width 90
+                        :border-radius 30
+                        :on-changed (dim props.id)
+                        :jump-to-tap true
+                    )
                     (circular-slider
                         :value value
                         :min 0
                         :max 100
-                        :width 10
-                        :focused-width 20
+                        :width 30
+                        :focused-width 45
+                        :diameter 250
                         :cap stroke-cap.round
-                        :diameter 200
                         :on-changed (dim props.id)
-                        :jump-to-tap false
+                        :jump-to-tap true
                     )
                 )
             )
