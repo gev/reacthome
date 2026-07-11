@@ -35,8 +35,8 @@
 
     (def main
         (app
-            :seed-color colors.blue
-            :dynamic-scheme-variant dynamic-scheme-variant.tonal-spot
+            :seed-color (rgb 0 160 180)
+            :dynamic-scheme-variant dynamic-scheme-variant.fidelity
             :routes (
                 :home home-route
                 :project project-route

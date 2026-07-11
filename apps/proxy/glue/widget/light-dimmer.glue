@@ -41,6 +41,7 @@
                         :min 0
                         :max 100
                         :width 60
+                        :border-radius 30
                         :height 255
                         :focused-width 90
                         :on-changed (dim props.id)
