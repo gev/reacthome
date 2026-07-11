@@ -28,16 +28,15 @@
         (overlay-route
             :tag args.id
             :screen (light-dimmer-screen args)
-            :duration 500
-            :border-radius 12
-            :opacity 0.8
-            :blur 40
+            :duration 300
+            :opacity 0.5
         )
     )
 
     (def main
         (app
             :seed-color colors.blue
+            :dynamic-scheme-variant dynamic-scheme-variant.tonal-spot
             :routes (
                 :home home-route
                 :project project-route
