@@ -6,13 +6,10 @@
     (import widget.light-dimmer)
 
     (def (light-dimmer-screen args)
-        (fitted-box
-            :fit box-fit.fill
-            :child (select
-                (\ (props)
-                    (select (light-dimmer props) props.bind)
-                ) args.id
-            )
+        (select
+            (\ (props)
+                (select (light-dimmer props) props.bind)
+            ) args.id
         )
     )
 )
