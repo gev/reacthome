@@ -1,0 +1,15 @@
+(module screen.curtain
+    (export curtain-screen)
+
+    (import lib.data)
+    (import lib.log)
+    (import widget.curtain)
+
+    (def (curtain-screen args)
+        (select
+            (\ (props)
+                (select (curtain props) props.bind)
+            ) args.id
+        )
+    )
+)

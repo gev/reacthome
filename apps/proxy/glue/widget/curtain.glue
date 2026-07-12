@@ -1,0 +1,72 @@
+(module widget.curtain
+    (export curtain)
+
+    (import lib.actions)
+    (import lib.data)
+
+    (import widget.modal)
+
+    (def (curtain props bind)
+        (def value (to-percents bind.value))
+        (def color
+            (if bind.value
+                theme.color-scheme.surface-bright
+                theme.color-scheme.surface-dim
+            )
+        )
+        (modal
+            :color color
+            :child (column
+                :main-axis-size main-axis-size.min
+                :spacing 24
+                :children (
+                    (text
+                        :content (title props)
+                        :style (text-style
+                            :font-size theme.text-theme.title-large.font-size
+                            :color theme.color-scheme.on-surface-variant
+                            :font-weight font-weight.w400
+                        )
+                    )
+                    (text
+                        :content value
+                        :style (text-style
+                            :font-size theme.text-theme.display-large.font-size
+                            :color theme.color-scheme.on-surface
+                            :font-weight font-weight.w600
+                        )
+                    )
+                    (vertical-slider
+                        :value value
+                        :min 0
+                        :max 100
+                        :width 60
+                        :height 200
+                        :focused-width 90
+                        :border-radius 30
+                        :on-changed (dim props.id)
+                    )
+                    (circular-slider
+                        :value value
+                        :min 0
+                        :max 100
+                        :width 30
+                        :focused-width 45
+                        :diameter 255
+                        :on-changed (dim props.id)
+                    )
+                    (horizontal-slider
+                        :value value
+                        :min 0
+                        :max 100
+                        :height 60
+                        :width 200
+                        :focused-height 90
+                        :border-radius 30
+                        :on-changed (dim props.id)
+                    )
+                )
+            )
+        )
+    )
+)

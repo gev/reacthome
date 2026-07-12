@@ -1,0 +1,14 @@
+(module iconic.curtain
+    (export iconic-curtain)
+
+    (def (iconic-curtain props)
+        (def size (* props.size 0.44))
+        (path props.style
+            (move-to (- props.dx size) (- props.dy size))
+            (line-to (+ props.dx size) (+ props.dy size))
+            (move-to (- props.dx size) (+ props.dy size))
+            (line-to (+ props.dx size) (- props.dy size))
+        )
+    )
+
+)

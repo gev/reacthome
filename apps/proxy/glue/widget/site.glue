@@ -7,6 +7,7 @@
     (import widget.containers)
     (import widget.site-card)
     (import widget.light-card)
+    (import widget.curtain-card)
 
     (def (site props)
         (container
@@ -32,7 +33,7 @@
                         :spacing 16
                         :children (
                             (select-in-wrap light-card props.light_220)
-                            (select-in-wrap light-card props.light_LED)
+                            (select-in-wrap curtain-card props.light_LED)
                             (select-in-column site-card props.site)
                         )
                     )

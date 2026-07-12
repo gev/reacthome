@@ -1,0 +1,143 @@
+(module widget.curtain-card
+    (export curtain-card)
+
+    (import lib.actions)
+    (import lib.data)
+    (import lib.log)
+    (import lib.navigation)
+
+    (import iconic.curtain)
+
+    (import widget.cards)
+    (import widget.iconic)
+
+    (def elevation-unbound 0)
+    (def elevation-off 1)
+    (def elevation-on 2)
+
+    (def (curtain props)
+        (row
+            :spacing 16
+            :children (
+                (column
+                    :cross-axis-alignment cross-axis-alignment.start
+                    :children (
+                        (text
+                            :content props.label
+                            :style (text-style
+                                :font-size theme.text-theme.label-large.font-size
+                                :color theme.color-scheme.on-surface-variant
+                                :font-weight font-weight.w400
+                            )
+                        )
+                        (text
+                            :content props.status
+                            :style (text-style
+                                :color props.color
+                                :font-size theme.text-theme.title-large.font-size
+                                :font-weight font-weight.w600
+                            )
+                        )
+                    )
+                )
+                (spacer :flex 1)
+                (iconic
+                    :icon iconic-curtain
+                    :color props.icon-color
+                    :size 40
+                )
+            )
+        )
+    )
+    
+
+    (def (curtain-dimmable props bind)
+        (if (bind.value)
+            (active-card
+                :key props.id
+                :on-pressed (turn-off props.id)
+                :on-long-press (go :route 'curtain :id props.id)
+                :color theme.color-scheme.on-surface
+                :card-color theme.color-scheme.surface-bright
+                :elevation elevation-on
+                :child (curtain
+                    :id props.id
+                    :label (title props)
+                    :status (to-percents bind.value)
+                    :icon-color theme.color-scheme.primary
+                )
+            )
+            (active-card
+                :key props.id
+                :on-pressed (turn-on props.id)
+                :on-long-press (go :route 'curtain :id props.id)
+                :color theme.color-scheme.on-surface
+                :card-color theme.color-scheme.surface-dim
+                :elevation elevation-off
+                :child (curtain
+                    :id props.id
+                    :label (title props)
+                    :status "Open"
+                    :icon-color theme.color-scheme.outline-variant
+                )
+            )
+        )
+    )
+
+    (def (curtain-non-dimmable props bind)
+        (if (bind.value)
+            (active-card
+                :key props.id
+                :on-pressed (turn-off props.id)
+                :color theme.color-scheme.on-surface
+                :card-color theme.color-scheme.surface-bright
+                :elevation elevation-on
+                :child (curtain
+                    :id props.id
+                    :label (title props)
+                    :status "Closed"
+                    :icon-color theme.color-scheme.primary
+                )
+            )
+            (active-card
+                :key props.id
+                :on-pressed (turn-on props.id)
+                :color theme.color-scheme.on-surface
+                :card-color theme.color-scheme.surface-dim
+                :elevation elevation-off
+                :child (curtain
+                    :id props.id
+                    :label (title props)
+                    :status "Opened"
+                    :icon-color theme.color-scheme.outline-variant
+                )
+            )
+        )
+    )
+
+    (def (curtain-bound props bind)
+        (if (bind.dimmable)
+            (curtain-dimmable props bind)
+            (curtain-non-dimmable props bind)
+        )
+    )
+
+    (def (curtain-card props)
+        (if (is-exist props.bind)
+            (select (curtain-bound props) props.bind)
+            (inactive-card
+                :key props.id
+                :color theme.color-scheme.on-surface-variant
+                :card-color theme.color-scheme.surface-variant
+                :icon-color theme.color-scheme.outline-variant
+                :elevation elevation-unbound
+                :child (curtain
+                    :id props.id
+                    :label (title props)
+                    :status "N/A"
+                )
+            )
+            
+        )
+    )
+)

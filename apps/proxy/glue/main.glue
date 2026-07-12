@@ -5,6 +5,7 @@
     (import screen.project)
     (import screen.site)
     (import screen.light-dimmer)
+    (import screen.curtain)
 
     (def (home-route args)
         (route
@@ -33,6 +34,15 @@
         )
     )
 
+    (def (curtain-route args)
+        (overlay-route
+            :tag args.id
+            :screen (curtain-screen args)
+            :duration 300
+            :opacity 0.5
+        )
+    )
+
     (def main
         (app
             :seed-color (rgb 0 160 180)
@@ -42,6 +52,7 @@
                 :project project-route
                 :site site-route
                 :light-dimmer light-dimmer-route
+                :curtain curtain-route
             )
         )
     )
