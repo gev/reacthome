@@ -12,8 +12,8 @@
         (container
             :width width
             :constraints (box-constraints
-                :min-width 160
-                :max-width 320
+                :min-width 180
+                :max-width 360
             )
             :child (padding
                 :padding (edge-insets-symmetric :horizontal 16 :vertical 8)

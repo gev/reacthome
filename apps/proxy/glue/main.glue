@@ -6,6 +6,7 @@
     (import screen.site)
     (import screen.light-dimmer)
     (import screen.curtain)
+    (import screen.curtain-demo)
 
     (def (home-route args)
         (route
@@ -43,6 +44,12 @@
         )
     )
 
+    (def (curtain-demo-route args)
+        (route
+            :screen (curtain-demo-screen ())
+        )
+    )
+
     (def main
         (app
             :seed-color (rgb 0 160 180)
@@ -52,6 +59,7 @@
                 :project project-route
                 :site site-route
                 :light-dimmer light-dimmer-route
+                :curtain-demo curtain-demo-route
                 :curtain curtain-route
             )
         )

@@ -1,12 +1,19 @@
 (module lib.actions
     (export
         dim
+        dim-curtain
         turn-on
         turn-off
+
+        to-absolute
+        from-absolute
 
         to-percents
         from-percents
     )
+
+    (def (from-absolute value) (round (* value 255)))
+    (def (to-absolute value) (/ value 255))
 
     (def (from-percents value) (round (* value 2.55)))
     (def (to-percents value) (round (/ value 2.55)))
@@ -14,6 +21,12 @@
     (def (dim uid)
         (\ (value)
             (post ('dim uid (from-percents value)))
+        )
+    )
+    
+    (def (dim-curtain uid)
+        (\ (value)
+            (post ('dim uid (from-absolute value)))
         )
     )
     

@@ -8,7 +8,7 @@
     (def (home-screen props)
         (screen
             :body (column
-                :spacing 80
+                :spacing 8
                 :children(
                     (text
                         :content props.title
@@ -26,6 +26,10 @@
                     (filled-button
                         :child (text :content "Press me")
                         :on-pressed (go :route 'project)
+                    )
+                    (filled-button
+                        :child (text :content "Curtain Demo")
+                        :on-pressed (go :route 'curtain-demo)
                     )
                 )
             )

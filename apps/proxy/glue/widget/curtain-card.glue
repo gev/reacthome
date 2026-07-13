@@ -63,7 +63,7 @@
                 :child (curtain
                     :id props.id
                     :label (title props)
-                    :status (to-percents bind.value)
+                    :status (if (> bind.value 254) "Close" (to-percents bind.value))
                     :icon-color theme.color-scheme.primary
                 )
             )
