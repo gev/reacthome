@@ -8,7 +8,7 @@
     (def (home-screen props)
         (screen
             :body (column
-                :spacing 8
+                :spacing 50
                 :children(
                     (text
                         :content props.title

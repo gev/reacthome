@@ -10,7 +10,7 @@
     (def (show props)
         (props.curtain
             :value props.value
-            :width 400
+            :width (?? props.width 400)
             :height props.height
             :active-color props.color
             :translucent true
@@ -25,6 +25,7 @@
                     (show
                         :value 0.75
                         :height 360
+                        :width 430
                         :curtain vertical-curtain
                         :color (rgba 0 155 155 200)
                     )
@@ -42,7 +43,7 @@
                     )
                     (show
                         :value 0.2
-                        :height 300
+                        :height 270
                         :curtain left-curtain
                         :color (rgba 155 155 0 230)
                     )
