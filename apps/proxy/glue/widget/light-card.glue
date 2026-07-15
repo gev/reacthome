@@ -17,7 +17,7 @@
 
     (def (light props)
         (row
-            :spacing 16
+            :main-axis-alignment main-axis-alignment.space-between
             :children (
                 (column
                     :cross-axis-alignment cross-axis-alignment.start
@@ -40,7 +40,6 @@
                         )
                     )
                 )
-                (spacer :flex 1)
                 (iconic
                     :icon iconic-lamp
                     :color props.icon-color

@@ -17,7 +17,7 @@
 
     (def (curtain props)
         (row
-            :spacing 16
+            :main-axis-alignment main-axis-alignment.space-between
             :children (
                 (column
                     :cross-axis-alignment cross-axis-alignment.start
@@ -34,13 +34,12 @@
                             :content props.status
                             :style (text-style
                                 :color props.color
-                                :font-size theme.text-theme.title-large.font-size
+                                :font-size (?? props.font-size theme.text-theme.title-large.font-size)
                                 :font-weight font-weight.w600
                             )
                         )
                     )
                 )
-                (spacer :flex 1)
                 (iconic
                     :icon iconic-curtain
                     :color props.icon-color
@@ -63,7 +62,7 @@
                 :child (curtain
                     :id props.id
                     :label (title props)
-                    :status (if (> bind.value 254) "Close" (to-percents bind.value))
+                    :status (if (> bind.value 254) "Closed" (to-percents bind.value))
                     :icon-color theme.color-scheme.primary
                 )
             )
@@ -77,7 +76,7 @@
                 :child (curtain
                     :id props.id
                     :label (title props)
-                    :status "Open"
+                    :status "Opened"
                     :icon-color theme.color-scheme.outline-variant
                 )
             )

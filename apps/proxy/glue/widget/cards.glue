@@ -12,7 +12,7 @@
         (container
             :width width
             :constraints (box-constraints
-                :min-width 180
+                :min-width 160
                 :max-width 360
             )
             :child (padding
