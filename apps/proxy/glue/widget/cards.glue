@@ -6,7 +6,7 @@
 
     (def (adopt-width child)
         (def screen-width media-query.width)
-        (def n (floor (/ screen-width 160)))
+        (def n (floor (/ screen-width 200)))
         (def space (* n 16))
         (def width (/ (- screen-width space) n))
         (container
