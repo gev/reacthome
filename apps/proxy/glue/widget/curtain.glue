@@ -17,6 +17,7 @@
         (modal
             :color color
             :child (list-view
+                :shrink-wrap true
                 :main-axis-size main-axis-size.min
                 :spacing 24
                 :children (
