@@ -26,14 +26,14 @@
                         :value 0.75
                         :height 360
                         :width 430
-                        :curtain vertical-curtain
+                        :curtain shutter
                         :color (rgba 0 155 155 200)
                         :translucent false
                     )
                     (show
                         :value 0.8
                         :height 330
-                        :curtain double-horizontal-curtain
+                        :curtain double-curtain
                         :color (rgba 255 255 255 100)
                     )
                     (show

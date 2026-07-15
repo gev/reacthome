@@ -36,7 +36,7 @@
                             :font-weight font-weight.w600
                         )
                     )
-                    (vertical-curtain
+                    (shutter
                         :value value
                         :jump-to-tap false
                         :on-changed (dim-curtain props.id)
@@ -51,7 +51,7 @@
                         :jump-to-tap false
                         :on-changed (dim-curtain props.id)
                     )
-                    (double-horizontal-curtain
+                    (double-curtain
                         :value value
                         :jump-to-tap false
                         :on-changed (dim-curtain props.id)
