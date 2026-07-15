@@ -15,7 +15,7 @@
     (def elevation-off 1)
     (def elevation-on 2)
 
-    (def (light props)
+    (def (light props small)
         (row
             :main-axis-alignment main-axis-alignment.space-between
             :children (
@@ -34,7 +34,10 @@
                             :content props.status
                             :style (text-style
                                 :color props.color
-                                :font-size theme.text-theme.title-large.font-size
+                                :font-size (if small
+                                    theme.text-theme.title-medium.font-size
+                                    theme.text-theme.title-large.font-size
+                                )
                                 :font-weight font-weight.w600
                             )
                         )

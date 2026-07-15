@@ -4,7 +4,7 @@
         inactive-card
     )
 
-    (def (adopt-width child)
+    (def (adopt child)
         (def screen-width media-query.width)
         (def n (floor (/ screen-width 200)))
         (def space (* n 16))
@@ -17,7 +17,7 @@
             )
             :child (padding
                 :padding (edge-insets-symmetric :horizontal 16 :vertical 8)
-                :child child
+                :child (child (< width 180))
             )
         )
     )
@@ -28,7 +28,7 @@
             :clip-behavior clip.anti-alias
             :color props.card-color
             :elevation props.elevation
-            :child (adopt-width props.child)
+            :child (adopt props.child)
         )
     )
 
@@ -42,7 +42,7 @@
                 :child (ink-well
                     :on-tap props.on-pressed
                     :on-long-press props.on-long-press
-                    :child (adopt-width props.child)
+                    :child (adopt props.child)
                 )
             )
         )
