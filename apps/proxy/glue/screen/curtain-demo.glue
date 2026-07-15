@@ -13,7 +13,7 @@
             :width (?? props.width 400)
             :height props.height
             :active-color props.color
-            :translucent true
+            :translucent (?? props.translucent true)
             :jump-to-tap false
         )
     )
@@ -28,6 +28,7 @@
                         :width 430
                         :curtain vertical-curtain
                         :color (rgba 0 155 155 200)
+                        :translucent false
                     )
                     (show
                         :value 0.8
