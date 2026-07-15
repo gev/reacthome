@@ -16,7 +16,7 @@
         )
         (modal
             :color color
-            :child (column
+            :child (list-view
                 :main-axis-size main-axis-size.min
                 :spacing 24
                 :children (
@@ -36,22 +36,44 @@
                             :font-weight font-weight.w600
                         )
                     )
+                    (sized-box :height 24)
                     (shutter
                         :value value
                         :jump-to-tap false
                         :on-changed (dim-curtain props.id)
                     )
+                    (sized-box :height 24)
                     (left-curtain
                         :value value
                         :jump-to-tap false
                         :on-changed (dim-curtain props.id)
                     )
+                    (sized-box :height 24)
+                    (left-gate
+                        :value value
+                        :jump-to-tap false
+                        :on-changed (dim-curtain props.id)
+                    )
+                    (sized-box :height 24)
                     (right-curtain
                         :value value
                         :jump-to-tap false
                         :on-changed (dim-curtain props.id)
                     )
+                    (sized-box :height 24)
+                    (right-gate
+                        :value value
+                        :jump-to-tap false
+                        :on-changed (dim-curtain props.id)
+                    )
+                    (sized-box :height 24)
                     (double-curtain
+                        :value value
+                        :jump-to-tap false
+                        :on-changed (dim-curtain props.id)
+                    )
+                    (sized-box :height 24)
+                    (double-gate
                         :value value
                         :jump-to-tap false
                         :on-changed (dim-curtain props.id)
