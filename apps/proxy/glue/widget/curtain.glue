@@ -16,68 +16,62 @@
         )
         (modal
             :color color
-            :child (list-view
-                :shrink-wrap true
-                :main-axis-size main-axis-size.min
-                :spacing 24
-                :children (
-                    (text
-                        :content (title props)
-                        :style (text-style
-                            :font-size theme.text-theme.title-large.font-size
-                            :color theme.color-scheme.on-surface-variant
-                            :font-weight font-weight.w400
+            :child (single-child-scroll-view
+                :child (column
+                    :main-axis-size main-axis-size.min
+                    :spacing 24
+                    :children (
+                        (text
+                            :content (title props)
+                            :style (text-style
+                                :font-size theme.text-theme.title-large.font-size
+                                :color theme.color-scheme.on-surface-variant
+                                :font-weight font-weight.w400
+                            )
                         )
-                    )
-                    (text
-                        :content (round (* 100 value))
-                        :style (text-style
-                            :font-size theme.text-theme.display-large.font-size
-                            :color theme.color-scheme.on-surface
-                            :font-weight font-weight.w600
+                        (text
+                            :content (round (* 100 value))
+                            :style (text-style
+                                :font-size theme.text-theme.display-large.font-size
+                                :color theme.color-scheme.on-surface
+                                :font-weight font-weight.w600
+                            )
                         )
-                    )
-                    (sized-box :height 24)
-                    (shutter
-                        :value value
-                        :jump-to-tap false
-                        :on-changed (dim-curtain props.id)
-                    )
-                    (sized-box :height 24)
-                    (left-curtain
-                        :value value
-                        :jump-to-tap false
-                        :on-changed (dim-curtain props.id)
-                    )
-                    (sized-box :height 24)
-                    (left-gate
-                        :value value
-                        :jump-to-tap false
-                        :on-changed (dim-curtain props.id)
-                    )
-                    (sized-box :height 24)
-                    (right-curtain
-                        :value value
-                        :jump-to-tap false
-                        :on-changed (dim-curtain props.id)
-                    )
-                    (sized-box :height 24)
-                    (right-gate
-                        :value value
-                        :jump-to-tap false
-                        :on-changed (dim-curtain props.id)
-                    )
-                    (sized-box :height 24)
-                    (double-curtain
-                        :value value
-                        :jump-to-tap false
-                        :on-changed (dim-curtain props.id)
-                    )
-                    (sized-box :height 24)
-                    (double-gate
-                        :value value
-                        :jump-to-tap false
-                        :on-changed (dim-curtain props.id)
+                        (shutter
+                            :value value
+                            :jump-to-tap false
+                            :on-changed (dim-curtain props.id)
+                        )
+                        (left-curtain
+                            :value value
+                            :jump-to-tap false
+                            :on-changed (dim-curtain props.id)
+                        )
+                        (left-gate
+                            :value value
+                            :jump-to-tap false
+                            :on-changed (dim-curtain props.id)
+                        )
+                        (right-curtain
+                            :value value
+                            :jump-to-tap false
+                            :on-changed (dim-curtain props.id)
+                        )
+                        (right-gate
+                            :value value
+                            :jump-to-tap false
+                            :on-changed (dim-curtain props.id)
+                        )
+                        (double-curtain
+                            :value value
+                            :jump-to-tap false
+                            :on-changed (dim-curtain props.id)
+                        )
+                        (double-gate
+                            :value value
+                            :jump-to-tap false
+                            :on-changed (dim-curtain props.id)
+                        )
                     )
                 )
             )
