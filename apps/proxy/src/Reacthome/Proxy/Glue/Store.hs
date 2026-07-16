@@ -1,6 +1,7 @@
 module Reacthome.Proxy.Glue.Store where
 
-import Control.Concurrent (threadDelay)
+import Control.Concurrent (forkIO, threadDelay)
+import Control.Concurrent.Chan.Unagi.Bounded (newChan, readChan, writeChan)
 import Control.Exception (SomeException, catch)
 import Control.Monad (forever, void, when)
 import Data.ByteString.Lazy qualified as L
@@ -35,7 +36,12 @@ makeGlueStore folder = GlueStore{..}
                 pure Nothing
 
     runWatcher publish = withManager \mgr -> do
-        void $ watchTree mgr folder (const True) (handle publish)
+        (inChan, outChan) <- newChan 10
+
+        void . forkIO $ forever do
+            handle publish =<< readChan outChan
+
+        void $ watchTree mgr folder (const True) (writeChan inChan)
         forever $ threadDelay 1_000_000
 
     handle publish (Modified path time IsFile) = send publish path time
