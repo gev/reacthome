@@ -4,6 +4,7 @@
     (import lib.navigation)
     (import widget.iconic)
     (import iconic.sign)
+    (import iconic.heater)
 
     (def (home-screen props)
         (screen
@@ -15,7 +16,7 @@
                         :style theme.text-theme.headline-large
                     )
                     (iconic
-                        :icon iconic-plus
+                        :icon iconic-heater
                         :size 160
                     )
                     (iconic

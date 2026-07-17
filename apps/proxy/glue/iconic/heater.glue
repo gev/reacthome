@@ -1,0 +1,29 @@
+(module iconic.heater
+    (export iconic-heater)
+
+    (def weight 0.8)
+    (def k-heater-height 0.4)
+    (def k-arc-radius (/ k-heater-height 2))
+
+    (def (iconic-heater props)
+        (def size (* props.size weight))
+        (def heater-height (* size k-heater-height))
+        (def arc-radius (* size k-arc-radius))
+        (path props.style
+            (move-to (+ props.dx (/ size 2)) (- props.dy heater-height))
+            (relative-line-to (- arc-radius size) 0)
+            (relative-arc-to-point
+                :arc-end-delta (offset 0 heater-height)
+                :radius (radius arc-radius)
+                :clockwise false
+            )
+            (relative-line-to (- size (* arc-radius 2)) 0)
+            (relative-arc-to-point
+                :arc-end-delta (offset 0 heater-height)
+                :radius (radius arc-radius)
+                :clockwise true
+            )
+            (relative-line-to (- arc-radius size) 0)
+        )
+    )
+)
