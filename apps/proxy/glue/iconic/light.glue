@@ -10,5 +10,4 @@
             (line-to props.dx (+ props.dy size))
         )
     )
-
 )
