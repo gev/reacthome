@@ -1,5 +1,10 @@
-(module lib.Z
-    (export Z)
+(module lib.combinator
+    (export Y Z)
+
+    (def Y
+        (lambda (f)
+            ((lambda (x) (f (x x)))
+                (lambda (x) (f (x x))))))
 
     (def Z
         (lambda (f)
@@ -11,7 +16,7 @@
             (lambda (n)
                 (if (== n 0)
                     1
-                    (+ n (rec (- n 1)))))))
+                    (* n (rec (- n 1)))))))
 
-    (def factorial (Z fact-gen))
+    (def factorial (Y fact-gen))
 )
