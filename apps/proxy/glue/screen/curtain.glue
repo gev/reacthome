@@ -2,7 +2,7 @@
     (export curtain-screen)
 
     (import lib.data)
-    (import lib.log)
+    (import widget.screen)
     (import widget.curtain)
 
     (def (curtain-screen args)

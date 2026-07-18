@@ -1,0 +1,7 @@
+(module widget.screen
+    (export screen)
+
+    (def (screen props)
+        (scaffold :body props.body)
+    )
+)

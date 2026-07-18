@@ -1,8 +1,12 @@
 (module screen.home
     (export home-screen)
 
+
     (import lib.navigation)
+
+    (import widget.screen)
     (import widget.iconic)
+    
     (import iconic.sign)
     (import iconic.heater)
 
@@ -10,7 +14,17 @@
         (screen
             :body (column
                 :spacing 50
-                :children(
+                :children (
+                    (listen local-session-monitor
+                        (\ (state)
+                            (text
+                                :content (if (== state session-state.connected)
+                                    "connected"
+                                    "disconnected"
+                                )
+                            )
+                        )
+                    )
                     (text
                         :content props.title
                         :style theme.text-theme.headline-large

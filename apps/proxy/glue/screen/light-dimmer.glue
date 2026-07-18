@@ -2,7 +2,6 @@
     (export light-dimmer-screen)
 
     (import lib.data)
-    (import lib.log)
     (import widget.light-dimmer)
 
     (def (light-dimmer-screen args)
