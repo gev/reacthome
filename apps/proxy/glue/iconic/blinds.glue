@@ -1,0 +1,29 @@
+(module iconic.blinds
+    (export iconic-blinds)
+
+    (def weight 0.8)
+    (def k-blinds-width 0.5)
+    (def k-blinds-gap 0.2)
+
+    (def size (* props.size weight))
+    (def blinds-width (* size k-blinds-length))
+    (def blinds-gap (* size k-blinds-gap))
+
+
+    (def (iconic-horizontal-bar props)
+        (path props.style
+            (move-to (- props.dx blinds-width) (- props.dy (* 2 blinds-gap))
+                (relative-line-to size 0)
+                (relative-move-to (- 0 size) blinds-gap)
+                (relative-line-to size 0)
+                (relative-move-to (- 0 size) blinds-gap)
+                (relative-line-to size 0)
+                (relative-move-to (- 0 size) blinds-gap)
+                (relative-line-to size 0)
+                (relative-move-to (- 0 size) blinds-gap)
+                (relative-line-to size 0)
+            )
+        )
+
+
+  
