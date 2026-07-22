@@ -1,0 +1,24 @@
+(module iconic.blinds
+    (export iconic-blinds)
+
+    (def weight 0.75)
+    (def k-delay-position 0.1)
+    (def k-delay-height 0.2)
+
+    (def size (* props.size weight))
+    (def half-size (/ size 2))
+
+    (def delay-position (* size k-delay-position))
+    (def delay-height (* size k-delay-height))
+
+    (def (iconic-delay props)
+        (path props.style
+            (move-to (- props.dx half-size) (+ props.dy delay-position))
+            (relative-line-to size 0)
+            (relative-line-to 0 (- 0 delay-Height))
+            
+        )
+    )
+)
+
+  
