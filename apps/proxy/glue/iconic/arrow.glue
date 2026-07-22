@@ -1,0 +1,50 @@
+(module iconic.arrow
+    (export iconic-right-arrow iconic-left-arrow iconic-up-arrow iconic-down-arrow)
+
+    (def weight 0.8)
+    (def k-arrow-length 0.5)
+
+    (def arrow-length (* size k-arrow-length))
+    (def size (* props.size weight))
+
+    (def (iconic-right-arrow props)
+        (path props.style
+            (move-to (- props.dx arrow-length) props.dy)
+            (line-to (+ props.dx arrow-length) props.dy)
+            (move-to props.dx (- props.dy arrow-length))
+            (line-to (+ props.dx arrow-length) props.dy)
+            (line-to props.dx (+ props.dy arrow-length)
+            )
+        )
+    )
+
+    (def (iconic-left-arrow props)
+        (path props.style
+            (move-to (+ props.dx arrow-length) props.dy)
+            (line-to (- props.dx arrow-length) props.dy)
+            (move-to props.dx (- props.dy arrow-length))
+            (line-to (- props.dx arrow-length) props.dy)
+            (line-to props.dx (+ props.dy arrow-length)
+            )
+        )
+    )
+
+    (def (iconic-up-arrow props)
+        (path props.style
+            (move-to props.dx (+ props.dy arrow-length))
+            (line-to props.dx (- props.dy arrow-length))
+            (move-to (- props.dx arrow-length) props.dy)
+            (line-to props.dx (- props.dy arrow-length))
+            (line-to (+ props.dx arrow-length) props.dy arrow-lengt)
+        )
+    )
+
+    (def (iconic-down-arrow props)
+        (path props.style
+            (move-to props.dx (- props.dy arrow-length))
+            (line-to props.dx (+ props.dy arrow-length))
+            (move-to (- props.dx arrow-length) props.dy)
+            (line-to props.dx (+ props.dy arrow-length))
+            (line-to (+ props.dx arrow-length) props.dy arrow-lengt)
+        )
+    )
