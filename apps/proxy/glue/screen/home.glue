@@ -9,33 +9,29 @@
 
     (import iconic.sign)
     (import iconic.heater)
+    (import iconic.arrow)
+
+    (def icons (
+            'iconic-arrow
+            'iconic-heater
+            'iconic-plus
+            'iconic-cross
+        ))
+
+    (def (icon i)
+        (iconic
+            :icon i
+            :size 60
+        )
+    )
 
     (def (home-screen props)
-        (screen
-            :body (column
-                :spacing 50
-                :children (
-                    (text
-                        :content props.title
-                        :style theme.text-theme.headline-large
-                    )
-                    (iconic
-                        :icon iconic-heater
-                        :size 160
-                    )
-                    (iconic
-                        :icon iconic-cross
-                        :color theme.color-scheme.error
-                        :size 160
-                    )
-                    (filled-button
-                        :child (text :content "Press me")
-                        :on-pressed (go :route 'project)
-                    )
-                    (filled-button
-                        :child (text :content "Curtain Demo")
-                        :on-pressed (go :route 'curtain-demo)
-                    )
+        (scaffold
+            :body (single-child-scroll-view
+                :child (wrap
+                    :spacing 40
+                    :run-spacing 40
+                    :children (map icon icons)
                 )
             )
         )
