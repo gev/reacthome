@@ -5,30 +5,40 @@
     (def k-bar-length 0.5)
     (def k-bar-gap 0.35)
 
-    (def size (* props.size weight))
-    (def bar-length (* size k-bar-length))
-    (def bar-gap (* size k-bar-gap))
-   
-
-    (def (iconic-horizontal-bar props)
-        (path props.style
-            (move-to (- props.dx bar-length) (- props.dy bar-gap))
-            (relative-line-to size 0)
-            (relative-move-to (- 0 size) bar-gap)
-            (relative-line-to size 0)
-            (relative-move-to (- 0 size) bar-gap)
-            (relative-line-to size 0)
+    (def (ajust props)
+        (def size (* props.size weight))
+        (def bar-length (* size k-bar-length))
+        (def bar-gap (* size k-bar-gap))
+        (
+            :dx props.dx
+            :dy props.dy
+            :size size
+            :bar-length bar-length
+            :bar-gap bar-gap
         )
     )
 
-    (def (iconic-vertical-bar)
+    (def (iconic-horizontal-bar props)
+        (def p (ajust props))
         (path props.style
-            (move-to (- props.dx bar-gap) (- props.dy bar-length))
-            (relative-line-to 0 size)
-            (relative-move-to bar-gap (- 0 size))
-            (relative-line-to 0 size)
-            (relative-move-to bar-gap (- 0 size))
-            (relative-line-to 0 size)
+            (move-to (- p.dx p.bar-length) (- p.dy p.bar-gap))
+            (relative-line-to p.size 0)
+            (relative-move-to (- 0 p.size) p.bar-gap)
+            (relative-line-to p.size 0)
+            (relative-move-to (- 0 p.size) p.bar-gap)
+            (relative-line-to p.size 0)
+        )
+    )
+
+    (def (iconic-vertical-bar props)
+        (def p (ajust props))
+        (path props.style
+            (move-to (- p.dx p.bar-gap) (- p.dy p.bar-length))
+            (relative-line-to 0 p.size)
+            (relative-move-to p.bar-gap (- 0 p.size))
+            (relative-line-to 0 p.size)
+            (relative-move-to p.bar-gap (- 0 p.size))
+            (relative-line-to 0 p.size)
         )
     )
 
