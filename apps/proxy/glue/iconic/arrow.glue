@@ -1,50 +1,65 @@
 (module iconic.arrow
-    (export iconic-right-arrow iconic-left-arrow iconic-up-arrow iconic-down-arrow)
+    (export
+        iconic-right-arrow
+        iconic-left-arrow
+        iconic-up-arrow
+        iconic-down-arrow
+    )
 
-    (def weight 0.8)
-    (def k-arrow-length 0.5)
 
-    (def arrow-length (* size k-arrow-length))
-    (def size (* props.size weight))
-
+    (def (ajust props)
+        (def weight 0.8)
+        (def k-arrow-length 0.5)
+        (
+            :dx props.dx
+            :dy props.dy
+            :size (* props.size weight)
+            :arrow-length (* size k-arrow-length)
+        )
+    )
+    
     (def (iconic-right-arrow props)
+        (def p (ajust props))
         (path props.style
-            (move-to (- props.dx arrow-length) props.dy)
-            (line-to (+ props.dx arrow-length) props.dy)
-            (move-to props.dx (- props.dy arrow-length))
-            (line-to (+ props.dx arrow-length) props.dy)
-            (line-to props.dx (+ props.dy arrow-length)
+            (move-to (- p.dx p.arrow-length) p.dy)
+            (line-to (+ p.dx p.arrow-length) p.dy)
+            (move-to p.dx (- p.dy p.arrow-length))
+            (line-to (+ p.dx p.arrow-length) p.dy)
+            (line-to p.dx (+ p.dy p.arrow-length)
             )
         )
     )
 
     (def (iconic-left-arrow props)
+        (def p (ajust props))
         (path props.style
-            (move-to (+ props.dx arrow-length) props.dy)
-            (line-to (- props.dx arrow-length) props.dy)
-            (move-to props.dx (- props.dy arrow-length))
-            (line-to (- props.dx arrow-length) props.dy)
-            (line-to props.dx (+ props.dy arrow-length)
+            (move-to (+ p.dx p.arrow-length) p.dy)
+            (line-to (- p.dx p.arrow-length) p.dy)
+            (move-to p.dx (- p.dy p.arrow-length))
+            (line-to (- p.dx p.arrow-length) p.dy)
+            (line-to p.dx (+ p.dy p.arrow-length)
             )
         )
     )
 
     (def (iconic-up-arrow props)
+        (def p (ajust props))
         (path props.style
-            (move-to props.dx (+ props.dy arrow-length))
-            (line-to props.dx (- props.dy arrow-length))
-            (move-to (- props.dx arrow-length) props.dy)
-            (line-to props.dx (- props.dy arrow-length))
-            (line-to (+ props.dx arrow-length) props.dy arrow-lengt)
+            (move-to p.dx (+ p.dy p.arrow-length))
+            (line-to p.dx (- p.dy p.arrow-length))
+            (move-to (- p.dx p.arrow-length) p.dy)
+            (line-to p.dx (- p.dy p.arrow-length))
+            (line-to (+ p.dx p.arrow-length) p.dy p.arrow-length)
         )
     )
 
     (def (iconic-down-arrow props)
+        (def p (ajust props))
         (path props.style
-            (move-to props.dx (- props.dy arrow-length))
-            (line-to props.dx (+ props.dy arrow-length))
-            (move-to (- props.dx arrow-length) props.dy)
-            (line-to props.dx (+ props.dy arrow-length))
-            (line-to (+ props.dx arrow-length) props.dy arrow-lengt)
+            (move-to p.dx (- p.dy p.arrow-length))
+            (line-to p.dx (+ p.dy p.arrow-length))
+            (move-to (- p.dx p.arrow-length) p.dy)
+            (line-to p.dx (+ p.dy p.arrow-length))
+            (line-to (+ p.dx p.arrow-length) p.dy p.arrow-length)
         )
     )
