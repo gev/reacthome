@@ -5,7 +5,7 @@
     (def k-bar-length 0.5)
     (def k-bar-gap 0.35)
 
-    (def (ajust props)
+    (def (adjust props)
         (def size (* props.size weight))
         (def bar-length (* size k-bar-length))
         (def bar-gap (* size k-bar-gap))
@@ -19,27 +19,63 @@
     )
 
     (def (iconic-horizontal-bar props)
-        (def p (ajust props))
+        (def p (adjust props))
         (path props.style
-            (move-to (- p.dx p.bar-length) (- p.dy p.bar-gap))
-            (relative-line-to p.size 0)
-            (relative-move-to (- 0 p.size) p.bar-gap)
-            (relative-line-to p.size 0)
-            (relative-move-to (- 0 p.size) p.bar-gap)
-            (relative-line-to p.size 0)
+            (move-to
+                :x (- p.dx p.bar-length)
+                :y (- p.dy p.bar-gap)
+            )
+            (relative-line-to
+                :dx p.size
+                :dy 0
+            )
+            (relative-move-to
+                :dx (- 0 p.size)
+                :dy p.bar-gap
+            )
+            (relative-line-to
+                :dx p.size
+                :dy 0
+            )
+            (relative-move-to
+                :dx (- 0 p.size)
+                :dy p.bar-gap
+            )
+            (relative-line-to
+                :dx p.size
+                :dy 0
+            )
         )
     )
 
     (def (iconic-vertical-bar props)
-        (def p (ajust props))
+        (def p (adjust props))
         (path props.style
-            (move-to (- p.dx p.bar-gap) (- p.dy p.bar-length))
-            (relative-line-to 0 p.size)
-            (relative-move-to p.bar-gap (- 0 p.size))
-            (relative-line-to 0 p.size)
-            (relative-move-to p.bar-gap (- 0 p.size))
-            (relative-line-to 0 p.size)
+            (move-to
+                :x (- p.dx p.bar-gap)
+                :y (- p.dy p.bar-length)
+            )
+            (relative-line-to
+                :dx 0
+                :dy p.size
+            )
+            (relative-move-to
+                :dx p.bar-gap
+                :dy (- 0 p.size)
+            )
+            (relative-line-to
+                :dx 0
+                :dy p.size
+            )
+            (relative-move-to
+                :dx p.bar-gap
+                :dy (- 0 p.size)
+            )
+            (relative-line-to
+                :dx 0
+                :dy p.size
+            )
         )
     )
-
+)
   

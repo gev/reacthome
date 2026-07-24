@@ -5,25 +5,64 @@
     (def k-blinds-width 0.5)
     (def k-blinds-gap 0.2)
 
-    (def size (* props.size weight))
-    (def blinds-width (* size k-blinds-length))
-    (def blinds-gap (* size k-blinds-gap))
+    (def (adjust props)
+        (def size (* props.size weight))
+        (def blinds-width (* size k-blinds-width))
+        (def blinds-gap (* size k-blinds-gap))
+        (
+            :dx props.dx
+            :dy props.dy
+            :size size
+            :blinds-width blinds-width
+            :blinds-gap blinds-gap
+        )
+    )
 
-
-    (def (iconic-horizontal-bar props)
+    (def (iconic-blinds props)
+        (def p (adjust props))
         (path props.style
-            (move-to (- props.dx blinds-width) (- props.dy (* 2 blinds-gap))
-                (relative-line-to size 0)
-                (relative-move-to (- 0 size) blinds-gap)
-                (relative-line-to size 0)
-                (relative-move-to (- 0 size) blinds-gap)
-                (relative-line-to size 0)
-                (relative-move-to (- 0 size) blinds-gap)
-                (relative-line-to size 0)
-                (relative-move-to (- 0 size) blinds-gap)
-                (relative-line-to size 0)
+            (move-to
+                :x (- p.dx p.blinds-width)
+                :y (- p.dy (* 2 p.blinds-gap))
+            )
+            (relative-line-to
+                :dx p.size
+                :dy 0
+            )
+            (relative-move-to
+                :dx (- 0 p.size)
+                :dy p.blinds-gap
+            )
+            (relative-line-to
+                :dx p.size
+                :dy 0
+            )
+            (relative-move-to
+                :dx (- 0 p.size)
+                :dy p.blinds-gap
+            )
+            (relative-line-to
+                :dx p.size
+                :dy 0
+            )
+            (relative-move-to
+                :dx (- 0 p.size)
+                :dy p.blinds-gap
+            )
+            (relative-line-to
+                :dx p.size
+                :dy 0
+            )
+            (relative-move-to
+                :dx (- 0 p.size)
+                :dy p.blinds-gap
+            )
+            (relative-line-to
+                :dx p.size
+                :dy 0
             )
         )
     )
+)
 
   
