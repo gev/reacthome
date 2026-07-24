@@ -2,7 +2,7 @@
     (export select title)
 
     (def (select go key)
-        (listen (persistent-remote-state key) go)
+        (listen (remote-persistent-state key) go)
     )
 
     (def (title props)
