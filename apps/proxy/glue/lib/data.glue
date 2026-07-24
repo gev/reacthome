@@ -1,12 +1,8 @@
 (module lib.data
-    (export select-from select select-bind title)
+    (export select title)
 
-    (def (select-from source go key)
-        (listen (lookup source key) go)
-    )
-
-    (def select
-        (select-from store.persistent)
+    (def (select go key)
+        (listen (persistent-remote-state key) go)
     )
 
     (def (title props)
