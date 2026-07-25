@@ -5,11 +5,10 @@
     (def k-heater-height 0.4)
     (def k-arc-radius (/ k-heater-height 2))
 
-    (def size (* props.size weight))
-    (def heater-height (* size k-heater-height))
-    (def arc-radius (* size k-arc-radius))
-
     (def (iconic-heater props)
+        (def size (* props.size weight))
+        (def heater-height (* size k-heater-height))
+        (def arc-radius (* size k-arc-radius))
         (path props.style
             (move-to
                 :x (+ props.dx (/ size 2))
