@@ -12,8 +12,7 @@
     (def (site props)
         (container
             :color theme.color-scheme.surface-container
-            :child
-            (list-view
+            :child (list-view
                 :children (
                     (if (is-exist props.image)
                         (image
