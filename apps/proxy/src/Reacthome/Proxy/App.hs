@@ -9,6 +9,7 @@ import Reacthome.Proxy.Bridge.Downstream (makeDownstream)
 import Reacthome.Proxy.Bridge.Upstream (makeUpstream)
 import Reacthome.Proxy.Config (AppConfig (..))
 import Reacthome.Proxy.Daemon (runProxyDaemon)
+import Reacthome.Proxy.Discovery (runProxyDiscovery)
 import Reacthome.Proxy.Glue.PubSub.Publisher (makeGluePublisher)
 import Reacthome.Proxy.Glue.Store (GlueStore (..), makeGlueStore)
 import Reacthome.Proxy.Server (runProxyServer)
@@ -36,5 +37,6 @@ runApp config = do
 
     void . forkIO $ runProxyServer config.server
     void . forkIO $ runProxyDaemon config.daemon
+    void . forkIO $ runProxyDiscovery config.discovery
 
     ?store.runWatcher pubsub.publish

@@ -3,6 +3,7 @@ module Reacthome.Proxy.Config where
 data AppConfig = AppConfig
     { server :: ServerConfig
     , daemon :: DaemonConfig
+    , discovery :: DiscoveryConfig
     , gluePath :: FilePath
     , assets :: AssetsConfig
     }
@@ -22,4 +23,12 @@ data DaemonConfig = DaemonConfig
 data AssetsConfig = AssetsConfig
     { path :: String
     , proxy :: String
+    }
+
+data DiscoveryConfig = DiscoveryConfig
+    { annonceInterval :: Int
+    , annonceGroup :: String
+    , annoncePort :: Int
+    , probeGroup :: String
+    , probePort :: Int
     }

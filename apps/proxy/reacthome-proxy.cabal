@@ -43,6 +43,7 @@ library
     Reacthome.Proxy.Daemon
     Reacthome.Proxy.Daemon.Actions.Decode
     Reacthome.Proxy.Daemon.Actions.Encode
+    Reacthome.Proxy.Discovery
     Reacthome.Proxy.Error
     Reacthome.Proxy.Glue.Controller
     Reacthome.Proxy.Glue.Dispatcher
@@ -68,9 +69,11 @@ library
     bytestring,
     containers,
     directory,
+    discovery,
     filepath,
     fsnotify,
     glue,
+    network,
     pubsub,
     scientific,
     text,
