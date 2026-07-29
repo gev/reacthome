@@ -10,9 +10,9 @@
     (import widget.curtain-card)
 
     (def (site props)
-        (container
-            :color theme.color-scheme.surface-container
-            :child (list-view
+        (single-child-scroll-view
+            :child (column
+                :cross-axis-alignment cross-axis-alignment.start
                 :children (
                     (if (is-exist props.image)
                         (image
