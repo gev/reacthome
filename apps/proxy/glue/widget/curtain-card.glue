@@ -143,7 +143,6 @@
                     :status (@ not-available' locale.language-code)
                 )
             )
-            
         )
     )
 )
