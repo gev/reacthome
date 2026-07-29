@@ -55,8 +55,7 @@
             :seed-color (rgb 0 160 180)
             :dynamic-scheme-variant dynamic-scheme-variant.fidelity
             :routes (
-                :home home-route
-                :project project-route
+                :home project-route
                 :site site-route
                 :light-dimmer light-dimmer-route
                 :curtain-demo curtain-demo-route

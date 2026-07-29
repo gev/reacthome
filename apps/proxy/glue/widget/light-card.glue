@@ -6,6 +6,8 @@
     (import lib.log)
     (import lib.navigation)
 
+    (import locale.action)
+
     (import iconic.light)
 
     (import widget.cards)
@@ -79,7 +81,7 @@
                 :child (light
                     :id props.id
                     :label (title props)
-                    :status "OFF"
+                    :status (@ turn-on' locale.language-code)
                     :icon-color theme.color-scheme.outline-variant
                 )
             )
@@ -97,7 +99,7 @@
                 :child (light
                     :id props.id
                     :label (title props)
-                    :status "ON"
+                    :status (@ turn-off' locale.language-code)
                     :icon-color theme.color-scheme.primary
                 )
             )
@@ -110,7 +112,7 @@
                 :child (light
                     :id props.id
                     :label (title props)
-                    :status "OFF"
+                    :status (@ turn-on' locale.language-code)
                     :icon-color theme.color-scheme.outline-variant
                 )
             )
@@ -136,7 +138,7 @@
                 :child (light
                     :id props.id
                     :label (title props)
-                    :status "N/A"
+                    :status (@ not-available' locale.language-code)
                 )
             )
             

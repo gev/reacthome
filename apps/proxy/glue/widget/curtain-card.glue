@@ -6,6 +6,8 @@
     (import lib.log)
     (import lib.navigation)
 
+    (import locale.action)
+
     (import iconic.curtain)
 
     (import widget.cards)
@@ -65,7 +67,9 @@
                 :child (curtain
                     :id props.id
                     :label (title props)
-                    :status (if (> bind.value 254) "Closed" (to-percents bind.value))
+                    :status (if (> bind.value 254)
+                        (@ close' locale.language-code)
+                        (to-percents bind.value))
                     :icon-color theme.color-scheme.primary
                 )
             )
@@ -79,7 +83,7 @@
                 :child (curtain
                     :id props.id
                     :label (title props)
-                    :status "Opened"
+                    :status (@ close' locale.language-code)
                     :icon-color theme.color-scheme.outline-variant
                 )
             )
@@ -97,7 +101,7 @@
                 :child (curtain
                     :id props.id
                     :label (title props)
-                    :status "Closed"
+                    :status (@ close' locale.language-code)
                     :icon-color theme.color-scheme.primary
                 )
             )
@@ -110,7 +114,7 @@
                 :child (curtain
                     :id props.id
                     :label (title props)
-                    :status "Opened"
+                    :status (@ open' locale.language-code)
                     :icon-color theme.color-scheme.outline-variant
                 )
             )
@@ -136,7 +140,7 @@
                 :child (curtain
                     :id props.id
                     :label (title props)
-                    :status "N/A"
+                    :status (@ not-available' locale.language-code)
                 )
             )
             

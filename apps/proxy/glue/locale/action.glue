@@ -1,0 +1,91 @@
+(module locale.action
+    (export
+        on'
+        turn-on'
+        off'
+        turn-off'
+        closed'
+        close'
+        open'
+        opened'
+        stop'
+        brightness'
+        humidity'
+        temperature'
+        setpoint'
+        CO2'
+        VOC'
+        not-available'
+    )
+
+    (def on' (
+            :en "On"
+            :ru "Включено"
+        ))
+
+    (def turn-on' (
+            :en "Turn on"
+            :ru "Включить"
+        ))
+
+    (def off' (
+            :en "Off"
+            :ru "Включено"
+        ))
+
+    (def turn-off' (
+            :en "Turn off"
+            :ru "Выключить"
+        ))
+
+    (def opened' (
+            :en "Opened"
+            :ru "Открыто"
+        ))
+
+    (def open' (
+            :en "Open"
+            :ru "Открыть"
+        ))
+
+    (def closed' (
+            :en "Closed"
+            :ru "Закрыто"
+        ))
+
+    (def close' (
+            :en "Close"
+            :ru "Закрыть"
+        ))
+
+    (def stop' (
+            :en "Stop"
+            :ru "Остановить"
+        ))
+
+
+    (def brightness' (
+            :en "Brightness"
+            :ru "Яркость"
+        ))
+    (def humidity' (
+            :en "Humidity"
+            :ru "Влажность"
+        ))
+    (def temperature' (
+            :en "Temperature"
+            :ru "Температура"
+        ))
+    (def setpoint' (
+            :en "Setpoint"
+            :ru "Уставка"
+        ))
+
+    (def CO2' "CO2")
+    (def VOC' "VOC")
+
+    (def not-available (
+            :en "N/A"
+            :ru "Н/Д"
+        ))
+)
