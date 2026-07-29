@@ -1,69 +1,17 @@
 (module widget.screen
     (export screen)
 
-    (def (status props)
-        (animated-positioned
-            :top props.position
-            :left 20
-            :right 20
-            :duration (duration :milliseconds 300)
-            :child (center
-                :child (card
-                    :color props.color
-                    :elevation 6
-                    :child (padding
-                        :padding (edge-insets-symmetric :vertical 4 :horizontal 16)
-                        :child props.child
-                    )
-                )
-            )
-        )
-    )
-
-    (def (session-status props)
-        (listen local-session-monitor
-            (\ (state)
-                (if (== state session-state.connected)
-                    (status
-                        :position props.connected-position
-                        :color theme.color-scheme.surface-container
-                        :child (text
-                            :content "Connected"
-                            :style (text-style
-                                :color theme.color-scheme.on-surface
-                            )
-                        )
-                    )
-                    (status
-                        :position props.disconnected-position
-                        :color theme.color-scheme.error
-                        :child (row
-                            :spacing 16
-                            :main-axis-size main-axis-size.min
-                            :children (
-                                (text
-                                    :content "Connecting"
-                                    :style (text-style
-                                        :color theme.color-scheme.on-error
-                                    )
-                                )
-                                (activity :background-color theme.color-scheme.on-error)
-                            )
-                        )
-                    )
-                )
-            )
-        )
-    )
+    (import widget.session)
 
     (def (screen props)
-        (scaffold
-            :body (stack
+        (material
+            :color theme.color-scheme.surface-container
+            :child (stack
                 :children (
                     (props.body)
                     (session-status
-                        :connected-position -64
-                        :disconnected-position 16
+                        :connected-position -32
+                        :disconnected-position 32
                     )
                 )
             )
