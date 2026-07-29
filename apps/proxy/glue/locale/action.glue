@@ -84,7 +84,7 @@
     (def CO2' "CO2")
     (def VOC' "VOC")
 
-    (def not-available (
+    (def not-available' (
             :en "N/A"
             :ru "Н/Д"
         ))
