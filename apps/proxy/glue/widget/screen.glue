@@ -12,12 +12,9 @@
                     (props.body)
                     (session-status
                         :connected-position -48
-                        :disconnected-position 32
+                        :disconnected-position 12
                     )
-                    (container
-                        :height 56
-                        :child (app-bar _)
-                    )
+                    (app-bar _)
                 )
             )
         )
