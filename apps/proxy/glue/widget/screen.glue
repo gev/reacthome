@@ -1,6 +1,7 @@
 (module widget.screen
     (export screen)
 
+    (import widget.app-bar)
     (import widget.session)
 
     (def (screen props)
@@ -12,6 +13,10 @@
                     (session-status
                         :connected-position -32
                         :disconnected-position 32
+                    )
+                    (container
+                        :height 56
+                        :child (app-bar _)
                     )
                 )
             )

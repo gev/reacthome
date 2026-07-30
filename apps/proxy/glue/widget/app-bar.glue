@@ -1,0 +1,32 @@
+(module widget.app-bar
+    (export app-bar)
+
+    (import lib.navigation)
+
+    (def (app-bar props)
+        (row
+            :main-axis-size main-axis-size.min
+            :children (
+                (? (can-pop)
+                    (padding
+                        :padding (edge-insets-all 8)
+                        :child
+                        (clip-rrect
+                            :border-radius (border-radius-circular 20)
+                            :child (backdrop
+                                :filter (blur :sigma-x 5 :sigma-y 5)
+                                :child (back-button
+                                    :elevation 6
+                                    :style (button-style
+                                        :background-color (theme.color-scheme.surface-container-highest.with :a 0.5)
+                                        :foreground-color theme.color-scheme.on-surface-variant
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    )
+)
