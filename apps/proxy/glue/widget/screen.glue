@@ -11,7 +11,7 @@
                 :children (
                     (props.body)
                     (session-status
-                        :connected-position -32
+                        :connected-position -48
                         :disconnected-position 32
                     )
                     (container
