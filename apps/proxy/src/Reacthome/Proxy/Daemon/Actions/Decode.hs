@@ -82,6 +82,7 @@ processKey "dimmable" = processKeyBoolean
 processKey "temperature" = processKeyFloat
 processKey "humidity" = processKeyFloat
 processKey "illumination" = processKeyFloat
+processKey "brightness" = processKeyFloat
 -- Process as Value
 processKey "value" = processKeyValue
 -- Process as Reference
