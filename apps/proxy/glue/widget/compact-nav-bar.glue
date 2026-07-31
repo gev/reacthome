@@ -1,0 +1,65 @@
+(module widget.compact-nav-bar
+    (export nav-bar)
+
+    (import widget.floating-bar)
+
+    (def (nav-bar-button props)
+        (button
+            :on-pressed (\ () ())
+            :style (button-style
+                :elevation (? props.selected 1 0)
+                :background-color (
+                    ? props.selected
+                    theme.color-scheme.secondary-container
+                    colors.transparent
+                )
+                :foreground-color (
+                    ? props.selected
+                    theme.color-scheme.on-secondary-container
+                    theme.color-scheme.on-surface-variant
+                )
+            )
+            :child (icon
+                :fill (? props.selected 1 0)
+                :icon (symbol props.symbol)
+            )
+        )
+    )
+
+    (def (nav-bar props)
+        (row
+            :main-axis-alignment main-axis-alignment.center
+            :spacing 16
+            :children (
+                (floating-bar
+                    :child (padding
+                        :padding (edge-insets-all 8)
+                        :child (row
+                            :spacing 16
+                            :children (
+                                (nav-bar-button
+                                    :symbol 'weather.mix
+                                    :selected false
+                                )
+                                (nav-bar-button
+                                    :symbol 'home
+                                    :selected true
+                                )
+                                (nav-bar-button
+                                    :symbol 'dashboard
+                                    :selected false
+                                )
+                            )
+                        )
+                    )
+                )
+                (floating-bar
+                    :child (padding
+                        :padding (edge-insets-all 8)
+                        :child (icon-button :child (icon :icon (symbol 'settings)))
+                    )
+                )
+            )
+        )
+    )
+)
