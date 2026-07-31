@@ -17,17 +17,22 @@
     (def elevation-off 1)
     (def elevation-on 2)
 
-    (def (curtain props small)
+    (def (curtain props)
         (row
-            :main-axis-alignment main-axis-alignment.space-between
+            :spacing 16
             :children (
+                (iconic
+                    :icon iconic-curtain
+                    :color props.icon-color
+                    :size 32
+                )
                 (column
                     :cross-axis-alignment cross-axis-alignment.start
                     :children (
                         (text
                             :content props.label
                             :style (text-style
-                                :font-size theme.text-theme.label-large.font-size
+                                :font-size theme.text-theme.label-medium.font-size
                                 :color theme.color-scheme.on-surface-variant
                                 :font-weight font-weight.w400
                             )
@@ -36,19 +41,11 @@
                             :content props.status
                             :style (text-style
                                 :color props.color
-                                :font-size (if small
-                                    theme.text-theme.title-medium.font-size
-                                    theme.text-theme.title-large.font-size
-                                )
+                                :font-size theme.text-theme.title-medium.font-size
                                 :font-weight font-weight.w600
                             )
                         )
                     )
-                )
-                (iconic
-                    :icon iconic-curtain
-                    :color props.icon-color
-                    :size 40
                 )
             )
         )
@@ -62,13 +59,16 @@
                 :on-pressed (turn-off props.id)
                 :on-long-press (go :route 'curtain :id props.id)
                 :color theme.color-scheme.on-surface
-                :card-color theme.color-scheme.surface-bright
+                :card-color (if (< bind.value 128)
+                    theme.color-scheme.surface-bright
+                    theme.color-scheme.surface-dim
+                )
                 :elevation elevation-on
                 :child (curtain
                     :id props.id
                     :label (title props)
                     :status (if (> bind.value 254)
-                        (@ close' locale.language-code)
+                        (@ closed' locale.language-code)
                         (to-percents bind.value))
                     :icon-color theme.color-scheme.primary
                 )
@@ -78,12 +78,12 @@
                 :on-pressed (turn-on props.id)
                 :on-long-press (go :route 'curtain :id props.id)
                 :color theme.color-scheme.on-surface
-                :card-color theme.color-scheme.surface-dim
+                :card-color theme.color-scheme.surface-bright
                 :elevation elevation-off
                 :child (curtain
                     :id props.id
                     :label (title props)
-                    :status (@ close' locale.language-code)
+                    :status (@ opened' locale.language-code)
                     :icon-color theme.color-scheme.outline-variant
                 )
             )
@@ -96,12 +96,12 @@
                 :key props.id
                 :on-pressed (turn-off props.id)
                 :color theme.color-scheme.on-surface
-                :card-color theme.color-scheme.surface-bright
+                :card-color theme.color-scheme.surface-dim
                 :elevation elevation-on
                 :child (curtain
                     :id props.id
                     :label (title props)
-                    :status (@ close' locale.language-code)
+                    :status (@ closed' locale.language-code)
                     :icon-color theme.color-scheme.primary
                 )
             )
@@ -109,12 +109,12 @@
                 :key props.id
                 :on-pressed (turn-on props.id)
                 :color theme.color-scheme.on-surface
-                :card-color theme.color-scheme.surface-dim
+                :card-color theme.color-scheme.surface-bright
                 :elevation elevation-off
                 :child (curtain
                     :id props.id
                     :label (title props)
-                    :status (@ open' locale.language-code)
+                    :status (@ opened' locale.language-code)
                     :icon-color theme.color-scheme.outline-variant
                 )
             )
