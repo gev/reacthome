@@ -7,17 +7,17 @@
     (def (adopt child)
         (def screen-width media-query.width)
         (def n (floor (/ screen-width 160)))
-        (def space (* n 16))
+        (def space (* n  16))
         (def width (/ (- screen-width space) n))
         (container
             :width width
             :constraints (box-constraints
-                :min-width 160
-                :max-width 360
+                :min-width 140
+                :max-width 200
             )
             :child (padding
                 :padding (edge-insets-symmetric :horizontal 16 :vertical 8)
-                :child (child (< width 180))
+                :child child
             )
         )
     )
