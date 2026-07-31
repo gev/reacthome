@@ -52,8 +52,7 @@
 
     (def main
         (app
-            :seed-color (rgb 0 160 180)
-            :dynamic-scheme-variant dynamic-scheme-variant.fidelity
+            :seed-color colors.blue
             :routes (
                 :home project-route
                 :site site-route
