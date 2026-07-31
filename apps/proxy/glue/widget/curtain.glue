@@ -9,7 +9,7 @@
     (def (curtain props bind)
         (def value (to-absolute bind.value))
         (def color
-            (if bind.value
+            (if (< bind.value 128)
                 theme.color-scheme.surface-bright
                 theme.color-scheme.surface-dim
             )
