@@ -1,0 +1,22 @@
+(module widget.floating-bar
+    (export floating-bar)
+
+    (import lib.navigation)
+
+    (def (floating-bar props)
+        (def color (?? props.color theme.color-scheme.surface-container))
+        (def opacity (?? props.opacity 0.75))
+        (def radius (?? props.radius 24))
+        (def sigma (?? props.sigma 16))
+        (clip-rrect
+            :border-radius (border-radius-circular radius)
+            :child (backdrop
+                :filter (blur :sigma-x sigma :sigma-y sigma)
+                :child (container
+                    :color (color.with :a opacity)
+                    :child props.child
+                )
+            )
+        )
+    )
+)
