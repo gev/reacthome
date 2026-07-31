@@ -22,8 +22,16 @@
             :spacing 16
             :children (
                 (icon
-                    :icon (symbol (? (< props.value 128) 'shades 'shades.closed))
-                    :color props.icon-color
+                    :icon (symbol
+                        (? (< props.value 128)
+                            'shades
+                            'shades.closed
+                        )
+                    )
+                    :color (? props.bound
+                        theme.color-scheme.primary
+                        theme.color-scheme.outline-variant
+                    )
                     :fill 1
                     :size 32
                 )
@@ -53,26 +61,26 @@
     )
     
 
-    (def (curtain-dimmable props bind)
-        (if (bind.value)
+    (def (curtain-dimmable props)
+        (if (props.value)
             (active-card
                 :key props.id
                 :on-pressed (turn-off props.id)
                 :on-long-press (go :route 'curtain :id props.id)
                 :color theme.color-scheme.on-surface
-                :card-color (if (< bind.value 128)
+                :card-color (if (< props.value 128)
                     theme.color-scheme.surface-bright
                     theme.color-scheme.surface-dim
                 )
                 :elevation elevation-on
                 :child (curtain
                     :id props.id
-                    :value bind.value
-                    :label (title props)
-                    :status (if (> bind.value 254)
+                    :value props.value
+                    :label props.label
+                    :bound true
+                    :status (if (> props.value 254)
                         (@ closed' locale.language-code)
-                        (to-percents bind.value))
-                    :icon-color theme.color-scheme.primary
+                        (to-percents props.value))
                 )
             )
             (active-card
@@ -84,17 +92,17 @@
                 :elevation elevation-off
                 :child (curtain
                     :id props.id
-                    :value bind.value
-                    :label (title props)
+                    :value props.value
+                    :label props.label
+                    :bound true
                     :status (@ opened' locale.language-code)
-                    :icon-color theme.color-scheme.outline-variant
                 )
             )
         )
     )
 
-    (def (curtain-non-dimmable props bind)
-        (if (bind.value)
+    (def (curtain-non-dimmable props)
+        (if (props.value)
             (active-card
                 :key props.id
                 :on-pressed (turn-off props.id)
@@ -103,10 +111,10 @@
                 :elevation elevation-on
                 :child (curtain
                     :id props.id
-                    :value bind.value
-                    :label (title props)
+                    :value props.value
+                    :label props.label
+                    :bound true
                     :status (@ closed' locale.language-code)
-                    :icon-color theme.color-scheme.primary
                 )
             )
             (active-card
@@ -117,19 +125,29 @@
                 :elevation elevation-off
                 :child (curtain
                     :id props.id
-                    :value bind.value
-                    :label (title props)
+                    :value props.value
+                    :label props.label
+                    :bound true
                     :status (@ opened' locale.language-code)
-                    :icon-color theme.color-scheme.outline-variant
                 )
             )
         )
     )
 
     (def (curtain-bound props bind)
-        (if (bind.dimmable)
-            (curtain-dimmable props bind)
-            (curtain-non-dimmable props bind)
+        (def card
+            (if bind.dimmable
+                curtain-dimmable
+                curtain-non-dimmable
+            )
+        )
+        (card
+            :id props.id
+            :label (title props)
+            :value (if (is-exist bind.brightness)
+                (? bind.value bind.brightness 0)
+                bind.value
+            )
         )
     )
 
@@ -140,10 +158,11 @@
                 :key props.id
                 :color theme.color-scheme.on-surface-variant
                 :card-color theme.color-scheme.surface-variant
-                :icon-color theme.color-scheme.outline-variant
                 :elevation elevation-unbound
                 :child (curtain
                     :id props.id
+                    :value 0
+                    :bound false
                     :label (title props)
                     :status (@ not-available' locale.language-code)
                 )

@@ -23,6 +23,10 @@
             :children (
                 (icon
                     :icon (symbol 'lightbulb.2)
+                    :color (? props.bound
+                        theme.color-scheme.primary
+                        theme.color-scheme.outline-variant
+                    )
                     :fill (? props.value 1 0)
                     :size 32
                 )
@@ -52,8 +56,8 @@
     )
     
 
-    (def (light-dimmable props bind)
-        (if (bind.value)
+    (def (light-dimmable props)
+        (if (props.value)
             (active-card
                 :key props.id
                 :on-pressed (turn-off props.id)
@@ -63,10 +67,10 @@
                 :elevation elevation-on
                 :child (light
                     :id props.id
-                    :value bind.value
-                    :label (title props)
-                    :status (to-percents bind.value)
-                    :icon-color theme.color-scheme.primary
+                    :value props.value
+                    :label props.label
+                    :bound true
+                    :status (to-percents props.value)
                 )
             )
             (active-card
@@ -78,17 +82,17 @@
                 :elevation elevation-off
                 :child (light
                     :id props.id
-                    :value bind.value
-                    :label (title props)
+                    :value props.value
+                    :label props.label
+                    :bound true
                     :status (@ off' locale.language-code)
-                    :icon-color theme.color-scheme.outline-variant
                 )
             )
         )
     )
 
-    (def (light-non-dimmable props bind)
-        (if (bind.value)
+    (def (light-non-dimmable props)
+        (if (props.value)
             (active-card
                 :key props.id
                 :on-pressed (turn-off props.id)
@@ -97,10 +101,10 @@
                 :elevation elevation-on
                 :child (light
                     :id props.id
-                    :value bind.value
-                    :label (title props)
+                    :value props.value
+                    :label props.label
+                    :bound true
                     :status (@ on' locale.language-code)
-                    :icon-color theme.color-scheme.primary
                 )
             )
             (active-card
@@ -111,19 +115,29 @@
                 :elevation elevation-off
                 :child (light
                     :id props.id
-                    :value bind.value
-                    :label (title props)
+                    :value props.value
+                    :label props.label
+                    :bound true
                     :status (@ off' locale.language-code)
-                    :icon-color theme.color-scheme.outline-variant
                 )
             )
         )
     )
 
     (def (light-bound props bind)
-        (if (bind.dimmable)
-            (light-dimmable props bind)
-            (light-non-dimmable props bind)
+        (def card
+            (if bind.dimmable
+                light-dimmable
+                light-non-dimmable
+            )
+        )
+        (card
+            :id props.id
+            :label (title props)
+            :value (if (is-exist bind.brightness)
+                (? bind.value bind.brightness 0)
+                bind.value
+            )
         )
     )
 
@@ -134,10 +148,11 @@
                 :key props.id
                 :color theme.color-scheme.on-surface-variant
                 :card-color theme.color-scheme.surface-variant
-                :icon-color theme.color-scheme.outline-variant
                 :elevation elevation-unbound
                 :child (light
                     :id props.id
+                    :value 0
+                    :bound false
                     :label (title props)
                     :status (@ not-available' locale.language-code)
                 )
