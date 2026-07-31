@@ -7,7 +7,7 @@
 
     (def (screen props)
         (material
-            :color theme.color-scheme.secondary-container
+            :color theme.color-scheme.surface-container
             :child (stack
                 :children (
                     (props.body)
