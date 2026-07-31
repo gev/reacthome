@@ -21,9 +21,10 @@
         (row
             :spacing 16
             :children (
-                (iconic
-                    :icon iconic-curtain
+                (icon
+                    :icon (symbol (? (< props.value 128) 'shades 'shades.closed))
                     :color props.icon-color
+                    :fill 1
                     :size 32
                 )
                 (column
@@ -66,6 +67,7 @@
                 :elevation elevation-on
                 :child (curtain
                     :id props.id
+                    :value bind.value
                     :label (title props)
                     :status (if (> bind.value 254)
                         (@ closed' locale.language-code)
@@ -82,6 +84,7 @@
                 :elevation elevation-off
                 :child (curtain
                     :id props.id
+                    :value bind.value
                     :label (title props)
                     :status (@ opened' locale.language-code)
                     :icon-color theme.color-scheme.outline-variant
@@ -100,6 +103,7 @@
                 :elevation elevation-on
                 :child (curtain
                     :id props.id
+                    :value bind.value
                     :label (title props)
                     :status (@ closed' locale.language-code)
                     :icon-color theme.color-scheme.primary
@@ -113,6 +117,7 @@
                 :elevation elevation-off
                 :child (curtain
                     :id props.id
+                    :value bind.value
                     :label (title props)
                     :status (@ opened' locale.language-code)
                     :icon-color theme.color-scheme.outline-variant
