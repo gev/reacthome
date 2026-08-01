@@ -23,9 +23,9 @@
             :children (
                 (icon
                     :icon (symbol
-                        (? (< props.value 128)
-                            'shades
+                        (? props.value
                             'shades.closed
+                            'shades
                         )
                     )
                     :color (? props.bound
@@ -68,19 +68,14 @@
                 :on-pressed (turn-off props.id)
                 :on-long-press (go :route 'curtain :id props.id)
                 :color theme.color-scheme.on-surface
-                :card-color (if (< props.value 128)
-                    theme.color-scheme.surface-bright
-                    theme.color-scheme.surface-dim
-                )
+                :card-color theme.color-scheme.surface-dim
                 :elevation elevation-on
                 :child (curtain
                     :id props.id
                     :value props.value
                     :label props.label
                     :bound true
-                    :status (if (> props.value 254)
-                        (@ closed' locale.language-code)
-                        (to-percents props.value))
+                    :status (@ closed' locale.language-code)
                 )
             )
             (active-card
@@ -144,10 +139,7 @@
         (card
             :id props.id
             :label (title props)
-            :value (if (is-exist bind.brightness)
-                (? bind.value bind.brightness 0)
-                bind.value
-            )
+            :value props.value
         )
     )
 

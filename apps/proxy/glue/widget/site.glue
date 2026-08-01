@@ -32,7 +32,8 @@
                         :spacing 16
                         :children (
                             (select-in-wrap light-card props.light_220)
-                            (select-in-wrap curtain-card props.light_LED)
+                            (select-in-wrap light-card props.light_LED)
+                            (select-in-wrap curtain-card props.curtains)
                             (select-in-column site-card props.site)
                         )
                     )
