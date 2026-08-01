@@ -19,7 +19,7 @@
 
     (def (curtain props)
         (row
-            :spacing 16
+            :spacing 8
             :children (
                 (icon
                     :icon (symbol

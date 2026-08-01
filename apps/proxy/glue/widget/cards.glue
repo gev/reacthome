@@ -4,16 +4,18 @@
         inactive-card
     )
 
+    (import lib.log)
+
     (def (adopt child)
-        (def screen-width media-query.width)
+        (def screen-width (+ media-query.width 16))
         (def n (floor (/ screen-width 160)))
-        (def space (* n  16))
-        (def width (/ (- screen-width space) n))
+        (def width (- (? (> n 1) (/ screen-width n) screen-width) 16))
+        (log-info (# n width))
         (container
             :width width
             :constraints (box-constraints
-                :min-width 140
-                :max-width 200
+                :min-width 144
+                :max-width 196
             )
             :child (padding
                 :padding (edge-insets-symmetric :horizontal 16 :vertical 8)
