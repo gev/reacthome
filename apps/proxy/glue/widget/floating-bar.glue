@@ -12,8 +12,8 @@
             :decoration (box-decoration
                 :color (color.with :a opacity)
                 :border (border-all
-                    :color (colors.white.with :a 0.1)
-                    :width 1
+                    :color (theme.color-scheme.outline.with :a 0.2)
+                    :width 0.5
                 )
                 :border-radius (border-radius-circular radius)
                 :box-shadow (
