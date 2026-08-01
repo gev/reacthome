@@ -5,7 +5,7 @@
 
     (def (floating-bar props)
         (def color (?? props.color theme.color-scheme.surface-container))
-        (def opacity (?? props.opacity 0.9))
+        (def opacity (?? props.opacity 0.8))
         (def radius (?? props.radius 24))
         (def sigma (?? props.sigma 12))
         (container
