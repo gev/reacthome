@@ -11,10 +11,6 @@
             :child (stack
                 :children (
                     (props.body)
-                    (session-status
-                        :connected-position -48
-                        :disconnected-position 12
-                    )
                     (positioned
                         :top 16
                         :left 16
@@ -29,6 +25,10 @@
                             :alignment alignment.center
                             :child (container :child(nav-bar _))
                         )
+                    )
+                    (session-status
+                        :connected-position -48
+                        :disconnected-position 12
                     )
                 )
             )
