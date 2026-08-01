@@ -13,7 +13,7 @@
                 :color (color.with :a opacity)
                 :border (border-all
                     :color (theme.color-scheme.outline.with :a 0.2)
-                    :width 0.5
+                    :width 1
                 )
                 :border-radius (border-radius-circular radius)
                 :box-shadow (
