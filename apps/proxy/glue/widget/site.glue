@@ -4,14 +4,17 @@
     (import lib.log)
     (import lib.data)
     (import lib.navigation)
+
     (import widget.containers)
     (import widget.site-card)
+    (import widget.site-breadcrumbs)
     (import widget.light-card)
     (import widget.curtain-card)
 
     (def (site props)
         (single-child-scroll-view
             :child (column
+                :spacing 16
                 :cross-axis-alignment cross-axis-alignment.start
                 :children (
                     (if (is-exist props.image)
@@ -20,23 +23,14 @@
                             :fit box-fit.fit-width
                         )
                     )
-                    (padding
-                        :padding (edge-insets-all 16)
-                        :child (text
-                            :content (title props)
-                            :style theme.text-theme.headline-large
-                        )
+                    (text
+                        :content (title props)
+                        :style theme.text-theme.headline-large
                     )
-                    (column
-                        :cross-axis-alignment cross-axis-alignment.start
-                        :spacing 16
-                        :children (
-                            (select-in-wrap light-card props.light_220)
-                            (select-in-wrap light-card props.light_LED)
-                            (select-in-wrap curtain-card props.curtains)
-                            (select-in-column site-card props.site)
-                        )
-                    )
+                    (select-in-wrap light-card props.light_220)
+                    (select-in-wrap light-card props.light_LED)
+                    (select-in-wrap curtain-card props.curtains)
+                    (select-in-column site-card props.site)
                 )
             )
         )
