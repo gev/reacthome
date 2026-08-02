@@ -23,9 +23,19 @@
                             :fit box-fit.fit-width
                         )
                     )
-                    (text
-                        :content (title props)
-                        :style theme.text-theme.headline-large
+                    (wrap
+                        :spacing 16
+                        :run-spacing 8
+                        :cross-axis-alignment wrap-cross-alignment.center
+                        :children (
+                            (text
+                                :content (title props)
+                                :style theme.text-theme.headline-large
+                            )
+                            (site-breadcrumbs
+                                :site props.parent
+                                :action (\ (id) (go :route 'site :id id)))
+                        )
                     )
                     (select-in-wrap light-card props.light_220)
                     (select-in-wrap light-card props.light_LED)
