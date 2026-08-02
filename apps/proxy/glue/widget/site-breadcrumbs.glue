@@ -1,0 +1,16 @@
+(module widget.site-breadcrumbs
+    (export site-breadcrumbs)
+
+    (import lib.data)
+
+    (def (segment props)
+        (text
+            :content (title props)
+        )
+    )
+
+    (def (site-breadcrumbs props)
+        (select segment props.site)
+    )
+
+)
