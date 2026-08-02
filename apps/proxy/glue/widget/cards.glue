@@ -4,13 +4,10 @@
         inactive-card
     )
 
-    (import lib.log)
-
     (def (adopt child)
         (def screen-width (+ media-query.width 16))
         (def n (floor (/ screen-width 160)))
         (def width (- (? (> n 1) (/ screen-width n) screen-width) 16))
-        (log-info (# n width))
         (container
             :width width
             :constraints (box-constraints
