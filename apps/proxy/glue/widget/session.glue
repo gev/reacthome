@@ -23,7 +23,7 @@
     (def (session-status props)
         (listen local-session-monitor
             (\ (state)
-                (if (!= state session-state.connected)
+                (if (== state session-state.connected)
                     (status
                         :position props.connected-position
                         :color theme.color-scheme.surface-container
