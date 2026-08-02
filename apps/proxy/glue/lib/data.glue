@@ -2,7 +2,14 @@
     (export select title)
 
     (def (select go key)
-        (listen (remote-persistent-state key) go)
+        (listen (remote-persistent-state key)
+            (\ (value)
+                (if (is-exist value)
+                    (go value)
+                    (sized-box :width 0 :height 0)
+                )
+            )
+        )
     )
 
     (def (title props)
