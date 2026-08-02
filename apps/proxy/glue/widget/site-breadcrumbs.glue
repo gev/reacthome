@@ -3,14 +3,52 @@
 
     (import lib.data)
 
-    (def (segment props)
-        (text
-            :content (title props)
+    (def (segment action props)
+        (outlined-button
+            :style (button-style
+                :foreground-color theme.color-scheme.secondary
+            )
+            :on-pressed (? action (action props.id))
+            :child (text
+                :content (title props)
+            )
+        )
+    )
+
+    (def (combine items)
+        (wrap
+            :spacing 4
+            :children items
+        )
+    )
+
+    (def (parent3 action item1 item2 props)
+        (def item3 (segment action props))
+        (if (is-exist props.parent)
+            (combine (# item1 item2 item3 (segment _ (:title "..."))))
+            (combine (# item1 item2 item3))
+        )
+    )
+
+    (def (parent2 action item1 props)
+        (def item2 (segment action props))
+        (if (is-exist props.parent)
+            (select (parent3 action item1 item2) props.parent)
+            (combine (# item1 item2))
+        )
+    )
+
+    (def (parent1 action props)
+        (def item1 (segment action props))
+        (if (is-exist props.parent)
+            (select (parent2 action item1) props.parent)
+            (combine (# item1))
         )
     )
 
     (def (site-breadcrumbs props)
-        (select segment props.site)
+        (if (is-exist props.site)
+            (select (parent1 props.action) props.site)
+        )
     )
-
 )
