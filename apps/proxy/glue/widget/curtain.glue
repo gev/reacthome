@@ -3,9 +3,12 @@
 
     (import lib.actions)
     (import lib.data)
+
+    (import locale.action)
     (import locale.status)
 
     (import widget.modal)
+    (import widget.site-breadcrumbs)
 
     (def (curtain props bind)
         (def color
@@ -17,8 +20,8 @@
         (modal
             :color color
             :child (column
-                :main-axis-size main-axis-size.min
                 :spacing 24
+                :main-axis-size main-axis-size.min
                 :children (
                     (text
                         :content (title props)
@@ -28,16 +31,39 @@
                             :font-weight font-weight.w400
                         )
                     )
+                    (site-breadcrumbs :site props.site)
                     (text
                         :content (@ (? bind.value closed' opened') locale.language-code)
                         :style (text-style
-                            :font-size theme.text-theme.display-large.font-size
+                            :font-size theme.text-theme.display-medium.font-size
                             :color theme.color-scheme.on-surface
                             :font-weight font-weight.w600
                         )
                     )
                     (double-curtain
                         :jump-to-tap false
+                    )
+                    (wrap
+                        :spacing 16
+                        :run-spacing 8
+                        :main-axis-alignment main-axis-alignment.center
+                        :children (
+                            (button
+                                :child (text
+                                    :content (@ open' locale.language-code)
+                                )
+                            )
+                            (button
+                                :child (text
+                                    :content (@ stop' locale.language-code)
+                                )
+                            )
+                            (button
+                                :child (text
+                                    :content (@ close' locale.language-code)
+                                )
+                            )
+                        )
                     )
                 )
             )
