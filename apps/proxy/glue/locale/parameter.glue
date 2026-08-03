@@ -1,0 +1,34 @@
+(module locale.parameter
+    (export
+        brightness'
+        humidity'
+        temperature'
+        setpoint'
+        CO2'
+        VOC'
+    )
+
+    (def brightness' (
+            :en "Brightness"
+            :ru "Яркость"
+        ))
+
+    (def humidity' (
+            :en "Humidity"
+            :ru "Влажность"
+        ))
+
+    (def temperature' (
+            :en "Temperature"
+            :ru "Температура"
+        ))
+
+    (def CO2' "CO2")
+
+    (def VOC' "VOC")
+
+    (def setpoint' (
+            :en "Setpoint"
+            :ru "Уставка"
+        ))
+)
