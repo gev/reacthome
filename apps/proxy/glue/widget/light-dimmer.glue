@@ -19,8 +19,8 @@
         (modal
             :color color
             :child (column
-                :main-axis-size main-axis-size.min
                 :spacing 24
+                :main-axis-size main-axis-size.min
                 :children (
                     (text
                         :content (title props)
