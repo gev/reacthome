@@ -1,8 +1,9 @@
 (module widget.light-dimmer
     (export light-dimmer)
 
-    (import lib.status)
+    (import lib.actions)
     (import lib.data)
+    (import locale.status)
 
     (import widget.modal)
     (import widget.site-breadcrumbs)
