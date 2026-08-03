@@ -65,8 +65,7 @@
         (if (props.value)
             (active-card
                 :key props.id
-                :on-pressed (turn-off props.id)
-                :on-long-press (go :route 'curtain :id props.id)
+                :on-pressed (go :route 'curtain :id props.id)
                 :color theme.color-scheme.on-surface
                 :card-color theme.color-scheme.surface-dim
                 :elevation elevation-on
@@ -80,8 +79,7 @@
             )
             (active-card
                 :key props.id
-                :on-pressed (turn-on props.id)
-                :on-long-press (go :route 'curtain :id props.id)
+                :on-pressed (go :route 'curtain :id props.id)
                 :color theme.color-scheme.on-surface
                 :card-color theme.color-scheme.surface-bright
                 :elevation elevation-off
@@ -100,7 +98,7 @@
         (if (props.value)
             (active-card
                 :key props.id
-                :on-pressed (turn-off props.id)
+                :on-pressed (go :route 'curtain :id props.id)
                 :color theme.color-scheme.on-surface
                 :card-color theme.color-scheme.surface-dim
                 :elevation elevation-on
@@ -114,7 +112,7 @@
             )
             (active-card
                 :key props.id
-                :on-pressed (turn-on props.id)
+                :on-pressed (go :route 'curtain :id props.id)
                 :color theme.color-scheme.on-surface
                 :card-color theme.color-scheme.surface-bright
                 :elevation elevation-off
