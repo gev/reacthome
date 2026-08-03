@@ -14,7 +14,7 @@
 
     (def off' (
             :en "Off"
-            :ru "Включено"
+            :ru "Выключено"
         ))
 
     (def opened' (
