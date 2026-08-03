@@ -2,7 +2,7 @@
     (export screen)
 
     (import widget.app-bar)
-    (import widget.compact-nav-bar)
+    (import widget.nav-bar)
     (import widget.session)
 
     (def (screen props)
