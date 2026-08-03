@@ -1,5 +1,5 @@
 (module lib.combinator
-    (export Y Z)
+    (export Z)
 
     (def Z
         (lambda (f)
