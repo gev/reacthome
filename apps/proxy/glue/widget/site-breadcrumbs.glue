@@ -26,7 +26,6 @@
     )
 
     (def (combine items)
-        (log-info "combine")
         (wrap
             :spacing 4
             :children items
