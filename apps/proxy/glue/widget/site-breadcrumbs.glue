@@ -3,6 +3,7 @@
 
     (import lib.combinator)
     (import lib.data)
+    (import lib.log)
 
     (def (passive-segment props)
         (outlined-button
@@ -25,19 +26,23 @@
     )
 
     (def (combine items)
+        (log-info "combine")
         (wrap
             :spacing 4
             :children items
         )
     )
 
-    (def (breadcrumbs-gen segment rec site)
+    (def (breadcrumbs-gen segment rec props)
         (def (go i)
-            (combine
-                (# (segment i) (rec i.parent))
+            (def item (segment i))
+            (def acc (append props.acc (# item)))
+            (if (is-exist i.parent)
+                (rec :site i.parent :acc acc)
+                (combine acc)
             )
         )
-        (maybe (select go) site)
+        (maybe (select go) props.site)
     )
 
     (def (site-breadcrumbs props)
@@ -48,18 +53,6 @@
             )
         )
         (def go (Z (breadcrumbs-gen segment)))
-        (go props.site)
-    )
-    
-    (def (site-breadcrumbs~ props)
-        (def segment
-            (if (is-exist props.action)
-                (active-segment props.action)
-                (passive-segment)
-            )
-        )
-        (if (is-exist props.site)
-            (select (parent1 segment) props.site)
-        )
+        (go :site props.site :acc ())
     )
 )
