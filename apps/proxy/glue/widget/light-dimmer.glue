@@ -5,6 +5,7 @@
     (import lib.data)
 
     (import widget.modal)
+    (import widget.site-breadcrumbs)
 
     (def (light-dimmer props bind)
         (def value (to-percents bind.value))
@@ -28,6 +29,7 @@
                             :font-weight font-weight.w400
                         )
                     )
+                    (site-breadcrumbs :site props.site)
                     (text
                         :content value
                         :style (text-style
