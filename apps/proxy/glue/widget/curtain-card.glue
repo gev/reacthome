@@ -1,12 +1,10 @@
 (module widget.curtain-card
     (export curtain-card)
 
-    (import lib.actions)
     (import lib.data)
-    (import lib.log)
     (import lib.navigation)
 
-    (import locale.action)
+    (import locale.status)
 
     (import iconic.curtain)
 

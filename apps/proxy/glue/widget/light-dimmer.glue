@@ -1,7 +1,7 @@
 (module widget.light-dimmer
     (export light-dimmer)
 
-    (import lib.actions)
+    (import lib.status)
     (import lib.data)
 
     (import widget.modal)

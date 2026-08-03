@@ -6,7 +6,7 @@
     (import lib.log)
     (import lib.navigation)
 
-    (import locale.action)
+    (import locale.status)
 
     (import iconic.light)
 
