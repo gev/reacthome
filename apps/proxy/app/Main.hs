@@ -13,8 +13,8 @@ main = do
                 , daemon =
                     DaemonConfig
                         { uid = "02aaee3f-a050-43d5-bbf2-e0f2abd73a6e"
-                        , host = "server.local"
-                        , port = 3000
+                        , host = "95.71.124.106"
+                        , port = 8080
                         , uri = "/"
                         }
                 , discovery =
