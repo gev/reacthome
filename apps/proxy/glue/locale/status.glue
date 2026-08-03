@@ -1,0 +1,34 @@
+(module locale.status
+    (export
+        on'
+        off'
+        closed'
+        opened'
+        not-available'
+    )
+
+    (def on' (
+            :en "On"
+            :ru "Включено"
+        ))
+
+    (def off' (
+            :en "Off"
+            :ru "Включено"
+        ))
+
+    (def opened' (
+            :en "Opened"
+            :ru "Открыто"
+        ))
+
+    (def closed' (
+            :en "Closed"
+            :ru "Закрыто"
+        ))
+
+    (def not-available' (
+            :en "N/A"
+            :ru "Н/Д"
+        ))
+)
