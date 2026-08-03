@@ -9,8 +9,6 @@
         (def radius (?? props.radius 24))
         (def sigma (?? props.sigma 12))
         (container
-            :padding (edge-insets-all 0)
-            :constraints (box-constraints :max-height 72)
             :decoration (box-decoration
                 :color (color.with :a opacity)
                 :border (border-all
