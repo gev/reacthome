@@ -7,7 +7,7 @@
 
     (def (project-screen project)
         (screen
-            :body (select site project)
+            :body (view site project)
         )
     )
 )

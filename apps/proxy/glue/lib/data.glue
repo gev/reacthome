@@ -1,7 +1,7 @@
 (module lib.data
-    (export select title)
+    (export view title)
 
-    (def (select go key)
+    (def (view go key)
         (def (handle value)
             (if (is-exist value)
                 (go value)

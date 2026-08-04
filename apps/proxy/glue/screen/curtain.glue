@@ -6,9 +6,9 @@
     (import widget.curtain)
 
     (def (curtain-screen args)
-        (select
+        (view
             (\ (props)
-                (select (curtain props) props.bind)
+                (view (curtain props) props.bind)
             ) args.id
         )
     )

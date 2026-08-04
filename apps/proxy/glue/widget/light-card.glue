@@ -143,7 +143,7 @@
 
     (def (light-card props)
         (if (is-exist props.bind)
-            (select (light-bound props) props.bind)
+            (view (light-bound props) props.bind)
             (inactive-card
                 :key props.id
                 :color theme.color-scheme.on-surface-variant

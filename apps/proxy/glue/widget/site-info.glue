@@ -24,7 +24,7 @@
                 (combine acc)
             )
         )
-        (maybe (select go) props.site)
+        (maybe (view go) props.site)
     )
 
     (def (site-info props)
