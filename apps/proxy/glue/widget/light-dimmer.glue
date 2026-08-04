@@ -19,7 +19,7 @@
         (modal
             :color color
             :child (column
-                :spacing 24
+                :spacing 16
                 :main-axis-size main-axis-size.min
                 :children (
                     (text
