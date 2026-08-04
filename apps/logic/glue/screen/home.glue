@@ -16,8 +16,8 @@
                             :width 100)
                         (text :content props.title)
                         (listen
-                            (lookup store.persistent 'data.counter 0)
                             (\ (counter) (text :content counter))
+                            (lookup store.persistent 'data.counter 0)
                         )
                         (text :content (foo 100))
                         (row

@@ -21,40 +21,38 @@
     )
 
     (def (session-status props)
-        (listen local-session-monitor
-            (\ (state)
-                (if (== state session-state.connected)
-                    (status
-                        :position props.connected-position
-                        :color theme.color-scheme.surface-container
-                        :child (text
-                            :content "Connected"
-                            :style (text-style
-                                :color theme.color-scheme.on-surface
-                            )
+        (def (session state)
+            (if (== state session-state.connected)
+                (status
+                    :position props.connected-position
+                    :color theme.color-scheme.surface-container
+                    :child (text
+                        :content "Connected"
+                        :style (text-style
+                            :color theme.color-scheme.on-surface
                         )
                     )
-                    (status
-                        :position props.disconnected-position
-                        :color theme.color-scheme.error
-                        :child (row
-                            :spacing 16
-                            :main-axis-size main-axis-size.min
-                            :children (
-                                (text
-                                    :content "Connecting"
-                                    :style (text-style
-                                        :color theme.color-scheme.on-error
-                                    )
+                )
+                (status
+                    :position props.disconnected-position
+                    :color theme.color-scheme.error
+                    :child (row
+                        :spacing 16
+                        :main-axis-size main-axis-size.min
+                        :children (
+                            (text
+                                :content "Connecting"
+                                :style (text-style
+                                    :color theme.color-scheme.on-error
                                 )
-                                (sized-box
-                                    :width 16
-                                    :height 16
-                                    :child (activity
-                                        :stroke-width 2
-                                        :color theme.color-scheme.error
-                                        :background-color theme.color-scheme.on-error
-                                    )
+                            )
+                            (sized-box
+                                :width 16
+                                :height 16
+                                :child (activity
+                                    :stroke-width 2
+                                    :color theme.color-scheme.error
+                                    :background-color theme.color-scheme.on-error
                                 )
                             )
                         )
@@ -62,5 +60,6 @@
                 )
             )
         )
+        (listen session local-session-monitor)
     )
 )
