@@ -1,0 +1,28 @@
+(module locale.nav-bar
+    (export
+        home'
+        settings'
+        systems'
+        weather'
+    )
+
+    (def home' (
+            :en "Home"
+            :ru "Дом"
+        ))
+
+    (def settings' (
+            :en "Settings"
+            :ru "Настройки"
+        ))
+
+    (def systems' (
+            :en "Systems"
+            :ru "Системы"
+        ))
+
+    (def weather' (
+            :en "Weather"
+            :ru "Погода"
+        ))
+)
