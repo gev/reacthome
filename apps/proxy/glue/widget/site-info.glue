@@ -1,0 +1,34 @@
+(module widget.site-info
+    (export site-info)
+
+    (import lib.combinator)
+    (import lib.data)
+    (import lib.log)
+
+    (def (site s)
+        (text :content s.title)
+    )
+
+    (def (combine sites)
+        (column
+            :spacing 4
+            :children sites
+        )
+    )
+
+    (def (info-gen rec props)
+        (def (go i)
+            (def acc (append props.acc (# i)))
+            (if (is-exist i.site)
+                (combine (map (\ (s) (rec :site s :acc acc)) i.site))
+                (combine acc)
+            )
+        )
+        (maybe (select go) props.site)
+    )
+
+    (def (site-info props)
+        (def go (Z info-gen))
+        (go :site props.site :acc ())
+    )
+)
