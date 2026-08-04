@@ -1,5 +1,17 @@
 (module lib.data
-    (export view title)
+    (export
+        title
+        transform
+        view
+    )
+
+    (def (title props)
+        (?? props.title props.code)
+    )
+
+    (def (transform go key)
+        (react go (remote-persistent-state key))
+    )
 
     (def (view go key)
         (def (handle value)
@@ -9,9 +21,5 @@
             )
         )
         (render handle (remote-persistent-state key))
-    )
-
-    (def (title props)
-        (?? props.title props.code)
     )
 )
