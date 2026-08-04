@@ -6,8 +6,9 @@
     (import lib.navigation)
 
     (import widget.containers)
-    (import widget.site-card)
     (import widget.site-breadcrumbs)
+    (import widget.site-card)
+    (import widget.site-info)
     (import widget.light-card)
     (import widget.curtain-card)
 
@@ -37,6 +38,7 @@
                                 :action (\ (id) (go :route 'site :id id)))
                         )
                     )
+                    (site-info :site props.id)
                     (select-in-grid light-card props.light_220)
                     (select-in-grid light-card props.light_LED)
                     (select-in-grid curtain-card props.curtains)
