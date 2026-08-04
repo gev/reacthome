@@ -3,7 +3,6 @@
 
     (import lib.combinator)
     (import lib.data)
-    (import lib.log)
 
     (def (passive-segment props)
         (outlined-button
