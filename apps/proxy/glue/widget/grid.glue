@@ -1,20 +1,20 @@
 (module widget.grid
     (export grid)
     
-    (import lib.log)
-
-    (def min-w 144)
-    (def max-w 196)
-    (def gap 16)
+    (def min-width 144)
+    (def max-width 196)
+    (def grid-spacing 16)
 
     (def (grid props)
-        (def spacing (?? props.spacing gap))
+        (def spacing (?? props.spacing grid-spacing))
+        (def min-w (?? props.min-width min-width))
+        (def max-w (?? props.max-width max-width))
+        
+        (def screen-width (+ media-query.width grid-spacing))
+        (def n (min (max 1 (floor (/ screen-width (+ min-w grid-spacing)))) (length props.children)))
+        (def width (- (/ screen-width n) grid-spacing))
 
         (def (adopt child)
-            (def screen-width (+ media-query.width gap))
-            (def n (max 1 (floor (/ screen-width (+ min-w gap)))))
-            (def width (- (/ screen-width n) (* 1.5 gap)))
-            (log-info (# media-query.width n width))
             (container
                 :width width
                 :constraints (box-constraints
