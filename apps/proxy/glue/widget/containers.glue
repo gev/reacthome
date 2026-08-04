@@ -2,10 +2,11 @@
     (export
         select-in-column
         select-in-row
-        select-in-wrap
+        select-in-grid
     )
 
     (import lib.data)
+    (import widget.grid)
 
     (def (select-in-column go items)
         (if (is-exist items)
@@ -25,11 +26,10 @@
         )
     )
 
-    (def (select-in-wrap go items)
+    (def (select-in-grid go items)
         (if (is-exist items)
-            (wrap
+            (grid
                 :spacing 16
-                :run-spacing 16
                 :children (map (select go) items)
             )
         )
