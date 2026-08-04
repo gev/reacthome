@@ -8,7 +8,7 @@
                 (sized-box :width 0 :height 0)
             )
         )
-        (listen handle (remote-persistent-state key))
+        (render handle (remote-persistent-state key))
     )
 
     (def (title props)

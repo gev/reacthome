@@ -60,6 +60,6 @@
                 )
             )
         )
-        (listen session local-session-monitor)
+        (render session local-session-monitor)
     )
 )
