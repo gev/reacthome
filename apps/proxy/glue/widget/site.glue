@@ -38,6 +38,7 @@
                                 :action (\ (id) (go :route 'site :id id)))
                         )
                     )
+                    (site-info :site props.id)
                     (select-in-grid light-card props.light_220)
                     (select-in-grid light-card props.light_LED)
                     (select-in-grid curtain-card props.curtains)
