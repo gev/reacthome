@@ -5,9 +5,9 @@
     (import widget.light-dimmer)
 
     (def (light-dimmer-screen args)
-        (view
+        (select
             (\ (props)
-                (view (light-dimmer props) props.bind)
+                (select (light-dimmer props) props.bind)
             ) args.id
         )
     )

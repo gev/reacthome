@@ -15,7 +15,7 @@
                             :src "icon.png"
                             :width 100)
                         (text :content props.title)
-                        (render
+                        (listen
                             (\ (counter) (text :content counter))
                             (lookup store.persistent 'data.counter 0)
                         )

@@ -141,7 +141,7 @@
 
     (def (curtain-card props)
         (if (is-exist props.bind)
-            (view (curtain-bound props) props.bind)
+            (select (curtain-bound props) props.bind)
             (inactive-card
                 :key props.id
                 :color theme.color-scheme.on-surface-variant

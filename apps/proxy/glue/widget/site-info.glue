@@ -3,32 +3,30 @@
 
     (import lib.combinator)
     (import lib.data)
-    (import lib.log)
 
     (def (site s)
-        (text :content s.title)
+        (text :content (title s))
     )
 
     (def (combine sites)
         (column
-            :spacing 4
-            :children sites
+            :children (map site (flatten sites))
         )
     )
 
-    (def (info-gen rec props)
-        (def (go i)
-            (def acc (append props.acc (# i)))
+    (def (info-gen rec site)
+        (def (handle i)
+            (def is (site i))
             (if (is-exist i.site)
-                (combine (map (\ (s) (rec :site s :acc acc)) i.site))
-                (combine acc)
+                (read (react (append is) (map rec i.site)))
+                is
             )
         )
-        (maybe (view go) props.site)
+        (select handle site)
     )
 
     (def (site-info props)
         (def go (Z info-gen))
-        (go :site props.site :acc ())
+        (listen combine (go props.site))
     )
 )

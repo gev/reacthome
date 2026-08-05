@@ -7,7 +7,7 @@
 
     (def (site-screen args)
         (screen
-            :body (view site args.id)
+            :body (select site args.id)
         )
     )
 )

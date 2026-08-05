@@ -1,25 +1,21 @@
 (module lib.data
     (export
+        select
         title
-        transform
-        view
     )
 
-    (def (title props)
-        (?? props.title props.code)
-    )
-
-    (def (transform go key)
-        (react go (remote-persistent-state key))
-    )
-
-    (def (view go key)
+    (def (select go key)
         (def (handle value)
             (if (is-exist value)
                 (go value)
                 (sized-box :width 0 :height 0)
             )
         )
-        (render handle (remote-persistent-state key))
+        (listen handle (remote-persistent-state key))
     )
+
+    (def (title props)
+        (?? props.title props.code)
+    )
+
 )

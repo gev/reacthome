@@ -40,7 +40,7 @@
                 (combine acc)
             )
         )
-        (maybe (view go) props.site)
+        (maybe (select go) props.site)
     )
 
     (def (site-breadcrumbs props)

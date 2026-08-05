@@ -1,36 +1,36 @@
 (module widget.containers
     (export
-        view-in-column
-        view-in-row
-        view-in-grid
+        select-in-column
+        select-in-row
+        select-in-grid
     )
 
     (import lib.data)
     (import widget.grid)
 
-    (def (view-in-column go items)
+    (def (select-in-column go items)
         (if (is-exist items)
             (column
                 :spacing 16
-                :children (map (view go) items)
+                :children (map (select go) items)
             )
         )
     )
 
-    (def (view-in-row go items)
+    (def (select-in-row go items)
         (if (is-exist items)
             (row
                 :spacing 16
-                :children (map (view go) items)
+                :children (map (select go) items)
             )
         )
     )
 
-    (def (view-in-grid go items)
+    (def (select-in-grid go items)
         (if (is-exist items)
             (grid
                 :spacing 16
-                :children (map (view go) items)
+                :children (map (select go) items)
             )
         )
     )
