@@ -4,13 +4,13 @@
     (import lib.combinator)
     (import lib.data)
 
-    (def (info props)
+    (def (label props)
         (text :content (title props))
     )
 
     (def (combine sites)
         (column
-            :children (map info sites)
+            :children (map label sites)
         )
     )
 
@@ -37,8 +37,12 @@
         )
     )
 
+    (def info (Z info-gen))
+
     (def (site-info props)
-        (def go (Z info-gen))
-        (go :sites (# props.site) :acc ())
+        (info
+            :sites (# props.site)
+            :acc ()
+        )
     )
 )

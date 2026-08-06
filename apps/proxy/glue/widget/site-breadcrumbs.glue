@@ -31,12 +31,12 @@
         )
     )
 
-    (def (breadcrumbs-gen segment rec props)
+    (def (breadcrumbs-gen rec props)
         (def (go i)
-            (def item (segment i))
             (rec
+                :segment props.segment
                 :site i.parent
-                :acc (append props.acc (# item))
+                :acc (append props.acc (# i))
             )
         )
         (if (is-exist props.site)
@@ -44,10 +44,12 @@
                 (select go props.site)
             )
             (if (not (is-empty props.acc))
-                (combine props.acc)
+                (combine (map props.segment props.acc))
             )
         )
     )
+
+    (def breadcrumbs (Z breadcrumbs-gen))
 
     (def (site-breadcrumbs props)
         (def segment
@@ -56,7 +58,10 @@
                 (passive-segment)
             )
         )
-        (def go (Z (breadcrumbs-gen segment)))
-        (go :site props.site :acc ())
+        (breadcrumbs
+            :segment segment
+            :site props.site
+            :acc ()
+        )
     )
 )
