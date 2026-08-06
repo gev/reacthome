@@ -8,7 +8,7 @@
         (text :content (title props))
     )
 
-    (def (combine sites)
+    (def (aggregate sites)
         (column
             :children (map label sites)
         )
@@ -32,7 +32,7 @@
             )
         )
         (if (is-empty props.sites)
-            (combine props.acc)
+            (aggregate props.acc)
             (listen go (map remote-persistent-state props.sites))
         )
     )
