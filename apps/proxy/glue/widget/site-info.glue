@@ -8,10 +8,6 @@
         (text :content (title props))
     )
 
-    (def (proxy props)
-        (container :child props.child)
-    )
-
     (def (combine sites)
         (column
             :children (map info sites)
