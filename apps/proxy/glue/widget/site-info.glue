@@ -26,8 +26,10 @@
         (def (go i)
             (def sites-with-children (filter has-children i))
             (def children (map get-children sites-with-children))
-            (def acc (append props.acc i))
-            (rec :sites (flatten children) :acc acc)
+            (rec
+                :sites (flatten children)
+                :acc (append props.acc i)
+            )
         )
         (if (is-empty props.sites)
             (combine props.acc)

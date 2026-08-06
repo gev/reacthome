@@ -34,8 +34,10 @@
     (def (breadcrumbs-gen segment rec props)
         (def (go i)
             (def item (segment i))
-            (def acc (append props.acc (# item)))
-            (rec :site i.parent :acc acc)
+            (rec
+                :site i.parent
+                :acc (append props.acc (# item))
+            )
         )
         (if (is-exist props.site)
             (let (:site (remote-persistent-state props.site))
