@@ -40,8 +40,9 @@
             )
         )
         (if (is-exist props.site)
-            (let (:site (remote-persistent-state props.site))
-                (select go props.site)
+            (let
+                (def site (remote-persistent-state props.site))
+                (listen go site)
             )
             (if (not (is-empty props.acc))
                 (combine (map props.segment props.acc))
