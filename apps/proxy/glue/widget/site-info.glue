@@ -28,7 +28,7 @@
             (def children (map get-children sites-with-children))
             (rec
                 :sites (flatten children)
-                :acc (append props.acc i)
+                :acc (concat props.acc i)
             )
         )
         (if (is-empty props.sites)

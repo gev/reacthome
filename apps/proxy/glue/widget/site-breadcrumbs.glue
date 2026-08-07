@@ -36,7 +36,7 @@
             (rec
                 :segment props.segment
                 :site i.parent
-                :acc (append props.acc (# i))
+                :acc (append props.acc i)
             )
         )
         (if (is-exist props.site)
