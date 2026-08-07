@@ -52,7 +52,7 @@
 
     (def main
         (app
-            :seed-color colors.yellow
+            :seed-color colors.blue
             :routes (
                 :home project-route
                 :site site-route
