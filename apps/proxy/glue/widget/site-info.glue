@@ -4,13 +4,70 @@
     (import lib.combinator)
     (import lib.data)
 
-    (def (label props)
-        (text :content (title props))
+    (def empty_acc (:value 0 :count 0))
+
+    (def (state prop site)
+        (def keys (@ site prop))
+        (?> (map remote-persistent-state) keys)
+    )
+
+    (def (states prop sites)
+        (map (state prop) sites)
+    )
+
+    (def (or' prop)
+        (\ (acc val)
+            (|| acc (@ val prop))
+        )
+    )
+
+    (def (sum' prop)
+        (\ (acc val)
+            (def value (@ val prop))
+            (if (is-exist value)
+                (
+                    :value (+ acc.value value)
+                    :count (+ acc.count 1)
+                )
+                (acc)
+            )
+        )
+    )
+
+    (def (avg prop sites)
+        (def acc (foldl (sum' prop) empty_acc sites))
+        (if (> acc.count 0)
+            (/ (round (* (/ acc.value acc.count) 10)) 10)
+        )
+    )
+
+    (def (site-light lights)
+        (def value (foldl (or' 'value) false lights))
+        (text :content (? value 1 0))
+    )
+
+    (def (site-temperature value)
+        (text :content value)
+    )
+
+    (def (site-humidity value)
+        (text :content value)
+    )
+
+    (def (site-co2 value)
+        (text :content value)
     )
 
     (def (aggregate sites)
+        (def light_220 (states 'light_220 sites))
+        (def light_LED (states 'light_LED sites))
         (column
-            :children (map label sites)
+            :children (
+                (listen site-light (concat light_220 light_LED))
+                (site-temperature (avg 'temperature sites))
+                (site-humidity (avg 'humidity sites))
+                (site-co2 (avg 'co2 sites))
+            )
         )
     )
 
