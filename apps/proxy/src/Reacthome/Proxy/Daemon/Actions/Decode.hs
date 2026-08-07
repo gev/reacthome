@@ -83,6 +83,7 @@ processKey "temperature" = processKeyFloat
 processKey "humidity" = processKeyFloat
 processKey "illumination" = processKeyFloat
 processKey "brightness" = processKeyFloat
+processKey "co2" = processKeyFloat
 -- Process as Value
 processKey "value" = processKeyValue
 -- Process as Reference
