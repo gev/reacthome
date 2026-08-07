@@ -2,7 +2,6 @@
     (export site-info)
 
     (import lib.combinator)
-    (import lib.data)
 
     (def empty_acc (:value 0 :count 0))
 
