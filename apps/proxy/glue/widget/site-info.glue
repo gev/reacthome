@@ -14,13 +14,13 @@
         (map (state prop) sites)
     )
 
-    (def (or' prop)
+    (def (or prop)
         (\ (acc val)
             (|| acc (@ val prop))
         )
     )
 
-    (def (sum' prop)
+    (def (sum prop)
         (\ (acc val)
             (def value (@ val prop))
             (if (is-exist value)
@@ -34,14 +34,14 @@
     )
 
     (def (avg prop sites)
-        (def acc (foldl (sum' prop) empty_acc sites))
+        (def acc (foldl (sum prop) empty_acc sites))
         (if (> acc.count 0)
             (/ (round (* (/ acc.value acc.count) 10)) 10)
         )
     )
 
     (def (site-light lights)
-        (def value (foldl (or' 'value) false lights))
+        (def value (foldl (or 'value) false lights))
         (text :content (? value 1 0))
     )
 
