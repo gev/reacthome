@@ -26,7 +26,9 @@
 
     (def (combine items)
         (wrap
+            :alignment wrap-alignment.center
             :spacing 4
+            :run-spacing 8
             :children items
         )
     )
