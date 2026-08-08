@@ -3,65 +3,70 @@
 
     (import lib.combinator)
 
-    (def empty_acc (:value 0 :count 0))
+    (def (fixed value)
+        (/ (round (* value 10)) 10)
+    )
+
+    (def (empty value)
+        (:value value :count 0 :total 0)
+    )
+
+    (def (monoid op prop acc val)
+        (def value (@ val prop))
+        (if (is-exist value)
+            (
+                :value (op acc.value value)
+                :count (? acc.value (+ acc.count 1) acc.count)
+                :total (+ acc.total 1)
+            )
+            (acc)
+        )
+    )
 
     (def (state prop site)
         (def keys (@ site prop))
-        (?> (map remote-persistent-state) keys)
+        (if (is-exist keys)
+            (map remote-persistent-state keys)
+            ()
+        )
     )
 
     (def (states prop sites)
         (map (state prop) sites)
     )
 
-    (def (or prop acc val)
-        (|| acc (@ val prop))
-    )
-
-    (def (sum prop acc val)
-        (def value (@ val prop))
-        (if (is-exist value)
-            (
-                :value (+ acc.value value)
-                :count (+ acc.count 1)
-            )
-            (acc)
-        )
-    )
-
-    (def (avg prop sites)
-        (def acc (foldl (sum prop) empty_acc sites))
-        (if (> acc.count 0)
-            (/ (round (* (/ acc.value acc.count) 10)) 10)
-        )
-    )
-
     (def (site-light lights)
-        (def value (foldl (or 'value) false lights))
-        (text :content (? value 1 0))
+        (def acc (foldl (monoid || 'value) (empty false) lights))
+        (if (> acc.total 0)
+            (text :content (? acc.value 1 0))
+            ()
+        )
     )
 
-    (def (site-temperature value)
-        (text :content value)
-    )
-
-    (def (site-humidity value)
-        (text :content value)
-    )
-
-    (def (site-co2 value)
-        (text :content value)
+    (def (site-sensor prop sites)
+        (def acc (foldl (monoid + prop) (empty 0) sites))
+        (if (> acc.total 0)
+            (text :content (fixed (/ acc.value acc.total)))
+            ()
+        )
     )
 
     (def (aggregate sites)
         (def light_220 (states 'light_220 sites))
         (def light_LED (states 'light_LED sites))
-        (column
-            :children (
-                (listen site-light (concat light_220 light_LED))
-                (site-temperature (avg 'temperature sites))
-                (site-humidity (avg 'humidity sites))
-                (site-co2 (avg 'co2 sites))
+        (def light_all (flatten (# light_220 light_LED)))
+        (def children (flatten (#
+                    (if (is-exist light_all)
+                        (listen site-light light_all)
+                        ()
+                    )
+                    (site-sensor 'temperature sites)
+                    (site-sensor 'humidity sites)
+                    (site-sensor 'co2 sites)
+                )))
+        (if (is-exist children)
+            (column
+                :children children
             )
         )
     )
@@ -92,9 +97,11 @@
     (def info (Z info-gen))
 
     (def (site-info props)
+        (print props)
         (info
             :sites (# props.site)
             :acc ()
         )
     )
 )
+    
