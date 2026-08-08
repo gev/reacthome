@@ -6,6 +6,7 @@
         setpoint'
         CO2'
         VOC'
+        light'
     )
 
     (def brightness' (
@@ -23,12 +24,23 @@
             :ru "Температура"
         ))
 
-    (def CO2' "CO2")
+    (def CO2' (
+            :en "CO2"
+            :ru "CO2"
+        ))
 
-    (def VOC' "VOC")
+    (def VOC' (
+            :en "VOC"
+            :ru "VOC"
+        ))
 
     (def setpoint' (
             :en "Setpoint"
             :ru "Уставка"
+        ))
+
+    (def light' (
+            :en "Light"
+            :ru "Свет"
         ))
 )
