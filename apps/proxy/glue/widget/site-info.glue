@@ -16,7 +16,7 @@
         (if (is-exist value)
             (
                 :value (op acc.value value)
-                :count (? acc.value (+ acc.count 1) acc.count)
+                :count (? value (+ acc.count 1) acc.count)
                 :total (+ acc.total 1)
             )
             (acc)
@@ -35,15 +35,15 @@
         (map (state prop) sites)
     )
 
-    (def (site-light lights)
+    (def (aggregate-lights lights)
         (def acc (foldl (monoid || 'value) (empty false) lights))
         (if (> acc.total 0)
-            (text :content (? acc.value 1 0))
+            (text :content (? acc.value acc.count 0))
             ()
         )
     )
 
-    (def (site-sensor prop sites)
+    (def (aggregate-sensors prop sites)
         (def acc (foldl (monoid + prop) (empty 0) sites))
         (if (> acc.total 0)
             (text :content (fixed (/ acc.value acc.total)))
@@ -52,22 +52,32 @@
     )
 
     (def (aggregate sites)
-        (def light_220 (states 'light_220 sites))
-        (def light_LED (states 'light_LED sites))
-        (def light_all (flatten (# light_220 light_LED)))
-        (def children (flatten (#
-                    (if (is-exist light_all)
-                        (listen site-light light_all)
+        (def lights_220 (states 'light_220 sites))
+        (def lights_LED (states 'light_LED sites))
+        (def lights_all (flatten (# lights_220 lights_LED)))
+        (def children (flatten
+                (#
+                    (if (is-exist lights_all)
+                        (listen aggregate-lights lights_all)
                         ()
                     )
-                    (site-sensor 'temperature sites)
-                    (site-sensor 'humidity sites)
-                    (site-sensor 'co2 sites)
-                )))
-        (if (is-exist children)
-            (column
-                :children children
+                    (aggregate-sensors 'temperature sites)
+                    (aggregate-sensors 'humidity sites)
+                    (aggregate-sensors 'co2 sites)
+                )
             )
+        )
+        (if (is-exist children)
+            (card
+                :elevation 5
+                :child (padding
+                    :padding (edge-insets-all 16)
+                    :child (column
+                        :children children
+                    )
+                )
+            )
+            (sized-box :width 0 :height 0)
         )
     )
 
