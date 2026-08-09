@@ -4,14 +4,9 @@
     (import widget.site-aggregate)
 
     (def (site-brief-container props)
-        (card
-            :child (padding
-                :padding (edge-insets-all 16)
-                :child (row
-                    :spacing 16
-                    :children props.children)
-            )
-        )
+        (row
+            :spacing 16
+            :children props.children)
     )
 
     (def (site-brief-parameter props)
@@ -25,7 +20,10 @@
                 )
                 (text
                     :content props.value
-                    :style theme.text-theme.title-medium
+                    :style (text-style
+                        :font-size theme.text-theme.title-medium.font-size
+                        :color theme.color-scheme.on-surface.variant
+                    )
                 )
             )
         )
