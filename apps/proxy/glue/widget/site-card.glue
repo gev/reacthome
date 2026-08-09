@@ -5,41 +5,63 @@
     (import lib.navigation)
     (import widget.site-brief)
 
+    (def (site-image props)
+        (aspect-ratio
+            :aspect-ratio 1.7778
+            :child (image
+                :fit box-fit.cover
+                :src props.image
+            )
+        )
+    )
+
+    (def (site-title props)
+        (text
+            :content (title props)
+            :style (text-style
+                :font-size theme.text-theme.display-large.font-size
+                :font-weight font-weight.w400
+            )
+        )
+    )
+
+    (def (site-ink-well props)
+        (ink-well
+            :on-tap (go :route 'site :id props.id)
+            :child
+            (column
+                :main-axis-alignment main-axis-alignment.end
+                :cross-axis-alignment cross-axis-alignment.start
+                :children (
+                    (site-title props)
+                    (site-brief :site props.id)
+                )
+            )
+        )
+    )
+
+    (def (site-stack props)
+        (stack
+            :children (
+                (site-image props)
+                (positioned
+                    :top 0 :bottom 0 :left 0 :right 0
+                    :child (material
+                        :color colors.transparent
+                        :child (site-ink-well props)
+                    )
+                )
+            )
+        )
+    )
+
     (def (site-card props)
         (card
             :key props.id
             :clip-behavior clip.anti-alias
-            :child (column
-                :cross-axis-alignment cross-axis-alignment.stretch
-                :children (
-                    (stack
-                        :children (
-                            (if (is-exist props.image)
-                                (aspect-ratio
-                                    :aspect-ratio 1.7778
-                                    :child (image
-                                        :fit box-fit.fit-width
-                                        :src props.image
-                                    )
-                                )
-                            )
-                            (positioned
-                                :bottom 4
-                                :left 4
-                                :right 4
-                                :child (site-brief :site props.id)
-                            )
-
-                        )
-                    )
-                    (padding
-                        :padding (edge-insets-all 16)
-                        :child (outlined-button
-                            :child (text :content (title props))
-                            :on-pressed (go :route 'site :id props.id)
-                        )
-                    )
-                )
+            :child (if (is-exist props.image)
+                (site-stack props)
+                (site-ink-well props)
             )
         )
     )
