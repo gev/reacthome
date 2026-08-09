@@ -36,36 +36,47 @@
         (map (state prop) sites)
     )
 
+    (def (site-parameter props)
+        (row
+            :spacing 16
+            :children (
+                (icon
+                    :icon (symbol props.icon.symbol)
+                    :color theme.color-scheme.on-surface
+                    :fill props.icon.fill
+                    :size 16
+                )
+                (text :content (@ props.label locale.language-code))
+                (text :content props.value)
+            )
+        )
+    )
+
     (def (aggregate-lights lights)
         (def acc (foldl (monoid || 'value) (empty false) lights))
         (if (> acc.total 0)
-            (row
-                :spacing 16
-                :children (
-                    (icon
-                        :icon (symbol 'lightbulb.2)
-                        :color theme.color-scheme.on-surface
-                        :fill (? acc.value 1 0)
-                        :size 16
-                    )
-                    (text :content (@ light' locale.language-code))
-                    (text :content (? acc.value acc.count 0))
+            (site-parameter
+                :label light'
+                :icon (
+                    :symbol 'lightbulb.2
+                    :fill (? acc.value 1 0)
                 )
+                :value acc.count
             )
             ()
         )
     )
 
-    (def (aggregate-sensors label prop sites)
-        (print label)
-        (def acc (foldl (monoid + prop) (empty 0) sites))
+    (def (aggregate-sensors props)
+        (def acc (foldl (monoid + props.prop) (empty 0) props.sites))
         (if (> acc.total 0)
-            (row
-                :spacing 16
-                :children (
-                    (text :content (@ label locale.language-code))
-                    (text :content (fixed (/ acc.value acc.total)))
+            (site-parameter
+                :label props.label
+                :icon (
+                    :symbol (props.icon)
+                    :fill false
                 )
+                :value (fixed acc.value)
             )
             ()
         )
@@ -81,9 +92,24 @@
                         (listen aggregate-lights lights_all)
                         ()
                     )
-                    (aggregate-sensors temperature' 'temperature sites)
-                    (aggregate-sensors humidity' 'humidity sites)
-                    (aggregate-sensors CO2' 'co2 sites)
+                    (aggregate-sensors
+                        :label temperature'
+                        :icon 'lightbulb.2
+                        :prop 'temperature
+                        :sites sites
+                    )
+                    (aggregate-sensors
+                        :label humidity'
+                        :icon 'lightbulb.2
+                        :prop 'humidity
+                        :sites sites
+                    )
+                    (aggregate-sensors
+                        :label CO2'
+                        :icon 'lightbulb.2
+                        :prop 'co2
+                        :sites sites
+                    )
                 )
             )
         )
