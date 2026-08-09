@@ -25,9 +25,7 @@
                 )
                 (text
                     :content props.value
-                    :style (text-style
-                        :font-size theme.text-theme.title-medium.font-size
-                    )
+                    :style theme.text-theme.title-medium
                 )
             )
         )
