@@ -39,7 +39,44 @@
         (map (state prop) sites)
     )
 
-    (def (site-parameter props)
+    (def (site-brief-container props)
+        (card
+            :child (padding
+                :padding (edge-insets-all 16)
+                :child (row
+                    :spacing 16
+                    :children props.children)
+            )
+        )
+    )
+
+    (def (site-brief-parameter props)
+        (row
+            :spacing 4
+            :children (
+                (icon
+                    :icon (symbol props.icon.symbol)
+                    :color theme.color-scheme.on-surface
+                    :fill props.icon.fill
+                )
+                (text
+                    :content props.value
+                    :style (text-style
+                        :font-size theme.text-theme.title-medium.font-size
+                    )
+                )
+            )
+        )
+    )
+
+    (def (site-info-container props)
+        (filled-card
+            :child (column
+                :children props.children)
+        )
+    )
+
+    (def (site-info-parameter props)
         (list-tile
             :leading (icon
                 :icon (symbol props.icon.symbol)
@@ -58,10 +95,10 @@
         )
     )
 
-    (def (aggregate-lights lights)
+    (def (aggregate-lights props lights)
         (def acc (foldl (monoid || light.property) (empty false) lights))
         (if (> acc.total 0)
-            (site-parameter
+            (props.parameter
                 :label light.label
                 :icon (
                     :symbol light.icon
@@ -73,13 +110,13 @@
         )
     )
 
-    (def (aggregate-sensors props sites)
-        (def acc (foldl (monoid + props.property) (empty 0) sites))
+    (def (aggregate-sensors props param)
+        (def acc (foldl (monoid + param.property) (empty 0) props.acc))
         (if (> acc.total 0)
-            (site-parameter
-                :label props.label
+            (props.parameter
+                :label param.label
                 :icon (
-                    :symbol (props.icon)
+                    :symbol (param.icon)
                     :fill false
                 )
                 :value (fixed acc.value)
@@ -88,31 +125,24 @@
         )
     )
 
-    (def (aggregate sites)
-        (def lights_220 (states 'light_220 sites))
-        (def lights_LED (states 'light_LED sites))
+    (def (aggregate props)
+        (def lights_220 (states 'light_220 props.acc))
+        (def lights_LED (states 'light_LED props.acc))
         (def lights_all (flatten (# lights_220 lights_LED)))
         (def children (flatten
                 (#
                     (if (is-exist lights_all)
-                        (listen aggregate-lights lights_all)
+                        (listen (aggregate-lights props) lights_all)
                         ()
                     )
-                    (aggregate-sensors temperature sites)
-                    (aggregate-sensors humidity sites)
-                    (aggregate-sensors CO2 sites)
+                    (aggregate-sensors props temperature)
+                    (aggregate-sensors props humidity)
+                    (aggregate-sensors props CO2)
                 )
             )
         )
         (if (is-exist children)
-            (filled-card
-                :child (padding
-                    :padding (edge-insets-all 16)
-                    :child (column
-                        :children children
-                    )
-                )
-            )
+            (props.container :children children)
             (sized-box :width 0 :height 0)
         )
     )
@@ -130,12 +160,14 @@
             (def sites-with-children (filter has-children sites))
             (def children (map get-children sites-with-children))
             (rec
+                :container props.container
+                :parameter props.parameter
                 :sites (flatten children)
                 :acc (concat props.acc sites)
             )
         )
         (if (is-empty props.sites)
-            (aggregate props.acc)
+            (aggregate props)
             (listen go (map remote-persistent-state props.sites))
         )
     )
@@ -144,6 +176,8 @@
 
     (def (site-brief props)
         (info
+            :container site-brief-container
+            :parameter site-brief-parameter
             :sites (# props.site)
             :acc ()
         )
@@ -151,6 +185,8 @@
 
     (def (site-info props)
         (info
+            :container site-info-container
+            :parameter site-info-parameter
             :sites (# props.site)
             :acc ()
         )
