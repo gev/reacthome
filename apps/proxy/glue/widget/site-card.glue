@@ -30,11 +30,19 @@
             :on-tap (go :route 'site :id props.id)
             :child
             (column
+                :cross-axis-alignment cross-axis-alignment.stretch
                 :main-axis-alignment main-axis-alignment.end
-                :cross-axis-alignment cross-axis-alignment.start
                 :children (
-                    (site-title props)
-                    (site-brief :site props.id)
+                    (container
+                        :color (theme.color-scheme.surface.with :a 0.8)
+                        :child (column
+                            :cross-axis-alignment cross-axis-alignment.start
+                            :children (
+                                (site-title props)
+                                (site-brief :site props.id)
+                            )
+                        )
+                    )
                 )
             )
         )
