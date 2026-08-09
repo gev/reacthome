@@ -2,6 +2,7 @@
     (export site-info)
 
     (import lib.combinator)
+    (import locale.parameter)
 
     (def (fixed value)
         (/ (round (* value 10)) 10)
@@ -38,15 +39,34 @@
     (def (aggregate-lights lights)
         (def acc (foldl (monoid || 'value) (empty false) lights))
         (if (> acc.total 0)
-            (text :content (? acc.value acc.count 0))
+            (row
+                :spacing 16
+                :children (
+                    (icon
+                        :icon (symbol 'lightbulb.2)
+                        :color theme.color-scheme.on-surface
+                        :fill (? acc.value 1 0)
+                        :size 16
+                    )
+                    (text :content (@ light' locale.language-code))
+                    (text :content (? acc.value acc.count 0))
+                )
+            )
             ()
         )
     )
 
-    (def (aggregate-sensors prop sites)
+    (def (aggregate-sensors label prop sites)
+        (print label)
         (def acc (foldl (monoid + prop) (empty 0) sites))
         (if (> acc.total 0)
-            (text :content (fixed (/ acc.value acc.total)))
+            (row
+                :spacing 16
+                :children (
+                    (text :content (@ label locale.language-code))
+                    (text :content (fixed (/ acc.value acc.total)))
+                )
+            )
             ()
         )
     )
@@ -61,15 +81,14 @@
                         (listen aggregate-lights lights_all)
                         ()
                     )
-                    (aggregate-sensors 'temperature sites)
-                    (aggregate-sensors 'humidity sites)
-                    (aggregate-sensors 'co2 sites)
+                    (aggregate-sensors temperature' 'temperature sites)
+                    (aggregate-sensors humidity' 'humidity sites)
+                    (aggregate-sensors CO2' 'co2 sites)
                 )
             )
         )
         (if (is-exist children)
-            (card
-                :elevation 5
+            (filled-card
                 :child (padding
                     :padding (edge-insets-all 16)
                     :child (column
@@ -90,12 +109,12 @@
     )
 
     (def (info-gen rec props)
-        (def (go i)
-            (def sites-with-children (filter has-children i))
+        (def (go sites)
+            (def sites-with-children (filter has-children sites))
             (def children (map get-children sites-with-children))
             (rec
                 :sites (flatten children)
-                :acc (concat props.acc i)
+                :acc (concat props.acc sites)
             )
         )
         (if (is-empty props.sites)
@@ -107,7 +126,6 @@
     (def info (Z info-gen))
 
     (def (site-info props)
-        (print props)
         (info
             :sites (# props.site)
             :acc ()

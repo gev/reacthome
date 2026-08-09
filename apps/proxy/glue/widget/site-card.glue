@@ -3,6 +3,7 @@
 
     (import lib.data)
     (import lib.navigation)
+    (import widget.site-info)
 
     (def (site-card props)
         (card
@@ -11,13 +12,24 @@
             :child (column
                 :cross-axis-alignment cross-axis-alignment.stretch
                 :children (
-                    (if (is-exist props.image)
-                        (aspect-ratio
-                            :aspect-ratio 1.7778
-                            :child (image
-                                :fit box-fit.fit-width
-                                :src props.image
+                    (stack
+                        :children (
+                            (if (is-exist props.image)
+                                (aspect-ratio
+                                    :aspect-ratio 1.7778
+                                    :child (image
+                                        :fit box-fit.fit-width
+                                        :src props.image
+                                    )
+                                )
                             )
+                            (positioned
+                                :bottom 4
+                                :left 4
+                                :right 4
+                                :child (site-info :site props.id)
+                            )
+
                         )
                     )
                     (padding
