@@ -1,0 +1,42 @@
+(module lib.property
+    (export
+        light
+        curtains
+        temperature
+        humidity
+        CO2
+    )
+
+    (import locale.parameter)
+
+    (def light (
+            :property 'value
+            :label light'
+            :icon 'lightbulb.2
+        ))
+
+    (def curtains (
+            :property 'curtains
+            :label curtains'
+            :icon (\ (value)
+                (? value 'shades.closed 'shades))
+        ))
+
+    (def temperature (
+            :property 'temperature
+            :label temperature'
+            :icon 'thermometer
+        ))
+
+    (def humidity (
+            :property 'humidity
+            :label humidity'
+            :icon 'humidity.low
+        ))
+
+    (def CO2 (
+            :property 'co2
+            :label CO2'
+            :icon 'co2
+        ))
+)

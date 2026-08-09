@@ -2,7 +2,7 @@
     (export site-info)
 
     (import lib.combinator)
-    (import locale.parameter)
+    (import lib.property)
 
     (def (fixed value)
         (/ (round (* value 10)) 10)
@@ -44,7 +44,7 @@
                     :icon (symbol props.icon.symbol)
                     :color theme.color-scheme.on-surface
                     :fill props.icon.fill
-                    :size 16
+                    :size 20
                 )
                 (text :content (@ props.label locale.language-code))
                 (text :content props.value)
@@ -53,12 +53,12 @@
     )
 
     (def (aggregate-lights lights)
-        (def acc (foldl (monoid || 'value) (empty false) lights))
+        (def acc (foldl (monoid || light.property) (empty false) lights))
         (if (> acc.total 0)
             (site-parameter
-                :label light'
+                :label light.label
                 :icon (
-                    :symbol 'lightbulb.2
+                    :symbol light.icon
                     :fill (? acc.value 1 0)
                 )
                 :value acc.count
@@ -67,8 +67,8 @@
         )
     )
 
-    (def (aggregate-sensors props)
-        (def acc (foldl (monoid + props.prop) (empty 0) props.sites))
+    (def (aggregate-sensors props sites)
+        (def acc (foldl (monoid + props.property) (empty 0) sites))
         (if (> acc.total 0)
             (site-parameter
                 :label props.label
@@ -92,24 +92,9 @@
                         (listen aggregate-lights lights_all)
                         ()
                     )
-                    (aggregate-sensors
-                        :label temperature'
-                        :icon 'lightbulb.2
-                        :prop 'temperature
-                        :sites sites
-                    )
-                    (aggregate-sensors
-                        :label humidity'
-                        :icon 'lightbulb.2
-                        :prop 'humidity
-                        :sites sites
-                    )
-                    (aggregate-sensors
-                        :label CO2'
-                        :icon 'lightbulb.2
-                        :prop 'co2
-                        :sites sites
-                    )
+                    (aggregate-sensors temperature sites)
+                    (aggregate-sensors humidity sites)
+                    (aggregate-sensors CO2 sites)
                 )
             )
         )

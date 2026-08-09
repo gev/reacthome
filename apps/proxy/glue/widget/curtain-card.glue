@@ -3,6 +3,7 @@
 
     (import lib.data)
     (import lib.navigation)
+    (import lib.property)
 
     (import locale.status)
 
@@ -20,12 +21,7 @@
             :spacing 8
             :children (
                 (icon
-                    :icon (symbol
-                        (? props.value
-                            'shades.closed
-                            'shades
-                        )
-                    )
+                    :icon (symbol (curtains.icon props.value))
                     :color (? props.bound
                         theme.color-scheme.primary
                         theme.color-scheme.outline-variant

@@ -5,6 +5,7 @@
     (import lib.data)
     (import lib.log)
     (import lib.navigation)
+    (import lib.property)
 
     (import locale.status)
 
@@ -22,7 +23,7 @@
             :spacing 8
             :children (
                 (icon
-                    :icon (symbol 'lightbulb.2)
+                    :icon (symbol light.icon)
                     :color (? props.bound
                         theme.color-scheme.primary
                         theme.color-scheme.outline-variant
@@ -70,7 +71,7 @@
                     :value props.value
                     :label props.label
                     :bound true
-                    :status (to-percents props.value)
+                    :status (to-percents props.brightness)
                 )
             )
             (active-card
@@ -134,7 +135,8 @@
         (card
             :id props.id
             :label (title props)
-            :value (if (is-exist bind.brightness)
+            :value props.value
+            :brightness (if (is-exist bind.brightness)
                 (? bind.value bind.brightness 0)
                 bind.value
             )

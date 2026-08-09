@@ -7,6 +7,7 @@
         CO2'
         VOC'
         light'
+        curtains'
     )
 
     (def brightness' (
@@ -42,5 +43,10 @@
     (def light' (
             :en "Light"
             :ru "Свет"
+        ))
+
+    (def curtains' (
+            :en "Curtains"
+            :ru "Шторы"
         ))
 )
