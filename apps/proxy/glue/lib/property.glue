@@ -31,7 +31,7 @@
     (def humidity (
             :property 'humidity
             :label humidity'
-            :icon 'humidity.low
+            :icon 'water.voc
         ))
 
     (def CO2 (
