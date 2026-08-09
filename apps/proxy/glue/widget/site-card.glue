@@ -19,7 +19,7 @@
         (text
             :content (title props)
             :style (text-style
-                :font-size theme.text-theme.display-large.font-size
+                :font-size theme.text-theme.headline-large.font-size
                 :font-weight font-weight.w400
             )
         )
