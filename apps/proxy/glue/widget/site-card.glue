@@ -27,7 +27,7 @@
                                 :bottom 4
                                 :left 4
                                 :right 4
-                                :child (site-info :site props.id)
+                                :child (site-brief :site props.id)
                             )
 
                         )
