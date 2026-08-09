@@ -3,7 +3,7 @@
 
     (import lib.data)
     (import lib.navigation)
-    (import widget.site-info)
+    (import widget.site-brief)
 
     (def (site-card props)
         (card
