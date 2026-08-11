@@ -12,8 +12,8 @@
         (def value (to-percents bind.value))
         (def color
             (if bind.value
-                theme.color-scheme.surface-bright
-                theme.color-scheme.surface-dim
+                current-theme.color-scheme.surface-bright
+                current-theme.color-scheme.surface-dim
             )
         )
         (modal
@@ -25,8 +25,8 @@
                     (text
                         :content (title props)
                         :style (text-style
-                            :font-size theme.text-theme.title-large.font-size
-                            :color theme.color-scheme.on-surface-variant
+                            :font-size current-theme.text-theme.title-large.font-size
+                            :color current-theme.color-scheme.on-surface-variant
                             :font-weight font-weight.w400
                         )
                     )
@@ -34,8 +34,8 @@
                     (text
                         :content value
                         :style (text-style
-                            :font-size theme.text-theme.display-large.font-size
-                            :color theme.color-scheme.on-surface
+                            :font-size current-theme.text-theme.display-large.font-size
+                            :color current-theme.color-scheme.on-surface
                             :font-weight font-weight.w600
                         )
                     )

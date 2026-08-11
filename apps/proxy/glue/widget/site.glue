@@ -31,7 +31,7 @@
                         :children (
                             (text
                                 :content (title props)
-                                :style theme.text-theme.headline-large
+                                :style current-theme.text-theme.headline-large
                             )
                             (site-breadcrumbs
                                 :site props.parent

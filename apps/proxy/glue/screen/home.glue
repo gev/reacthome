@@ -17,7 +17,7 @@
                     (text-field _)
                     (text
                         :content props.title
-                        :style theme.text-theme.headline-large
+                        :style current-theme.text-theme.headline-large
                     )
                     (filled-button
                         :child (text :content "Press me")

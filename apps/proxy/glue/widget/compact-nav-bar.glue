@@ -10,13 +10,13 @@
                 :elevation (? props.selected 1 0)
                 :background-color (
                     ? props.selected
-                    theme.color-scheme.secondary-container
+                    current-theme.color-scheme.secondary-container
                     colors.transparent
                 )
                 :foreground-color (
                     ? props.selected
-                    theme.color-scheme.on-secondary-container
-                    theme.color-scheme.on-surface-variant
+                    current-theme.color-scheme.on-secondary-container
+                    current-theme.color-scheme.on-surface-variant
                 )
             )
             :child (icon

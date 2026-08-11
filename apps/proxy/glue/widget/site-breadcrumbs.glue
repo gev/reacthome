@@ -15,7 +15,7 @@
     (def (active-segment action props)
         (outlined-button
             :style (button-style
-                :foreground-color theme.color-scheme.on-surface-variant
+                :foreground-color current-theme.color-scheme.on-surface-variant
             )
             :on-pressed (action props.id)
             :child (text

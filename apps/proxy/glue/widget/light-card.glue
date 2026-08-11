@@ -25,8 +25,8 @@
                 (icon
                     :icon (symbol light.icon)
                     :color (? props.bound
-                        theme.color-scheme.primary
-                        theme.color-scheme.outline-variant
+                        current-theme.color-scheme.primary
+                        current-theme.color-scheme.outline-variant
                     )
                     :fill (? props.value 1 0)
                     :size 32
@@ -37,8 +37,8 @@
                         (text
                             :content props.label
                             :style (text-style
-                                :font-size theme.text-theme.label-medium.font-size
-                                :color theme.color-scheme.on-surface-variant
+                                :font-size current-theme.text-theme.label-medium.font-size
+                                :color current-theme.color-scheme.on-surface-variant
                                 :font-weight font-weight.w400
                             )
                         )
@@ -46,7 +46,7 @@
                             :content props.status
                             :style (text-style
                                 :color props.color
-                                :font-size theme.text-theme.title-medium.font-size
+                                :font-size current-theme.text-theme.title-medium.font-size
                                 :font-weight font-weight.w600
                             )
                         )
@@ -63,8 +63,8 @@
                 :key props.id
                 :on-pressed (turn-off props.id)
                 :on-long-press (go :route 'light-dimmer :id props.id)
-                :color theme.color-scheme.on-surface
-                :card-color theme.color-scheme.surface-bright
+                :color current-theme.color-scheme.on-surface
+                :card-color current-theme.color-scheme.surface-bright
                 :elevation elevation-on
                 :child (light
                     :id props.id
@@ -78,8 +78,8 @@
                 :key props.id
                 :on-pressed (turn-on props.id)
                 :on-long-press (go :route 'light-dimmer :id props.id)
-                :color theme.color-scheme.on-surface
-                :card-color theme.color-scheme.surface-dim
+                :color current-theme.color-scheme.on-surface
+                :card-color current-theme.color-scheme.surface-dim
                 :elevation elevation-off
                 :child (light
                     :id props.id
@@ -97,8 +97,8 @@
             (active-card
                 :key props.id
                 :on-pressed (turn-off props.id)
-                :color theme.color-scheme.on-surface
-                :card-color theme.color-scheme.surface-bright
+                :color current-theme.color-scheme.on-surface
+                :card-color current-theme.color-scheme.surface-bright
                 :elevation elevation-on
                 :child (light
                     :id props.id
@@ -111,8 +111,8 @@
             (active-card
                 :key props.id
                 :on-pressed (turn-on props.id)
-                :color theme.color-scheme.on-surface
-                :card-color theme.color-scheme.surface-dim
+                :color current-theme.color-scheme.on-surface
+                :card-color current-theme.color-scheme.surface-dim
                 :elevation elevation-off
                 :child (light
                     :id props.id
@@ -148,8 +148,8 @@
             (select (light-bound props) props.bind)
             (inactive-card
                 :key props.id
-                :color theme.color-scheme.on-surface-variant
-                :card-color theme.color-scheme.surface-variant
+                :color current-theme.color-scheme.on-surface-variant
+                :card-color current-theme.color-scheme.surface-variant
                 :elevation elevation-unbound
                 :child (light
                     :id props.id

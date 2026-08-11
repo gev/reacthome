@@ -13,8 +13,8 @@
     (def (curtain props bind)
         (def color
             (if bind.value
-                theme.color-scheme.surface-dim
-                theme.color-scheme.surface-bright
+                current-theme.color-scheme.surface-dim
+                current-theme.color-scheme.surface-bright
             )
         )
         (modal
@@ -26,8 +26,8 @@
                     (text
                         :content (title props)
                         :style (text-style
-                            :font-size theme.text-theme.title-large.font-size
-                            :color theme.color-scheme.on-surface-variant
+                            :font-size current-theme.text-theme.title-large.font-size
+                            :color current-theme.color-scheme.on-surface-variant
                             :font-weight font-weight.w400
                         )
                     )
@@ -35,8 +35,8 @@
                     (text
                         :content (@ (? bind.value closed' opened') locale.language-code)
                         :style (text-style
-                            :font-size theme.text-theme.display-medium.font-size
-                            :color theme.color-scheme.on-surface
+                            :font-size current-theme.text-theme.display-medium.font-size
+                            :color current-theme.color-scheme.on-surface
                             :font-weight font-weight.w600
                         )
                     )

@@ -14,7 +14,7 @@
         (list-tile
             :leading (icon
                 :icon (symbol props.icon.symbol)
-                :color theme.color-scheme.on-surface
+                :color current-theme.color-scheme.on-surface
                 :fill props.icon.fill
             )
             :title (text
@@ -22,7 +22,7 @@
             )
             :trailing (text
                 :content props.value
-                :style theme.text-theme.title-medium
+                :style current-theme.text-theme.title-medium
             )
         )
     )

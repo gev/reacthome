@@ -6,7 +6,7 @@
     (def (icon-style props)
         (paint-style
             :style painting-style.stroke
-            :color (?? props.color theme.color-scheme.on-surface)
+            :color (?? props.color current-theme.color-scheme.on-surface)
             :stroke-width (+ (* 0.05 props.size) 0.05)
             :stroke-cap stroke-cap.round
         )

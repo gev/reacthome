@@ -7,15 +7,15 @@
 
     (def (screen props)
         (material
-            :color theme.color-scheme.surface-container
+            :color current-theme.color-scheme.surface-container
             :child (container
                 :decoration (box-decoration
                     :gradient (linear-gradient
                         :begin alignment.bottom-center
                         :end alignment.top-center
                         :colors (#
-                            theme.color-scheme.surface-dim
-                            theme.color-scheme.surface-bright
+                            current-theme.color-scheme.surface-dim
+                            current-theme.color-scheme.surface-bright
                         )
                         :stops (0 1)
                     )

@@ -22,7 +22,7 @@
                 (text
                     :content props.value
                     :style (text-style
-                        :font-size theme.text-theme.title-small.font-size
+                        :font-size current-theme.text-theme.title-small.font-size
                         :color colors.white
                     )
                 )
