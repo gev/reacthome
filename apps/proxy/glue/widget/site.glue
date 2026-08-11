@@ -16,6 +16,7 @@
     (def (site-screen props)
         (screen
             :body (single-child-scroll-view
+                :padding (edge-insets-only :bottom 128)
                 :child (column
                     :spacing 16
                     :cross-axis-alignment cross-axis-alignment.start
