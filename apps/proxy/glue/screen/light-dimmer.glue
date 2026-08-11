@@ -5,10 +5,13 @@
     (import widget.light-dimmer)
 
     (def (light-dimmer-screen args)
-        (select
-            (\ (props)
-                (select (light-dimmer props) props.bind)
-            ) args.id
+        (with-theme
+            :data args.theme
+            :child (select
+                (\ (props)
+                    (select (light-dimmer props) props.bind)
+                ) args.id
+            )
         )
     )
 )

@@ -6,10 +6,13 @@
     (import widget.curtain)
 
     (def (curtain-screen args)
-        (select
-            (\ (props)
-                (select (curtain props) props.bind)
-            ) args.id
+        (with-theme
+            :data args.theme
+            :child         (select
+                (\ (props)
+                    (select (curtain props) props.bind)
+                ) args.id
+            )
         )
     )
 )
