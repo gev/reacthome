@@ -6,45 +6,69 @@
     (import lib.navigation)
 
     (import widget.containers)
+    (import widget.screen)
     (import widget.site-breadcrumbs)
     (import widget.site-card)
     (import widget.site-info)
     (import widget.light-card)
     (import widget.curtain-card)
 
-    (def (site props)
-        (single-child-scroll-view
-            :child (column
-                :spacing 16
-                :cross-axis-alignment cross-axis-alignment.start
-                :children (
-                    (if (is-exist props.image)
-                        (image
-                            :image (load-image :src props.image)
-                            :fit box-fit.fit-width
-                        )
-                    )
-                    (wrap
-                        :spacing 16
-                        :run-spacing 8
-                        :cross-axis-alignment wrap-cross-alignment.center
-                        :children (
-                            (text
-                                :content (title props)
-                                :style current-theme.text-theme.headline-large
+    (def (site-screen props)
+        (screen
+            :body (single-child-scroll-view
+                :child (column
+                    :spacing 16
+                    :cross-axis-alignment cross-axis-alignment.start
+                    :children (
+                        (if (is-exist props.image)
+                            (image
+                                :image (load-image :src props.image)
+                                :fit box-fit.fit-width
                             )
-                            (site-breadcrumbs
-                                :site props.parent
-                                :action (\ (id) (go :route 'site :id id)))
                         )
+                        (wrap
+                            :spacing 16
+                            :run-spacing 8
+                            :cross-axis-alignment wrap-cross-alignment.center
+                            :children (
+                                (text
+                                    :content (title props)
+                                    :style current-theme.text-theme.headline-large
+                                )
+                                (site-breadcrumbs
+                                    :site props.parent
+                                    :action (\ (id) (go :route 'site :id id)))
+                            )
+                        )
+                        (site-info :site props.id)
+                        (select-in-grid light-card props.light_220)
+                        (select-in-grid light-card props.light_LED)
+                        (select-in-grid curtain-card props.curtains)
+                        (select-in-column site-card props.site)
                     )
-                    (site-info :site props.id)
-                    (select-in-grid light-card props.light_220)
-                    (select-in-grid light-card props.light_LED)
-                    (select-in-grid curtain-card props.curtains)
-                    (select-in-column site-card props.site)
                 )
             )
+        )
+    )
+
+    (def (site-with-theme props)
+        (def color-scheme
+            (seed-color-scheme
+                :seed props.palette.vibrant
+                :brightness current-theme.color-scheme.brightness
+            )
+        )
+        (with-theme
+            :data (theme :color-scheme color-scheme)
+            :child (site-screen props)
+        )
+
+    )
+
+    (def (site props)
+        (if (is-exist props.palette.vibrant)
+            (site-with-theme props)
+            (site-screen props)
         )
     )
 )

@@ -2,12 +2,9 @@
     (export project-screen)
 
     (import lib.data)
-    (import widget.screen)
     (import widget.site)
 
     (def (project-screen project)
-        (screen
-            :body (select site project)
-        )
+        (select site project)
     )
 )
