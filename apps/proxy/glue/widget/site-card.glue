@@ -5,13 +5,13 @@
     (import lib.navigation)
     (import widget.site-brief)
 
-    (def (gradient start end stop)
+    (def (gradient start end)
         (box-decoration
             :gradient (linear-gradient
                 :begin alignment.bottom-center
                 :end alignment.top-center
                 :colors (# start end)
-                :stops (0 stop)
+                :stops (0 1)
             )
         )
     )
@@ -42,7 +42,7 @@
     (def (site-ink-well props)
         (def color current-theme.color-scheme.primary-container)
         (def color1 (color.with :a 0.9))
-        (def color2 (color.with :a 0.5))
+        (def color2 (color.with :a 0.6))
         (def color3 (color.with :a 0.0))
         (ink-well
             :on-tap (go :route 'site :id props.id)
@@ -53,7 +53,7 @@
                 :children (
                     (expanded
                         :child (container
-                            :decoration (gradient color2 color3 0.2)
+                            :decoration (gradient color2 color3)
                         )
                     )
                     (column
@@ -61,7 +61,7 @@
                         :children (
                             (container
                                 :padding (edge-insets-only :left 16 :right 16)
-                                :decoration (gradient color1 color2 1)
+                                :decoration (gradient color1 color2)
                                 :child (site-title props)
                             )
                             (container
