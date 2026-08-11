@@ -84,7 +84,7 @@
         )
         (if (is-exist children)
             (props.container :children children)
-            (sized-box :width 0 :height 0)
+            (row :children _)
         )
     )
 

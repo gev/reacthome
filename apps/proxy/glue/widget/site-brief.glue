@@ -15,14 +15,15 @@
             :children (
                 (icon
                     :icon (symbol props.icon.symbol)
-                    :color theme.color-scheme.on-surface
+                    :color colors.white
                     :fill props.icon.fill
+                    :size 16
                 )
                 (text
                     :content props.value
                     :style (text-style
-                        :font-size theme.text-theme.title-medium.font-size
-                        :color theme.color-scheme.on-surface.variant
+                        :font-size theme.text-theme.title-small.font-size
+                        :color colors.white
                     )
                 )
             )

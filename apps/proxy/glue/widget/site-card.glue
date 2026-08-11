@@ -5,6 +5,17 @@
     (import lib.navigation)
     (import widget.site-brief)
 
+    (def (gradient start end stop)
+        (box-decoration
+            :gradient (linear-gradient
+                :begin alignment.bottom-center
+                :end alignment.top-center
+                :colors (# start end)
+                :stops (0 stop)
+            )
+        )
+    )
+
     (def (site-image props)
         (aspect-ratio
             :aspect-ratio 1.7778
@@ -16,16 +27,26 @@
     )
 
     (def (site-title props)
-        (text
-            :content (title props)
-            :style (text-style
-                :font-size theme.text-theme.headline-large.font-size
-                :font-weight font-weight.w400
+        (row
+            :children (text
+                :content (title props)
+                :style (text-style
+                    :color colors.white
+                    :font-size theme.text-theme.headline-medium.font-size
+                    :font-weight font-weight.w400
+                )
             )
         )
     )
 
     (def (site-ink-well props)
+        (def color colors.black)
+        (def color1 (color.with :a 0.7))
+        (def color2 (color.with :a 0.4))
+        (print (linear-gradient
+                :begin alignment.bottom-center
+                :end alignment.top-center
+            ))
         (ink-well
             :on-tap (go :route 'site :id props.id)
             :child
@@ -33,13 +54,23 @@
                 :cross-axis-alignment cross-axis-alignment.stretch
                 :main-axis-alignment main-axis-alignment.end
                 :children (
-                    (container
-                        :color (theme.color-scheme.surface.with :a 0.8)
-                        :child (column
-                            :cross-axis-alignment cross-axis-alignment.start
-                            :children (
-                                (site-title props)
-                                (site-brief :site props.id)
+                    (expanded
+                        :child (container
+                            :decoration (gradient color2 colors.transparent 0.3)
+                        )
+                    )
+                    (column
+                        :cross-axis-alignment cross-axis-alignment.start
+                        :children (
+                            (container
+                                :padding (edge-insets-only :left 16 :right 16)
+                                :decoration (gradient color1 color2 1)
+                                :child (site-title props)
+                            )
+                            (container
+                                :padding (edge-insets-only :left 16 :right 16 :bottom 8)
+                                :color color1
+                                :child (site-brief :site props.id)
                             )
                         )
                     )
