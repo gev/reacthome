@@ -20,7 +20,7 @@
                 :children (
                     (if (is-exist props.image)
                         (image
-                            :src props.image
+                            :image (load-image :src props.image)
                             :fit box-fit.fit-width
                         )
                     )

@@ -20,8 +20,8 @@
         (aspect-ratio
             :aspect-ratio 1.7778
             :child (image
+                :image (load-image :src props.image)
                 :fit box-fit.cover
-                :src props.image
             )
         )
     )
