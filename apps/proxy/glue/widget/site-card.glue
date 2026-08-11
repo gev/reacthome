@@ -20,7 +20,7 @@
         (aspect-ratio
             :aspect-ratio 1.7778
             :child (image
-                :image (load-image :src props.image)
+                :image props.image
                 :fit box-fit.cover
             )
         )
@@ -39,14 +39,11 @@
         )
     )
 
-    (def (site-ink-well props)
-        (def color colors.black)
-        (def color1 (color.with :a 0.7))
-        (def color2 (color.with :a 0.4))
-        (print (linear-gradient
-                :begin alignment.bottom-center
-                :end alignment.top-center
-            ))
+    (def (site-ink-well props color-scheme)
+        (def color color-scheme.primary-container)
+        (def color1 (color.with :a 0.9))
+        (def color2 (color.with :a 0.5))
+        (def color3 (color.with :a 0.0))
         (ink-well
             :on-tap (go :route 'site :id props.id)
             :child
@@ -56,7 +53,7 @@
                 :children (
                     (expanded
                         :child (container
-                            :decoration (gradient color2 colors.transparent 0.3)
+                            :decoration (gradient color2 color3 0.5)
                         )
                     )
                     (column
@@ -79,19 +76,33 @@
         )
     )
 
-    (def (site-stack props)
-        (stack
-            :children (
-                (site-image props)
-                (positioned
-                    :top 0 :bottom 0 :left 0 :right 0
-                    :child (material
-                        :color colors.transparent
-                        :child (site-ink-well props)
+    (def (site props image color-scheme)
+        (with-theme
+            :data (theme :color-scheme color-scheme)
+            :child (stack
+                :children (
+                    (site-image :image image)
+                    (positioned
+                        :top 0 :bottom 0 :left 0 :right 0
+                        :child (material
+                            :color colors.transparent
+                            :child (site-ink-well props color-scheme)
+                        )
                     )
                 )
             )
         )
+    )
+
+    (def (site-stack props)
+        (def image (load-image :src props.image))
+        (def color-scheme
+            (image-color-scheme
+                :provider image
+                :brightness brightness.dark
+            )
+        )
+        (listen (site props image) color-scheme)
     )
 
     (def (site-card props)
