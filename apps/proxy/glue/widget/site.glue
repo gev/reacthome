@@ -27,18 +27,21 @@
                                 :fit box-fit.fit-width
                             )
                         )
-                        (wrap
-                            :spacing 16
-                            :run-spacing 8
-                            :cross-axis-alignment wrap-cross-alignment.center
-                            :children (
-                                (text
-                                    :content (title props)
-                                    :style current-theme.text-theme.headline-large
+                        (padding
+                            :padding (edge-insets-symmetric :horizontal 16)
+                            :child (wrap
+                                :spacing 16
+                                :run-spacing 8
+                                :cross-axis-alignment wrap-cross-alignment.center
+                                :children (
+                                    (text
+                                        :content (title props)
+                                        :style current-theme.text-theme.headline-large
+                                    )
+                                    (site-breadcrumbs
+                                        :site props.parent
+                                        :action (\ (id) (go :route 'site :id id)))
                                 )
-                                (site-breadcrumbs
-                                    :site props.parent
-                                    :action (\ (id) (go :route 'site :id id)))
                             )
                         )
                         (site-info :site props.id)
@@ -57,6 +60,7 @@
             (seed-color-scheme
                 :seed props.palette.vibrant
                 :brightness current-theme.color-scheme.brightness
+                :dynamic-scheme-variant dynamic-scheme-variant.content
             )
         )
         (with-theme
