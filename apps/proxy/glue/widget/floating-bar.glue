@@ -20,7 +20,7 @@
                     (box-shadow
                         :blur-radius sigma
                         :blur-style blur-style.outer
-                        :color (current-theme.color-scheme.shadow.with :a 0.38)
+                        :color (current-theme.color-scheme.shadow.with :a 0.2)
                     )
                 )
             )
