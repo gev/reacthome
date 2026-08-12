@@ -36,13 +36,13 @@
         (map (state prop) sites)
     )
 
-    (def (aggregate-lights props lights)
+    (def (aggregate-lights props param lights)
         (def acc (foldl (monoid || light.property) (empty false) lights))
         (if (> acc.total 0)
             (props.parameter
-                :label light.label
+                :label param.label
                 :icon (
-                    :symbol light.icon
+                    :symbol param.icon
                     :fill (? acc.value 1 0)
                 )
                 :value acc.count
@@ -73,7 +73,7 @@
         (def children (flatten
                 (#
                     (if (is-exist lights_all)
-                        (listen (aggregate-lights props) lights_all)
+                        (listen (aggregate-lights props light) lights_all)
                         ()
                     )
                     (aggregate-sensors props temperature)
