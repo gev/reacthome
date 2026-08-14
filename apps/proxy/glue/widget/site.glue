@@ -40,7 +40,8 @@
                                     )
                                     (site-breadcrumbs
                                         :site props.parent
-                                        :action (\ (id) (go :route 'site :id id)))
+                                        :action (\ (id) (go :route 'site :id id))
+                                    )
                                 )
                             )
                         )
