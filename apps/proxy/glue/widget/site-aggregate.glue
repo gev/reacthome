@@ -4,6 +4,8 @@
     (import lib.combinator)
     (import lib.property)
 
+    (import locale.status)
+
     (def (fixed value)
         (/ (round (* value 10)) 10)
     )
@@ -45,7 +47,8 @@
                     :symbol param.icon
                     :fill (? acc.value 1 0)
                 )
-                :value acc.count
+                :value (? acc.value acc.count)
+                :description (? acc.value on' off')
             )
             ()
         )
