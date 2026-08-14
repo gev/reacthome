@@ -26,6 +26,7 @@
             :property 'temperature
             :label temperature'
             :icon 'thermometer
+            :resolution 0.05
             :unit "°C"
         ))
 
@@ -33,6 +34,7 @@
             :property 'humidity
             :label humidity'
             :icon 'water.voc
+            :resolution 0.2
             :unit "%"
         ))
 
@@ -40,6 +42,7 @@
             :property 'co2
             :label CO2'
             :icon 'co2
+            :resolution 10
             :unit "ppm"
         ))
 )
