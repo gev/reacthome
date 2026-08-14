@@ -15,15 +15,23 @@
             :children (
                 (icon
                     :icon (symbol props.icon.symbol)
-                    :color colors.white
+                    :color current-theme.color-scheme.on-surface-variant
                     :fill props.icon.fill
                     :size 16
                 )
-                (text
-                    :content props.value
-                    :style (text-style
-                        :font-size current-theme.text-theme.title-small.font-size
-                        :color colors.white
+                (if (is-exist props.value)
+                    (text
+                        :content props.value
+                        :style current-theme.text-theme.title-small
+                    )
+                )
+                (if (is-exist props.unit)
+                    (text
+                        :content props.unit
+                        :style (text-style
+                            :font-style current-theme.text-theme.title-small.font-size
+                            :color current-theme.color-scheme.on-surface-variant
+                        )
                     )
                 )
             )
