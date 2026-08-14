@@ -6,8 +6,17 @@
 
     (import locale.status)
 
-    (def (fixed value)
-        (/ (round (* value 10)) 10)
+    (def (round-to-resolution val res)
+        (if (> res 0)
+            (if (< res 1)
+                (let
+                    (def frac (/ 1 res))
+                    (/ (round (* val frac)) frac)
+                )
+                (* (round (/ val res)) res)
+            )
+            val
+        )
     )
 
     (def (empty value)
@@ -63,7 +72,8 @@
                     :symbol (param.icon)
                     :fill false
                 )
-                :value (fixed acc.value)
+                :value (round-to-resolution acc.value param.resolution)
+                :unit param.unit
             )
             ()
         )
