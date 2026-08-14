@@ -36,7 +36,7 @@ makeGlueStore folder = GlueStore{..}
                 pure Nothing
 
     runWatcher publish = withManager \mgr -> do
-        (inChan, outChan) <- newChan 10
+        (inChan, outChan) <- newChan 10_000
 
         void . forkIO $ forever do
             handle publish =<< readChan outChan

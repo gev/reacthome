@@ -41,7 +41,7 @@ proxyServer pending =
     pending.accept >>= \case
         Left !e -> logError $ ProxyError e
         Right !connection -> do
-            (inChan, outChan) <- newChan 10
+            (inChan, outChan) <- newChan 10_000
             res <-
                 either id id <$> race
                     do
