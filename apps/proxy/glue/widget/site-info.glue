@@ -20,9 +20,35 @@
             :title (text
                 :content (@ props.label locale.language-code)
             )
-            :trailing (text
-                :content props.value
-                :style current-theme.text-theme.title-medium
+            :trailing (row
+                :spacing 4
+                :main-axis-size main-axis-size.min
+                :children (
+                    (if (is-exist props.description)
+                        (text
+                            :content (@ props.description locale.language-code)
+                            :style (text-style
+                                :font-size current-theme.text-theme.title-medium.font-size
+                                :color current-theme.color-scheme.on-surface-variant
+                            )
+                        )
+                    )
+                    (if (is-exist props.value)
+                        (text
+                            :content props.value
+                            :style current-theme.text-theme.title-medium
+                        )
+                    )
+                    (if (is-exist props.unit)
+                        (text
+                            :content props.unit
+                            :style (text-style
+                                :font-size current-theme.text-theme.title-medium.font-size
+                                :color current-theme.color-scheme.on-surface-variant
+                            )
+                        )
+                    )
+                )
             )
         )
     )
