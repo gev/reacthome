@@ -26,17 +26,20 @@
             :property 'temperature
             :label temperature'
             :icon 'thermometer
+            :unit "°C'"
         ))
 
     (def humidity (
             :property 'humidity
             :label humidity'
             :icon 'water.voc
+            :unit "%"
         ))
 
     (def CO2 (
             :property 'co2
             :label CO2'
             :icon 'co2
+            :unit "ppm"
         ))
 )
