@@ -11,7 +11,7 @@ data Downstream = Downstream
 
 makeDownstream :: IO Downstream
 makeDownstream = do
-    (inChan, outChan) <- newChan 10
+    (inChan, outChan) <- newChan 10_000
     let send message = do
             print message
             writeChan inChan $ A.encode message
