@@ -56,7 +56,6 @@
         )
     )
     
-
     (def (light-dimmable props)
         (if (props.value)
             (active-card
