@@ -1,0 +1,39 @@
+(module widget.site-modal
+    (export site-modal)
+
+    (import widget.modal)
+    (import widget.site-breadcrumbs)
+
+    (def (site-modal props)
+        (modal
+            :color (?? props.background-color
+                current-theme.color-scheme.surface-container)
+            :child (column
+                :spacing 16
+                :main-axis-size main-axis-size.min
+                :children (
+                    (text
+                        :content props.title
+                        :style (text-style
+                            :font-size current-theme.text-theme.title-large.font-size
+                            :color current-theme.color-scheme.on-surface-variant
+                            :font-weight font-weight.w400
+                        )
+                    )
+                    (site-breadcrumbs :site props.site)
+                    (if (is-exist props.display)
+                        (text
+                            :content props.display
+                            :style (text-style
+                                :font-size current-theme.text-theme.display-medium.font-size
+                                :color current-theme.color-scheme.on-surface
+                                :font-weight font-weight.w600
+                            )
+                        )
+                    )
+                    (props.body)
+                )
+            )
+        )
+    )
+)
