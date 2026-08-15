@@ -59,7 +59,7 @@
         (tile
             :icon (
                 :symbol props.icon.symbol
-                :fill props.fill
+                :fill props.icon.fill
                 :color (?? props.icon.color
                     current-theme.color-scheme.on-surface)
             )
