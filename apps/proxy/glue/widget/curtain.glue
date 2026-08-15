@@ -9,39 +9,24 @@
     (import lib.i18n)
     (import lib.property)
 
-    (import widget.modal)
-    (import widget.site-breadcrumbs)
+    (import widget.site-modal)
 
     (def (curtain props bind)
-        (def color
+        (def background-color
             (if bind.value
                 current-theme.color-scheme.surface-dim
                 current-theme.color-scheme.surface-bright
             )
         )
-        (modal
-            :color color
-            :child (column
+        (site-modal
+            :site props.site
+            :background-color background-color
+            :title (title props)
+            :display (select-locale (? bind.value i18n-closed i18n-opened))
+            :body (column
                 :spacing 16
                 :main-axis-size main-axis-size.min
                 :children (
-                    (text
-                        :content (title props)
-                        :style (text-style
-                            :font-size current-theme.text-theme.title-large.font-size
-                            :color current-theme.color-scheme.on-surface-variant
-                            :font-weight font-weight.w400
-                        )
-                    )
-                    (site-breadcrumbs :site props.site)
-                    (text
-                        :content (select-locale (? bind.value i18n-closed i18n-opened))
-                        :style (text-style
-                            :font-size current-theme.text-theme.display-medium.font-size
-                            :color current-theme.color-scheme.on-surface
-                            :font-weight font-weight.w600
-                        )
-                    )
                     (double-curtain
                         :active-color (@ current-theme.color-scheme curtains.color)
                         :jump-to-tap false
