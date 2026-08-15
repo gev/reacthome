@@ -1,33 +1,33 @@
-(module locale.action
+(module i18n.action
     (export
-        turn-on'
-        turn-off'
-        close'
-        open'
-        stop'
+        i18n-turn-on
+        i18n-turn-off
+        i18n-close
+        i18n-open
+        i18n-stop
     )
 
-    (def turn-on' (
+    (def i18n-turn-on (
             :en "Turn on"
             :ru "Включить"
         ))
 
-    (def turn-off' (
+    (def i18n-turn-off (
             :en "Turn off"
             :ru "Выключить"
         ))
 
-    (def open' (
+    (def i18n-open (
             :en "Open"
             :ru "Открыть"
         ))
 
-    (def close' (
+    (def i18n-close (
             :en "Close"
             :ru "Закрыть"
         ))
 
-    (def stop' (
+    (def i18n-stop (
             :en "Stop"
             :ru "Остановить"
         ))

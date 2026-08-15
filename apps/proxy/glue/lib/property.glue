@@ -7,24 +7,24 @@
         CO2
     )
 
-    (import locale.parameter)
+    (import i18n.parameter)
 
     (def light (
             :property 'value
-            :label light'
+            :label i18n-light
             :icon 'lightbulb.2
         ))
 
     (def curtains (
             :property 'curtains
-            :label curtains'
+            :label i18n-curtains
             :icon (\ (value)
                 (? value 'shades.closed 'shades))
         ))
 
     (def temperature (
             :property 'temperature
-            :label temperature'
+            :label i18n-temperature
             :icon 'thermometer
             :resolution 0.1
             :unit "°C"
@@ -32,7 +32,7 @@
 
     (def humidity (
             :property 'humidity
-            :label humidity'
+            :label i18n-humidity
             :icon 'water.voc
             :resolution 1
             :unit "%"
@@ -40,7 +40,7 @@
 
     (def CO2 (
             :property 'co2
-            :label CO2'
+            :label i18n-CO2
             :icon 'co2
             :resolution 10
             :unit "ppm"

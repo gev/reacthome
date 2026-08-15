@@ -3,7 +3,7 @@
 
     (import lib.actions)
     (import lib.data)
-    (import locale.status)
+    (import i18n.status)
 
     (import widget.modal)
     (import widget.site-breadcrumbs)

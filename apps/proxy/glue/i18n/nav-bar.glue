@@ -1,27 +1,27 @@
-(module locale.nav-bar
+(module i18n.nav-bar
     (export
-        home'
-        settings'
-        systems'
-        weather'
+        i18n-home
+        i18n-settings
+        i18n-systems
+        i18n-weather
     )
 
-    (def home' (
+    (def i18n-home (
             :en "Home"
             :ru "Дом"
         ))
 
-    (def settings' (
+    (def i18n-settings (
             :en "Settings"
             :ru "Настройки"
         ))
 
-    (def systems' (
+    (def i18n-systems (
             :en "Systems"
             :ru "Системы"
         ))
 
-    (def weather' (
+    (def i18n-weather (
             :en "Weather"
             :ru "Погода"
         ))

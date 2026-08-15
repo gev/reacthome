@@ -1,51 +1,51 @@
-(module locale.parameter
+(module i18n.parameter
     (export
-        brightness'
-        humidity'
-        temperature'
-        setpoint'
-        CO2'
-        VOC'
-        light'
-        curtains'
+        i18n-brightness
+        i18n-humidity
+        i18n-temperature
+        i18n-setpoint
+        i18n-CO2
+        i18n-VOC
+        i18n-light
+        i18n-curtains
     )
 
-    (def brightness' (
+    (def i18n-brightness (
             :en "Brightness"
             :ru "Яркость"
         ))
 
-    (def humidity' (
+    (def i18n-humidity (
             :en "Humidity"
             :ru "Влажность"
         ))
 
-    (def temperature' (
+    (def i18n-temperature (
             :en "Temperature"
             :ru "Температура"
         ))
 
-    (def CO2' (
+    (def i18n-CO2 (
             :en "CO2"
             :ru "CO2"
         ))
 
-    (def VOC' (
+    (def i18n-VOC (
             :en "VOC"
             :ru "VOC"
         ))
 
-    (def setpoint' (
+    (def i18n-setpoint (
             :en "Setpoint"
             :ru "Уставка"
         ))
 
-    (def light' (
+    (def i18n-light (
             :en "Light"
             :ru "Свет"
         ))
 
-    (def curtains' (
+    (def i18n-curtains (
             :en "Curtains"
             :ru "Шторы"
         ))

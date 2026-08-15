@@ -1,33 +1,33 @@
-(module locale.status
+(module i18n.status
     (export
-        on'
-        off'
-        closed'
-        opened'
-        not-available'
+        i18n-on
+        i18n-off
+        i18n-closed
+        i18n-opened
+        i18n-not-available
     )
 
-    (def on' (
+    (def i18n-on (
             :en "On"
             :ru "Включено"
         ))
 
-    (def off' (
+    (def i18n-off (
             :en "Off"
             :ru "Выключено"
         ))
 
-    (def opened' (
+    (def i18n-opened (
             :en "Opened"
             :ru "Открыто"
         ))
 
-    (def closed' (
+    (def i18n-closed (
             :en "Closed"
             :ru "Закрыто"
         ))
 
-    (def not-available' (
+    (def i18n-not-available (
             :en "N/A"
             :ru "Н/Д"
         ))

@@ -4,7 +4,7 @@
     (import lib.combinator)
     (import lib.property)
 
-    (import locale.status)
+    (import i18n.status)
 
     (def (round-to-resolution val res)
         (if (> res 0)
@@ -57,7 +57,7 @@
                     :fill (? acc.value 1 0)
                 )
                 :value (? acc.value acc.count)
-                :description (? acc.value on' off')
+                :description (? acc.value i18n-on i18n-off)
             )
             ()
         )

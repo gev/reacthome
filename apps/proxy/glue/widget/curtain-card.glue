@@ -5,7 +5,7 @@
     (import lib.navigation)
     (import lib.property)
 
-    (import locale.status)
+    (import i18n.status)
 
     (import iconic.curtain)
 
@@ -68,7 +68,7 @@
                     :value props.value
                     :label props.label
                     :bound true
-                    :status (@ closed' locale.language-code)
+                    :status (@ i18n-closed locale.language-code)
                 )
             )
             (active-card
@@ -82,7 +82,7 @@
                     :value props.value
                     :label props.label
                     :bound true
-                    :status (@ opened' locale.language-code)
+                    :status (@ i18n-opened locale.language-code)
                 )
             )
         )
@@ -101,7 +101,7 @@
                     :value props.value
                     :label props.label
                     :bound true
-                    :status (@ closed' locale.language-code)
+                    :status (@ i18n-closed locale.language-code)
                 )
             )
             (active-card
@@ -115,7 +115,7 @@
                     :value props.value
                     :label props.label
                     :bound true
-                    :status (@ opened' locale.language-code)
+                    :status (@ i18n-opened locale.language-code)
                 )
             )
         )
@@ -148,7 +148,7 @@
                     :value 0
                     :bound false
                     :label (title props)
-                    :status (@ not-available' locale.language-code)
+                    :status (@ i18n-not-available locale.language-code)
                 )
             )
         )

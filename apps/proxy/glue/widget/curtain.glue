@@ -4,8 +4,8 @@
     (import lib.actions)
     (import lib.data)
 
-    (import locale.action)
-    (import locale.status)
+    (import i18n.action)
+    (import i18n.status)
 
     (import widget.modal)
     (import widget.site-breadcrumbs)
@@ -33,7 +33,7 @@
                     )
                     (site-breadcrumbs :site props.site)
                     (text
-                        :content (@ (? bind.value closed' opened') locale.language-code)
+                        :content (@ (? bind.value i18n-closed i18n-opened) locale.language-code)
                         :style (text-style
                             :font-size current-theme.text-theme.display-medium.font-size
                             :color current-theme.color-scheme.on-surface
@@ -50,17 +50,17 @@
                         :children (
                             (button
                                 :child (text
-                                    :content (@ open' locale.language-code)
+                                    :content (@ i18n-open locale.language-code)
                                 )
                             )
                             (button
                                 :child (text
-                                    :content (@ stop' locale.language-code)
+                                    :content (@ i18n-stop locale.language-code)
                                 )
                             )
                             (button
                                 :child (text
-                                    :content (@ close' locale.language-code)
+                                    :content (@ i18n-close locale.language-code)
                                 )
                             )
                         )
