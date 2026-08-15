@@ -20,9 +20,10 @@
     (def elevation-on 2)
 
     (def (light-tile props)
-        (primary-entity-tile
+        (entity-tile
             :icon (
                 :symbol light.icon
+                :color (@ current-theme.color-scheme light.color)
                 :fill (? props.value 1 0)
             )
             :label (:text props.label)
