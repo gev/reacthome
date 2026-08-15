@@ -1,0 +1,150 @@
+(module widget.entity-tile
+    (export
+        entity-tile
+        disabled-entity-tile
+        primary-entity-tile
+        secondary-entity-tile
+        tertiary-entity-tile
+    )
+
+    (def (leading props)
+        (icon
+            :icon (symbol props.symbol)
+            :color props.color
+            :fill (?? props.fill 0)
+            :size 32
+        )
+    )
+
+
+    (def (label props)
+        (text
+            :content props.text
+            :style (text-style
+                :color props.color
+                :font-size current-theme.text-theme.label-medium.font-size
+                :font-weight font-weight.w400
+            )
+        )
+    )
+
+    (def (status props)
+        (text
+            :content props.text
+            :style (text-style
+                :color props.color
+                :font-size current-theme.text-theme.title-medium.font-size
+                :font-weight font-weight.w600
+            )
+        )
+    )
+
+    (def (tile props)
+        (row
+            :spacing 8
+            :children (
+                (leading props.icon)
+                (column
+                    :cross-axis-alignment cross-axis-alignment.start
+                    :children (
+                        (label props.label)
+                        (status props.status)
+                    )
+                )
+            )
+        )
+    )
+
+    (def (entity-tile props)
+        (tile
+            :icon (
+                :symbol props.icon.symbol
+                :fill props.fill
+                :color (?? props.icon.color
+                    current-theme.color-scheme.on-surface)
+            )
+            :label (
+                :text props.label.text
+                :color (?? props.label.color
+                    current-theme.color-scheme.on-surface-variant)
+            )
+            :status (
+                :text props.status.text
+                :color (?? props.status.color
+                    current-theme.color-scheme.on-surface)
+            )
+        )
+    )
+
+    (def (disabled-entity-tile props)
+        (tile
+            :icon (
+                :symbol props.icon.symbol
+                :fill 0
+                :color current-theme.color-scheme.outline-variant
+            )
+            :label (
+                :text props.label.text
+                :color current-theme.color-scheme.outline-variant
+            )
+            :status (
+                :text props.status.text
+                :color current-theme.color-scheme.outline-variant
+            )
+        )
+    )
+
+    (def (primary-entity-tile props)
+        (tile
+            :icon (
+                :symbol props.icon.symbol
+                :fill props.icon.fill
+                :color current-theme.color-scheme.primary
+            )
+            :label (
+                :text props.label.text
+                :color current-theme.color-scheme.on-surface-variant
+            )
+            :status (
+                :text props.status.text
+                :color current-theme.color-scheme.on-surface
+            )
+        )
+    )
+
+    (def (secondary-entity-tile props)
+        (tile
+            :icon (
+                :symbol props.icon.symbol
+                :fill props.icon.fill
+                :color current-theme.color-scheme.secondary
+            )
+            :label (
+                :text props.label.text
+                :color current-theme.color-scheme.on-surface-variant
+            )
+            :status (
+                :text props.status.text
+                :color current-theme.color-scheme.on-surface
+            )
+        )
+    )
+
+    (def (tertiary-entity-tile props)
+        (tile
+            :icon (
+                :symbol props.icon.symbol
+                :fill props.icon.fill
+                :color current-theme.color-scheme.tertiary
+            )
+            :label (
+                :text props.label.text
+                :color current-theme.color-scheme.on-surface-variant
+            )
+            :status (
+                :text props.status.text
+                :color current-theme.color-scheme.on-surface
+            )
+        )
+    )
+)
