@@ -12,19 +12,24 @@
     (def light (
             :property 'value
             :label i18n-light
+            :color 'primary
             :icon 'lightbulb.2
         ))
 
     (def curtains (
             :property 'curtains
             :label i18n-curtains
-            :icon (\ (value)
-                (? value 'shades.closed 'shades))
+            :color 'tertiary
+            :icon (
+                :closed 'shades.closed
+                :opened 'shades
+            )
         ))
 
     (def temperature (
             :property 'temperature
             :label i18n-temperature
+            :color 'secondary
             :icon 'thermometer
             :resolution 0.1
             :unit "°C"
@@ -33,6 +38,7 @@
     (def humidity (
             :property 'humidity
             :label i18n-humidity
+            :color 'secondary
             :icon 'water.voc
             :resolution 1
             :unit "%"
@@ -41,6 +47,7 @@
     (def CO2 (
             :property 'co2
             :label i18n-CO2
+            :color 'secondary
             :icon 'co2
             :resolution 10
             :unit "ppm"
