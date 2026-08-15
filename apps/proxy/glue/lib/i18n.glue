@@ -1,0 +1,12 @@
+(module lib.i18n
+    (export select-locale)
+
+    (def default 'en)
+
+    (def (select-locale i18n)
+        (??
+            (@ i18n locale.language-code)
+            (@ i18n default)
+        )
+    )
+)

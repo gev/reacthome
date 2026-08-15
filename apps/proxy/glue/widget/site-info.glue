@@ -1,6 +1,7 @@
 (module widget.site-info
     (export site-info)
 
+    (import lib.i18n)
     (import widget.site-aggregate)
 
     (def (site-info-container props)
@@ -18,7 +19,7 @@
                 :fill props.icon.fill
             )
             :title (text
-                :content (@ props.label locale.language-code)
+                :content (select-locale props.label)
             )
             :trailing (row
                 :spacing 4
@@ -26,7 +27,7 @@
                 :children (
                     (if (is-exist props.description)
                         (text
-                            :content (@ props.description locale.language-code)
+                            :content (select-locale props.description)
                             :style (text-style
                                 :font-size current-theme.text-theme.title-medium.font-size
                                 :color current-theme.color-scheme.on-surface-variant

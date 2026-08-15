@@ -1,11 +1,12 @@
 (module widget.curtain-card
     (export curtain-card)
 
+    (import i18n.status)
+
     (import lib.data)
+    (import lib.i18n)
     (import lib.navigation)
     (import lib.property)
-
-    (import i18n.status)
 
     (import iconic.curtain)
 
@@ -68,7 +69,7 @@
                     :value props.value
                     :label props.label
                     :bound true
-                    :status (@ i18n-closed locale.language-code)
+                    :status (select-locale i18n-closed)
                 )
             )
             (active-card
@@ -82,7 +83,7 @@
                     :value props.value
                     :label props.label
                     :bound true
-                    :status (@ i18n-opened locale.language-code)
+                    :status (select-locale i18n-opened)
                 )
             )
         )
@@ -101,7 +102,7 @@
                     :value props.value
                     :label props.label
                     :bound true
-                    :status (@ i18n-closed locale.language-code)
+                    :status (select-locale i18n-closed)
                 )
             )
             (active-card
@@ -115,7 +116,7 @@
                     :value props.value
                     :label props.label
                     :bound true
-                    :status (@ i18n-opened locale.language-code)
+                    :status (select-locale i18n-opened)
                 )
             )
         )
@@ -148,7 +149,7 @@
                     :value 0
                     :bound false
                     :label (title props)
-                    :status (@ i18n-not-available locale.language-code)
+                    :status (select-locale i18n-not-available)
                 )
             )
         )

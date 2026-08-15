@@ -2,6 +2,7 @@
     (export nav-bar)
 
     (import i18n.nav-bar)
+    (import lib.i18n)
     (import widget.floating-bar)
 
     (def (nav-bar props)
@@ -12,19 +13,19 @@
                 :destinations (
                     (navigation-destination
                         :icon (icon :icon (symbol 'weather.mix))
-                        :label (@ i18n-weather locale.language-code)
+                        :label (select-locale i18n-weather)
                     )
                     (navigation-destination
                         :icon (icon :icon (symbol 'home) :fill 1)
-                        :label (@ i18n-home locale.language-code)
+                        :label (select-locale i18n-home)
                     )
                     (navigation-destination
                         :icon (icon :icon (symbol 'dashboard))
-                        :label (@ i18n-systems locale.language-code)
+                        :label (select-locale i18n-systems)
                     )
                     (navigation-destination
                         :icon (icon :icon (symbol 'settings))
-                        :label (@ i18n-settings locale.language-code)
+                        :label (select-locale i18n-settings)
                     )
                 )
             )

@@ -1,11 +1,12 @@
 (module widget.curtain
     (export curtain)
 
-    (import lib.actions)
-    (import lib.data)
-
     (import i18n.action)
     (import i18n.status)
+
+    (import lib.actions)
+    (import lib.data)
+    (import lib.i18n)
 
     (import widget.modal)
     (import widget.site-breadcrumbs)
@@ -33,7 +34,7 @@
                     )
                     (site-breadcrumbs :site props.site)
                     (text
-                        :content (@ (? bind.value i18n-closed i18n-opened) locale.language-code)
+                        :content (select-locale (? bind.value i18n-closed i18n-opened))
                         :style (text-style
                             :font-size current-theme.text-theme.display-medium.font-size
                             :color current-theme.color-scheme.on-surface
@@ -50,17 +51,17 @@
                         :children (
                             (button
                                 :child (text
-                                    :content (@ i18n-open locale.language-code)
+                                    :content (select-locale i18n-open)
                                 )
                             )
                             (button
                                 :child (text
-                                    :content (@ i18n-stop locale.language-code)
+                                    :content (select-locale i18n-stop)
                                 )
                             )
                             (button
                                 :child (text
-                                    :content (@ i18n-close locale.language-code)
+                                    :content (select-locale i18n-close)
                                 )
                             )
                         )
