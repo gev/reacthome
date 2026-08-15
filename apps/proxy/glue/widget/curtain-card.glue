@@ -19,9 +19,10 @@
     (def elevation-on 2)
 
     (def (curtain-tile props)
-        (tertiary-entity-tile
+        (entity-tile
             :icon (
-                :symbol (curtains.icon props.value)
+                :symbol (? props.value curtains.icon.closed curtains.icon.opened)
+                :color (@ current-theme.color-scheme curtains.color)
                 :fill 1
             )
             :label (:text props.label)
@@ -104,7 +105,7 @@
             :card-color current-theme.color-scheme.surface-variant
             :elevation elevation-unbound
             :child (disabled-entity-tile
-                :icon (:symbol (curtains.icon false))
+                :icon (:symbol (curtains.icon.opened))
                 :label (:text (title props))
                 :status (:text (select-locale i18n-not-available))
             )
