@@ -1,9 +1,11 @@
 (module widget.light-dimmer
     (export light-dimmer)
 
+    (import i18n.status)
+
     (import lib.actions)
     (import lib.data)
-    (import i18n.status)
+    (import lib.property)
 
     (import widget.modal)
     (import widget.site-breadcrumbs)
@@ -47,6 +49,7 @@
                         :height 200
                         :focused-width 90
                         :border-radius 30
+                        :active-color (@ current-theme.color-scheme light.color)
                         :on-changed (dim props.id)
                     )
                 )
