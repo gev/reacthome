@@ -11,122 +11,84 @@
     (import iconic.curtain)
 
     (import widget.cards)
+    (import widget.entity-tile)
     (import widget.iconic)
 
     (def elevation-unbound 0)
     (def elevation-off 1)
     (def elevation-on 2)
 
-    (def (curtain props)
-        (row
-            :spacing 8
-            :children (
-                (icon
-                    :icon (symbol (curtains.icon props.value))
-                    :color (? props.bound
-                        current-theme.color-scheme.primary
-                        current-theme.color-scheme.outline-variant
-                    )
-                    :fill 1
-                    :size 32
-                )
-                (column
-                    :cross-axis-alignment cross-axis-alignment.start
-                    :children (
-                        (text
-                            :content props.label
-                            :style (text-style
-                                :font-size current-theme.text-theme.label-medium.font-size
-                                :color current-theme.color-scheme.on-surface-variant
-                                :font-weight font-weight.w400
-                            )
-                        )
-                        (text
-                            :content props.status
-                            :style (text-style
-                                :color props.color
-                                :font-size current-theme.text-theme.title-medium.font-size
-                                :font-weight font-weight.w600
-                            )
-                        )
-                    )
-                )
+    (def (curtain-tile props)
+        (tertiary-entity-tile
+            :icon (
+                :symbol (curtains.icon props.value)
+                :fill 1
             )
+            :label (:text props.label)
+            :status (:text props.status)
         )
     )
     
 
-    (def (curtain-dimmable props)
+    (def (positioned-curtain-card props)
         (if (props.value)
             (active-card
                 :key props.id
                 :on-pressed (go :route 'curtain :id props.id)
-                :color current-theme.color-scheme.on-surface
                 :card-color current-theme.color-scheme.surface-dim
                 :elevation elevation-on
-                :child (curtain
-                    :id props.id
+                :child (curtain-tile
                     :value props.value
                     :label props.label
-                    :bound true
                     :status (select-locale i18n-closed)
                 )
             )
             (active-card
                 :key props.id
                 :on-pressed (go :route 'curtain :id props.id)
-                :color current-theme.color-scheme.on-surface
                 :card-color current-theme.color-scheme.surface-bright
                 :elevation elevation-off
-                :child (curtain
-                    :id props.id
+                :child (curtain-tile
                     :value props.value
                     :label props.label
-                    :bound true
                     :status (select-locale i18n-opened)
                 )
             )
         )
     )
 
-    (def (curtain-non-dimmable props)
+    (def (non-positioned-curtain-card props)
         (if (props.value)
             (active-card
                 :key props.id
                 :on-pressed (go :route 'curtain :id props.id)
-                :color current-theme.color-scheme.on-surface
                 :card-color current-theme.color-scheme.surface-dim
                 :elevation elevation-on
-                :child (curtain
-                    :id props.id
+                :child (curtain-tile
                     :value props.value
                     :label props.label
-                    :bound true
                     :status (select-locale i18n-closed)
                 )
             )
             (active-card
                 :key props.id
                 :on-pressed (go :route 'curtain :id props.id)
-                :color current-theme.color-scheme.on-surface
                 :card-color current-theme.color-scheme.surface-bright
                 :elevation elevation-off
-                :child (curtain
-                    :id props.id
+                :child (curtain-tile
                     :value props.value
                     :label props.label
-                    :bound true
                     :status (select-locale i18n-opened)
                 )
             )
         )
     )
 
-    (def (curtain-bound props bind)
+    (def (bound-curtain-card props bind)
         (def card
-            (if bind.dimmable
-                curtain-dimmable
-                curtain-non-dimmable
+            (if bind.positioned
+                positioned-curtain-card
+                non-positioned-curtain-card
             )
         )
         (card
@@ -136,22 +98,23 @@
         )
     )
 
+    (def (unbound-curtain-card props)
+        (inactive-card
+            :key props.id
+            :card-color current-theme.color-scheme.surface-variant
+            :elevation elevation-unbound
+            :child (disabled-entity-tile
+                :icon (:symbol (curtains.icon false))
+                :label (:text (title props))
+                :status (:text (select-locale i18n-not-available))
+            )
+        )
+    )
+
     (def (curtain-card props)
         (if (is-exist props.bind)
-            (select (curtain-bound props) props.bind)
-            (inactive-card
-                :key props.id
-                :color current-theme.color-scheme.on-surface-variant
-                :card-color current-theme.color-scheme.surface-variant
-                :elevation elevation-unbound
-                :child (curtain
-                    :id props.id
-                    :value 0
-                    :bound false
-                    :label (title props)
-                    :status (select-locale i18n-not-available)
-                )
-            )
+            (select (bound-curtain-card props) props.bind)
+            (unbound-curtain-card props)
         )
     )
 )
