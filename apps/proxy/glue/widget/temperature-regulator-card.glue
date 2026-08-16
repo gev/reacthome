@@ -6,6 +6,7 @@
     (import iconic.light)
 
     (import lib.actions)
+    (import lib.conversion)
     (import lib.data)
     (import lib.i18n)
     (import lib.navigation)
@@ -22,8 +23,16 @@
                 :color (@ current-theme.color-scheme temperature.color)
                 :fill (? props.value 1 0)
             )
-            :label (:text (select-locale temperature.label))
-            :status (:text props.temperature)
+            :label (
+                :text (select-locale temperature.label)
+            )
+            :status (
+                :text (round-to-resolution props.temperature temperature.resolution)
+            )
+            :details (
+                :text temperature.unit
+            )
+            
         )
     )
     
@@ -32,7 +41,9 @@
         (active-card
             :key props.id
             :on-pressed (go :route 'light-dimmer :id props.id)
-            :child (temperature-regulator-tile :temperature temperature)
+            :child (temperature-regulator-tile
+                :temperature temperature
+            )
         )
     )
 )
