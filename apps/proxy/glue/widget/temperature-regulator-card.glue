@@ -40,7 +40,7 @@
         (print props)
         (active-card
             :key props.id
-            :on-pressed (go :route 'light-dimmer :id props.id)
+            :on-pressed (go :route 'temperature-regulator :id props.id)
             :child (temperature-regulator-tile
                 :temperature temperature
             )
