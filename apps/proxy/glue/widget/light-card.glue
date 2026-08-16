@@ -6,7 +6,7 @@
     (import iconic.light)
 
     (import lib.actions)
-    (import lib.conversions)
+    (import lib.conversion)
     (import lib.data)
     (import lib.i18n)
     (import lib.navigation)

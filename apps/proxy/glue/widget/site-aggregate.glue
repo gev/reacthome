@@ -2,7 +2,7 @@
     (export site-aggregate)
 
     (import lib.combinator)
-    (import lib.conversions)
+    (import lib.conversion)
     (import lib.property)
 
     (import i18n.status)

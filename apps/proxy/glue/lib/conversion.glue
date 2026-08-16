@@ -1,4 +1,4 @@
-(module lib.conversions
+(module lib.conversion
     (export
         to-absolute
         from-absolute

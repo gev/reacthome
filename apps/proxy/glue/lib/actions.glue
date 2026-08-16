@@ -6,7 +6,7 @@
         turn-off
     )
 
-    (import lib.conversions)
+    (import lib.conversion)
 
     (def (dim uid)
         (\ (value)
