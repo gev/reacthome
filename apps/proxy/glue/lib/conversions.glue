@@ -1,0 +1,30 @@
+(module lib.conversions
+    (export
+        to-absolute
+        from-absolute
+        
+        to-percents
+        from-percents
+
+        round-to-resolution
+    )
+
+    (def (from-absolute value) (round (* value 255)))
+    (def (to-absolute value) (/ value 255))
+
+    (def (from-percents value) (round (* value 2.55)))
+    (def (to-percents value) (round (/ value 2.55)))
+
+    (def (round-to-resolution val res)
+        (if (> res 0)
+            (if (< res 1)
+                (let
+                    (def frac (/ 1 res))
+                    (/ (round (* val frac)) frac)
+                )
+                (* (round (/ val res)) res)
+            )
+            val
+        )
+    )
+)
