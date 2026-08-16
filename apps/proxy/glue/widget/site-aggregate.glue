@@ -2,22 +2,10 @@
     (export site-aggregate)
 
     (import lib.combinator)
+    (import lib.conversions)
     (import lib.property)
 
     (import i18n.status)
-
-    (def (round-to-resolution val res)
-        (if (> res 0)
-            (if (< res 1)
-                (let
-                    (def frac (/ 1 res))
-                    (/ (round (* val frac)) frac)
-                )
-                (* (round (/ val res)) res)
-            )
-            val
-        )
-    )
 
     (def (empty value)
         (:value value :count 0 :total 0)
