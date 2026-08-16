@@ -1,5 +1,8 @@
 (module widget.curtain
-    (export curtain)
+    (export
+        positioned-curtain
+        non-positioned-curtain
+    )
 
     (import i18n.action)
     (import i18n.status)
@@ -11,7 +14,54 @@
 
     (import widget.site-modal)
 
-    (def (curtain props bind)
+    (def (positioned-curtain props bind)
+        (def background-color
+            (if bind.value
+                current-theme.color-scheme.surface-dim
+                current-theme.color-scheme.surface-bright
+            )
+        )
+        (site-modal
+            :site props.site
+            :background-color background-color
+            :title (title props)
+            :display (select-locale (? bind.value i18n-closed i18n-opened))
+            :body (column
+                :spacing 16
+                :main-axis-size main-axis-size.min
+                :children (
+                    (double-curtain
+                        :active-color (@ current-theme.color-scheme curtains.color)
+                        :jump-to-tap false
+                    )
+                    (wrap
+                        :spacing 16
+                        :run-spacing 8
+                        :main-axis-alignment main-axis-alignment.center
+                        :children (
+                            (button
+                                :child (text
+                                    :content (select-locale i18n-open)
+                                )
+                            )
+                            (button
+                                :child (text
+                                    :content (select-locale i18n-stop)
+                                )
+                            )
+                            (button
+                                :child (text
+                                    :content (select-locale i18n-close)
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    )
+
+    (def (non-positioned-curtain props bind)
         (def background-color
             (if bind.value
                 current-theme.color-scheme.surface-dim

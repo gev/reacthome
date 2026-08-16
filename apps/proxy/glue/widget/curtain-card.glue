@@ -35,7 +35,7 @@
         (if (props.value)
             (active-card
                 :key props.id
-                :on-pressed (go :route 'curtain :id props.id)
+                :on-pressed (go :route 'positioned-curtain :id props.id)
                 :card-color current-theme.color-scheme.surface-dim
                 :elevation elevation-on
                 :child (curtain-tile
@@ -46,7 +46,7 @@
             )
             (active-card
                 :key props.id
-                :on-pressed (go :route 'curtain :id props.id)
+                :on-pressed (go :route 'positioned-curtain :id props.id)
                 :card-color current-theme.color-scheme.surface-bright
                 :elevation elevation-off
                 :child (curtain-tile
@@ -62,7 +62,7 @@
         (if (props.value)
             (active-card
                 :key props.id
-                :on-pressed (go :route 'curtain :id props.id)
+                :on-pressed (go :route 'non-positioned-curtain :id props.id)
                 :card-color current-theme.color-scheme.surface-dim
                 :elevation elevation-on
                 :child (curtain-tile
@@ -73,7 +73,7 @@
             )
             (active-card
                 :key props.id
-                :on-pressed (go :route 'curtain :id props.id)
+                :on-pressed (go :route 'non-positioned-curtain :id props.id)
                 :card-color current-theme.color-scheme.surface-bright
                 :elevation elevation-off
                 :child (curtain-tile

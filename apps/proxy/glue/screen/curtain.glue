@@ -1,18 +1,29 @@
 (module screen.curtain
-    (export curtain-screen)
+    (export
+        positioned-curtain-screen
+        non-positioned-curtain-screen
+    )
 
     (import lib.data)
     (import widget.screen)
     (import widget.curtain)
 
-    (def (curtain-screen args)
+    (def (curtain-screen body args)
         (with-theme
             :data args.theme
-            :child         (select
+            :child (select
                 (\ (props)
-                    (select (curtain props) props.bind)
+                    (select (body props) props.bind)
                 ) args.id
             )
         )
+    )
+
+    (def (positioned-curtain-screen args)
+        (curtain-screen positioned-curtain args)
+    )
+
+    (def (non-positioned-curtain-screen args)
+        (curtain-screen non-positioned-curtain args)
     )
 )

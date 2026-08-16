@@ -35,18 +35,21 @@
         )
     )
 
-    (def (curtain-route args)
+    (def (positioned-curtain-route args)
         (overlay-route
             :tag args.id
-            :screen (curtain-screen args)
+            :screen (positioned-curtain-screen args)
             :duration 300
             :opacity 0.5
         )
     )
 
-    (def (curtain-demo-route args)
-        (route
-            :screen (curtain-demo-screen ())
+    (def (non-positioned-curtain-route args)
+        (overlay-route
+            :tag args.id
+            :screen (non-positioned-curtain-screen args)
+            :duration 300
+            :opacity 0.5
         )
     )
 
@@ -58,8 +61,8 @@
                 :home project-route
                 :site site-route
                 :light-dimmer light-dimmer-route
-                :curtain-demo curtain-demo-route
-                :curtain curtain-route
+                :positioned-curtain positioned-curtain-route
+                :non-positioned-curtain non-positioned-curtain-route
             )
         )
     )
