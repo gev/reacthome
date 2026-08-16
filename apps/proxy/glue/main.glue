@@ -1,18 +1,11 @@
 (module main
     (export main)
 
-    (import screen.home)
     (import screen.project)
     (import screen.site)
     (import screen.light-dimmer)
     (import screen.curtain)
-    (import screen.curtain-demo)
-
-    (def (home-route args)
-        (route
-            :screen (home-screen :title "Test a Canvas!")
-        )
-    )
+    (import screen.temperature-regulator)
 
     (def (project-route args)
         (route
@@ -53,6 +46,15 @@
         )
     )
 
+    (def (temperature-regulator-route args)
+        (overlay-route
+            :tag args.id
+            :screen (temperature-regulator-screen args)
+            :duration 300
+            :opacity 0.5
+        )
+    )
+
     (def main
         (app
             :seed-color colors.pink
@@ -63,6 +65,7 @@
                 :light-dimmer light-dimmer-route
                 :positioned-curtain positioned-curtain-route
                 :non-positioned-curtain non-positioned-curtain-route
+                :temperature-regulator temperature-regulator-route
             )
         )
     )
