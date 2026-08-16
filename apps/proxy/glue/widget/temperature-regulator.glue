@@ -1,0 +1,38 @@
+(module widget.temperature-regulator
+    (export temperature-regulator)
+
+    (import i18n.status)
+
+    (import lib.actions)
+    (import lib.conversion)
+    (import lib.data)
+    (import lib.property)
+
+    (import widget.site-modal)
+
+    (def (temperature-regulator props)
+        (def background-color
+            (if props.value
+                current-theme.color-scheme.surface-bright
+                current-theme.color-scheme.surface-dim
+            )
+        )
+        (site-modal
+            :site props.site
+            :background-color background-color
+            :title (title props)
+            :display props.value
+            :body (vertical-slider
+                :value props.value
+                :min 0
+                :max 100
+                :width 60
+                :height 200
+                :focused-width 90
+                :border-radius 30
+                :active-color (@ current-theme.color-scheme light.color)
+                :on-changed (dim props.id)
+            )
+        )
+    )
+)
