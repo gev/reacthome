@@ -49,7 +49,7 @@
                         (site-info :site props.id)
                         (select-in-grid light-card props.light_220)
                         (select-in-grid light-card props.light_LED)
-                        (select-in-grid temperature-regulator-card props.thermostat)
+                        (select-in-grid (temperature-regulator-card props.temperature) props.thermostat)
                         (select-in-grid curtain-card props.curtains)
                         (select-in-column site-card props.site)
                     )
