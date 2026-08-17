@@ -1,5 +1,5 @@
-(module widget.temperature-regulator
-    (export temperature-regulator)
+(module widget.ventilation-regulator
+    (export ventilation-regulator)
 
     (import i18n.status)
 
@@ -10,7 +10,7 @@
 
     (import widget.entity-modal)
 
-    (def (temperature-regulator props)
+    (def (ventilation-regulator props)
         (def background-color
             (if props.value
                 current-theme.color-scheme.surface-bright
