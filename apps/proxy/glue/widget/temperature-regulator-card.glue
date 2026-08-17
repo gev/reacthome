@@ -1,8 +1,6 @@
 (module widget.temperature-regulator-card
     (export temperature-regulator-card)
 
-    (import i18n.status)
-
     (import iconic.light)
 
     (import lib.actions)
@@ -16,30 +14,7 @@
     (import widget.regulator-tile)
     (import widget.iconic)
 
-    (def (temperature-regulator-tile props)
-        (regulator-tile
-            :icon (
-                :symbol temperature.icon
-                :color current-theme.color-scheme.on-primary
-                :fill (? props.value 1 0)
-            )
-            :label (
-                :text (select-locale temperature.label)
-                :color current-theme.color-scheme.on-primary
-            )
-            :status (
-                :text (round-to-resolution props.temperature temperature.resolution)
-                :color current-theme.color-scheme.on-primary
-            )
-            :details (
-                :text temperature.unit
-                :color current-theme.color-scheme.on-primary
-            )
-            
-        )
-    )
-
-    (def (temperature-regulator-card temperature props)
+    (def (temperature-regulator-card site props)
         (print props)
         (def color
             (if (== props.mode "cool")
@@ -59,13 +34,20 @@
             )
         )
         (with-theme
+            :key props.id
             :data (theme :color-scheme color-scheme)
             :child (active-card
-                :key props.id
                 :card-color current-theme.color-scheme.primary
                 :on-pressed (go :route 'temperature-regulator :id props.id)
-                :child (temperature-regulator-tile
-                    :temperature temperature
+                :child (regulator-tile
+                    :param temperature
+                    :value site.temperature
+                    :setpoint (
+                        :min 5
+                        :max 40
+                        :value props.setpoint
+                        :color current-theme.color-scheme.on-primary
+                    )
                 )
             )
         )
