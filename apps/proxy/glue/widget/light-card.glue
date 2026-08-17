@@ -12,7 +12,7 @@
     (import lib.navigation)
     (import lib.property)
 
-    (import widget.cards)
+    (import widget.entity-card)
     (import widget.entity-tile)
     (import widget.iconic)
 
