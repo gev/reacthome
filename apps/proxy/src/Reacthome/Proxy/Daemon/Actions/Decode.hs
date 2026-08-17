@@ -72,18 +72,44 @@ fromAeson = \case
 processKey :: A.Key -> A.Value -> Maybe AST
 -- Process as String
 processKey "type" = processKeyString
+processKey "mode" = processKeyString
+processKey "state" = processKeyString
 processKey "title" = processKeyString
 processKey "code" = processKeyString
 -- Process as Boolean
 processKey "enabled" = processKeyBoolean
 processKey "disabled" = processKeyBoolean
 processKey "dimmable" = processKeyBoolean
+processKey "cool" = processKeyBoolean
+processKey "heat" = processKeyBoolean
+processKey "dry" = processKeyBoolean
+processKey "wet" = processKeyBoolean
+processKey "ventilation" = processKeyBoolean
+processKey "inverse" = processKeyBoolean
+-- Process as Integer
+processKey "cool_intensity" = processKeyInteger
+processKey "onCoolIntensity" = processKeyInteger
+processKey "heat_intensity" = processKeyInteger
+processKey "onHeatIntensity" = processKeyInteger
+processKey "ventilation_intensity" = processKeyInteger
+processKey "onVentilationIntensity" = processKeyInteger
 -- Process as Float
 processKey "temperature" = processKeyFloat
 processKey "humidity" = processKeyFloat
 processKey "illumination" = processKeyFloat
 processKey "brightness" = processKeyFloat
 processKey "co2" = processKeyFloat
+processKey "min" = processKeyFloat
+processKey "max" = processKeyFloat
+processKey "setpoint" = processKeyFloat
+processKey "cool_hysteresis" = processKeyFloat
+processKey "cool_threshold" = processKeyFloat
+processKey "heat_hysteresis" = processKeyFloat
+processKey "heat_threshold" = processKeyFloat
+processKey "dry_hysteresis" = processKeyFloat
+processKey "dry_threshold" = processKeyFloat
+processKey "wet_hysteresis" = processKeyFloat
+processKey "wet_threshold" = processKeyFloat
 -- Process as Value
 processKey "value" = processKeyValue
 -- Process as Reference
@@ -96,6 +122,7 @@ processKey "light_220" = processKeyReference
 processKey "light_LED" = processKeyReference
 processKey "light_RGB" = processKeyReference
 processKey "curtains" = processKeyReference
+processKey "sensor" = processKeyReference
 processKey "leakage_sensor" = processKeyReference
 processKey "valve_water" = processKeyReference
 processKey "valve_heating" = processKeyReference
@@ -119,7 +146,7 @@ processKey "image" = processKeyReference
 -- Process as default
 processKey "palette" = processKeyDefault
 processKey "weather" = processKeyDefault
--- Skipp other
+-- Skip other
 processKey _ = const Nothing
 
 processKeyString :: A.Value -> Maybe AST
@@ -129,6 +156,11 @@ processKeyString _ = Nothing
 processKeyBoolean :: A.Value -> Maybe AST
 processKeyBoolean (A.Bool b) = Just $ Symbol if b then "true" else "false"
 processKeyBoolean _ = Nothing
+
+processKeyInteger :: A.Value -> Maybe AST
+processKeyInteger (A.Number sci) = Integer <$> toBoundedInteger sci
+processKeyInteger (A.Array val) = Just $ Integer (length val)
+processKeyInteger _ = Nothing
 
 processKeyFloat :: A.Value -> Maybe AST
 processKeyFloat (A.Number sci) = Just $ Float (toRealFloat sci)
