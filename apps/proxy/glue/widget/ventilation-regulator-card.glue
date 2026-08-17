@@ -1,0 +1,55 @@
+(module widget.ventilation-regulator-card
+    (export ventilation-regulator-card)
+
+    (import iconic.light)
+
+    (import lib.actions)
+    (import lib.conversion)
+    (import lib.data)
+    (import lib.i18n)
+    (import lib.navigation)
+    (import lib.property)
+
+    (import widget.card)
+    (import widget.regulator-tile)
+    (import widget.iconic)
+
+    (def (ventilation-regulator-card site props)
+        (print props)
+        (def color
+            (if (== props.mode "cool")
+                colors.blue
+                (if (== props.mode "heat")
+                    colors.red
+                    colors.grey
+                )
+
+            )
+        )
+        (def color-scheme
+            (seed-color-scheme
+                :seed colors.green
+                :dynamic-scheme-variant dynamic-scheme-variant.content
+                :brightness current-theme.color-scheme.brightness
+            )
+        )
+        (with-theme
+            :key props.id
+            :data (theme :color-scheme color-scheme)
+            :child (active-card
+                :card-color current-theme.color-scheme.primary
+                :on-pressed (go :route 'ventilation-regulator :id props.id)
+                :child (regulator-tile
+                    :param CO2
+                    :value site.co2
+                    :setpoint (
+                        :min 300
+                        :max 900
+                        :value props.setpoint
+                        :color current-theme.color-scheme.on-primary
+                    )
+                )
+            )
+        )
+    )
+)
