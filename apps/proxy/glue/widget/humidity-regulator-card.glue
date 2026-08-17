@@ -1,0 +1,52 @@
+(module widget.humidity-regulator-card
+    (export humidity-regulator-card)
+
+    (import iconic.light)
+
+    (import lib.actions)
+    (import lib.navigation)
+    (import lib.property)
+
+    (import widget.card)
+    (import widget.regulator-tile)
+    (import widget.iconic)
+
+    (def (humidity-regulator-card site props)
+        (print props)
+        (def color
+            (if (== props.mode "cool")
+                colors.blue
+                (if (== props.mode "heat")
+                    colors.red
+                    colors.grey
+                )
+
+            )
+        )
+        (def color-scheme
+            (seed-color-scheme
+                :seed colors.cyan
+                :dynamic-scheme-variant dynamic-scheme-variant.content
+                :brightness current-theme.color-scheme.brightness
+            )
+        )
+        (with-theme
+            :key props.id
+            :data (theme :color-scheme color-scheme)
+            :child (active-card
+                :card-color current-theme.color-scheme.primary
+                :on-pressed (go :route 'humidity-regulator :id props.id)
+                :child (regulator-tile
+                    :param humidity
+                    :value site.humidity
+                    :setpoint (
+                        :min 20
+                        :max 80
+                        :value props.setpoint
+                        :color current-theme.color-scheme.on-primary
+                    )
+                )
+            )
+        )
+    )
+)
