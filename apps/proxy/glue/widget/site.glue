@@ -11,8 +11,10 @@
     (import widget.site-info)
     (import widget.site-card)
     (import widget.light-card)
-    (import widget.temperature-regulator-card)
     (import widget.curtain-card)
+    (import widget.temperature-regulator-card)
+    (import widget.humidity-regulator-card)
+    (import widget.ventilation-regulator-card)
 
     (def (site-screen props)
         (screen
@@ -49,7 +51,17 @@
                         (site-info :site props.id)
                         (select-in-grid light-card props.light_220)
                         (select-in-grid light-card props.light_LED)
-                        (select-in-row (temperature-regulator-card props.temperature) props.thermostat)
+                        (single-child-scroll-view
+                            :scroll-direction axis.horizontal
+                            :child (row
+                                :spacing 16
+                                :children (
+                                    (select-in-row (temperature-regulator-card props) props.thermostat)
+                                    (select-in-row (humidity-regulator-card props) props.hygrostat)
+                                    (select-in-row (ventilation-regulator-card props) props.co2_stat)
+                                )
+                            )
+                        )
                         (select-in-grid curtain-card props.curtains)
                         (select-in-column site-card props.site)
                     )
