@@ -20,17 +20,20 @@
         (entity-tile
             :icon (
                 :symbol temperature.icon
-                :color (@ current-theme.color-scheme temperature.color)
+                :color current-theme.color-scheme.on-primary
                 :fill (? props.value 1 0)
             )
             :label (
                 :text (select-locale temperature.label)
+                :color current-theme.color-scheme.on-primary
             )
             :status (
                 :text (round-to-resolution props.temperature temperature.resolution)
+                :color current-theme.color-scheme.on-primary
             )
             :details (
                 :text temperature.unit
+                :color current-theme.color-scheme.on-primary
             )
             
         )
@@ -38,11 +41,22 @@
     
     (def (temperature-regulator-card temperature props)
         (print props)
-        (active-card
-            :key props.id
-            :on-pressed (go :route 'temperature-regulator :id props.id)
-            :child (temperature-regulator-tile
-                :temperature temperature
+        (def color-scheme
+            (seed-color-scheme
+                :seed colors.blue
+                :dynamic-scheme-variant dynamic-scheme-variant.content
+                :brightness current-theme.color-scheme.brightness
+            )
+        )
+        (with-theme
+            :data (theme :color-scheme color-scheme)
+            :child (active-card
+                :key props.id
+                :card-color current-theme.color-scheme.primary
+                :on-pressed (go :route 'temperature-regulator :id props.id)
+                :child (temperature-regulator-tile
+                    :temperature temperature
+                )
             )
         )
     )
