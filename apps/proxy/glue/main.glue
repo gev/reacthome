@@ -6,6 +6,17 @@
     (import screen.light-dimmer)
     (import screen.curtain)
     (import screen.temperature-regulator)
+    (import screen.humidity-regulator)
+    (import screen.ventilation-regulator)
+
+    (def (overlay screen args)
+        (overlay-route
+            :tag args.id
+            :screen (screen args)
+            :duration 300
+            :opacity 0.5
+        )
+    )
 
     (def (project-route args)
         (route
@@ -19,40 +30,28 @@
         )
     )
 
-    (def (light-dimmer-route args)
-        (overlay-route
-            :tag args.id
-            :screen (light-dimmer-screen args)
-            :duration 300
-            :opacity 0.5
-        )
+    (def light-dimmer-route
+        (overlay light-dimmer-screen)
     )
 
-    (def (positioned-curtain-route args)
-        (overlay-route
-            :tag args.id
-            :screen (positioned-curtain-screen args)
-            :duration 300
-            :opacity 0.5
-        )
+    (def positioned-curtain-route
+        (overlay positioned-curtain-screen)
     )
 
-    (def (non-positioned-curtain-route args)
-        (overlay-route
-            :tag args.id
-            :screen (non-positioned-curtain-screen args)
-            :duration 300
-            :opacity 0.5
-        )
+    (def non-positioned-curtain-route
+        (overlay non-positioned-curtain-screen)
     )
 
-    (def (temperature-regulator-route args)
-        (overlay-route
-            :tag args.id
-            :screen (temperature-regulator-screen args)
-            :duration 300
-            :opacity 0.5
-        )
+    (def temperature-regulator-route
+        (overlay temperature-regulator-screen)
+    )
+
+    (def humidity-regulator-route
+        (overlay humidity-regulator-screen)
+    )
+
+    (def ventilation-regulator-route
+        (overlay ventilation-regulator-screen)
     )
 
     (def main
@@ -66,6 +65,8 @@
                 :positioned-curtain positioned-curtain-route
                 :non-positioned-curtain non-positioned-curtain-route
                 :temperature-regulator temperature-regulator-route
+                :humidity-regulator humidity-regulator-route
+                :ventilation-regulator ventilation-regulator-route
             )
         )
     )
