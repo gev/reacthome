@@ -48,7 +48,7 @@
                 (setpoint
                     :min props.setpoint.min
                     :max props.setpoint.max
-                    :value props.setpoint.value
+                    :value (round-to-resolution props.setpoint.value props.param.resolution)
                     :color (?? props.setpoint.color
                         current-theme.color-scheme.on-surface-variant)
                     :unit props.param.unit
