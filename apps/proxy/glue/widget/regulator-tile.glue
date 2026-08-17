@@ -1,66 +1,29 @@
 (module widget.regulator-tile
     (export regulator-tile)
 
-    (def (leading props)
-        (icon
-            :icon (symbol props.symbol)
-            :color props.color
-            :fill (?? props.fill 0)
-            :size 32
-        )
-    )
+    (import lib.conversion)
+    (import lib.i18n)
+    (import widget.tile)
 
-
-    (def (label props)
-        (text
-            :content props.text
-            :style (text-style
-                :color props.color
-                :font-size current-theme.text-theme.label-medium.font-size
-                :font-weight font-weight.w400
-            )
-        )
-    )
-
-    (def (status props)
-        (text
-            :content props.text
-            :style (text-style
-                :color props.color
-                :font-size current-theme.text-theme.title-medium.font-size
-                :font-weight font-weight.w600
-            )
-        )
-    )
-
-    (def (details props)
-        (text
-            :content props.text
-            :style (text-style
-                :color props.color
-                :font-size current-theme.text-theme.title-medium.font-size
-                :font-weight font-weight.w400
-            )
-        )
-    )
-
-    (def (tile props)
-        (row
-            :spacing 8
+    (def (setpoint props)
+        (stack
+            :alignment alignment.center
             :children (
-                (leading props.icon)
-                (column
-                    :cross-axis-alignment cross-axis-alignment.start
-                    :children (
-                        (row
-                            :spacing 4
-                            :children (
-                                (status props.status)
-                                (? (is-exist props.details)
-                                    (details props.details))
-                            )
-                        )
-                        (label props.label)
+                (circular-slider
+                    :min (?? props.min 0)
+                    :max (?? props.max 100)
+                    :value props.value
+                    :active-color (props.color.with :a 0.5)
+                    :inactive-color (props.color.with :a 0.25)
+                    :diameter 128
+                    :width 4
+                    :focused-width 4
+                )
+                (text
+                    :content props.value
+                    :style (text-style
+                        :font-size current-theme.text-theme.title-large.font-size
+                        :color props.color
                     )
                 )
             )
@@ -68,27 +31,34 @@
     )
 
     (def (regulator-tile props)
-        (tile
-            :icon (
-                :symbol props.icon.symbol
-                :fill props.icon.fill
-                :color (?? props.icon.color
-                    current-theme.color-scheme.on-surface)
-            )
-            :label (
-                :text props.label.text
-                :color (?? props.label.color
-                    current-theme.color-scheme.on-surface-variant)
-            )
-            :status (
-                :text props.status.text
-                :color (?? props.status.color
-                    current-theme.color-scheme.on-surface)
-            )
-            :details (
-                :text props.details.text
-                :color (?? props.details.color
-                    current-theme.color-scheme.on-surface-variant)
+        (column
+            :cross-axis-alignment cross-axis-alignment.start
+            :children (
+                (setpoint
+                    :min props.setpoint.min
+                    :max props.setpoint.max
+                    :value props.setpoint.value
+                    :color (?? props.setpoint.color
+                        current-theme.color-scheme.on-surface-variant)
+                )
+                (tile
+                    :icon (
+                        :symbol props.param.icon
+                        :color current-theme.color-scheme.on-primary
+                    )
+                    :label (
+                        :text (select-locale props.param.label)
+                        :color current-theme.color-scheme.on-primary
+                    )
+                    :status (
+                        :text (round-to-resolution props.value props.param.resolution)
+                        :color current-theme.color-scheme.on-primary
+                    )
+                    :details (
+                        :text props.param.unit
+                        :color current-theme.color-scheme.on-primary
+                    )
+                )
             )
         )
     )
