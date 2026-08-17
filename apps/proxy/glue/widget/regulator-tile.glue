@@ -19,11 +19,22 @@
                     :width 4
                     :focused-width 4
                 )
-                (text
-                    :content props.value
-                    :style (text-style
-                        :font-size current-theme.text-theme.title-large.font-size
-                        :color props.color
+                (column
+                    :children(
+                        (text
+                            :content props.value
+                            :style (text-style
+                                :font-size current-theme.text-theme.title-large.font-size
+                                :color props.color
+                            )
+                        )
+                        (text
+                            :content props.unit
+                            :style (text-style
+                                :font-size current-theme.text-theme.title-small.font-size
+                                :color props.color
+                            )
+                        )
                     )
                 )
             )
@@ -40,6 +51,7 @@
                     :value props.setpoint.value
                     :color (?? props.setpoint.color
                         current-theme.color-scheme.on-surface-variant)
+                    :unit props.param.unit
                 )
                 (tile
                     :icon (
