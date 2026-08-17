@@ -8,7 +8,7 @@
     (import lib.data)
     (import lib.property)
 
-    (import widget.site-modal)
+    (import widget.entity-modal)
 
     (def (temperature-regulator props)
         (def background-color
@@ -17,7 +17,7 @@
                 current-theme.color-scheme.surface-dim
             )
         )
-        (site-modal
+        (entity-modal
             :site props.site
             :background-color background-color
             :title (title props)

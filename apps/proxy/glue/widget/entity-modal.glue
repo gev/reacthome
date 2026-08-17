@@ -1,10 +1,10 @@
-(module widget.site-modal
-    (export site-modal)
+(module widget.entity-modal
+    (export entity-modal)
 
     (import widget.modal)
     (import widget.site-breadcrumbs)
 
-    (def (site-modal props)
+    (def (entity-modal props)
         (modal
             :color (?? props.background-color
                 current-theme.color-scheme.surface-container)

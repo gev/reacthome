@@ -8,7 +8,7 @@
     (import lib.data)
     (import lib.property)
 
-    (import widget.site-modal)
+    (import widget.entity-modal)
 
     (def (light-dimmer props bind)
         (def value (to-percents bind.value))
@@ -18,7 +18,7 @@
                 current-theme.color-scheme.surface-dim
             )
         )
-        (site-modal
+        (entity-modal
             :site props.site
             :background-color background-color
             :title (title props)

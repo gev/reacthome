@@ -12,7 +12,7 @@
     (import lib.i18n)
     (import lib.property)
 
-    (import widget.site-modal)
+    (import widget.entity-modal)
 
     (def (positioned-curtain props bind)
         (def background-color
@@ -21,7 +21,7 @@
                 current-theme.color-scheme.surface-bright
             )
         )
-        (site-modal
+        (entity-modal
             :site props.site
             :background-color background-color
             :title (title props)
@@ -68,7 +68,7 @@
                 current-theme.color-scheme.surface-bright
             )
         )
-        (site-modal
+        (entity-modal
             :site props.site
             :background-color background-color
             :title (title props)
