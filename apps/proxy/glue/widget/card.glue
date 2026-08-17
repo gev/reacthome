@@ -1,4 +1,4 @@
-(module widget.entity-card
+(module widget.card
     (export
         active-card
         inactive-card

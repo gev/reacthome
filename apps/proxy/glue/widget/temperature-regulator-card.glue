@@ -12,12 +12,12 @@
     (import lib.navigation)
     (import lib.property)
 
-    (import widget.entity-card)
-    (import widget.entity-tile)
+    (import widget.card)
+    (import widget.regulator-tile)
     (import widget.iconic)
 
     (def (temperature-regulator-tile props)
-        (entity-tile
+        (regulator-tile
             :icon (
                 :symbol temperature.icon
                 :color current-theme.color-scheme.on-primary
@@ -38,12 +38,22 @@
             
         )
     )
-    
+
     (def (temperature-regulator-card temperature props)
         (print props)
+        (def color
+            (if (== props.mode "cool")
+                colors.blue
+                (if (== props.mode "heat")
+                    colors.red
+                    colors.grey
+                )
+
+            )
+        )
         (def color-scheme
             (seed-color-scheme
-                :seed colors.blue
+                :seed color
                 :dynamic-scheme-variant dynamic-scheme-variant.content
                 :brightness current-theme.color-scheme.brightness
             )

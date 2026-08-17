@@ -10,7 +10,7 @@
 
     (import iconic.curtain)
 
-    (import widget.entity-card)
+    (import widget.card)
     (import widget.entity-tile)
     (import widget.iconic)
 

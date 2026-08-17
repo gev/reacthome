@@ -1,0 +1,95 @@
+(module widget.regulator-tile
+    (export regulator-tile)
+
+    (def (leading props)
+        (icon
+            :icon (symbol props.symbol)
+            :color props.color
+            :fill (?? props.fill 0)
+            :size 32
+        )
+    )
+
+
+    (def (label props)
+        (text
+            :content props.text
+            :style (text-style
+                :color props.color
+                :font-size current-theme.text-theme.label-medium.font-size
+                :font-weight font-weight.w400
+            )
+        )
+    )
+
+    (def (status props)
+        (text
+            :content props.text
+            :style (text-style
+                :color props.color
+                :font-size current-theme.text-theme.title-medium.font-size
+                :font-weight font-weight.w600
+            )
+        )
+    )
+
+    (def (details props)
+        (text
+            :content props.text
+            :style (text-style
+                :color props.color
+                :font-size current-theme.text-theme.title-medium.font-size
+                :font-weight font-weight.w400
+            )
+        )
+    )
+
+    (def (tile props)
+        (row
+            :spacing 8
+            :children (
+                (leading props.icon)
+                (column
+                    :cross-axis-alignment cross-axis-alignment.start
+                    :children (
+                        (row
+                            :spacing 4
+                            :children (
+                                (status props.status)
+                                (? (is-exist props.details)
+                                    (details props.details))
+                            )
+                        )
+                        (label props.label)
+                    )
+                )
+            )
+        )
+    )
+
+    (def (regulator-tile props)
+        (tile
+            :icon (
+                :symbol props.icon.symbol
+                :fill props.icon.fill
+                :color (?? props.icon.color
+                    current-theme.color-scheme.on-surface)
+            )
+            :label (
+                :text props.label.text
+                :color (?? props.label.color
+                    current-theme.color-scheme.on-surface-variant)
+            )
+            :status (
+                :text props.status.text
+                :color (?? props.status.color
+                    current-theme.color-scheme.on-surface)
+            )
+            :details (
+                :text props.details.text
+                :color (?? props.details.color
+                    current-theme.color-scheme.on-surface-variant)
+            )
+        )
+    )
+)
