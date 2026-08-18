@@ -28,7 +28,6 @@ makeUpstream =
                     let key = ["proxy", uid]
                         payload = encodeUtf8 $ serializeAST $ Object value
                         revision = Revision{..}
-                    print value
                     ?pubsub.publish key revision
                 Nothing -> pure ()
      in

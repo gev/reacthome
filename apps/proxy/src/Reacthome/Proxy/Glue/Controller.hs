@@ -47,7 +47,6 @@ runGlue ::
     ) =>
     ByteString -> IO ()
 runGlue message = do
-    print message
     case decodeUtf8' message of
         Left err -> print err
         Right expression -> do
