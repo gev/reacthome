@@ -14,12 +14,11 @@
     (import widget.regulator-tile)
     (import widget.iconic)
 
-    (def (temperature-regulator-card site props)
-        (print props)
+    (def (temperature-regulator-card site regulator)
         (def color
-            (if (== props.mode "cool")
+            (if (== regulator.mode "cool")
                 colors.blue
-                (if (== props.mode "heat")
+                (if (== regulator.mode "heat")
                     colors.red
                     colors.grey
                 )
@@ -34,15 +33,16 @@
             )
         )
         (with-theme
-            :key props.id
+            :key regulator.id
             :data (theme :color-scheme color-scheme)
             :child (active-card
+                :tag regulator.id
                 :card-color current-theme.color-scheme.primary
                 :on-pressed (go
                     :route 'temperature-regulator
-                    :id props.id
+                    :id regulator.id
                     :site site.id
-                    :mode props.mode
+                    :mode regulator.mode
                 )
                 :child (regulator-tile
                     :param temperature
@@ -50,7 +50,7 @@
                     :setpoint (
                         :min 5
                         :max 40
-                        :value props.setpoint
+                        :value regulator.setpoint
                         :color current-theme.color-scheme.on-primary
                     )
                 )

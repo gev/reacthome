@@ -35,6 +35,7 @@
         (if (props.value)
             (active-card
                 :key props.id
+                :tag props.id
                 :on-pressed (go :route 'positioned-curtain :id props.id)
                 :card-color current-theme.color-scheme.surface-dim
                 :elevation elevation-on
@@ -46,6 +47,7 @@
             )
             (active-card
                 :key props.id
+                :tag props.id
                 :on-pressed (go :route 'positioned-curtain :id props.id)
                 :card-color current-theme.color-scheme.surface-bright
                 :elevation elevation-off
@@ -62,6 +64,7 @@
         (if (props.value)
             (active-card
                 :key props.id
+                :tag props.id
                 :on-pressed (go :route 'non-positioned-curtain :id props.id)
                 :card-color current-theme.color-scheme.surface-dim
                 :elevation elevation-on
@@ -73,6 +76,7 @@
             )
             (active-card
                 :key props.id
+                :tag props.id
                 :on-pressed (go :route 'non-positioned-curtain :id props.id)
                 :card-color current-theme.color-scheme.surface-bright
                 :elevation elevation-off

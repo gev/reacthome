@@ -36,6 +36,7 @@
         (if (props.value)
             (active-card
                 :key props.id
+                :tag props.id
                 :on-pressed (turn-off props.id)
                 :on-long-press (go :route 'light-dimmer :id props.id)
                 :card-color current-theme.color-scheme.surface-bright
@@ -48,6 +49,7 @@
             )
             (active-card
                 :key props.id
+                :tag props.id
                 :on-pressed (turn-on props.id)
                 :on-long-press (go :route 'light-dimmer :id props.id)
                 :card-color current-theme.color-scheme.surface-dim
@@ -65,6 +67,7 @@
         (if (props.value)
             (active-card
                 :key props.id
+                :tag props.id
                 :on-pressed (turn-off props.id)
                 :card-color current-theme.color-scheme.surface-bright
                 :elevation elevation-on
@@ -76,6 +79,7 @@
             )
             (active-card
                 :key props.id
+                :tag props.id
                 :on-pressed (turn-on props.id)
                 :card-color current-theme.color-scheme.surface-dim
                 :elevation elevation-off

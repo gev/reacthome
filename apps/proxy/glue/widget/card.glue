@@ -23,8 +23,8 @@
 
     (def (active-card props)
         (hero
-            :tag props.key
             :key props.key
+            :tag props.tag
             :child (card
                 :clip-behavior clip.anti-alias
                 :color props.card-color

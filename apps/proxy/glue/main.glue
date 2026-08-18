@@ -5,11 +5,10 @@
     (import screen.site)
     (import screen.light-dimmer)
     (import screen.curtain)
-    (import screen.temperature-regulator)
-    (import screen.humidity-regulator)
-    (import screen.ventilation-regulator)
+    (import screen.regulator)
 
     (def (overlay screen args)
+        (print args)
         (overlay-route
             :tag args.id
             :screen (screen args)

@@ -10,20 +10,20 @@
 
     (import widget.entity-modal)
 
-    (def (ventilation-regulator props)
+    (def (ventilation-regulator site regulator)
         (def background-color
-            (if props.value
+            (if regulator.value
                 current-theme.color-scheme.surface-bright
                 current-theme.color-scheme.surface-dim
             )
         )
         (entity-modal
-            :site props.site
+            :site regulator.site
             :background-color background-color
-            :title (title props)
-            :display props.value
+            :title (title regulator)
+            :display regulator.value
             :body (vertical-slider
-                :value props.value
+                :value regulator.value
                 :min 0
                 :max 100
                 :width 60
@@ -31,7 +31,7 @@
                 :focused-width 90
                 :border-radius 30
                 :active-color (@ current-theme.color-scheme light.color)
-                :on-changed (dim props.id)
+                :on-changed (dim regulator.id)
             )
         )
     )

@@ -1,0 +1,32 @@
+(module screen.regulator
+    (export
+        temperature-regulator-screen
+        humidity-regulator-screen
+        ventilation-regulator-screen
+    )
+
+    (import widget.temperature-regulator)
+    (import widget.humidity-regulator)
+    (import widget.ventilation-regulator)
+
+    (def (regulator-screen handle args)
+        (def regulator (remote-persistent-state args.id))
+        (def site (remote-persistent-state args.site))
+        (with-theme
+            :data args.theme
+            :child (listen handle site regulator)
+        )
+    )
+
+    (def temperature-regulator-screen
+        (regulator-screen temperature-regulator)
+    )
+
+    (def humidity-regulator-screen
+        (regulator-screen humidity-regulator)
+    )
+
+    (def ventilation-regulator-screen
+        (regulator-screen ventilation-regulator)
+    )
+)

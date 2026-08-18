@@ -11,12 +11,11 @@
     (import widget.regulator-tile)
     (import widget.iconic)
 
-    (def (humidity-regulator-card site props)
-        (print props)
+    (def (humidity-regulator-card site regulator)
         (def color
-            (if (== props.mode "cool")
+            (if (== regulator.mode "cool")
                 colors.blue
-                (if (== props.mode "heat")
+                (if (== regulator.mode "heat")
                     colors.red
                     colors.grey
                 )
@@ -31,18 +30,23 @@
             )
         )
         (with-theme
-            :key props.id
+            :key regulator.id
             :data (theme :color-scheme color-scheme)
             :child (active-card
+                :tag regulator.id
                 :card-color current-theme.color-scheme.primary
-                :on-pressed (go :route 'humidity-regulator :id props.id)
+                :on-pressed (go
+                    :route 'humidity-regulator
+                    :id regulator.id
+                    :site site.id
+                )
                 :child (regulator-tile
                     :param humidity
                     :value site.humidity
                     :setpoint (
                         :min 20
                         :max 80
-                        :value props.setpoint
+                        :value regulator.setpoint
                         :color current-theme.color-scheme.on-primary
                     )
                 )
