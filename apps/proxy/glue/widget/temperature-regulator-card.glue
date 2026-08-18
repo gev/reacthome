@@ -38,7 +38,12 @@
             :data (theme :color-scheme color-scheme)
             :child (active-card
                 :card-color current-theme.color-scheme.primary
-                :on-pressed (go :route 'temperature-regulator :id props.id)
+                :on-pressed (go
+                    :route 'temperature-regulator
+                    :id props.id
+                    :site site.id
+                    :mode props.mode
+                )
                 :child (regulator-tile
                     :param temperature
                     :value site.temperature
