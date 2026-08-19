@@ -8,7 +8,6 @@
     (import screen.regulator)
 
     (def (overlay screen args)
-        (print args)
         (overlay-route
             :tag args.id
             :screen (screen args)
