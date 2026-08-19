@@ -1,4 +1,4 @@
-(module widget.setpoint--slider
+(module widget.regulator-slider
     (export regulator-slider)
 
     (import lib.conversion)
