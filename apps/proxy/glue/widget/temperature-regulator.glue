@@ -5,14 +5,14 @@
     (import lib.property)
 
     (import widget.regulator-modal)
-    (import widget.regulator-slider)
+    (import widget.setpoint-slider)
 
     (def (temperature-regulator site regulator)
         (regulator-modal
             :site site
             :regulator regulator
             :param temperature
-            :body (regulator-slider
+            :body (setpoint-slider
                 :value regulator.setpoint
                 :param temperature
                 :action (set-temperature-setpoint regulator.id)

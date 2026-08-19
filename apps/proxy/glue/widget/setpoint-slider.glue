@@ -1,5 +1,5 @@
-(module widget.regulator-slider
-    (export regulator-slider)
+(module widget.setpoint-slider
+    (export setpoint-slider)
 
     (import lib.conversion)
     
@@ -46,7 +46,7 @@
     )
 
 
-    (def (regulator-slider props)
+    (def (setpoint-slider props)
         (def value (local-state props.value))
         (def (on-changed v)
             (write value v)

@@ -5,14 +5,14 @@
     (import lib.property)
 
     (import widget.regulator-modal)
-    (import widget.regulator-slider)
+    (import widget.setpoint-slider)
 
     (def (ventilation-regulator site regulator)
         (regulator-modal
             :site site
             :regulator regulator
             :param CO2
-            :body (regulator-slider
+            :body (setpoint-slider
                 :value regulator.setpoint
                 :param CO2
                 :action (set-co2-setpoint regulator.id)

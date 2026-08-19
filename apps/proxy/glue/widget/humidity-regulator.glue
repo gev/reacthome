@@ -5,14 +5,14 @@
     (import lib.property)
 
     (import widget.regulator-modal)
-    (import widget.regulator-slider)
+    (import widget.setpoint-slider)
 
     (def (humidity-regulator site regulator)
         (regulator-modal
             :site site
             :regulator regulator
             :param humidity
-            :body (regulator-slider
+            :body (setpoint-slider
                 :value regulator.setpoint
                 :param humidity
                 :action (set-humidity-setpoint regulator.id)
