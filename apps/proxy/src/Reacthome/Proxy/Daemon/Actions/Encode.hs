@@ -35,3 +35,11 @@ actionDim uid value =
         , ("id", A.String uid)
         , ("value", A.Number $ fromFloatDigits value)
         ]
+
+actionSetpoint :: A.Key -> Text -> Double -> A.Object
+actionSetpoint setpoint uid value =
+    A.fromList
+        [ ("type", "ACTION_SETPOINT")
+        , ("id", A.String uid)
+        , (setpoint, A.Number $ fromFloatDigits value)
+        ]

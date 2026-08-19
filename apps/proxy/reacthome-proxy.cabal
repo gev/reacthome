@@ -51,6 +51,7 @@ library
     Reacthome.Proxy.Glue.Evaluator
     Reacthome.Proxy.Glue.Lib.Actions
     Reacthome.Proxy.Glue.Lib.Actions.Dim
+    Reacthome.Proxy.Glue.Lib.Actions.SetSetpoint
     Reacthome.Proxy.Glue.Lib.Actions.TurnOff
     Reacthome.Proxy.Glue.Lib.Actions.TurnOn
     Reacthome.Proxy.Glue.Lib.Vision
