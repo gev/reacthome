@@ -48,8 +48,6 @@
                     :param temperature
                     :value site.temperature
                     :setpoint (
-                        :min 5
-                        :max 40
                         :value regulator.setpoint
                         :color current-theme.color-scheme.on-primary
                     )

@@ -46,8 +46,8 @@
             :cross-axis-alignment cross-axis-alignment.start
             :children (
                 (setpoint
-                    :min props.setpoint.min
-                    :max props.setpoint.max
+                    :min props.param.min
+                    :max props.param.max
                     :value (round-to-resolution props.setpoint.value props.param.resolution)
                     :color (?? props.setpoint.color
                         current-theme.color-scheme.on-surface-variant)

@@ -37,8 +37,6 @@
                     :param CO2
                     :value site.co2
                     :setpoint (
-                        :min 300
-                        :max 900
                         :value regulator.setpoint
                         :color current-theme.color-scheme.on-primary
                     )

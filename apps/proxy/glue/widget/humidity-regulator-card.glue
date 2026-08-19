@@ -44,8 +44,6 @@
                     :param humidity
                     :value site.humidity
                     :setpoint (
-                        :min 20
-                        :max 80
                         :value regulator.setpoint
                         :color current-theme.color-scheme.on-primary
                     )
