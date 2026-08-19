@@ -22,7 +22,7 @@
                     (def frac (/ 1 res))
                     (/ (round (* val frac)) frac)
                 )
-                (* (round (/ val res)) res)
+                (round (* (round (/ val res)) res))
             )
             val
         )

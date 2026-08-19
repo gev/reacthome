@@ -4,18 +4,27 @@
     (import lib.combinator)
     (import lib.data)
 
-    (def (passive-segment props)
+    (def (passive-segment color props)
         (outlined-button
+            :style (button-style
+                :side (border-side
+                    :color (?? color
+                        current-theme.color-scheme.outline)
+                )
+                :foreground-color (?? color
+                    current-theme.color-scheme.on-surface-variant)
+            )
             :child (text
                 :content (title props)
             )
         )
     )
 
-    (def (active-segment action props)
+    (def (active-segment action color props)
         (outlined-button
             :style (button-style
-                :foreground-color current-theme.color-scheme.on-surface-variant
+                :foreground-color (?? color
+                    current-theme.color-scheme.on-surface-variant)
             )
             :on-pressed (action props.id)
             :child (text
@@ -57,8 +66,8 @@
     (def (site-breadcrumbs props)
         (def segment
             (if (is-exist props.action)
-                (active-segment props.action)
-                (passive-segment)
+                (active-segment props.action props.color)
+                (passive-segment props.color)
             )
         )
         (breadcrumbs

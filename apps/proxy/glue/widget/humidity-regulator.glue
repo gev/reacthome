@@ -1,37 +1,21 @@
 (module widget.humidity-regulator
     (export humidity-regulator)
 
-    (import i18n.status)
-
     (import lib.actions)
-    (import lib.conversion)
-    (import lib.data)
     (import lib.property)
 
-    (import widget.entity-modal)
+    (import widget.regulator-modal)
+    (import widget.regulator-slider)
 
     (def (humidity-regulator site regulator)
-        (def background-color
-            (if regulator.value
-                current-theme.color-scheme.surface-bright
-                current-theme.color-scheme.surface-dim
-            )
-        )
-        (entity-modal
-            :site regulator.site
-            :background-color background-color
-            :title (title regulator)
-            :display regulator.value
-            :body (vertical-slider
-                :value regulator.value
-                :min 0
-                :max 100
-                :width 60
-                :height 200
-                :focused-width 90
-                :border-radius 30
-                :active-color (@ current-theme.color-scheme light.color)
-                :on-changed (dim regulator.id)
+        (regulator-modal
+            :site site
+            :regulator regulator
+            :param humidity
+            :body (regulator-slider
+                :value regulator.setpoint
+                :param humidity
+                :action (set-humidity-setpoint regulator.id)
             )
         )
     )

@@ -4,6 +4,9 @@
         dim-curtain
         turn-on
         turn-off
+        set-temperature-setpoint
+        set-humidity-setpoint
+        set-co2-setpoint
     )
 
     (import lib.conversion)
@@ -22,14 +25,31 @@
     
     (def (turn-on uid)
         (\ ()
-            (post ('on uid))
+            (post ('turn-on uid))
         )
     )
 
     (def (turn-off uid)
         (\ ()
-            (post ('off uid))
+            (post ('turn-off uid))
         )
     )
 
+    (def (set-temperature-setpoint uid)
+        (\ (value)
+            (post ('set-temperature-setpoint uid value))
+        )
+    )
+
+    (def (set-humidity-setpoint uid)
+        (\ (value)
+            (post ('set-humidity-setpoint uid value))
+        )
+    )
+
+    (def (set-co2-setpoint uid)
+        (\ (value)
+            (post ('set-co2-setpoint uid value))
+        )
+    )
 )

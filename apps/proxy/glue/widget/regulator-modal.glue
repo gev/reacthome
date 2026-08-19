@@ -1,0 +1,55 @@
+(module widget.regulator-modal
+    (export regulator-modal)
+
+    (import lib.conversion)
+    (import lib.i18n)
+    (import widget.modal)
+    (import widget.site-breadcrumbs)
+
+
+    (def (regulator-modal props)
+        (def color current-theme.color-scheme.on-primary)
+        (def color-variant (color.with :a 0.5))
+        (def value (@ props.site props.param.property))
+        (def title-style
+            (text-style
+                :font-size current-theme.text-theme.title-large.font-size
+                :color color
+                :font-weight font-weight.w400
+            )
+        )
+        (modal
+            :color current-theme.color-scheme.primary
+            :child (column
+                :spacing 16
+                :main-axis-size main-axis-size.min
+                :children (
+                    (row
+                        :spacing 8
+                        :main-axis-size main-axis-size.min
+                        :children (
+                            (text
+                                :content (select-locale props.param.label)
+                                :style title-style
+                            )
+                            (text
+                                :content (round-to-resolution value props.param.resolution)
+                                :style title-style
+                            )
+                            (text
+                                :content props.param.unit
+                                :style title-style
+
+                            )
+                        )
+                    )
+                    (site-breadcrumbs
+                        :site props.site.id
+                        :color color-variant
+                    )
+                    (props.body)
+                )
+            )
+        )
+    )
+)

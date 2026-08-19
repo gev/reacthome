@@ -31,6 +31,8 @@
             :label i18n-temperature
             :color 'secondary
             :icon 'thermometer
+            :min 5
+            :max 40
             :resolution 0.1
             :unit "°C"
         ))
@@ -40,6 +42,8 @@
             :label i18n-humidity
             :color 'secondary
             :icon 'water.voc
+            :min 20
+            :max 80
             :resolution 1
             :unit "%"
         ))
@@ -49,6 +53,8 @@
             :label i18n-CO2
             :color 'secondary
             :icon 'air
+            :min 300
+            :max 900
             :resolution 10
             :unit "ppm"
         ))
