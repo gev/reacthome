@@ -12,29 +12,13 @@
 
     (import widget.card)
     (import widget.regulator-tile)
-    (import widget.iconic)
+    (import widget.temperature-regulator)
 
     (def (temperature-regulator-card site regulator)
-        (def color
-            (if (== regulator.mode "cool")
-                colors.blue
-                (if (== regulator.mode "heat")
-                    colors.red
-                    colors.grey
-                )
-
-            )
-        )
-        (def color-scheme
-            (seed-color-scheme
-                :seed color
-                :dynamic-scheme-variant dynamic-scheme-variant.content
-                :brightness current-theme.color-scheme.brightness
-            )
-        )
-        (with-theme
+        (with-seed-color
             :key regulator.id
-            :data (theme :color-scheme color-scheme)
+            :seed-color (temperature-regulator-color regulator)
+            :dynamic-scheme-variant dynamic-scheme-variant.content
             :child (active-card
                 :tag regulator.id
                 :card-color current-theme.color-scheme.primary
