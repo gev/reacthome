@@ -9,29 +9,13 @@
 
     (import widget.card)
     (import widget.regulator-tile)
-    (import widget.iconic)
+    (import widget.humidity-regulator)
 
     (def (humidity-regulator-card site regulator)
-        (def color
-            (if (== regulator.mode "cool")
-                colors.blue
-                (if (== regulator.mode "heat")
-                    colors.red
-                    colors.grey
-                )
-
-            )
-        )
-        (def color-scheme
-            (seed-color-scheme
-                :seed colors.cyan
-                :dynamic-scheme-variant dynamic-scheme-variant.content
-                :brightness current-theme.color-scheme.brightness
-            )
-        )
-        (with-theme
+        (with-seed-color
             :key regulator.id
-            :data (theme :color-scheme color-scheme)
+            :seed-color humidity-regulator-color
+            :dynamic-scheme-variant dynamic-scheme-variant.content
             :child (active-card
                 :tag regulator.id
                 :card-color current-theme.color-scheme.primary
