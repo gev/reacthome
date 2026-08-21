@@ -1,5 +1,8 @@
 (module widget.ventilation-regulator
-    (export ventilation-regulator)
+    (export
+        ventilation-regulator-color
+        ventilation-regulator
+    )
 
     (import lib.actions)
     (import lib.property)
@@ -7,15 +10,21 @@
     (import widget.regulator-modal)
     (import widget.setpoint-slider)
 
+    (def ventilation-regulator-color colors.green)
+
     (def (ventilation-regulator site regulator)
-        (regulator-modal
-            :site site
-            :regulator regulator
-            :param CO2
-            :body (setpoint-slider
-                :value regulator.setpoint
+        (with-seed-color
+            :key regulator.id
+            :seed-color ventilation-regulator-color
+            :child (regulator-modal
+                :site site
+                :regulator regulator
                 :param CO2
-                :action (set-co2-setpoint regulator.id)
+                :body (setpoint-slider
+                    :value regulator.setpoint
+                    :param CO2
+                    :action (set-co2-setpoint regulator.id)
+                )
             )
         )
     )
