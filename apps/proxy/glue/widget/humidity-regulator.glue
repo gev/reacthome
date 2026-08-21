@@ -1,5 +1,8 @@
 (module widget.humidity-regulator
-    (export humidity-regulator)
+    (export
+        humidity-regulator-color
+        humidity-regulator
+    )
 
     (import lib.actions)
     (import lib.property)
@@ -7,15 +10,21 @@
     (import widget.regulator-modal)
     (import widget.setpoint-slider)
 
+    (def humidity-regulator-color colors.cyan)
+
     (def (humidity-regulator site regulator)
-        (regulator-modal
-            :site site
-            :regulator regulator
-            :param humidity
-            :body (setpoint-slider
-                :value regulator.setpoint
+        (with-seed-color
+            :seed-color humidity-regulator-color
+            :dynamic-scheme-variant dynamic-scheme-variant.content
+            :child (regulator-modal
+                :site site
+                :regulator regulator
                 :param humidity
-                :action (set-humidity-setpoint regulator.id)
+                :body (setpoint-slider
+                    :value regulator.setpoint
+                    :param humidity
+                    :action (set-humidity-setpoint regulator.id)
+                )
             )
         )
     )
