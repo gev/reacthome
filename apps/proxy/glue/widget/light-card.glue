@@ -38,7 +38,7 @@
                 :key props.id
                 :tag props.id
                 :on-pressed (turn-off props.id)
-                :on-long-press (go :route 'light-dimmer :id props.id)
+                :on-long-press (go :route 'light-dimmer :id props.id :palette props.palette)
                 :card-color current-theme.color-scheme.surface-bright
                 :elevation elevation-on
                 :child (light-tile
@@ -51,7 +51,7 @@
                 :key props.id
                 :tag props.id
                 :on-pressed (turn-on props.id)
-                :on-long-press (go :route 'light-dimmer :id props.id)
+                :on-long-press (go :route 'light-dimmer :id props.id :palette props.palette)
                 :card-color current-theme.color-scheme.surface-dim
                 :elevation elevation-off
                 :child (light-tile
@@ -92,7 +92,7 @@
         )
     )
 
-    (def (bound-light-card props bind)
+    (def (bound-light-card palette props bind)
         (def card
             (if bind.dimmable
                 dimmable-light-card
@@ -107,6 +107,7 @@
                 (? bind.value bind.brightness 0)
                 bind.value
             )
+            :palette palette
         )
     )
 
@@ -123,9 +124,9 @@
         )
     )
 
-    (def (light-card props)
+    (def (light-card palette props)
         (if (is-exist props.bind)
-            (select (bound-light-card props) props.bind)
+            (select (bound-light-card palette props) props.bind)
             (unbound-light-card props)
         )
     )
