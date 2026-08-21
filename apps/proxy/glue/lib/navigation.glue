@@ -4,12 +4,7 @@
     (def back pop)
  
     (def (go route)
-        (\ () (push
-                :route route.route
-                :id route.id
-                :site route.site
-                :theme current-theme
-            )
+        (\ () (push route)
         )
     )
 )
