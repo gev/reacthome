@@ -9,8 +9,9 @@
     (import widget.curtain)
 
     (def (curtain-screen body args)
-        (with-theme
-            :data args.theme
+        (with-seed-color
+            :seed-color args.palette.seed-color
+            :dynamic-scheme-variant args.palette.dynamic-scheme-variant
             :child (select
                 (\ (props)
                     (select (body props) props.bind)
