@@ -94,7 +94,7 @@
     (def (site-with-theme props)
         (def color-scheme
             (seed-color-scheme
-                :seed props.palette.vibrant
+                :seed-color props.palette.vibrant
                 :brightness brightness.dark
             )
         )
