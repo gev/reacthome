@@ -36,7 +36,7 @@
             (active-card
                 :key props.id
                 :tag props.id
-                :on-pressed (go :route 'positioned-curtain :id props.id)
+                :on-pressed (go :route 'positioned-curtain :id props.id :palette props.palette)
                 :card-color current-theme.color-scheme.surface-dim
                 :elevation elevation-on
                 :child (curtain-tile
@@ -48,7 +48,7 @@
             (active-card
                 :key props.id
                 :tag props.id
-                :on-pressed (go :route 'positioned-curtain :id props.id)
+                :on-pressed (go :route 'positioned-curtain :id props.id :palette props.palette)
                 :card-color current-theme.color-scheme.surface-bright
                 :elevation elevation-off
                 :child (curtain-tile
@@ -65,7 +65,7 @@
             (active-card
                 :key props.id
                 :tag props.id
-                :on-pressed (go :route 'non-positioned-curtain :id props.id)
+                :on-pressed (go :route 'non-positioned-curtain :id props.id :palette props.palette)
                 :card-color current-theme.color-scheme.surface-dim
                 :elevation elevation-on
                 :child (curtain-tile
@@ -77,7 +77,7 @@
             (active-card
                 :key props.id
                 :tag props.id
-                :on-pressed (go :route 'non-positioned-curtain :id props.id)
+                :on-pressed (go :route 'non-positioned-curtain :id props.id :palette props.palette)
                 :card-color current-theme.color-scheme.surface-bright
                 :elevation elevation-off
                 :child (curtain-tile
@@ -89,7 +89,7 @@
         )
     )
 
-    (def (bound-curtain-card props bind)
+    (def (bound-curtain-card palette props bind)
         (def card
             (if bind.positioned
                 positioned-curtain-card
@@ -100,6 +100,7 @@
             :id props.id
             :label (title props)
             :value props.value
+            :palette palette
         )
     )
 
@@ -116,9 +117,9 @@
         )
     )
 
-    (def (curtain-card props)
+    (def (curtain-card palette props)
         (if (is-exist props.bind)
-            (select (bound-curtain-card props) props.bind)
+            (select (bound-curtain-card palette props) props.bind)
             (unbound-curtain-card props)
         )
     )
