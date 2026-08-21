@@ -1,5 +1,8 @@
 (module widget.temperature-regulator
-    (export temperature-regulator)
+    (export
+        temperature-regulator-color
+        temperature-regulator
+    )
 
     (import lib.actions)
     (import lib.property)
@@ -7,15 +10,29 @@
     (import widget.regulator-modal)
     (import widget.setpoint-slider)
 
+    (def (temperature-regulator-color regulator)
+        (if (== regulator.mode "cool")
+            colors.blue
+            (if (== regulator.mode "heat")
+                colors.red
+                colors.grey
+            )
+        )
+    )
+
     (def (temperature-regulator site regulator)
-        (regulator-modal
-            :site site
-            :regulator regulator
-            :param temperature
-            :body (setpoint-slider
-                :value regulator.setpoint
+        (with-seed-color
+            :seed-color (temperature-regulator-color regulator)
+            :dynamic-scheme-variant dynamic-scheme-variant.content
+            :child (regulator-modal
+                :site site
+                :regulator regulator
                 :param temperature
-                :action (set-temperature-setpoint regulator.id)
+                :body (setpoint-slider
+                    :value regulator.setpoint
+                    :param temperature
+                    :action (set-temperature-setpoint regulator.id)
+                )
             )
         )
     )
