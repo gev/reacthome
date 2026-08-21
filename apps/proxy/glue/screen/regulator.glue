@@ -12,10 +12,7 @@
     (def (regulator-screen handle args)
         (def regulator (remote-persistent-state args.id))
         (def site (remote-persistent-state args.site))
-        (with-theme
-            :data args.theme
-            :child (listen handle site regulator)
-        )
+        (listen handle site regulator)
     )
 
     (def temperature-regulator-screen
