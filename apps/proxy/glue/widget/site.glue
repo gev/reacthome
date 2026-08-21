@@ -16,7 +16,7 @@
     (import widget.humidity-regulator-card)
     (import widget.ventilation-regulator-card)
 
-    (def (site-screen props)
+    (def (site-screen palette props)
         (screen
             :body (single-child-scroll-view
                 :padding (edge-insets-only :bottom 128)
@@ -49,8 +49,8 @@
                             )
                         )
                         (site-info :site props.id)
-                        (select-in-grid light-card props.light_220)
-                        (select-in-grid light-card props.light_LED)
+                        (select-in-grid (light-card palette) props.light_220)
+                        (select-in-grid (light-card palette) props.light_LED)
                         (single-child-scroll-view
                             :scroll-direction axis.horizontal
                             :child (row
@@ -62,7 +62,7 @@
                                 )
                             )
                         )
-                        (select-in-grid curtain-card props.curtains)
+                        (select-in-grid (curtain-card palette) props.curtains)
                         (select-in-column site-card props.site)
                     )
                 )
@@ -70,25 +70,26 @@
         )
     )
 
-    (def (site-with-theme props)
-        (def color-scheme
-            (seed-color-scheme
-                :seed props.palette.vibrant
-                :brightness current-theme.color-scheme.brightness
-                :dynamic-scheme-variant dynamic-scheme-variant.content
-            )
-        )
-        (with-theme
-            :data (theme :color-scheme color-scheme)
-            :child (site-screen props)
+    (def (site-with-palette palette props)
+        (with-seed-color
+            :seed-color palette.seed-color
+            :dynamic-scheme-variant palette.dynamic-scheme-variant
+            :child (site-screen palette props)
         )
 
     )
 
     (def (site props)
         (if (is-exist props.palette.vibrant)
-            (site-with-theme props)
-            (site-screen props)
+            (let
+                (def palette (
+                        :seed-color props.palette.vibrant
+                        :dynamic-scheme-variant dynamic-scheme-variant.content
+                    )
+                )
+                (site-with-palette palette props)
+            )
+            (site-screen _ props)
         )
     )
 )
