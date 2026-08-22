@@ -1,5 +1,5 @@
-(module widget.light-dimmer
-    (export light-dimmer)
+(module widget.light-regulator
+    (export light-regulator)
 
     (import i18n.status)
 
@@ -10,7 +10,7 @@
 
     (import widget.entity-modal)
 
-    (def (light-dimmer props bind)
+    (def (light-regulator props bind)
         (def value (to-percents bind.value))
         (def background-color
             (if bind.value

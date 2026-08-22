@@ -3,7 +3,7 @@
 
     (import screen.project)
     (import screen.site)
-    (import screen.light-dimmer)
+    (import screen.light-regulator)
     (import screen.curtain)
     (import screen.regulator)
 
@@ -28,8 +28,8 @@
         )
     )
 
-    (def light-dimmer-route
-        (overlay light-dimmer-screen)
+    (def light-regulator-route
+        (overlay light-regulator-screen)
     )
 
     (def positioned-curtain-route
@@ -59,7 +59,7 @@
             :routes (
                 :home project-route
                 :site site-route
-                :light-dimmer light-dimmer-route
+                :light-regulator light-regulator-route
                 :positioned-curtain positioned-curtain-route
                 :non-positioned-curtain non-positioned-curtain-route
                 :temperature-regulator temperature-regulator-route

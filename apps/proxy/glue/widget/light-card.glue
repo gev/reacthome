@@ -38,7 +38,7 @@
                 :key props.id
                 :tag props.id
                 :on-pressed (turn-off props.id)
-                :on-long-press (go :route 'light-dimmer :id props.id :palette props.palette)
+                :on-long-press (go :route 'light-regulator :id props.id :palette props.palette)
                 :card-color current-theme.color-scheme.surface-bright
                 :elevation elevation-on
                 :child (light-tile
@@ -51,7 +51,7 @@
                 :key props.id
                 :tag props.id
                 :on-pressed (turn-on props.id)
-                :on-long-press (go :route 'light-dimmer :id props.id :palette props.palette)
+                :on-long-press (go :route 'light-regulator :id props.id :palette props.palette)
                 :card-color current-theme.color-scheme.surface-dim
                 :elevation elevation-off
                 :child (light-tile
