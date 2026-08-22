@@ -21,7 +21,8 @@
             :site props.site
             :background-color background-color
             :title (title props)
-            :display (round-to-resolution value light.resolution)
+            :value (round-to-resolution value light.resolution)
+            :unit light.unit
             :body (vertical-slider
                 :value value
                 :min 0

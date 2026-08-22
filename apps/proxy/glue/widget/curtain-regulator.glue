@@ -26,6 +26,7 @@
             :background-color background-color
             :title (title props)
             :display (select-locale (? bind.value i18n-closed i18n-opened))
+            :unit curtains.unit
             :body (column
                 :spacing 16
                 :main-axis-size main-axis-size.min
