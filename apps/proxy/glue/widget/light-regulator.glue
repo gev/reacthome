@@ -10,10 +10,9 @@
 
     (import widget.entity-modal)
 
-    (def (light-regulator props bind)
-        (def value (to-percents bind.value))
+    (def (regulator-modal props on-changed value)
         (def background-color
-            (if bind.value
+            (if value
                 current-theme.color-scheme.surface-bright
                 current-theme.color-scheme.surface-dim
             )
@@ -22,7 +21,7 @@
             :site props.site
             :background-color background-color
             :title (title props)
-            :display value
+            :display (round-to-resolution value light.resolution)
             :body (vertical-slider
                 :value value
                 :min 0
@@ -32,8 +31,18 @@
                 :focused-width 90
                 :border-radius 30
                 :active-color (@ current-theme.color-scheme light.color)
-                :on-changed (dim props.id)
+                :on-changed on-changed
             )
         )
+    )
+
+    (def (light-regulator props bind)
+        (def dim-light (dim props.id))
+        (def value (local-state (to-percents bind.value)))
+        (def (on-changed v)
+            (write value v)
+            (dim-light v)
+        )
+        (listen (regulator-modal props on-changed) value)
     )
 )

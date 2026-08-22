@@ -14,6 +14,8 @@
             :label i18n-light
             :color 'primary
             :icon 'lightbulb.2
+            :resolution 1
+            :unit "%"
         ))
 
     (def curtains (
@@ -24,6 +26,8 @@
                 :closed 'shades.closed
                 :opened 'shades
             )
+            :resolution 1
+            :unit "%"
         ))
 
     (def temperature (
