@@ -1,0 +1,30 @@
+(module screen.curtain-regulator
+    (export
+        positioned-curtain-regulator-screen
+        non-positioned-curtain-regulator-screen
+    )
+
+    (import lib.data)
+    (import widget.screen)
+    (import widget.curtain-regulator)
+
+    (def (curtain-regulator-screen body args)
+        (with-seed-color
+            :seed-color args.palette.seed-color
+            :dynamic-scheme-variant args.palette.dynamic-scheme-variant
+            :child (select
+                (\ (props)
+                    (select (body props) props.bind)
+                ) args.id
+            )
+        )
+    )
+
+    (def (positioned-curtain-regulator-screen args)
+        (curtain-regulator-screen positioned-curtain-regulator args)
+    )
+
+    (def (non-positioned-curtain-regulator-screen args)
+        (curtain-regulator-screen non-positioned-curtain-regulator args)
+    )
+)

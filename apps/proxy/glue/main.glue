@@ -4,7 +4,7 @@
     (import screen.project)
     (import screen.site)
     (import screen.light-regulator)
-    (import screen.curtain)
+    (import screen.curtain-regulator)
     (import screen.regulator)
 
     (def (overlay screen args)
@@ -32,12 +32,12 @@
         (overlay light-regulator-screen)
     )
 
-    (def positioned-curtain-route
-        (overlay positioned-curtain-screen)
+    (def positioned-curtain-regulator-route
+        (overlay positioned-curtain-regulator-screen)
     )
 
-    (def non-positioned-curtain-route
-        (overlay non-positioned-curtain-screen)
+    (def non-positioned-curtain-regulator-route
+        (overlay non-positioned-curtain-regulator-screen)
     )
 
     (def temperature-regulator-route
@@ -60,8 +60,8 @@
                 :home project-route
                 :site site-route
                 :light-regulator light-regulator-route
-                :positioned-curtain positioned-curtain-route
-                :non-positioned-curtain non-positioned-curtain-route
+                :positioned-curtain-regulator positioned-curtain-regulator-route
+                :non-positioned-curtain-regulator non-positioned-curtain-regulator-route
                 :temperature-regulator temperature-regulator-route
                 :humidity-regulator humidity-regulator-route
                 :ventilation-regulator ventilation-regulator-route

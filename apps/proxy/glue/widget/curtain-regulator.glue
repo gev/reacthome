@@ -1,7 +1,7 @@
-(module widget.curtain
+(module widget.curtain-regulator
     (export
-        positioned-curtain
-        non-positioned-curtain
+        positioned-curtain-regulator
+        non-positioned-curtain-regulator
     )
 
     (import i18n.action)
@@ -14,7 +14,7 @@
 
     (import widget.entity-modal)
 
-    (def (positioned-curtain props bind)
+    (def (positioned-curtain-regulator props bind)
         (def background-color
             (if bind.value
                 current-theme.color-scheme.surface-dim
@@ -61,7 +61,7 @@
         )
     )
 
-    (def (non-positioned-curtain props bind)
+    (def (non-positioned-curtain-regulator props bind)
         (def background-color
             (if bind.value
                 current-theme.color-scheme.surface-dim
