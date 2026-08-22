@@ -16,6 +16,7 @@
         (with-seed-color
             :key regulator.id
             :seed-color ventilation-regulator-color
+            :dynamic-scheme-variant dynamic-scheme-variant.content
             :child (regulator-modal
                 :site site
                 :regulator regulator
