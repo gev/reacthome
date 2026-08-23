@@ -45,13 +45,20 @@
         )
     )
 
+    (def throttle-200
+        (throttle (duration :milliseconds 200))
+    )
+    
+    (def optimistic
+        (optimistic-state (duration :seconds 1))
+    )
 
     (def (setpoint-slider props)
-        (def value (local-state props.value))
-        (def (on-changed v)
-            (write value v)
-            (props.action v)
+        (def setpoint (optimistic props.value))
+        (def (on-changed value)
+            (write setpoint value)
+            (throttle-200 (props.action value))
         )
-        (listen (slider on-changed props.param) value)
+        (listen (slider on-changed props.param) setpoint)
     )
 )
