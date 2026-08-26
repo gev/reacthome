@@ -33,7 +33,7 @@ main = do
                         }
                 }
     putStrLn $
-        "Run Reacthome Relay on "
+        "Run Reacthome Proxy on "
             <> config.server.host
             <> ":"
             <> show config.server.port
