@@ -12,6 +12,14 @@
 
     (def humidity-regulator-color colors.cyan)
 
+    (def (regulator-body regulator)
+        (setpoint-slider
+            :value regulator.setpoint
+            :param humidity
+            :action (set-humidity-setpoint regulator.id)
+        )
+    )
+
     (def (humidity-regulator site regulator)
         (with-seed-color
             :seed-color humidity-regulator-color
@@ -20,11 +28,7 @@
                 :site site
                 :regulator regulator
                 :param humidity
-                :body (setpoint-slider
-                    :value regulator.setpoint
-                    :param humidity
-                    :action (set-humidity-setpoint regulator.id)
-                )
+                :body (regulator-body regulator)
             )
         )
     )

@@ -12,20 +12,27 @@
 
     (def ventilation-regulator-color colors.green)
 
+    (def (regulator-body regulator)
+        (column
+            :children (
+                (setpoint-slider
+                    :value regulator.setpoint
+                    :param CO2
+                    :action (set-co2-setpoint regulator.id)
+                )
+            )
+        )
+    )
+
     (def (ventilation-regulator site regulator)
         (with-seed-color
-            :key regulator.id
             :seed-color ventilation-regulator-color
             :dynamic-scheme-variant dynamic-scheme-variant.content
             :child (regulator-modal
                 :site site
                 :regulator regulator
                 :param CO2
-                :body (setpoint-slider
-                    :value regulator.setpoint
-                    :param CO2
-                    :action (set-co2-setpoint regulator.id)
-                )
+                :body (regulator-body regulator)
             )
         )
     )

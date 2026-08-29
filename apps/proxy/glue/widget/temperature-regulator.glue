@@ -20,6 +20,14 @@
         )
     )
 
+    (def (regulator-body regulator)
+        (setpoint-slider
+            :value regulator.setpoint
+            :param temperature
+            :action (set-temperature-setpoint regulator.id)
+        )
+    )
+
     (def (temperature-regulator site regulator)
         (with-seed-color
             :seed-color (temperature-regulator-color regulator)
@@ -28,11 +36,7 @@
                 :site site
                 :regulator regulator
                 :param temperature
-                :body (setpoint-slider
-                    :value regulator.setpoint
-                    :param temperature
-                    :action (set-temperature-setpoint regulator.id)
-                )
+                :body (regulator-body regulator)
             )
         )
     )
