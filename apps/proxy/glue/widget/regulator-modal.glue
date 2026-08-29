@@ -6,7 +6,6 @@
     (import widget.modal)
     (import widget.site-breadcrumbs)
 
-
     (def (regulator-modal props)
         (def color current-theme.color-scheme.on-primary)
         (def color-variant (color.with :a 0.5))
