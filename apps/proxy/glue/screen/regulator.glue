@@ -15,15 +15,15 @@
         (listen handle site regulator)
     )
 
-    (def temperature-regulator-screen
-        (regulator-screen temperature-regulator)
+    (def (temperature-regulator-screen args)
+        (regulator-screen temperature-regulator args)
     )
 
-    (def humidity-regulator-screen
-        (regulator-screen humidity-regulator)
+    (def (humidity-regulator-screen args)
+        (regulator-screen humidity-regulator args)
     )
 
-    (def ventilation-regulator-screen
-        (regulator-screen ventilation-regulator)
+    (def (ventilation-regulator-screen args)
+        (regulator-screen ventilation-regulator args)
     )
 )
