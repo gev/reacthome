@@ -88,11 +88,8 @@ processKey "ventilation" = processKeyBoolean
 processKey "inverse" = processKeyBoolean
 -- Process as Integer
 processKey "cool_intensity" = processKeyInteger
-processKey "onCoolIntensity" = processKeyInteger
 processKey "heat_intensity" = processKeyInteger
-processKey "onHeatIntensity" = processKeyInteger
 processKey "ventilation_intensity" = processKeyInteger
-processKey "onVentilationIntensity" = processKeyInteger
 -- Process as Float
 processKey "temperature" = processKeyFloat
 processKey "humidity" = processKeyFloat
@@ -143,6 +140,9 @@ processKey "water_counter" = processKeyReference
 processKey "electricity_meter" = processKeyReference
 processKey "security" = processKeyReference
 processKey "image" = processKeyReference
+processKey "onCoolIntensity" = processKeyReference
+processKey "onHeatIntensity" = processKeyReference
+processKey "onVentilationIntensity" = processKeyReference
 -- Process as default
 processKey "palette" = processKeyDefault
 processKey "weather" = processKeyDefault
