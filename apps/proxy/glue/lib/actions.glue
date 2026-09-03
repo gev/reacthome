@@ -10,9 +10,11 @@
         start-cool
         stop-cool
         toggle-cool
+        set-cool-intensity
         start-heat
         stop-heat
         toggle-heat
+        set-heat-intensity
         start-wet
         stop-wet
         toggle-wet
@@ -22,6 +24,7 @@
         start-ventilation
         stop-ventilation
         toggle-ventilation
+        set-ventilation-intensity
     )
 
     (def (state-action action uid)
@@ -55,10 +58,12 @@
     (def start-cool (state-action 'start-cool))
     (def stop-cool (state-action 'stop-cool))
     (def toggle-cool (toggle-action 'start-cool 'stop-cool))
+    (def set-cool-intensity (value-action 'set-cool-intensity))
 
     (def start-heat (state-action 'start-heat))
     (def stop-heat (state-action 'stop-heat))
     (def toggle-heat (toggle-action 'start-heat 'stop-heat))
+    (def set-heat-intensity (value-action 'set-heat-intensity))
 
     (def start-wet (state-action 'start-wet))
     (def stop-wet (state-action 'stop-wet))
@@ -71,4 +76,5 @@
     (def start-ventilation (state-action 'start-ventilation))
     (def stop-ventilation (state-action 'stop-ventilation))
     (def toggle-ventilation (toggle-action 'start-ventilation 'stop-ventilation))
+    (def set-ventilation-intensity (value-action 'set-ventilation-intensity))
 )
