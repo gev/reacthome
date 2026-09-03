@@ -1,9 +1,9 @@
 (module lib.actions
     (export
-        dim
-        dim-curtain
         turn-on
         turn-off
+        toggle
+        dim
         set-temperature-setpoint
         set-humidity-setpoint
         set-co2-setpoint
