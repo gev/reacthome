@@ -47,7 +47,7 @@
         (def value (optimistic (to-percents bind.value)))
         (def (on-changed v)
             (write value v)
-            (throttle-200 (dim-light v))
+            (throttle-200 (dim-light (from-percents v)))
         )
         (listen (regulator-modal props on-changed) value)
     )
