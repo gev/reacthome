@@ -14,32 +14,17 @@ actionGet uid =
         , ("state", A.Array $ V.fromList [A.String uid])
         ]
 
-actionOn :: Text -> A.Object
-actionOn uid =
+actionState :: A.Value -> Text -> A.Object
+actionState action uid =
     A.fromList
-        [ ("type", "ACTION_ON")
+        [ ("type", action)
         , ("id", A.String uid)
         ]
 
-actionOff :: Text -> A.Object
-actionOff uid =
+actionValue :: A.Value -> A.Key -> Double -> Text -> A.Object
+actionValue action key value uid =
     A.fromList
-        [ ("type", "ACTION_OFF")
+        [ ("type", action)
         , ("id", A.String uid)
-        ]
-
-actionDim :: Text -> Double -> A.Object
-actionDim uid value =
-    A.fromList
-        [ ("type", "ACTION_DIM")
-        , ("id", A.String uid)
-        , ("value", A.Number $ fromFloatDigits value)
-        ]
-
-actionSetpoint :: A.Key -> Text -> Double -> A.Object
-actionSetpoint setpoint uid value =
-    A.fromList
-        [ ("type", "ACTION_SETPOINT")
-        , ("id", A.String uid)
-        , (setpoint, A.Number $ fromFloatDigits value)
+        , (key, A.Number $ fromFloatDigits value)
         ]
