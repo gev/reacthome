@@ -2,11 +2,15 @@
     (export
         turn-on
         turn-off
-        toggle
+        toggle-on-off
         dim
         set-temperature-setpoint
         set-humidity-setpoint
         set-co2-setpoint
+        start
+        stop
+        toggle-start-stop
+        set-intensity
         start-cool
         stop-cool
         toggle-cool
@@ -47,7 +51,7 @@
 
     (def turn-on (state-action 'turn-on))
     (def turn-off (state-action 'turn-off))
-    (def toggle (toggle-action 'turn-on 'turn-off))
+    (def toggle-on-off (toggle-action 'turn-on 'turn-off))
 
     (def dim (value-action 'dim))
     
@@ -59,6 +63,12 @@
     (def stop-cool (state-action 'stop-cool))
     (def toggle-cool (toggle-action 'start-cool 'stop-cool))
     (def set-cool-intensity (value-action 'set-cool-intensity))
+
+    (def start (state-action 'start))
+    (def stop (state-action 'stop))
+    (def toggle-start-stop (toggle-action 'start 'stop))
+
+    (def set-intensity (value-action 'set-intensity))
 
     (def start-heat (state-action 'start-heat))
     (def stop-heat (state-action 'stop-heat))
