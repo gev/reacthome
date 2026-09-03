@@ -7,14 +7,20 @@
     (import lib.actions)
     (import lib.property)
 
+    (import widget.optimistic)
     (import widget.regulator-modal)
     (import widget.setpoint-slider)
 
-    (def ventilation-regulator-color colors.green)
+    (def ventilation-regulator-color colors.light-green)
 
     (def (regulator-body regulator)
+        (print regulator)
         (column
             :children (
+                (optimistic-switch
+                    :value regulator.ventilation
+                    :on-changed (toggle-ventilation regulator.id)
+                )
                 (setpoint-slider
                     :value regulator.setpoint
                     :param CO2
