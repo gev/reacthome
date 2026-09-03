@@ -4,6 +4,7 @@
     (import lib.conversion)
     
     (import widget.modal)
+    (import widget.optimistic)
     (import widget.site-breadcrumbs)
 
     (def (slider on-changed param value)
@@ -49,10 +50,6 @@
         (throttle (duration :milliseconds 200))
     )
     
-    (def optimistic
-        (optimistic-state (duration :seconds 1))
-    )
-
     (def (setpoint-slider props)
         (def setpoint (optimistic props.value))
         (def (on-changed value)

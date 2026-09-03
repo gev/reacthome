@@ -9,7 +9,8 @@
     (import lib.property)
 
     (import widget.entity-modal)
-
+    (import widget.optimistic)
+    
     (def (regulator-modal props on-changed value)
         (def background-color
             (if value
@@ -41,10 +42,6 @@
         (throttle (duration :milliseconds 200))
     )
     
-    (def optimistic
-        (optimistic-state (duration :seconds 1))
-    )
-
     (def (light-regulator props bind)
         (def dim-light (dim props.id))
         (def value (optimistic (to-percents bind.value)))
