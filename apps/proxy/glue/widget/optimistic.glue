@@ -1,0 +1,22 @@
+(module widget.optimistic
+    (export
+        optimistic-switch
+    )
+
+    (def optimistic
+        (optimistic-state (duration :seconds 1))
+    )
+
+    (def (optimistic-switch props)
+        (def state (optimistic props.value))
+        (listen
+            (\ (value) (switch
+                    :value value
+                    :on-changed (\ (v)
+                        (write state v)
+                        (? (is-exist props.on-changed) (props.on-changed v))
+                    )
+                )
+            ) state)
+    )
+)
