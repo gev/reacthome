@@ -56,7 +56,6 @@
     (def stop-cool (state-action 'stop-cool))
     (def toggle-cool (toggle-action 'start-cool 'stop-cool))
 
-
     (def start-heat (state-action 'start-heat))
     (def stop-heat (state-action 'stop-heat))
     (def toggle-heat (toggle-action 'start-heat 'stop-heat))
