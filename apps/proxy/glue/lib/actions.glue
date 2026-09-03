@@ -7,6 +7,21 @@
         set-temperature-setpoint
         set-humidity-setpoint
         set-co2-setpoint
+        start-cool
+        stop-cool
+        toggle-cool
+        start-heat
+        stop-heat
+        toggle-heat
+        start-wet
+        stop-wet
+        toggle-wet
+        start-dry
+        stop-dry
+        toggle-dry
+        start-ventilation
+        stop-ventilation
+        toggle-ventilation
     )
 
     (import lib.conversion)
@@ -50,6 +65,96 @@
     (def (set-co2-setpoint uid)
         (\ (value)
             (post ('set-co2-setpoint uid value))
+        )
+    )
+
+    (def (start-cool uid)
+        (\ ()
+            (post ('start-cool uid))
+        )
+    )
+
+    (def (stop-cool uid)
+        (\ ()
+            (post ('stop-cool uid))
+        )
+    )
+
+    (def (toggle-cool uid)
+        (\ (value)
+            (post ((if value 'start-cool 'stop-cool) uid))
+        )
+    )
+
+    (def (start-heat uid)
+        (\ ()
+            (post ('start-heat uid))
+        )
+    )
+    
+    (def (stop-heat uid)
+        (\ ()
+            (post ('stop-heat uid))
+        )
+    )
+
+    (def (toggle-heat uid)
+        (\ (value)
+            (post ((if value 'start-heat 'stop-heat) uid))
+        )
+    )
+
+    (def (start-wet uid)
+        (\ ()
+            (post ('start-wet uid))
+        )
+    )
+
+    (def (stop-wet uid)
+        (\ ()
+            (post ('stop-wet uid))
+        )
+    )
+
+    (def (toggle-wet uid)
+        (\ (value)
+            (post ((if value 'start-wet 'stop-wet) uid))
+        )
+    )
+
+    (def (start-dry uid)
+        (\ ()
+            (post ('start-dry uid))
+        )
+    )
+
+    (def (stop-dry uid)
+        (\ ()
+            (post ('stop-dry uid))
+        )
+    )
+
+    (def (toggle-dry uid)
+        (\ (value)
+            (post ((if value 'start-dry 'stop-dry) uid))
+        )
+    )
+
+    (def (start-ventilation uid)
+        (\ ()
+            (post ('start-ventilation uid))
+        )
+    )
+
+    (def (stop-ventilation uid)
+        (\ ()
+            (post ('stop-ventilation uid))
+        )
+    )
+
+    (def (toggle-ventilation uid)
+        (\ (value)
+            (post ((if value 'start-ventilation 'stop-ventilation) uid))
         )
     )
 )
