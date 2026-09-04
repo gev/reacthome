@@ -10,7 +10,6 @@
         start
         stop
         toggle-start-stop
-        set-intensity
         start-cool
         stop-cool
         toggle-cool
@@ -67,8 +66,6 @@
     (def start (state-action 'start))
     (def stop (state-action 'stop))
     (def toggle-start-stop (toggle-action 'start 'stop))
-
-    (def set-intensity (value-action 'set-intensity))
 
     (def start-heat (state-action 'start-heat))
     (def stop-heat (state-action 'stop-heat))
