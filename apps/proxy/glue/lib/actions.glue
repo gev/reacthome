@@ -44,7 +44,8 @@
 
     (def (toggle-action true-action false-action uid)
         (\ (value)
-            (post ((if value true-action false-action) uid))
+            (def action (? value true-action false-action))
+            (post (# action uid))
         )
     )
 
