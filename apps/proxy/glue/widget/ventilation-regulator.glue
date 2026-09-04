@@ -13,19 +13,58 @@
 
     (def ventilation-regulator-color colors.light-green)
 
+    (def (setpoint regulator)
+        (setpoint-slider
+            :value regulator.setpoint
+            :param CO2
+            :action (set-co2-setpoint regulator.id)
+        )
+    )
+
+    (def (toggle regulator)
+        (list-tile
+            :leading (icon
+                :icon (symbol 'power_settings_new)
+                :color current-theme.color-scheme.on-primary
+            )
+            :title (text
+                :content "Toggle"
+                :style (text-style
+                    :color current-theme.color-scheme.on-primary
+                )
+            )
+            :trailing (optimistic-switch
+                :value regulator.ventilation
+                :on-changed (toggle-ventilation regulator.id)
+            )
+        )
+    )
+
+    (def (intensity regulator)
+        (def set-value (set-ventilation-intensity regulator.id))
+        (def state (optimistic regulator.ventilation_intensity))
+        (listen
+            (\ (value)
+                (slider
+                    :value value
+                    :min 0
+                    :max (length regulator.onVentilationIntensity)
+                    :divisions (length regulator.onVentilationIntensity)
+                    :on-changed (\ (v)
+                        (write state v)
+                        (set v)
+                    )
+                )
+            ) state
+        )
+    )
+
     (def (regulator-body regulator)
-        (print regulator)
         (column
             :children (
-                (optimistic-switch
-                    :value regulator.ventilation
-                    :on-changed (toggle-ventilation regulator.id)
-                )
-                (setpoint-slider
-                    :value regulator.setpoint
-                    :param CO2
-                    :action (set-co2-setpoint regulator.id)
-                )
+                (setpoint regulator)
+                (toggle regulator)
+                (intensity regulator)
             )
         )
     )
