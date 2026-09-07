@@ -1,24 +1,35 @@
 (module widget.regulator-modal
-    (export regulator-modal)
+    (export
+        regulator-color-scheme
+        regulator-modal
+    )
 
     (import lib.conversion)
     (import lib.i18n)
     (import widget.modal)
     (import widget.site-breadcrumbs)
 
+    (def (regulator-color-scheme theme)
+        (def color-scheme (theme.color-scheme))
+        (
+            :surface color-scheme.primary
+            :on-surface color-scheme.on-primary
+            :variant (color-scheme.on-primary.with :a 0.4)
+        )
+    )
+
     (def (regulator-modal props)
-        (def color current-theme.color-scheme.on-primary)
-        (def color-variant (color.with :a 0.4))
+        (def color-scheme (regulator-color-scheme current-theme))
         (def value (@ props.site props.param.property))
         (def title-style
             (text-style
                 :font-size current-theme.text-theme.title-large.font-size
-                :color color
+                :color color-scheme.on-surface
                 :font-weight font-weight.w400
             )
         )
         (modal
-            :color current-theme.color-scheme.primary
+            :color color-scheme.surface
             :child (column
                 :spacing 16
                 :main-axis-size main-axis-size.min
@@ -44,7 +55,7 @@
                     )
                     (site-breadcrumbs
                         :site props.site.id
-                        :color color-variant
+                        :color color-scheme.variant
                     )
                     (props.body)
                 )

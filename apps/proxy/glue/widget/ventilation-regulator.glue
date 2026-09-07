@@ -63,8 +63,7 @@
     )
 
     (def (intensity regulator)
-        (def color current-theme.color-scheme.on-primary)
-        (def color-variant (color.with :a 0.4))
+        (def color-scheme (regulator-color-scheme current-theme))
         (def set-intensity (set-ventilation-intensity regulator.id))
         (def state
             (optimistic
@@ -76,12 +75,12 @@
             (list-tile
                 :leading (icon
                     :icon (symbol 'mode_fan_2)
-                    :color current-theme.color-scheme.on-primary
+                    :color color-scheme.on-surface
                 )
                 :title (text
                     :content "Speed"
                     :style (text-style
-                        :color current-theme.color-scheme.on-primary
+                        :color color-scheme.on-surface
                     )
                 )
                 :trailing (segmented-button
@@ -90,9 +89,9 @@
                     :empty-selection-allowed (is-empty value)
                     :on-selection-changed state.set-value
                     :style (segmented-button-style
-                        :foreground-color color
+                        :foreground-color color-scheme.on-surface
                         :side (border-side
-                            :color color-variant
+                            :color color-scheme.variant
                         )
                     )
                 )
