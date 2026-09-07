@@ -28,7 +28,7 @@
                 :color current-theme.color-scheme.on-primary
             )
             :title (text
-                :content "Toggle"
+                :content "On"
                 :style (text-style
                     :color current-theme.color-scheme.on-primary
                 )
@@ -42,17 +42,20 @@
 
     (def (intensity regulator)
         (def set-value (set-ventilation-intensity regulator.id))
-        (def state (optimistic regulator.ventilation_intensity))
+        (def state (optimistic (# regulator.ventilation_intensity)))
         (listen
             (\ (value)
-                (slider
-                    :value value
-                    :min 0
-                    :max (length regulator.onVentilationIntensity)
-                    :divisions (length regulator.onVentilationIntensity)
-                    :on-changed (\ (v)
+                (segmented-button
+                    :selected value
+                    :segments (
+                        (button-segment :label (text :content "0") :value 0)
+                        (button-segment :label (text :content "1") :value 1)
+                        (button-segment :label (text :content "2") :value 2)
+                    )
+                    :empty-selection-allowed (is-empty value)
+                    :on-selection-changed (\ (v)
                         (write state v)
-                        (set v)
+                        (set-value (@ v 0))
                     )
                 )
             ) state
