@@ -40,26 +40,36 @@
         )
     )
 
-    (def (intensity regulator)
-        (def set-value (set-ventilation-intensity regulator.id))
-        (def state (optimistic (# regulator.ventilation_intensity)))
-        (listen
-            (\ (value)
-                (segmented-button
-                    :selected value
-                    :segments (
-                        (button-segment :label (text :content "0") :value 0)
-                        (button-segment :label (text :content "1") :value 1)
-                        (button-segment :label (text :content "2") :value 2)
-                    )
-                    :empty-selection-allowed (is-empty value)
-                    :on-selection-changed (\ (v)
-                        (write state v)
-                        (set-value (@ v 0))
-                    )
-                )
-            ) state
+    (def (segment i)
+        (button-segment
+            :label (text :content i)
+            :value i)
+    )
+
+    (def (segmented value)
+        (segmented-button
+            :selected value
+            :segments segments
+            :empty-selection-allowed (is-empty value)
+            :on-selection-changed on-selection-changed
         )
+    )
+
+    (def (intensity regulator)
+        (def segments
+            (map segment (range (length regulator.onVentilationIntensity)))
+        )
+        (def state
+            (optimistic (# regulator.ventilation_intensity))
+        )
+        (def set-value
+            (set-ventilation-intensity regulator.id)
+        )
+        (def (on-selection-changed v)
+            (write state v)
+            (set-value (@ v 0))
+        )
+        (listen segmented state)
     )
 
     (def (regulator-body regulator)
