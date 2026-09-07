@@ -51,11 +51,14 @@
     )
     
     (def (setpoint-slider props)
-        (def setpoint (optimistic props.value))
-        (def (on-changed value)
-            (write setpoint value)
-            (throttle-200 (props.action value))
+        (def state
+            (optimistic
+                :value props.value
+                :on-changed (\ (value)
+                    (throttle-200 (props.action value))
+                )
+            )
         )
-        (listen (slider on-changed props.param) setpoint)
+        (listen (slider state.set-value props.param) state.value)
     )
 )

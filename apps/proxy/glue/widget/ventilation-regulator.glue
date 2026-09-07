@@ -4,7 +4,10 @@
         ventilation-regulator
     )
 
+    (import i18n.status)
+
     (import lib.actions)
+    (import lib.i18n)
     (import lib.property)
 
     (import widget.optimistic)
@@ -22,22 +25,31 @@
     )
 
     (def (toggle regulator)
-        (list-tile
-            :leading (icon
-                :icon (symbol 'power_settings_new)
-                :color current-theme.color-scheme.on-primary
-            )
-            :title (text
-                :content "On"
-                :style (text-style
-                    :color current-theme.color-scheme.on-primary
-                )
-            )
-            :trailing (optimistic-switch
+        (def state
+            (optimistic
                 :value regulator.ventilation
                 :on-changed (toggle-ventilation regulator.id)
             )
         )
+        (def (tile value)
+            (list-tile
+                :leading (icon
+                    :icon (symbol 'power_settings_new)
+                    :color current-theme.color-scheme.on-primary
+                )
+                :title (text
+                    :content (select-locale (? value i18n-on i18n-off))
+                    :style (text-style
+                        :color current-theme.color-scheme.on-primary
+                    )
+                )
+                :trailing (switch
+                    :value value
+                    :on-changed state.set-value
+                )
+            )
+        )
+        (listen tile state.value)
     )
 
     (def (segment i)
@@ -46,30 +58,26 @@
             :value i)
     )
 
-    (def (segmented value)
-        (segmented-button
-            :selected value
-            :segments segments
-            :empty-selection-allowed (is-empty value)
-            :on-selection-changed on-selection-changed
-        )
+    (def (segments regulator)
+        (map segment (range (length regulator.onVentilationIntensity)))
     )
 
     (def (intensity regulator)
-        (def segments
-            (map segment (range (length regulator.onVentilationIntensity)))
-        )
         (def state
-            (optimistic (# regulator.ventilation_intensity))
+            (optimistic
+                :value (# regulator.ventilation_intensity)
+                :on-changed (\ (set) (set-ventilation-intensity regulator.id (@ set 0)))
+            )
         )
-        (def set-value
-            (set-ventilation-intensity regulator.id)
+        (def (segmented value)
+            (segmented-button
+                :selected value
+                :segments (segments regulator)
+                :empty-selection-allowed (is-empty value)
+                :on-selection-changed state.set-value
+            )
         )
-        (def (on-selection-changed v)
-            (write state v)
-            (set-value (@ v 0))
-        )
-        (listen segmented state)
+        (listen segmented state.value)
     )
 
     (def (regulator-body regulator)

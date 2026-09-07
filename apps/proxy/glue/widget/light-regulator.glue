@@ -44,11 +44,14 @@
     
     (def (light-regulator props bind)
         (def dim-light (dim props.id))
-        (def value (optimistic (to-percents bind.value)))
-        (def (on-changed v)
-            (write value v)
-            (throttle-200 (dim-light (from-percents v)))
+        (def state
+            (optimistic
+                :value (to-percents bind.value)
+                :on-changed (\ (value)
+                    (throttle-200 (dim-light (from-percents value)))
+                )
+            )
         )
-        (listen (regulator-modal props on-changed) value)
+        (listen (regulator-modal props state.set-value) state.value)
     )
 )

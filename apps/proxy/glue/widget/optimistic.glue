@@ -1,23 +1,16 @@
 (module widget.optimistic
-    (export
-        optimistic
-        optimistic-switch
+    (export optimistic)
+
+    (def (optimistic props)
+        (def state (optimistic-state (duration :seconds 1) props.value))
+        (def (set-value value)
+            (write state value)
+            (props.on-changed value)
+        )
+        (
+            :value state
+            :set-value set-value
+        )
     )
 
-    (def optimistic
-        (optimistic-state (duration :seconds 1))
-    )
-
-    (def (optimistic-switch props)
-        (def state (optimistic props.value))
-        (listen
-            (\ (value) (switch
-                    :value value
-                    :on-changed (\ (v)
-                        (write state v)
-                        (? (is-exist props.on-changed) (props.on-changed v))
-                    )
-                )
-            ) state)
-    )
 )
