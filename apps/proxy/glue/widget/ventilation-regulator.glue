@@ -63,6 +63,8 @@
     )
 
     (def (intensity regulator)
+        (def color current-theme.color-scheme.on-primary)
+        (def color-variant (color.with :a 0.4))
         (def set-intensity (set-ventilation-intensity regulator.id))
         (def state
             (optimistic
@@ -88,9 +90,9 @@
                     :empty-selection-allowed (is-empty value)
                     :on-selection-changed state.set-value
                     :style (segmented-button-style
-                        :foreground-color current-theme.color-scheme.on-primary
+                        :foreground-color color
                         :side (border-side
-                            :color current-theme.color-scheme.on-primary
+                            :color color-variant
                         )
                     )
                 )

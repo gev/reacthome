@@ -8,7 +8,7 @@
 
     (def (regulator-modal props)
         (def color current-theme.color-scheme.on-primary)
-        (def color-variant (color.with :a 0.5))
+        (def color-variant (color.with :a 0.4))
         (def value (@ props.site props.param.property))
         (def title-style
             (text-style
