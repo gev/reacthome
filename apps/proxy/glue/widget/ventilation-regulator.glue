@@ -69,15 +69,27 @@
                 :on-changed (\ (set) (set-ventilation-intensity regulator.id (@ set 0)))
             )
         )
-        (def (segmented value)
-            (segmented-button
-                :selected value
-                :segments (segments regulator)
-                :empty-selection-allowed (is-empty value)
-                :on-selection-changed state.set-value
+        (def (tile value)
+            (list-tile
+                :leading (icon
+                    :icon (symbol 'mode_fan_2)
+                    :color current-theme.color-scheme.on-primary
+                )
+                :title (text
+                    :content "Speed"
+                    :style (text-style
+                        :color current-theme.color-scheme.on-primary
+                    )
+                )
+                :trailing (segmented-button
+                    :selected value
+                    :segments (segments regulator)
+                    :empty-selection-allowed (is-empty value)
+                    :on-selection-changed state.set-value
+                )
             )
         )
-        (listen segmented state.value)
+        (listen tile state.value)
     )
 
     (def (regulator-body regulator)
