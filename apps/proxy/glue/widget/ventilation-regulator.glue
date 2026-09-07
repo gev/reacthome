@@ -63,10 +63,11 @@
     )
 
     (def (intensity regulator)
+        (def set-intensity (set-ventilation-intensity regulator.id))
         (def state
             (optimistic
                 :value (# regulator.ventilation_intensity)
-                :on-changed (\ (set) (set-ventilation-intensity regulator.id (@ set 0)))
+                :on-changed (\ (set) (set-intensity (@ set 0)))
             )
         )
         (def (tile value)
@@ -86,6 +87,12 @@
                     :segments (segments regulator)
                     :empty-selection-allowed (is-empty value)
                     :on-selection-changed state.set-value
+                    :style (segmented-button-style
+                        :foreground-color current-theme.color-scheme.on-primary
+                        :side (border-side
+                            :color current-theme.color-scheme.on-primary
+                        )
+                    )
                 )
             )
         )
