@@ -13,10 +13,10 @@
     (import widget.regulator-intensity)
     (import widget.setpoint-slider)
 
-    (def (temperature-regulator-color regulator)
-        (if (== regulator.mode "cool")
+    (def (temperature-regulator-color mode)
+        (if (== mode "cool")
             colors.blue
-            (if (== regulator.mode "heat")
+            (if (== mode "heat")
                 colors.red
                 colors.grey
             )
@@ -68,9 +68,9 @@
         )
     )
 
-    (def (temperature-regulator site regulator)
+    (def (temperature-regulator mode site regulator)
         (with-seed-color
-            :seed-color (temperature-regulator-color regulator)
+            :seed-color (temperature-regulator-color mode)
             :dynamic-scheme-variant dynamic-scheme-variant.content
             :child (regulator-modal
                 :site site

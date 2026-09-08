@@ -16,7 +16,7 @@
     )
 
     (def (temperature-regulator-screen args)
-        (regulator-screen temperature-regulator args)
+        (regulator-screen (temperature-regulator args.mode) args)
     )
 
     (def (humidity-regulator-screen args)

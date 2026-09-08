@@ -16,6 +16,7 @@
                 :route props.route
                 :id props.regulator.id
                 :site props.site.id
+                :mode props.regulator.mode
             )
             :child (regulator-tile
                 :param props.param

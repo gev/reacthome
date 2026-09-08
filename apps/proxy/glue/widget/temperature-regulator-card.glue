@@ -9,7 +9,7 @@
     (def (temperature-regulator-card site regulator)
         (with-seed-color
             :key regulator.id
-            :seed-color (temperature-regulator-color regulator)
+            :seed-color (temperature-regulator-color regulator.mode)
             :dynamic-scheme-variant dynamic-scheme-variant.content
             :child (regulator-card
                 :site site
