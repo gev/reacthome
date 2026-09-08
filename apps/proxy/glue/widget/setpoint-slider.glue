@@ -17,8 +17,8 @@
                     :value value
                     :min param.min
                     :max param.max
-                    :diameter 240
-                    :width 16
+                    :diameter 300
+                    :width 24
                     :focused-width 32
                     :active-color color-scheme.on-surface
                     :inactive-color color-scheme.dimmed
@@ -29,7 +29,7 @@
                         (text
                             :content (round-to-resolution value param.resolution)
                             :style (text-style
-                                :font-size current-theme.text-theme.display-medium.font-size
+                                :font-size current-theme.text-theme.display-large.font-size
                                 :color color-scheme.on-surface
                             )
                         )
