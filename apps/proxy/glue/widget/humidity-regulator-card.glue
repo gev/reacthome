@@ -1,14 +1,9 @@
 (module widget.humidity-regulator-card
     (export humidity-regulator-card)
 
-    (import iconic.light)
-
-    (import lib.actions)
-    (import lib.navigation)
     (import lib.property)
 
-    (import widget.card)
-    (import widget.regulator-tile)
+    (import widget.regulator-card)
     (import widget.humidity-regulator)
 
     (def (humidity-regulator-card site regulator)
@@ -16,22 +11,11 @@
             :key regulator.id
             :seed-color humidity-regulator-color
             :dynamic-scheme-variant dynamic-scheme-variant.content
-            :child (active-card
-                :tag regulator.id
-                :card-color current-theme.color-scheme.primary
-                :on-pressed (go
-                    :route 'humidity-regulator
-                    :id regulator.id
-                    :site site.id
-                )
-                :child (regulator-tile
-                    :param humidity
-                    :value site.humidity
-                    :setpoint (
-                        :value regulator.setpoint
-                        :color current-theme.color-scheme.on-primary
-                    )
-                )
+            :child (regulator-card
+                :site site
+                :regulator regulator
+                :route 'humidity-regulator
+                :param humidity
             )
         )
     )
