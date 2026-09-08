@@ -1,5 +1,6 @@
 (module widget.temperature-regulator
     (export
+        temperature-regulator-mode
         temperature-regulator-color
         temperature-regulator
     )
@@ -13,22 +14,27 @@
     (import widget.regulator-intensity)
     (import widget.setpoint-slider)
 
-    (def (temperature-regulator-color mode)
+    (def (temperature-regulator-mode mode)
         (if (== mode "cool")
-            colors.blue
+            cooling
             (if (== mode "heat")
-                colors.red
-                colors.grey
+                heating
+                void
             )
         )
     )
 
-    (def (mode regulator)
+    (def (temperature-regulator-color mode)
+        (?? mode.color colors.grey)
+    )
+
+    (def (select-mode regulator mode on-changed)
         (padding
             :padding (edge-insets-symmetric :vertical 16)
             :child (regulator-mode
-                :mode cooling
+                :mode mode
                 :modes (# cooling heating)
+                :on-changed on-changed
             )
         )
     )
@@ -57,10 +63,10 @@
         )
     )
 
-    (def (regulator-body regulator)
+    (def (regulator-body regulator mode on-changed)
         (column
             :children (
-                (mode regulator)
+                (select-mode regulator mode on-changed)
                 (setpoint regulator)
                 (toggle regulator)
                 (intensity regulator)
@@ -69,15 +75,24 @@
     )
 
     (def (temperature-regulator mode site regulator)
-        (with-seed-color
-            :seed-color (temperature-regulator-color mode)
-            :dynamic-scheme-variant dynamic-scheme-variant.content
-            :child (regulator-modal
-                :site site
-                :regulator regulator
-                :param temperature
-                :body (regulator-body regulator)
+        (def state
+            (local-state mode)
+        )
+        (def (on-changed mode)
+            (write state mode)
+        )
+        (def (regulator-mode mode)
+            (with-seed-color
+                :seed-color (temperature-regulator-color mode)
+                :dynamic-scheme-variant dynamic-scheme-variant.content
+                :child (regulator-modal
+                    :site site
+                    :regulator regulator
+                    :param temperature
+                    :body (regulator-body regulator mode on-changed)
+                )
             )
         )
+        (listen regulator-mode state)
     )
 )
