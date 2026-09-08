@@ -1,0 +1,30 @@
+(module widget.regulator-card
+    (export regulator-card)
+
+    (import lib.navigation)
+
+    (import widget.card)
+    (import widget.regulator-tile)
+    (import widget.regulator-theme)
+
+    (def (regulator-card props)
+        (def color-scheme (regulator-color-scheme current-theme))
+        (active-card
+            :tag props.regulator.id
+            :card-color color-scheme.surface
+            :on-pressed (go
+                :route props.route
+                :id props.regulator.id
+                :site props.site.id
+            )
+            :child (regulator-tile
+                :param props.param
+                :value (@ props.site props.param.property)
+                :setpoint (
+                    :value props.regulator.setpoint
+                    :color color-scheme.on-surface
+                )
+            )
+        )
+    )
+)
