@@ -4,18 +4,13 @@
         ventilation-regulator
     )
 
-    (import i18n.status)
-    (import i18n.parameter)
-
     (import lib.actions)
-    (import lib.i18n)
     (import lib.property)
 
-    (import widget.optimistic)
     (import widget.regulator-modal)
-    (import widget.setpoint-slider)
-    (import widget.regulator-theme)
     (import widget.regulator-toggle)
+    (import widget.regulator-intensity)
+    (import widget.setpoint-slider)
 
     (def ventilation-regulator-color colors.light-green)
 
@@ -34,52 +29,13 @@
         )
     )
 
-    (def (segment i)
-        (button-segment
-            :label (text :content i)
-            :value i)
-    )
-
-    (def (segments regulator)
-        (map segment (range (length regulator.onVentilationIntensity)))
-    )
-
     (def (intensity regulator)
-        (def color-scheme (regulator-color-scheme current-theme))
-        (def set-intensity (set-ventilation-intensity regulator.id))
-        (def state
-            (optimistic
-                :value (# regulator.ventilation_intensity)
-                :on-changed (\ (set) (set-intensity (@ set 0)))
-            )
+        (regulator-intensity
+            :value regulator.ventilation_intensity
+            :min 0
+            :max (length regulator.onVentilationIntensity)
+            :on-changed (set-ventilation-intensity regulator.id)
         )
-        (def (tile value)
-            (list-tile
-                :leading (icon
-                    :icon (symbol fan.icon)
-                    :color color-scheme.on-surface
-                )
-                :title (text
-                    :content (select-locale i18n-speed)
-                    :style (text-style
-                        :color color-scheme.on-surface
-                    )
-                )
-                :trailing (segmented-button
-                    :selected value
-                    :segments (segments regulator)
-                    :empty-selection-allowed (is-empty value)
-                    :on-selection-changed state.set-value
-                    :style (segmented-button-style
-                        :foreground-color color-scheme.on-surface
-                        :side (border-side
-                            :color color-scheme.variant
-                        )
-                    )
-                )
-            )
-        )
-        (listen tile state.value)
     )
 
     (def (regulator-body regulator)

@@ -1,0 +1,58 @@
+(module widget.regulator-intensity
+    (export regulator-intensity)
+
+    (import i18n.parameter)
+
+    (import lib.i18n)
+    (import lib.property)
+
+    (import widget.optimistic)
+    (import widget.regulator-theme)
+
+    (def (segment i)
+        (button-segment
+            :label (text :content i)
+            :value i)
+    )
+
+    (def (segments props)
+        (map segment (range props.min props.max))
+    )
+
+    (def (regulator-intensity props)
+        (def color-scheme (regulator-color-scheme current-theme))
+        (def state
+            (optimistic
+                :value (# props.value)
+                :on-changed (\ (set) (props.on-changed (@ set 0)))
+            )
+        )
+        (def (tile value)
+            (list-tile
+                :leading (icon
+                    :icon (symbol fan.icon)
+                    :color color-scheme.on-surface
+                )
+                :title (text
+                    :content (select-locale i18n-speed)
+                    :style (text-style
+                        :color color-scheme.on-surface
+                    )
+                )
+                :trailing (segmented-button
+                    :selected value
+                    :segments (segments props)
+                    :empty-selection-allowed (is-empty value)
+                    :on-selection-changed state.set-value
+                    :style (segmented-button-style
+                        :foreground-color color-scheme.on-surface
+                        :side (border-side
+                            :color color-scheme.variant
+                        )
+                    )
+                )
+            )
+        )
+        (listen tile state.value)
+    )
+)
