@@ -23,7 +23,7 @@
 
     (def (toggle regulator)
         (regulator-toggle
-            :value regulator.humidity
+            :value regulator.wet
             :on-changed (toggle-wet regulator.id)
         )
     )
