@@ -29,8 +29,8 @@
 
     (def (toggle regulator)
         (regulator-toggle
-            :id regulator.id
             :value regulator.ventilation
+            :on-changed (toggle-ventilation regulator.id)
         )
     )
 
