@@ -19,7 +19,7 @@
                     :max param.max
                     :diameter 240
                     :width 16
-                    :focused-width 24
+                    :focused-width 32
                     :active-color color
                     :inactive-color color-variant
                     :on-changed on-changed
