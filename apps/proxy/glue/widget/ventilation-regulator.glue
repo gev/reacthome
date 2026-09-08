@@ -26,6 +26,7 @@
     )
 
     (def (toggle regulator)
+        (def color-scheme (regulator-color-scheme current-theme))
         (def state
             (optimistic
                 :value regulator.ventilation
@@ -36,12 +37,12 @@
             (list-tile
                 :leading (icon
                     :icon (symbol power.icon)
-                    :color current-theme.color-scheme.on-primary
+                    :color color-scheme.on-surface
                 )
                 :title (text
                     :content (select-locale (? value i18n-on i18n-off))
                     :style (text-style
-                        :color current-theme.color-scheme.on-primary
+                        :color color-scheme.on-surface
                     )
                 )
                 :trailing (switch
