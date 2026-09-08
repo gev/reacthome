@@ -1,4 +1,4 @@
-(module regulator-theme
+(module widget.regulator-theme
     (export regulator-color-scheme)
 
     (def (regulator-color-scheme theme)
