@@ -7,9 +7,10 @@
     (import widget.temperature-regulator)
 
     (def (temperature-regulator-card site regulator)
+        (def mode (temperature-regulator-mode regulator.mode))
         (with-seed-color
             :key regulator.id
-            :seed-color (temperature-regulator-color regulator.mode)
+            :seed-color (temperature-regulator-color mode)
             :dynamic-scheme-variant dynamic-scheme-variant.content
             :child (regulator-card
                 :site site
