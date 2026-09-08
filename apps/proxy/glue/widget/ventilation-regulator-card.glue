@@ -1,17 +1,9 @@
 (module widget.ventilation-regulator-card
     (export ventilation-regulator-card)
 
-    (import iconic.light)
-
-    (import lib.actions)
-    (import lib.conversion)
-    (import lib.data)
-    (import lib.i18n)
-    (import lib.navigation)
     (import lib.property)
 
-    (import widget.card)
-    (import widget.regulator-tile)
+    (import widget.regulator-card)
     (import widget.ventilation-regulator)
 
     (def (ventilation-regulator-card site regulator)
@@ -19,22 +11,11 @@
             :key regulator.id
             :seed-color ventilation-regulator-color
             :dynamic-scheme-variant dynamic-scheme-variant.content
-            :child (active-card
-                :tag regulator.id
-                :card-color current-theme.color-scheme.primary
-                :on-pressed (go
-                    :route 'ventilation-regulator
-                    :id regulator.id
-                    :site site.id
-                )
-                :child (regulator-tile
-                    :param CO2
-                    :value site.co2
-                    :setpoint (
-                        :value regulator.setpoint
-                        :color current-theme.color-scheme.on-primary
-                    )
-                )
+            :child (regulator-card
+                :site site
+                :regulator regulator
+                :route 'ventilation-regulator
+                :param CO2
             )
         )
     )
