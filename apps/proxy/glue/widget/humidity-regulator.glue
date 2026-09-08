@@ -8,15 +8,32 @@
     (import lib.property)
 
     (import widget.regulator-modal)
+    (import widget.regulator-toggle)
     (import widget.setpoint-slider)
 
     (def humidity-regulator-color colors.cyan)
 
-    (def (regulator-body regulator)
+    (def (setpoint regulator)
         (setpoint-slider
             :value regulator.setpoint
             :param humidity
             :action (set-humidity-setpoint regulator.id)
+        )
+    )
+
+    (def (toggle regulator)
+        (regulator-toggle
+            :value regulator.humidity
+            :on-changed (toggle-wet regulator.id)
+        )
+    )
+    
+    (def (regulator-body regulator)
+        (column
+            :children (
+                (setpoint regulator)
+                (toggle regulator)
+            )
         )
     )
 
