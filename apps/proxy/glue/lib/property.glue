@@ -12,6 +12,7 @@
     )
 
     (import i18n.parameter)
+    (import lib.actions)
 
     (def light (
             :property 'value
@@ -78,10 +79,21 @@
     (def cooling (
             :color colors.blue
             :label i18n-cooling
+            :intensity "cool_intensity"
+            :on-intensity "onCoolIntensity"
+            :set-intensity set-cool-intensity
+            :toggle toggle-cool
+            :value "cool"
+            
         ))
 
     (def heating (
             :color colors.red
             :label i18n-heating
+            :intensity "heat_intensity"
+            :on-intensity "onHeatIntensity"
+            :set-intensity set-heat-intensity
+            :toggle toggle-heat
+            :value "heat"
         ))
 )
