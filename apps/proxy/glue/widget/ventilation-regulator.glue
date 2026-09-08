@@ -5,6 +5,7 @@
     )
 
     (import i18n.status)
+    (import i18n.parameter)
 
     (import lib.actions)
     (import lib.i18n)
@@ -78,7 +79,7 @@
                     :color color-scheme.on-surface
                 )
                 :title (text
-                    :content "Speed"
+                    :content (select-locale i18n-speed)
                     :style (text-style
                         :color color-scheme.on-surface
                     )

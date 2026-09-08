@@ -8,6 +8,13 @@
         i18n-VOC
         i18n-light
         i18n-curtains
+        i18n-speed
+        i18n-intensity
+        i18n-heating
+        i18n-cooling
+        i18n-ventilation
+        i18n-wetting
+        i18n-drying
     )
 
     (def i18n-brightness (
