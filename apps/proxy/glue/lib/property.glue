@@ -7,6 +7,8 @@
         CO2
         power
         fan
+        cooling
+        heating
     )
 
     (import i18n.parameter)
@@ -71,5 +73,15 @@
 
     (def fan (
             :icon 'mode_fan_2
+        ))
+
+    (def cooling (
+            :color colors.blue
+            :label i18n-cooling
+        ))
+
+    (def heating (
+            :color colors.red
+            :label i18n-heating
         ))
 )
