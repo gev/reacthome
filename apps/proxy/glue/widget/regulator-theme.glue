@@ -1,9 +1,6 @@
 (module regulator-theme
     (export regulator-color-scheme)
 
-    (import lib.conversion)
-    (import lib.i18n)
-
     (def (regulator-color-scheme theme)
         (def color-scheme (theme.color-scheme))
         (

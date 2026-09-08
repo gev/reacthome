@@ -15,6 +15,7 @@
     (import widget.regulator-modal)
     (import widget.setpoint-slider)
     (import widget.regulator-theme)
+    (import widget.regulator-toggle)
 
     (def ventilation-regulator-color colors.light-green)
 
@@ -27,32 +28,10 @@
     )
 
     (def (toggle regulator)
-        (def color-scheme (regulator-color-scheme current-theme))
-        (def state
-            (optimistic
-                :value regulator.ventilation
-                :on-changed (toggle-ventilation regulator.id)
-            )
+        (regulator-toggle
+            :id regulator.id
+            :value regulator.ventilation
         )
-        (def (tile value)
-            (list-tile
-                :leading (icon
-                    :icon (symbol power.icon)
-                    :color color-scheme.on-surface
-                )
-                :title (text
-                    :content (select-locale (? value i18n-on i18n-off))
-                    :style (text-style
-                        :color color-scheme.on-surface
-                    )
-                )
-                :trailing (switch
-                    :value value
-                    :on-changed state.set-value
-                )
-            )
-        )
-        (listen tile state.value)
     )
 
     (def (segment i)
