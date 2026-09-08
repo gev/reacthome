@@ -7,16 +7,8 @@
     (import lib.conversion)
     (import lib.i18n)
     (import widget.modal)
+    (import widget.regulator-theme)
     (import widget.site-breadcrumbs)
-
-    (def (regulator-color-scheme theme)
-        (def color-scheme (theme.color-scheme))
-        (
-            :surface color-scheme.primary
-            :on-surface color-scheme.on-primary
-            :variant (color-scheme.on-primary.with :a 0.4)
-        )
-    )
 
     (def (regulator-modal props)
         (def color-scheme (regulator-color-scheme current-theme))

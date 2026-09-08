@@ -14,6 +14,7 @@
     (import widget.optimistic)
     (import widget.regulator-modal)
     (import widget.setpoint-slider)
+    (import widget.regulator-theme)
 
     (def ventilation-regulator-color colors.light-green)
 
