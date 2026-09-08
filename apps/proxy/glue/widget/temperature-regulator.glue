@@ -8,6 +8,9 @@
     (import lib.property)
 
     (import widget.regulator-modal)
+    (import widget.regulator-mode)
+    (import widget.regulator-toggle)
+    (import widget.regulator-intensity)
     (import widget.setpoint-slider)
 
     (def (temperature-regulator-color regulator)
@@ -20,11 +23,48 @@
         )
     )
 
-    (def (regulator-body regulator)
+    (def (mode regulator)
+        (padding
+            :padding (edge-insets-symmetric :vertical 16)
+            :child (regulator-mode
+                :mode cooling
+                :modes (# cooling heating)
+            )
+        )
+    )
+
+    (def (setpoint regulator)
         (setpoint-slider
             :value regulator.setpoint
             :param temperature
             :action (set-temperature-setpoint regulator.id)
+        )
+    )
+
+    (def (toggle regulator)
+        (regulator-toggle
+            :value regulator.cool
+            :on-changed (toggle-cool regulator.id)
+        )
+    )
+
+    (def (intensity regulator)
+        (regulator-intensity
+            :value regulator.cool_intensity
+            :min 0
+            :max (length regulator.onCoolIntensity)
+            :on-changed (set-cool-intensity regulator.id)
+        )
+    )
+
+    (def (regulator-body regulator)
+        (column
+            :children (
+                (mode regulator)
+                (setpoint regulator)
+                (toggle regulator)
+                (intensity regulator)
+            )
         )
     )
 
