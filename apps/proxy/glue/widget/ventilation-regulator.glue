@@ -35,7 +35,7 @@
         (def (tile value)
             (list-tile
                 :leading (icon
-                    :icon (symbol 'power_settings_new)
+                    :icon (symbol power.icon)
                     :color current-theme.color-scheme.on-primary
                 )
                 :title (text
@@ -75,7 +75,7 @@
         (def (tile value)
             (list-tile
                 :leading (icon
-                    :icon (symbol 'mode_fan_2)
+                    :icon (symbol fan.icon)
                     :color color-scheme.on-surface
                 )
                 :title (text

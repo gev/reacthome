@@ -5,6 +5,8 @@
         temperature
         humidity
         CO2
+        power
+        fan
     )
 
     (import i18n.parameter)
@@ -61,5 +63,13 @@
             :max 900
             :resolution 10
             :unit "ppm"
+        ))
+
+    (def power (
+            :icon 'power
+        ))
+
+    (def fan (
+            :icon 'mode_fan_2
         ))
 )
