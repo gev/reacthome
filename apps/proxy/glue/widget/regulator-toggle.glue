@@ -33,6 +33,10 @@
                 :trailing (switch
                     :value value
                     :on-changed state.set-value
+                    :active-thumb-color color-scheme.on-surface
+                    :inactive-thumb-color color-scheme.on-surface
+                    :active-track-color color-scheme.variant
+                    :inactive-track-color color-scheme.dimmed
                 )
             )
         )
