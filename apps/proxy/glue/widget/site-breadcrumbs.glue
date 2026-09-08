@@ -5,18 +5,13 @@
     (import lib.data)
 
     (def (passive-segment color props)
-        (outlined-button
-            :style (button-style
-                :side (border-side
-                    :color (?? color
-                        current-theme.color-scheme.outline)
-                )
-                :foreground-color (?? color
+        (text
+            :content (title props)
+            :style (text-style
+                :color (?? color
                     current-theme.color-scheme.on-surface-variant)
             )
-            :child (text
-                :content (title props)
-            )
+            
         )
     )
 
