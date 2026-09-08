@@ -47,52 +47,54 @@
         )
     )
 
-    (def (toggle regulator)
+    (def (toggle regulator mode)
         (regulator-toggle
-            :value regulator.cool
-            :on-changed (toggle-cool regulator.id)
+            :value (@ regulator mode.value)
+            :on-changed (mode.toggle regulator.id)
         )
     )
 
-    (def (intensity regulator)
+    (def (intensity regulator mode)
         (regulator-intensity
-            :value regulator.cool_intensity
+            :value (@ regulator mode.intensity)
             :min 0
-            :max (length regulator.onCoolIntensity)
-            :on-changed (set-cool-intensity regulator.id)
+            :max (length (@ regulator mode.on-intensity))
+            :on-changed (mode.set-intensity regulator.id)
         )
     )
 
     (def (regulator-body regulator mode on-changed)
         (column
             :children (
-                (select-mode regulator mode on-changed)
                 (setpoint regulator)
-                (toggle regulator)
-                (intensity regulator)
+                (select-mode regulator mode on-changed)
+                (toggle regulator mode)
+                (intensity regulator mode)
             )
         )
     )
 
-    (def (temperature-regulator mode site regulator)
+    (def (temperature-regulator mode)
         (def state
             (local-state mode)
         )
         (def (on-changed mode)
             (write state mode)
         )
-        (def (regulator-mode mode)
-            (with-seed-color
-                :seed-color (temperature-regulator-color mode)
-                :dynamic-scheme-variant dynamic-scheme-variant.content
-                :child (regulator-modal
-                    :site site
-                    :regulator regulator
-                    :param temperature
-                    :body (regulator-body regulator mode on-changed)
+        (\ (site regulator)
+            (def (regulator-mode mode)
+                (with-seed-color
+                    :seed-color (temperature-regulator-color mode)
+                    :dynamic-scheme-variant dynamic-scheme-variant.content
+                    :child (regulator-modal
+                        :site site
+                        :regulator regulator
+                        :param temperature
+                        :body (regulator-body regulator mode on-changed)
+                    )
                 )
             )
+            (listen regulator-mode state)
         )
-        (listen regulator-mode state)
     )
 )
