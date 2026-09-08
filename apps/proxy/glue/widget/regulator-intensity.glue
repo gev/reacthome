@@ -6,7 +6,7 @@
     (import lib.i18n)
     (import lib.property)
 
-    (import widget.optimistic)
+    (import lib.optimistic)
     (import widget.regulator-theme)
 
     (def (segment i)

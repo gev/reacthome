@@ -9,7 +9,7 @@
     (import lib.property)
 
     (import widget.entity-modal)
-    (import widget.optimistic)
+    (import lib.optimistic)
     
     (def (regulator-modal props on-changed value)
         (def background-color

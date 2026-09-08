@@ -1,4 +1,4 @@
-(module widget.optimistic
+(module lib.optimistic
     (export optimistic)
 
     (def (optimistic props)

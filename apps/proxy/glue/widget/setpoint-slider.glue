@@ -4,7 +4,7 @@
     (import lib.conversion)
     
     (import widget.modal)
-    (import widget.optimistic)
+    (import lib.optimistic)
     (import widget.site-breadcrumbs)
 
     (def (slider on-changed param value)
