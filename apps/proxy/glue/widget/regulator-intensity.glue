@@ -12,7 +12,8 @@
     (def (segment i)
         (button-segment
             :label (text :content i)
-            :value i)
+            :value i
+        )
     )
 
     (def (segments props)
