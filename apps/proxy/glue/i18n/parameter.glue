@@ -49,4 +49,38 @@
             :en "Curtains"
             :ru "Шторы"
         ))
+
+    (def i18n-speed (
+            :en "Speed"
+            :ru "Скорость"
+        ))
+
+    (def i18n-intensity (
+            :en "Intensity"
+            :ru "Интенсивность"
+        ))
+
+    (def i18n-heating (
+            :en "Heating"
+            :ru "Отопление"
+        ))
+    (def i18n-cooling (
+            :en "Cooling"
+            :ru "Охлаждение"
+        ))
+
+    (def i18n-ventilation (
+            :en "Ventilation"
+            :ru "Вентиляция"
+        ))
+
+    (def i18n-wetting (
+            :en "Wetting"
+            :ru "Увлажнение"
+        ))
+
+    (def i18n-drying (
+            :en "Drying"
+            :ru "Осушение"
+        ))
 )
