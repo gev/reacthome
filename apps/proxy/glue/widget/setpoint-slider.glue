@@ -2,14 +2,14 @@
     (export setpoint-slider)
 
     (import lib.conversion)
-    
-    (import widget.modal)
     (import lib.optimistic)
+
+    (import widget.modal)
+    (import widget.regulator-theme)
     (import widget.site-breadcrumbs)
 
     (def (slider on-changed param value)
-        (def color current-theme.color-scheme.on-primary)
-        (def color-variant (color.with :a 0.5))
+        (def color-scheme (regulator-color-scheme current-theme))
         (stack
             :alignment alignment.center
             :children (
@@ -20,8 +20,8 @@
                     :diameter 240
                     :width 16
                     :focused-width 32
-                    :active-color color
-                    :inactive-color color-variant
+                    :active-color color-scheme.on-surface
+                    :inactive-color color-scheme.dimmed
                     :on-changed on-changed
                 )
                 (column
@@ -30,14 +30,14 @@
                             :content (round-to-resolution value param.resolution)
                             :style (text-style
                                 :font-size current-theme.text-theme.display-medium.font-size
-                                :color color
+                                :color color-scheme.on-surface
                             )
                         )
                         (text
                             :content param.unit
                             :style (text-style
                                 :font-size current-theme.text-theme.title-large.font-size
-                                :color color
+                                :color color-scheme.on-surface
                             )
                         )
                     )
