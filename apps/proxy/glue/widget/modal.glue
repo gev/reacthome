@@ -9,7 +9,7 @@
             :color props.color
             :constraints (box-constraints :min-height 200)
             :padding (edge-insets-only
-                :top 24 :bottom 40 :left 32 :right 32
+                :top 24 :bottom 40 :left 8 :right 8
             )
             :child props.child
         )
