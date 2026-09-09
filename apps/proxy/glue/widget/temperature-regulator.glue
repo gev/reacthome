@@ -29,13 +29,10 @@
     )
 
     (def (select-mode regulator mode on-changed)
-        (padding
-            :padding (edge-insets-symmetric :vertical 16)
-            :child (regulator-mode
-                :mode mode
-                :modes (# cooling heating)
-                :on-changed on-changed
-            )
+        (regulator-mode
+            :mode mode
+            :modes (# cooling heating)
+            :on-changed on-changed
         )
     )
 
