@@ -17,7 +17,7 @@
                     :value value
                     :min param.min
                     :max param.max
-                    :diameter 300
+                    :diameter 256
                     :width 24
                     :focused-width 32
                     :active-color color-scheme.on-surface
@@ -37,7 +37,7 @@
                             :content param.unit
                             :style (text-style
                                 :font-size current-theme.text-theme.display-small.font-size
-                                :color color-scheme.on-surface
+                                :color color-scheme.variant
                             )
                         )
                     )
