@@ -43,10 +43,12 @@
                 :trailing (segmented-button
                     :selected value
                     :segments (segments props)
+                    :show-selected-icon false
                     :empty-selection-allowed (is-empty value)
                     :on-selection-changed state.set-value
                     :style (segmented-button-style
                         :foreground-color color-scheme.on-surface
+                        :visual-density visual-density-compact
                         :side (border-side
                             :color color-scheme.variant
                         )
