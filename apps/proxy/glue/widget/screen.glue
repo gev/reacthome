@@ -9,17 +9,6 @@
         (material
             :color current-theme.color-scheme.surface-container
             :child (container
-                :decoration (box-decoration
-                    :gradient (linear-gradient
-                        :begin alignment.bottom-center
-                        :end alignment.top-center
-                        :colors (#
-                            current-theme.color-scheme.surface-dim
-                            current-theme.color-scheme.surface-bright
-                        )
-                        :stops (0 1)
-                    )
-                )
                 :child (stack
                     :children (
                         (props.body)
