@@ -38,6 +38,7 @@
                     :active-track-color color-scheme.variant
                     :inactive-track-color color-scheme.dimmed
                     :focus-color color-scheme.variant
+                    :track-outline-color colors.transparent
                 )
             )
         )

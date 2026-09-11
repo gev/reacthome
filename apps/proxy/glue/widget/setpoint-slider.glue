@@ -29,7 +29,7 @@
                         (text
                             :content (round-to-resolution value param.resolution)
                             :style (text-style
-                                :font-size current-theme.text-theme.display-large.font-size
+                                :font-size current-theme.text-theme.display-medium.font-size
                                 :color color-scheme.on-surface
                             )
                         )

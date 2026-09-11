@@ -24,34 +24,42 @@
         (def color-scheme (regulator-color-scheme current-theme))
         (def state
             (optimistic
-                :value (# props.value)
-                :on-changed (\ (set) (props.on-changed (@ set 0)))
+                :value props.value
+                :on-changed props.on-changed
             )
         )
         (def (tile value)
-            (list-tile
-                :leading (icon
-                    :icon (symbol fan.icon)
-                    :color color-scheme.on-surface
-                )
-                :title (text
-                    :content (select-locale i18n-speed)
-                    :style (text-style
-                        :color color-scheme.on-surface
-                    )
-                )
-                :trailing (segmented-button
-                    :selected value
-                    :segments (segments props)
-                    :show-selected-icon false
-                    :empty-selection-allowed (is-empty value)
-                    :on-selection-changed state.set-value
-                    :style (segmented-button-style
-                        :foreground-color color-scheme.on-surface
-                        :visual-density visual-density-compact
-                        :side (border-side
-                            :color color-scheme.variant
+            (column
+                :children (
+                    (list-tile
+                        :leading (icon
+                            :icon (symbol fan.icon)
+                            :color color-scheme.on-surface
                         )
+                        :title (text
+                            :content (select-locale i18n-speed)
+                            :style (text-style
+                                :color color-scheme.on-surface
+                            )
+                        )
+                        :trailing (text
+                            :content (round value)
+                            :style (text-style
+                                :font-size current-theme.text-theme.title-medium.font-size
+                                :color color-scheme.on-surface
+                            )
+                        )
+                    )
+                    (slider
+                        :min 0
+                        :max (- props.max 1)
+                        :divisions (- props.max 1)
+                        :value value
+                        :on-changed state.set-value
+                        :thumb-color color-scheme.on-surface
+                        :active-color color-scheme.on-surface
+                        :inactive-color color-scheme.dimmed
+
                     )
                 )
             )

@@ -26,6 +26,7 @@
             :empty-selection-allowed false
             :on-selection-changed on-changed
             :style (segmented-button-style
+                :elevation 4
                 :foreground-color color-scheme.on-surface
                 :side (border-side
                     :color color-scheme.variant
