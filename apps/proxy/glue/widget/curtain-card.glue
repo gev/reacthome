@@ -118,7 +118,7 @@
     )
 
     (def (curtain-card palette props)
-        (if (is-exist props.bind)
+        (if (exists? props.bind)
             (select (bound-curtain-card palette props) props.bind)
             (unbound-curtain-card props)
         )

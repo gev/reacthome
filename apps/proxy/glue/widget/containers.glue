@@ -9,7 +9,7 @@
     (import widget.grid)
 
     (def (select-in-column go items)
-        (if (is-exist items)
+        (if (exists? items)
             (column
                 :spacing 16
                 :children (map (select go) items)
@@ -18,7 +18,7 @@
     )
 
     (def (select-in-row go items)
-        (if (is-exist items)
+        (if (exists? items)
             (row
                 :spacing 16
                 :children (map (select go) items)
@@ -27,7 +27,7 @@
     )
 
     (def (select-in-grid go items)
-        (if (is-exist items)
+        (if (exists? items)
             (grid
                 :spacing 16
                 :children (map (select go) items)

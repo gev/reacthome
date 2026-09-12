@@ -6,7 +6,7 @@
 
     (def (select go key)
         (def (handle value)
-            (if (is-exist value)
+            (if (exists? value)
                 (go value)
                 (sized-box :width 0 :height 0)
             )

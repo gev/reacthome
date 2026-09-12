@@ -45,12 +45,12 @@
                 :acc (append props.acc i)
             )
         )
-        (if (is-exist props.site)
+        (if (exists? props.site)
             (let
                 (def site (remote-persistent-state props.site))
                 (listen go site)
             )
-            (if (not (is-empty props.acc))
+            (if (not (empty? props.acc))
                 (combine (map props.segment props.acc))
             )
         )
@@ -60,7 +60,7 @@
 
     (def (site-breadcrumbs props)
         (def segment
-            (if (is-exist props.action)
+            (if (exists? props.action)
                 (active-segment props.action props.color)
                 (passive-segment props.color)
             )

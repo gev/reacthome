@@ -13,7 +13,7 @@
 
     (def (monoid op prop acc val)
         (def value (@ val prop))
-        (if (is-exist value)
+        (if (exists? value)
             (
                 :value (op acc.value value)
                 :count (? value (+ acc.count 1) acc.count)
@@ -25,7 +25,7 @@
 
     (def (state prop site)
         (def keys (@ site prop))
-        (if (is-exist keys)
+        (if (exists? keys)
             (map remote-persistent-state keys)
             ()
         )
@@ -73,7 +73,7 @@
         (def lights_all (flatten (# lights_220 lights_LED)))
         (def children (flatten
                 (#
-                    (if (is-exist lights_all)
+                    (if (exists? lights_all)
                         (listen (aggregate-lights props light) lights_all)
                         ()
                     )
@@ -83,14 +83,14 @@
                 )
             )
         )
-        (if (is-exist children)
+        (if (exists? children)
             (props.container :children children)
             (row :children _)
         )
     )
 
     (def (has-children site)
-        (is-exist site.site)
+        (exists? site.site)
     )
 
     (def (get-children site)
@@ -108,7 +108,7 @@
                 :acc (concat props.acc sites)
             )
         )
-        (if (is-empty props.sites)
+        (if (empty? props.sites)
             (aggregate props)
             (listen go (map remote-persistent-state props.sites))
         )

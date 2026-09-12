@@ -25,7 +25,7 @@
                 :spacing 4
                 :main-axis-size main-axis-size.min
                 :children (
-                    (if (is-exist props.description)
+                    (if (exists? props.description)
                         (text
                             :content (select-locale props.description)
                             :style (text-style
@@ -34,13 +34,13 @@
                             )
                         )
                     )
-                    (if (is-exist props.value)
+                    (if (exists? props.value)
                         (text
                             :content props.value
                             :style current-theme.text-theme.title-medium
                         )
                     )
-                    (if (is-exist props.unit)
+                    (if (exists? props.unit)
                         (text
                             :content props.unit
                             :style (text-style

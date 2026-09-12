@@ -105,7 +105,7 @@
     )
 
     (def (site-with-image props)
-        (if (is-exist props.palette.vibrant)
+        (if (exists? props.palette.vibrant)
             (site-with-theme props)
             (site-stack props)
         )
@@ -115,7 +115,7 @@
         (card
             :key props.id
             :clip-behavior clip.anti-alias
-            :child (if (is-exist props.image)
+            :child (if (exists? props.image)
                 (site-with-image props)
                 (site-ink-well props)
             )

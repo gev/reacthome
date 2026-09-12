@@ -103,7 +103,7 @@
             :id props.id
             :label (title props)
             :value props.value
-            :brightness (if (is-exist bind.brightness)
+            :brightness (if (exists? bind.brightness)
                 (? bind.value bind.brightness 0)
                 bind.value
             )
@@ -125,7 +125,7 @@
     )
 
     (def (light-card palette props)
-        (if (is-exist props.bind)
+        (if (exists? props.bind)
             (select (bound-light-card palette props) props.bind)
             (unbound-light-card props)
         )

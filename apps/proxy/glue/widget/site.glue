@@ -24,7 +24,7 @@
                     :spacing 16
                     :cross-axis-alignment cross-axis-alignment.start
                     :children (
-                        (if (is-exist props.image)
+                        (if (exists? props.image)
                             (image
                                 :image (load-image :src props.image)
                                 :fit box-fit.fit-width
@@ -80,7 +80,7 @@
     )
 
     (def (site props)
-        (if (is-exist props.palette.vibrant)
+        (if (exists? props.palette.vibrant)
             (let
                 (def palette (
                         :seed-color props.palette.vibrant

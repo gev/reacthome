@@ -19,13 +19,13 @@
                     :fill props.icon.fill
                     :size 16
                 )
-                (if (is-exist props.value)
+                (if (exists? props.value)
                     (text
                         :content props.value
                         :style current-theme.text-theme.title-small
                     )
                 )
-                (if (is-exist props.unit)
+                (if (exists? props.unit)
                     (text
                         :content props.unit
                         :style (text-style

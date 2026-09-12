@@ -63,7 +63,7 @@
                             :spacing 4
                             :children (
                                 (tile-status props.status)
-                                (? (is-exist props.details)
+                                (? (exists? props.details)
                                     (tile-details props.details))
                             )
                         )
