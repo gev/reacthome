@@ -57,7 +57,7 @@
             :seed-color colors.pink
             :dynamic-scheme-variant dynamic-scheme-variant.fruit-salad
             :routes (
-                :home project-route
+                :index project-route
                 :site site-route
                 :light-regulator light-regulator-route
                 :positioned-curtain-regulator positioned-curtain-regulator-route
