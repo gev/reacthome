@@ -31,15 +31,15 @@
                         :main-axis-size main-axis-size.min
                         :children (
                             (text
-                                :content (select-locale props.param.label)
+                                :text (select-locale props.param.label)
                                 :style title-style
                             )
                             (text
-                                :content (round-to-resolution value props.param.resolution)
+                                :text (round-to-resolution value props.param.resolution)
                                 :style title-style
                             )
                             (text
-                                :content props.param.unit
+                                :text props.param.unit
                                 :style title-style
 
                             )

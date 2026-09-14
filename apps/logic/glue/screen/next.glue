@@ -14,17 +14,17 @@
                         (image
                             :image (asset-image :src "icon.png")
                             :width 100)
-                        (text :content props.title)
-                        (text :content (foo 10))
+                        (text :text props.title)
+                        (text :text (foo 10))
                         (row
                             :main-axis-size main-axis-size.min
                             :spacing 32
                             :children (
                                 (button
-                                    :child (text :content "< Назад")
+                                    :child (text :text "< Назад")
                                     :on-pressed back)
                                 (filled-button
-                                    :child (text :content "Далее >")
+                                    :child (text :text "Далее >")
                                     :on-pressed (go 'next))
                             )
                         )

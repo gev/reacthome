@@ -11,7 +11,7 @@
 
     (def (segment i)
         (button-segment
-            :label (text :content i)
+            :label (text :text i)
             :value i
         )
     )
@@ -37,13 +37,13 @@
                             :color color-scheme.on-surface
                         )
                         :title (text
-                            :content (select-locale i18n-speed)
+                            :text (select-locale i18n-speed)
                             :style (text-style
                                 :color color-scheme.on-surface
                             )
                         )
                         :trailing (text
-                            :content (round value)
+                            :text (round value)
                             :style (text-style
                                 :font-size current-theme.text-theme.title-medium.font-size
                                 :color color-scheme.on-surface

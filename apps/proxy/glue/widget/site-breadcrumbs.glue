@@ -6,7 +6,7 @@
 
     (def (passive-segment color props)
         (text
-            :content (title props)
+            :text (title props)
             :style (text-style
                 :color (?? color
                     current-theme.color-scheme.on-surface-variant)
@@ -23,7 +23,7 @@
             )
             :on-pressed (action props.id)
             :child (text
-                :content (title props)
+                :text (title props)
             )
         )
     )

@@ -16,15 +16,15 @@
                 :children (
                     (text-field _)
                     (text
-                        :content props.title
+                        :text props.title
                         :style current-theme.text-theme.headline-large
                     )
                     (filled-button
-                        :child (text :content "Press me")
+                        :child (text :text "Press me")
                         :on-pressed (go :route 'project)
                     )
                     (filled-button
-                        :child (text :content "Curtain Demo")
+                        :child (text :text "Curtain Demo")
                         :on-pressed (go :route 'curtain-demo)
                     )
                 )

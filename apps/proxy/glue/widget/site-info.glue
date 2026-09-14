@@ -19,7 +19,7 @@
                 :fill props.icon.fill
             )
             :title (text
-                :content (select-locale props.label)
+                :text (select-locale props.label)
             )
             :trailing (row
                 :spacing 4
@@ -27,7 +27,7 @@
                 :children (
                     (if (exists? props.description)
                         (text
-                            :content (select-locale props.description)
+                            :text (select-locale props.description)
                             :style (text-style
                                 :font-size current-theme.text-theme.title-medium.font-size
                                 :color current-theme.color-scheme.on-surface-variant
@@ -36,13 +36,13 @@
                     )
                     (if (exists? props.value)
                         (text
-                            :content props.value
+                            :text props.value
                             :style current-theme.text-theme.title-medium
                         )
                     )
                     (if (exists? props.unit)
                         (text
-                            :content props.unit
+                            :text props.unit
                             :style (text-style
                                 :font-size current-theme.text-theme.title-medium.font-size
                                 :color current-theme.color-scheme.on-surface-variant

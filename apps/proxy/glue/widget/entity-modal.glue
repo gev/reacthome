@@ -6,7 +6,7 @@
 
     (def (title value)
         (text
-            :content value
+            :text value
             :style (text-style
                 :font-size current-theme.text-theme.title-large.font-size
                 :color current-theme.color-scheme.on-surface-variant
@@ -17,7 +17,7 @@
 
     (def (display value)
         (text
-            :content value
+            :text value
             :style (text-style
                 :font-size current-theme.text-theme.headline-large.font-size
                 :color current-theme.color-scheme.on-surface

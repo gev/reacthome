@@ -22,14 +22,14 @@
                 (column
                     :children(
                         (text
-                            :content props.value
+                            :text props.value
                             :style (text-style
                                 :font-size current-theme.text-theme.title-large.font-size
                                 :color props.color
                             )
                         )
                         (text
-                            :content props.unit
+                            :text props.unit
                             :style (text-style
                                 :font-size current-theme.text-theme.title-small.font-size
                                 :color props.color

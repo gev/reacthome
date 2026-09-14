@@ -19,7 +19,7 @@
 
     (def (tile-label props)
         (text
-            :content props.text
+            :text props.text
             :style (text-style
                 :color props.color
                 :font-size current-theme.text-theme.label-medium.font-size
@@ -30,7 +30,7 @@
 
     (def (tile-status props)
         (text
-            :content props.text
+            :text props.text
             :style (text-style
                 :color props.color
                 :font-size current-theme.text-theme.title-medium.font-size
@@ -41,7 +41,7 @@
 
     (def (tile-details props)
         (text
-            :content props.text
+            :text props.text
             :style (text-style
                 :color props.color
                 :font-size current-theme.text-theme.title-medium.font-size

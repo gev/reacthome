@@ -27,14 +27,14 @@
                 (column
                     :children(
                         (text
-                            :content (round-to-resolution value param.resolution)
+                            :text (round-to-resolution value param.resolution)
                             :style (text-style
                                 :font-size current-theme.text-theme.display-medium.font-size
                                 :color color-scheme.on-surface
                             )
                         )
                         (text
-                            :content param.unit
+                            :text param.unit
                             :style (text-style
                                 :font-size current-theme.text-theme.display-small.font-size
                                 :color color-scheme.variant

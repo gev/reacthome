@@ -29,7 +29,7 @@
     (def (site-title props)
         (row
             :children (text
-                :content (title props)
+                :text (title props)
                 :style (text-style
                     :color colors.white
                     :font-size current-theme.text-theme.headline-medium.font-size

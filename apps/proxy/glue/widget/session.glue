@@ -27,7 +27,7 @@
                     :position props.connected-position
                     :color current-theme.color-scheme.surface-container
                     :child (text
-                        :content "Connected"
+                        :text "Connected"
                         :style (text-style
                             :color current-theme.color-scheme.on-surface
                         )
@@ -41,7 +41,7 @@
                         :main-axis-size main-axis-size.min
                         :children (
                             (text
-                                :content "Connecting"
+                                :text "Connecting"
                                 :style (text-style
                                     :color current-theme.color-scheme.on-error
                                 )

@@ -42,17 +42,17 @@
                         :children (
                             (button
                                 :child (text
-                                    :content (select-locale i18n-open)
+                                    :text (select-locale i18n-open)
                                 )
                             )
                             (button
                                 :child (text
-                                    :content (select-locale i18n-stop)
+                                    :text (select-locale i18n-stop)
                                 )
                             )
                             (button
                                 :child (text
-                                    :content (select-locale i18n-close)
+                                    :text (select-locale i18n-close)
                                 )
                             )
                         )
@@ -89,17 +89,17 @@
                         :children (
                             (button
                                 :child (text
-                                    :content (select-locale i18n-open)
+                                    :text (select-locale i18n-open)
                                 )
                             )
                             (button
                                 :child (text
-                                    :content (select-locale i18n-stop)
+                                    :text (select-locale i18n-stop)
                                 )
                             )
                             (button
                                 :child (text
-                                    :content (select-locale i18n-close)
+                                    :text (select-locale i18n-close)
                                 )
                             )
                         )

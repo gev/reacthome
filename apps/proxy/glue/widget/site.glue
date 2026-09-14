@@ -38,7 +38,7 @@
                                 :cross-axis-alignment wrap-cross-alignment.center
                                 :children (
                                     (text
-                                        :content (title props)
+                                        :text (title props)
                                         :style current-theme.text-theme.headline-large
                                     )
                                     (site-breadcrumbs

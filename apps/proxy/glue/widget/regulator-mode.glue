@@ -7,7 +7,7 @@
 
     (def (segment i)
         (button-segment
-            :label (text :content (select-locale i.label))
+            :label (text :text (select-locale i.label))
             :value i
         )
     )

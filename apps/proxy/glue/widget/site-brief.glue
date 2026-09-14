@@ -21,13 +21,13 @@
                 )
                 (if (exists? props.value)
                     (text
-                        :content props.value
+                        :text props.value
                         :style current-theme.text-theme.title-small
                     )
                 )
                 (if (exists? props.unit)
                     (text
-                        :content props.unit
+                        :text props.unit
                         :style (text-style
                             :font-style current-theme.text-theme.title-small.font-size
                             :color current-theme.color-scheme.on-surface-variant
