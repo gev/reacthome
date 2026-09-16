@@ -1,34 +1,10 @@
 (module screen.home
     (export home-screen)
 
-    (import lib.navigation)
+    (import lib.data)
+    (import widget.site)
 
-    (import widget.screen)
-    (import widget.iconic)
-
-    (import iconic.sign)
-    (import iconic.heater)
-
-    (def (home-screen props)
-        (screen
-            :body (column
-                :spacing 50
-                :children (
-                    (text-field _)
-                    (text
-                        :text props.title
-                        :style current-theme.text-theme.headline-large
-                    )
-                    (filled-button
-                        :child (text :text "Press me")
-                        :on-pressed (go :route 'project)
-                    )
-                    (filled-button
-                        :child (text :text "Curtain Demo")
-                        :on-pressed (go :route 'curtain-demo)
-                    )
-                )
-            )
-        )
+    (def (home-screen project)
+        (select site project)
     )
 )
