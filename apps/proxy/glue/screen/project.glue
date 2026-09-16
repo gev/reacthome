@@ -1,10 +1,69 @@
 (module screen.project
     (export project-screen)
 
-    (import lib.data)
-    (import widget.site)
+    (import screen.home)
+    (import screen.site)
+    (import screen.light-regulator)
+    (import screen.curtain-regulator)
+    (import screen.regulator)
 
-    (def (project-screen project)
-        (select site project)
+    (def (overlay screen args)
+        (overlay-route
+            :tag args.id
+            :screen (screen args)
+            :duration 300
+            :opacity 0.5
+        )
+    )
+
+    (def (home-route args)
+        (route
+            :screen (home-screen 'proxy.b9b35b14-2d39-492c-ae72-48adfef50b8e)
+        )
+    )
+
+    (def (site-route args)
+        (route
+            :screen (site-screen args)
+        )
+    )
+
+    (def light-regulator-route
+        (overlay light-regulator-screen)
+    )
+
+    (def positioned-curtain-regulator-route
+        (overlay positioned-curtain-regulator-screen)
+    )
+
+    (def non-positioned-curtain-regulator-route
+        (overlay non-positioned-curtain-regulator-screen)
+    )
+
+    (def temperature-regulator-route
+        (overlay temperature-regulator-screen)
+    )
+
+    (def humidity-regulator-route
+        (overlay humidity-regulator-screen)
+    )
+
+    (def ventilation-regulator-route
+        (overlay ventilation-regulator-screen)
+    )
+
+    (def (project-screen args)
+        (navigator
+            :routes (
+                :index home-route
+                :site site-route
+                :light-regulator light-regulator-route
+                :positioned-curtain-regulator positioned-curtain-regulator-route
+                :non-positioned-curtain-regulator non-positioned-curtain-regulator-route
+                :temperature-regulator temperature-regulator-route
+                :humidity-regulator humidity-regulator-route
+                :ventilation-regulator ventilation-regulator-route
+            )
+        )
     )
 )
