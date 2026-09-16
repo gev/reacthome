@@ -2,7 +2,6 @@
     (export main)
 
     (import screen.project)
-    (import screen.site)
     (import screen.light-regulator)
     (import screen.curtain-regulator)
     (import screen.regulator)
@@ -18,13 +17,7 @@
 
     (def (project-route args)
         (route
-            :screen (project-screen 'proxy.b9b35b14-2d39-492c-ae72-48adfef50b8e)
-        )
-    )
-
-    (def (site-route args)
-        (route
-            :screen (site-screen args)
+            :screen (project-screen args)
         )
     )
 
@@ -58,7 +51,6 @@
             :dynamic-scheme-variant dynamic-scheme-variant.fruit-salad
             :routes (
                 :index project-route
-                :site site-route
                 :light-regulator light-regulator-route
                 :positioned-curtain-regulator positioned-curtain-regulator-route
                 :non-positioned-curtain-regulator non-positioned-curtain-regulator-route
