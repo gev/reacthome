@@ -3,10 +3,6 @@
 
     (import lib.navigation)
 
-    (import screen.home)
-    (import screen.dashboard)
-    (import screen.weather)
-
     (import widget.floating-bar)
 
     (def (nav-bar-button props)
@@ -32,12 +28,10 @@
         )
     )
 
-    (def (show screen)
-
-    )
-
     (def (nav-bar props)
-        (def index (local-state 1))
+        (def (selected? screen)
+            (== screen props.screen)
+        )
         (row
             :main-axis-alignment main-axis-alignment.center
             :spacing 16
@@ -50,15 +44,18 @@
                             :children (
                                 (nav-bar-button
                                     :symbol 'weather.mix
-                                    :selected false
+                                    :selected (selected? 0)
+                                    :on-pressed (props.select 0)
                                 )
                                 (nav-bar-button
                                     :symbol 'home
-                                    :selected true
+                                    :selected (selected? 1)
+                                    :on-pressed (props.select 1)
                                 )
                                 (nav-bar-button
                                     :symbol 'dashboard
-                                    :selected false
+                                    :selected (selected? 2)
+                                    :on-pressed (props.select 2)
                                 )
                             )
                         )
