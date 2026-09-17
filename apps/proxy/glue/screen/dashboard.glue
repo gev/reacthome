@@ -1,0 +1,17 @@
+(module  screen.dashboard
+    (export dashboard-screen)
+
+    (import widget.screen)
+
+    (def (dashboard-screen args)
+        (screen
+            :body (center
+                :child (text
+                    :text "Dashboard"
+                    :style current-theme.text-theme.display-medium
+                )
+            )
+        )
+    )
+
+)
