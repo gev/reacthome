@@ -10,7 +10,7 @@
             :children (
                 (? (can-pop)
                     (floating-bar
-                        :child (back-button _)
+                        :child (back-button :on-pressed back)
                     )
                 )
             )
