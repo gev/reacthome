@@ -1,11 +1,17 @@
 (module widget.compact-nav-bar
     (export nav-bar)
 
+    (import lib.navigation)
+
+    (import screen.home)
+    (import screen.dashboard)
+    (import screen.weather)
+
     (import widget.floating-bar)
 
     (def (nav-bar-button props)
         (button
-            :on-pressed (\ () ())
+            :on-pressed props.on-pressed
             :style (button-style
                 :elevation (? props.selected 1 0)
                 :background-color (
@@ -26,7 +32,12 @@
         )
     )
 
+    (def (show screen)
+
+    )
+
     (def (nav-bar props)
+        (def index (local-state 1))
         (row
             :main-axis-alignment main-axis-alignment.center
             :spacing 16
@@ -56,7 +67,10 @@
                 (floating-bar
                     :child (padding
                         :padding (edge-insets-all 8)
-                        :child (icon-button :child (icon :icon (symbol 'settings)))
+                        :child (icon-button
+                            :child (icon :icon (symbol 'settings))
+                            :on-pressed (go :route 'settings)
+                        )
                     )
                 )
             )
