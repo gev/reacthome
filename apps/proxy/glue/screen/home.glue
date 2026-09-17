@@ -1,10 +1,27 @@
 (module screen.home
     (export home-screen)
 
-    (import lib.data)
-    (import widget.site)
+    (import screen.site)
 
-    (def (home-screen project)
-        (select site project)
+    (def (home-route args)
+        (route
+            :screen (site-screen :id 'proxy.b9b35b14-2d39-492c-ae72-48adfef50b8e)
+        )
     )
+
+    (def (site-route args)
+        (route
+            :screen (site-screen args)
+        )
+    )
+
+    (def (home-screen props)
+        (navigator
+            :routes (
+                :index home-route
+                :site site-route
+            )
+        )
+    )
+
 )

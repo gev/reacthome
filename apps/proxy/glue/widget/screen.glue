@@ -2,8 +2,6 @@
     (export screen)
 
     (import widget.app-bar)
-    (import widget.compact-nav-bar)
-    (import widget.session)
 
     (def (screen props)
         (material
@@ -17,19 +15,6 @@
                             :left 16
                             :right 16
                             :child (app-bar _)
-                        )
-                        (positioned
-                            :bottom 16
-                            :left 16
-                            :right 16
-                            :child (container
-                                :alignment alignment.center
-                                :child (container :child(nav-bar _))
-                            )
-                        )
-                        (session-status
-                            :connected-position -48
-                            :disconnected-position 12
                         )
                     )
                 )

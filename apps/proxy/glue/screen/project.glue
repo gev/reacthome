@@ -2,25 +2,32 @@
     (export project-screen)
 
     (import screen.home)
-    (import screen.site)
 
-    (def (home-route args)
-        (route
-            :screen (home-screen 'proxy.b9b35b14-2d39-492c-ae72-48adfef50b8e)
-        )
-    )
-
-    (def (site-route args)
-        (route
-            :screen (site-screen args)
-        )
-    )
+    (import widget.compact-nav-bar)
+    (import widget.session)
 
     (def (project-screen args)
-        (navigator
-            :routes (
-                :index home-route
-                :site site-route
+        (material
+            :color current-theme.color-scheme.surface-container
+            :child (container
+                :child (stack
+                    :children (
+                        (home-screen _)
+                        (positioned
+                            :bottom 16
+                            :left 16
+                            :right 16
+                            :child (container
+                                :alignment alignment.center
+                                :child (container :child(nav-bar _))
+                            )
+                        )
+                        (session-status
+                            :connected-position -48
+                            :disconnected-position 12
+                        )
+                    )
+                )
             )
         )
     )
