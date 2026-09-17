@@ -2,6 +2,7 @@
     (export main)
 
     (import screen.project)
+    (import screen.settings)
     (import screen.light-regulator)
     (import screen.curtain-regulator)
     (import screen.regulator)
@@ -18,6 +19,12 @@
     (def (project-route args)
         (route
             :screen (project-screen args)
+        )
+    )
+
+    (def (settings-route args)
+        (route
+            :screen (settings-screen args)
         )
     )
 
@@ -47,10 +54,11 @@
 
     (def main
         (app
-            :seed-color colors.pink
+            :seed-color colors.cyan
             :dynamic-scheme-variant dynamic-scheme-variant.fruit-salad
             :routes (
                 :index project-route
+                :settings settings-route
                 :light-regulator light-regulator-route
                 :positioned-curtain-regulator positioned-curtain-regulator-route
                 :non-positioned-curtain-regulator non-positioned-curtain-regulator-route
