@@ -6,13 +6,18 @@
     (import widget.compact-nav-bar)
     (import widget.session)
 
+    (def (show args screen)
+        (screen args)
+    )
+
     (def (project-screen args)
+        (def screen (local-state home-screen))
         (material
             :color current-theme.color-scheme.surface-container
             :child (container
                 :child (stack
                     :children (
-                        (home-screen _)
+                        (listen (show args) screen)
                         (positioned
                             :bottom 16
                             :left 16
