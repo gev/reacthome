@@ -1,0 +1,16 @@
+(module  screen.weather
+    (export weather-screen)
+
+    (import widget.screen)
+    
+    (def (weather-screen args)
+        (screen
+            :body (center
+                :child (text
+                    :text "Weather"
+                    :style current-theme.text-theme.display-medium
+                )
+            )
+        )
+    )
+)
