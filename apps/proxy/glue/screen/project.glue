@@ -2,29 +2,36 @@
     (export project-screen)
 
     (import screen.home)
+    (import screen.dashboard)
+    (import screen.weather)
 
     (import widget.compact-nav-bar)
     (import widget.session)
 
-    (def (show args screen)
-        (screen args)
-    )
-
-    (def (project-screen args)
-        (def screen (local-state home-screen))
+    (def (show args select screen)
         (material
             :color current-theme.color-scheme.surface-container
             :child (container
                 :child (stack
-                    :children (
-                        (listen (show args) screen)
+                    :children(
+                        (indexed-stack
+                            :index screen
+                            :children (
+                                (weather-screen _)
+                                (home-screen _)
+                                (dashboard-screen _)
+                            )
+                        )
                         (positioned
                             :bottom 16
                             :left 16
                             :right 16
                             :child (container
                                 :alignment alignment.center
-                                :child (container :child(nav-bar _))
+                                :child (nav-bar
+                                    :screen screen
+                                    :select select
+                                )
                             )
                         )
                         (session-status
@@ -35,5 +42,17 @@
                 )
             )
         )
+    )
+
+    (def (project-screen args)
+        (def screen
+            (local-state 1)
+        )
+        (def (select current)
+            (\ ()
+                (write screen current)
+            )
+        )
+        (listen (show args select) screen)
     )
 )
