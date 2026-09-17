@@ -1,0 +1,16 @@
+(module  screen.settings
+    (export settings-screen)
+
+    (import widget.screen)
+
+    (def (settings-screen args)
+        (screen
+            :body (center
+                :child (text
+                    :text "Settings"
+                    :style current-theme.text-theme.display-medium
+                )
+            )
+        )
+    )
+)
