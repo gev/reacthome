@@ -18,15 +18,15 @@
         )
     )
 
-    (def (project-route args)
+    (def (project-route home args)
         (route
-            :screen (project-screen args)
+            :screen (project-screen home args)
         )
     )
 
-    (def (settings-route args)
+    (def (settings-route home args)
         (route
-            :screen (settings-screen args)
+            :screen (settings-screen home args)
         )
     )
 
@@ -54,14 +54,14 @@
         (overlay ventilation-regulator-screen)
     )
 
-    (def (main args)
+    (def (main home)
         (app
             :navigator-key applet
             :seed-color colors.cyan
             :dynamic-scheme-variant dynamic-scheme-variant.fruit-salad
             :routes (
-                :index project-route
-                :settings settings-route
+                :index (project-route home)
+                :settings (settings-route home)
                 :light-regulator light-regulator-route
                 :positioned-curtain-regulator positioned-curtain-regulator-route
                 :non-positioned-curtain-regulator non-positioned-curtain-regulator-route
