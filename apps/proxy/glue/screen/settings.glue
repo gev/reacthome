@@ -1,14 +1,30 @@
 (module  screen.settings
     (export settings-screen)
 
+    (import lib.navigation)
     (import widget.screen)
 
-    (def (settings-screen args)
+    (def (settings-screen home args)
+        (print home)
         (screen
-            :body (center
-                :child (text
-                    :text "Settings"
-                    :style current-theme.text-theme.display-medium
+            :body (column
+                :spacing 32
+                :cross-axis-alignment cross-axis-alignment.start
+                :children (
+                    (sized-box :height 80)
+                    (padding
+                        :padding (edge-insets-symmetric :horizontal 16)
+                        :child (text
+                            :text "Settings"
+                            :style current-theme.text-theme.display-medium
+                        )
+                    )
+                    (list-tile
+                        :leading (icon :icon (symbol 'home))
+                        :title (text :text "My homes")
+                        :trailing (icon :icon (symbol 'chevron_forward))
+                        :on-tap back-root
+                    )
                 )
             )
         )
