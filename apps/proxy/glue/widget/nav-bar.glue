@@ -1,7 +1,7 @@
 (module widget.nav-bar
     (export nav-bar)
 
-    (import i18n.nav-bar)
+    (import i18n.dict)
     (import lib.i18n)
     (import widget.floating-bar)
 

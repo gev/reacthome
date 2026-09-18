@@ -1,4 +1,4 @@
-(module i18n.nav-bar
+(module i18n.dict
     (export
         i18n-home
         i18n-settings
@@ -24,5 +24,10 @@
     (def i18n-weather (
             :en "Weather"
             :ru "Погода"
+        ))
+
+    (def i18n-my-homes (
+            :en "My homes"
+            :ru "Мои дома"
         ))
 )
