@@ -1,13 +1,15 @@
 (module  screen.weather
     (export weather-screen)
 
+    (import lib.i18n)
+    (import i18n.dict)
     (import widget.screen)
-    
+
     (def (weather-screen args)
         (screen
             :body (center
                 :child (text
-                    :text "Weather"
+                    :text (select-locale i18n-weather)
                     :style current-theme.text-theme.display-medium
                 )
             )

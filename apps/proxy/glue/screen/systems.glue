@@ -1,13 +1,15 @@
 (module  screen.dashboard
     (export dashboard-screen)
 
+    (import lib.i18n)
+    (import i18n.dict)
     (import widget.screen)
 
     (def (dashboard-screen args)
         (screen
             :body (center
                 :child (text
-                    :text "Dashboard"
+                    :text (select-locale i18n-systems)
                     :style current-theme.text-theme.display-medium
                 )
             )

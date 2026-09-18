@@ -1,7 +1,11 @@
 (module  screen.settings
     (export settings-screen)
 
+    (import lib.i18n)
     (import lib.navigation)
+
+    (import i18n.dict)
+
     (import widget.screen)
 
     (def (settings-screen home args)
@@ -15,13 +19,13 @@
                     (padding
                         :padding (edge-insets-symmetric :horizontal 16)
                         :child (text
-                            :text "Settings"
+                            :text (select-locale i18n-settings)
                             :style current-theme.text-theme.display-medium
                         )
                     )
                     (list-tile
                         :leading (icon :icon (symbol 'home))
-                        :title (text :text "My homes")
+                        :title (text :text (select-locale i18n-my-homes))
                         :trailing (icon :icon (symbol 'chevron_forward))
                         :on-tap back-root
                     )
