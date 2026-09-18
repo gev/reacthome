@@ -54,7 +54,7 @@
         (overlay ventilation-regulator-screen)
     )
 
-    (def main
+    (def (main args)
         (app
             :navigator-key applet
             :seed-color colors.cyan
