@@ -1,5 +1,11 @@
 (module lib.navigation
-    (export applet back go)
+    (export
+        applet
+        back
+        back-root
+        go
+        go-root
+    )
 
     (def applet global-key)
 
@@ -9,9 +15,21 @@
         )
     )
  
+    (def back-root
+        (\ ()
+            (pop-root _)
+        )
+    )
+ 
     (def (go route)
         (\ ()
             (push route)
+        )
+    )
+
+    (def (go-root route)
+        (\ ()
+            (push-root route)
         )
     )
 )
