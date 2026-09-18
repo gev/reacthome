@@ -1,5 +1,7 @@
 (module lib.navigation
-    (export back go)
+    (export applet back go)
+
+    (def applet global-key)
 
     (def back
         (\ ()
