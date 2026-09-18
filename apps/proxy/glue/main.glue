@@ -1,6 +1,8 @@
 (module main
     (export main)
 
+    (import lib.navigation)
+
     (import screen.project)
     (import screen.settings)
     (import screen.light-regulator)
@@ -54,6 +56,7 @@
 
     (def main
         (app
+            :navigator-key applet
             :seed-color colors.cyan
             :dynamic-scheme-variant dynamic-scheme-variant.fruit-salad
             :routes (
