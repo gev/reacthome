@@ -8,7 +8,7 @@
         (row
             :main-axis-size main-axis-size.min
             :children (
-                (if (can-pop?)
+                (if (can-pop? _)
                     (floating-bar
                         :child (back-button :on-pressed back)
                     )
