@@ -1,11 +1,11 @@
-(module  screen.dashboard
-    (export dashboard-screen)
+(module  screen.systems
+    (export systems-screen)
 
     (import lib.i18n)
     (import i18n.dict)
     (import widget.screen)
 
-    (def (dashboard-screen args)
+    (def (systems-screen args)
         (screen
             :body (center
                 :child (text
