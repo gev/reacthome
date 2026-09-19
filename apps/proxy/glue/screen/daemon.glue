@@ -1,0 +1,14 @@
+(module screen.daemon
+    (export daemon-screen)
+
+    (import lib.data)
+    (import widget.site)
+
+    (def (daemon props)
+        (select site props.project)
+    )
+
+    (def (daemon-screen args)
+        (select daemon args.id)
+    )
+)
