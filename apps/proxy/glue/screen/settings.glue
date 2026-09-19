@@ -9,7 +9,6 @@
     (import widget.screen)
 
     (def (settings-screen home args)
-        (print home)
         (screen
             :body (column
                 :spacing 32
