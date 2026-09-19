@@ -2,13 +2,13 @@
     (export project-screen)
 
     (import screen.home)
-    (import screen.dashboard)
+    (import screen.systems)
     (import screen.weather)
 
     (import widget.compact-nav-bar)
     (import widget.session)
 
-    (def (show args select screen)
+    (def (show home select screen)
         (material
             :color current-theme.color-scheme.surface-container
             :child (container
@@ -18,8 +18,8 @@
                             :index screen
                             :children (
                                 (weather-screen _)
-                                (home-screen _)
-                                (dashboard-screen _)
+                                (home-screen home _)
+                                (systems-screen _)
                             )
                         )
                         (positioned
@@ -53,6 +53,6 @@
                 (write screen current)
             )
         )
-        (listen (show args select) screen)
+        (listen (show home select) screen)
     )
 )
