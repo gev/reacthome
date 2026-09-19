@@ -14,8 +14,7 @@ data ServerConfig = ServerConfig
     }
 
 data DaemonConfig = DaemonConfig
-    { uid :: String
-    , host :: String
+    { host :: String
     , port :: Int
     , uri :: String
     }

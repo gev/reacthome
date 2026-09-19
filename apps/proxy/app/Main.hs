@@ -12,8 +12,7 @@ main = do
                         }
                 , daemon =
                     DaemonConfig
-                        { uid = "02aaee3f-a050-43d5-bbf2-e0f2abd73a6e"
-                        , host = "server.local"
+                        { host = "server.local"
                         , port = 3000
                         , uri = "/"
                         }
