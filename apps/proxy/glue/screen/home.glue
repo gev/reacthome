@@ -1,11 +1,12 @@
 (module screen.home
     (export home-screen)
 
+    (import screen.daemon)
     (import screen.site)
 
-    (def (home-route args)
+    (def (daemon-route home args)
         (route
-            :screen (site-screen :id 'proxy.b9b35b14-2d39-492c-ae72-48adfef50b8e)
+            :screen (daemon-screen :id home.proxy)
         )
     )
 
@@ -15,10 +16,10 @@
         )
     )
 
-    (def (home-screen props)
+    (def (home-screen home args)
         (navigator
             :routes (
-                :index home-route
+                :index (daemon-route home)
                 :site site-route
             )
         )
