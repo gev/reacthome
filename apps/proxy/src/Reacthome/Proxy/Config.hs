@@ -25,9 +25,9 @@ data AssetsConfig = AssetsConfig
     }
 
 data DiscoveryConfig = DiscoveryConfig
-    { annonceInterval :: Int
-    , annonceGroup :: String
-    , annoncePort :: Int
+    { announceInterval :: Int
+    , announceGroup :: String
+    , announcePort :: Int
     , probeGroup :: String
     , probePort :: Int
     }

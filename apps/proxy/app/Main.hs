@@ -18,9 +18,9 @@ main = do
                         }
                 , discovery =
                     DiscoveryConfig
-                        { annonceInterval = 10
-                        , annonceGroup = "239.0.0.2026"
-                        , annoncePort = 2026
+                        { announceInterval = 10
+                        , announceGroup = "239.0.0.2026"
+                        , announcePort = 2026
                         , probeGroup = "239.0.0.2027"
                         , probePort = 2027
                         }
