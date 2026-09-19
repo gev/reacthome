@@ -2,7 +2,7 @@ cabal-version: 3.8
 name: discovery
 version: 0.1.0.0
 synopsis: Auto Discovery
-description: Multicat Auto Discovery service
+description: Multicast Auto Discovery service
 license: BSD-3-Clause
 author: ReactHome Team
 maintainer: gazdovsky@gmail.com
@@ -33,7 +33,7 @@ library
 
   -- cabal-gild: discover src
   exposed-modules:
-    Discovery.Annoncer
+    Discovery.Announcer
     Discovery.Broadcaster
     Discovery.Config
     Discovery.Monitor

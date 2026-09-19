@@ -4,7 +4,7 @@ import Data.ByteString
 import Discovery.Monitor
 import Network.Socket
 
-data AnnonceConfig = AnnonceConfig
+data AnnounceConfig = AnnounceConfig
     { group :: HostName
     , port :: PortNumber
     , message :: ByteString

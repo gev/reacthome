@@ -1,14 +1,14 @@
 import Control.Concurrent (forkIO)
 import Control.Monad
-import Discovery.Annoncer
+import Discovery.Announcer
 import Discovery.Config
 import Discovery.Responder (respond)
 import Discovery.Scanner
 
 main :: IO ()
 main = do
-    let ?annonce =
-            AnnonceConfig
+    let ?announce =
+            AnnounceConfig
                 { group = "239.0.0.1"
                 , port = 2026
                 , message = "Hello"
@@ -24,5 +24,5 @@ main = do
                 , timeout = 1
                 }
     void $ forkIO respond
-    void $ forkIO annonce
+    void $ forkIO announce
     probe'n'scan

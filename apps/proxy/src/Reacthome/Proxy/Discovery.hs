@@ -14,7 +14,7 @@ runProxyDiscovery ::
     (?downstream :: Downstream) => DiscoveryConfig -> IO ()
 runProxyDiscovery config = forever do
     ?downstream.send discoveryMessage
-    threadDelay $ config.annonceInterval * 1_000_000
+    threadDelay $ config.announceInterval * 1_000_000
     pure ()
 
--- annonce :: DiscoveryConfig -> A.Key-> IO()
+-- announce :: DiscoveryConfig -> A.Key-> IO()
