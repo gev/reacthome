@@ -11,6 +11,7 @@ data AppConfig = AppConfig
 data ServerConfig = ServerConfig
     { host :: String
     , port :: Int
+    , uri :: String
     }
 
 data DaemonConfig = DaemonConfig
