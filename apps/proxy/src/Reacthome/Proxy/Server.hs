@@ -2,6 +2,7 @@ module Reacthome.Proxy.Server where
 
 import Control.Concurrent.Async (race)
 import Control.Concurrent.Chan.Unagi.Bounded (newChan, tryRead, tryReadChan, writeChan)
+import Data.String
 import Data.UUID.V4 (nextRandom)
 import Reacthome.Proxy.Assets (Assets)
 import Reacthome.Proxy.Bridge.Downstream (Downstream)
@@ -28,7 +29,7 @@ runProxyServer config = do
     runWebSocketServer
         config.host
         config.port
-        proxyServer
+        (proxyServer config.daemon)
 
 proxyServer ::
     ( ?pubsub :: GluePublisher
@@ -36,23 +37,28 @@ proxyServer ::
     , ?sinks :: SinkRegistry
     , ?downstream :: Downstream
     ) =>
-    WebSocketPendingConnection -> IO ()
-proxyServer pending =
-    pending.accept >>= \case
-        Left !e -> logError $ ProxyError e
-        Right !connection -> do
-            (inChan, outChan) <- newChan 10_000
-            res <-
-                either id id <$> race
-                    do
-                        uid <- nextRandom
-                        let ?sink = writeChan inChan
-                        let ?session = uid
-                        ?sinks.add uid ?sink
-                        connection.runReceiveMessageLoop controller
-                    do
-                        connection.runSendMessageLoop do
-                            (!element, !wait) <- tryReadChan outChan
-                            !message <- tryRead element
-                            pure (message, wait)
-            logError $ ProxyError res
+    String -> WebSocketPendingConnection -> IO ()
+proxyServer daemon pending = do
+    let path = "/" <> fromString daemon
+    if pending.path /= path
+        then
+            logError $ InvalidProxyDaemon pending.path
+        else
+            pending.accept >>= \case
+                Left !e -> logError $ WebSocketError e
+                Right !connection -> do
+                    (inChan, outChan) <- newChan 10_000
+                    res <-
+                        either id id <$> race
+                            do
+                                uid <- nextRandom
+                                let ?sink = writeChan inChan
+                                let ?session = uid
+                                ?sinks.add uid ?sink
+                                connection.runReceiveMessageLoop controller
+                            do
+                                connection.runSendMessageLoop do
+                                    (!element, !wait) <- tryReadChan outChan
+                                    !message <- tryRead element
+                                    pure (message, wait)
+                    logError $ WebSocketError res
