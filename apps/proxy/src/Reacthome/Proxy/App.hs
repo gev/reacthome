@@ -37,6 +37,6 @@ runApp config = do
 
     void . forkIO $ runProxyServer config.proxy
     void . forkIO $ runProxyDaemon config.daemon
-    void . forkIO $ runProxyDiscovery config.discovery
+    void . forkIO $ runProxyDiscovery config.discovery config.proxy
 
     ?store.runWatcher pubsub.publish
