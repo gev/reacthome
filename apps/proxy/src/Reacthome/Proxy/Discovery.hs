@@ -42,6 +42,20 @@ runProxyDiscovery config proxy = do
                     else Nothing
             )
 
+{- | Generates and serializes a UDP announcement for the proxy server.
+
+    (discovery
+        :version 1
+        :service (
+            :version 0
+            :id "node-4f8a2c1e"
+            :type "legacy-daemon-proxy"
+            :scheme "ws"
+            :port 3005
+            :uri "/node-4f8a2c1e"
+        )
+    )
+-}
 makeAnnounceMessage :: ProxyConfig -> ByteString
 makeAnnounceMessage proxy = serialize do
     List
@@ -53,6 +67,7 @@ makeAnnounceMessage proxy = serialize do
                 , Object
                     [ ("version", Integer 0)
                     , ("id", String uid)
+                    , ("type", String "legacy-daemon-proxy")
                     , ("scheme", String "ws")
                     , ("port", Integer proxy.port)
                     , ("uri", String uri)
@@ -64,6 +79,10 @@ makeAnnounceMessage proxy = serialize do
     uid = fromString proxy.daemon
     uri = "/" <> uid
 
+{- | Runs the background UDP-multicast discovery loop for the proxy server.
+
+    (probe :version 1)
+-}
 probeMessage :: ByteString
 probeMessage = serialize do
     List
