@@ -7,7 +7,9 @@ import Discovery.Monitor
 import Discovery.Utils
 import Network.Socket.ByteString
 
-respond :: (?announce :: AnnounceConfig, ?probe :: ProbeConfig) => (ByteString -> Maybe ByteString) -> IO ()
+respond ::
+    (?announce :: AnnounceConfig, ?probe :: ProbeConfig) =>
+    (ByteString -> Maybe ByteString) -> IO ()
 respond handle = forever do
     monitor ?probe.group ?probe.port \sock msg from -> do
         case handle msg of

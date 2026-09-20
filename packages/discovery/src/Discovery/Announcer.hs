@@ -6,7 +6,9 @@ import Discovery.Broadcaster
 import Discovery.Config
 import Discovery.Utils
 
-announce :: (?announce :: AnnounceConfig) => ByteString -> IO ()
+announce ::
+    (?announce :: AnnounceConfig) =>
+    ByteString -> IO ()
 announce message = do
     addr <- resolve ?announce.group ?announce.port
     forever do
