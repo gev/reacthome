@@ -20,9 +20,9 @@ main = do
                 , discovery =
                     DiscoveryConfig
                         { announceInterval = 10
-                        , announceGroup = "239.0.0.026"
+                        , announceGroup = "239.0.20.26"
                         , announcePort = 2026
-                        , probeGroup = "239.0.0.027"
+                        , probeGroup = "239.0.20.27"
                         , probePort = 2027
                         }
                 , gluePath = "./apps/proxy/glue/"
