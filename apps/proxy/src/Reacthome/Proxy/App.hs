@@ -35,7 +35,7 @@ runApp config = do
 
     let ?assets = makeAssets config.assets
 
-    void . forkIO $ runProxyServer config.server
+    void . forkIO $ runProxyServer config.proxy
     void . forkIO $ runProxyDaemon config.daemon
     void . forkIO $ runProxyDiscovery config.discovery
 

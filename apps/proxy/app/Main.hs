@@ -5,7 +5,7 @@ main :: IO ()
 main = do
     let config =
             AppConfig
-                { server =
+                { proxy =
                     ProxyConfig
                         { host = "0.0.0.0"
                         , port = 3005
@@ -34,7 +34,7 @@ main = do
                 }
     putStrLn $
         "Run Reacthome Proxy on "
-            <> config.server.host
+            <> config.proxy.host
             <> ":"
-            <> show config.server.port
+            <> show config.proxy.port
     runApp config

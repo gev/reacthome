@@ -1,7 +1,7 @@
 module Reacthome.Proxy.Config where
 
 data AppConfig = AppConfig
-    { server :: ProxyConfig
+    { proxy :: ProxyConfig
     , daemon :: DaemonConfig
     , discovery :: DiscoveryConfig
     , gluePath :: FilePath
