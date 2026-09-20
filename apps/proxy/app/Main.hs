@@ -9,7 +9,7 @@ main = do
                     ProxyConfig
                         { host = "0.0.0.0"
                         , port = 3005
-                        , daemon = "02aaee3f-a050-43d5-bbf2-e0f2abd73a6e"
+                        , daemon = "a265dc7e-62c4-451e-9299-305fb97742b9"
                         }
                 , daemon =
                     DaemonConfig
