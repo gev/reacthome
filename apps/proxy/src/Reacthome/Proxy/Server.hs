@@ -5,7 +5,7 @@ import Control.Concurrent.Chan.Unagi.Bounded (newChan, tryRead, tryReadChan, wri
 import Data.UUID.V4 (nextRandom)
 import Reacthome.Proxy.Assets (Assets)
 import Reacthome.Proxy.Bridge.Downstream (Downstream)
-import Reacthome.Proxy.Config (ServerConfig (..))
+import Reacthome.Proxy.Config (ProxyConfig (..))
 import Reacthome.Proxy.Error (ProxyError (..), logError)
 import Reacthome.Proxy.Glue.Controller (controller)
 import Reacthome.Proxy.Glue.PubSub.Types (GluePublisher)
@@ -22,7 +22,7 @@ runProxyServer ::
     , ?sinks :: SinkRegistry
     , ?downstream :: Downstream
     ) =>
-    ServerConfig -> IO ()
+    ProxyConfig -> IO ()
 runProxyServer config = do
     let ?options = defaultWebSocketOptions
     runWebSocketServer

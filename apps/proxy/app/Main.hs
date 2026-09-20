@@ -1,15 +1,15 @@
 import Reacthome.Proxy.App (runApp)
-import Reacthome.Proxy.Config (AppConfig (..), AssetsConfig (..), DaemonConfig (..), DiscoveryConfig (..), ServerConfig (..))
+import Reacthome.Proxy.Config (AppConfig (..), AssetsConfig (..), DaemonConfig (..), DiscoveryConfig (..), ProxyConfig (..))
 
 main :: IO ()
 main = do
     let config =
             AppConfig
                 { server =
-                    ServerConfig
+                    ProxyConfig
                         { host = "0.0.0.0"
                         , port = 3005
-                        , uri = "02aaee3f-a050-43d5-bbf2-e0f2abd73a6e"
+                        , daemon = "02aaee3f-a050-43d5-bbf2-e0f2abd73a6e"
                         }
                 , daemon =
                     DaemonConfig
@@ -20,9 +20,9 @@ main = do
                 , discovery =
                     DiscoveryConfig
                         { announceInterval = 10
-                        , announceGroup = "239.0.0.2026"
+                        , announceGroup = "239.0.0.026"
                         , announcePort = 2026
-                        , probeGroup = "239.0.0.2027"
+                        , probeGroup = "239.0.0.027"
                         , probePort = 2027
                         }
                 , gluePath = "./apps/proxy/glue/"
