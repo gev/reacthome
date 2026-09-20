@@ -31,4 +31,6 @@ data DiscoveryConfig = DiscoveryConfig
     , announcePort :: Int
     , probeGroup :: String
     , probePort :: Int
+    , interval :: Int
+    , timeout :: Int
     }
