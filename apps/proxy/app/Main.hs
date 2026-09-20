@@ -24,7 +24,6 @@ main = do
                         , announcePort = 2026
                         , probeGroup = "239.0.20.27"
                         , probePort = 2027
-                        , interval = 10
                         , timeout = 1
                         }
                 , gluePath = "./apps/proxy/glue/"
