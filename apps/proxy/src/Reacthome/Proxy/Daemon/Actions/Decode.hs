@@ -76,6 +76,8 @@ processKey "mode" = processKeyString
 processKey "state" = processKeyString
 processKey "title" = processKeyString
 processKey "code" = processKeyString
+processKey "main_URL" = processKeyString
+processKey "preview_URL" = processKeyString
 -- Process as Boolean
 processKey "enabled" = processKeyBoolean
 processKey "disabled" = processKeyBoolean
@@ -86,6 +88,7 @@ processKey "dry" = processKeyBoolean
 processKey "wet" = processKeyBoolean
 processKey "ventilation" = processKeyBoolean
 processKey "inverse" = processKeyBoolean
+processKey "active" = processKeyBoolean
 -- Process as Integer
 processKey "cool_intensity" = processKeyInteger
 processKey "heat_intensity" = processKeyInteger
