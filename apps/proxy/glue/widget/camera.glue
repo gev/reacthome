@@ -1,0 +1,11 @@
+(module widget.camera
+    (export camera)
+
+    (def (camera props)
+        (sized-box
+            :width 320
+            :height 180
+            :child (media-player :url props.main_URL)
+        )
+    )
+)
