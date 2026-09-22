@@ -12,10 +12,10 @@
     (import widget.site-card)
     (import widget.light-card)
     (import widget.curtain-card)
+    (import widget.camera-card)
     (import widget.temperature-regulator-card)
     (import widget.humidity-regulator-card)
     (import widget.ventilation-regulator-card)
-    (import widget.camera)
 
     (def (site-screen palette props)
         (screen
@@ -64,7 +64,15 @@
                             )
                         )
                         (select-in-grid (curtain-card palette) props.curtains)
-                        (select-in-column camera props.camera)
+
+                        (single-child-scroll-view
+                            :scroll-direction axis.horizontal
+                            :child (row
+                                :spacing 16
+                                :children (select-in-row (camera-card palette) props.camera)
+                            )
+                        )
+                        
                         (select-in-column site-card props.site)
                     )
                 )
