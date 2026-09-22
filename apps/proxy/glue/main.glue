@@ -5,6 +5,7 @@
 
     (import screen.project)
     (import screen.settings)
+    (import screen.camera)
     (import screen.light-regulator)
     (import screen.curtain-regulator)
     (import screen.regulator)
@@ -28,6 +29,10 @@
         (route
             :screen (settings-screen home args)
         )
+    )
+
+    (def camera-route
+        (overlay camera-screen)
     )
 
     (def light-regulator-route
@@ -62,6 +67,7 @@
             :routes (
                 :index (project-route home)
                 :settings (settings-route home)
+                :camera camera-route
                 :light-regulator light-regulator-route
                 :positioned-curtain-regulator positioned-curtain-regulator-route
                 :non-positioned-curtain-regulator non-positioned-curtain-regulator-route
