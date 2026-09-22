@@ -1,0 +1,10 @@
+(module screen.camera
+    (export camera-screen)
+
+    (import lib.data)
+    (import widget.camera)
+
+    (def (camera-screen args)
+        (select camera args.id)
+    )
+)
