@@ -1,0 +1,67 @@
+(module widget.ink-well-overlay
+    (export ink-well-overlay)
+
+    (def (overlay-gradient start end)
+        (box-decoration
+            :gradient (linear-gradient
+                :begin alignment.bottom-center
+                :end alignment.top-center
+                :colors (# start end)
+                :stops (0 1)
+            )
+        )
+    )
+
+    (def (overlay-title title)
+        (row
+            :children (text
+                :text title
+                :style (text-style
+                    :color colors.white
+                    :font-size current-theme.text-theme.headline-medium.font-size
+                    :font-weight font-weight.w400
+                )
+            )
+        )
+    )
+
+    (def (ink-well-overlay props)
+        (def color (?? props.color current-theme.color-scheme.primary-container))
+        (def color1 (color.with :a 0.9))
+        (def color2 (color.with :a 0.6))
+        (def color3 (color.with :a 0.0))
+        (material
+            :color colors.transparent
+            :child (ink-well
+                :on-tap props.on-tap
+                :child (column
+                    :cross-axis-alignment cross-axis-alignment.stretch
+                    :main-axis-alignment main-axis-alignment.end
+                    :children (
+                        (expanded
+                            :child (container
+                                :decoration (overlay-gradient color2 color3)
+                            )
+                        )
+                        (column
+                            :cross-axis-alignment cross-axis-alignment.start
+                            :children (
+                                (container
+                                    :padding (edge-insets-only :left 16 :right 16)
+                                    :decoration (overlay-gradient color1 color2)
+                                    :child (overlay-title props.title)
+                                )
+                                (container
+                                    :padding (edge-insets-only :left 16 :right 16 :bottom 8)
+                                    :color color1
+                                    :child props.body
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    )
+
+)
