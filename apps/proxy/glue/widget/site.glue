@@ -15,6 +15,7 @@
     (import widget.temperature-regulator-card)
     (import widget.humidity-regulator-card)
     (import widget.ventilation-regulator-card)
+    (import widget.camera)
 
     (def (site-screen palette props)
         (screen
@@ -63,6 +64,7 @@
                             )
                         )
                         (select-in-grid (curtain-card palette) props.curtains)
+                        (select-in-column camera props.camera)
                         (select-in-column site-card props.site)
                     )
                 )
