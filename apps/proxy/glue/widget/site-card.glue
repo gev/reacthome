@@ -3,18 +3,9 @@
 
     (import lib.data)
     (import lib.navigation)
-    (import widget.site-brief)
 
-    (def (gradient start end)
-        (box-decoration
-            :gradient (linear-gradient
-                :begin alignment.bottom-center
-                :end alignment.top-center
-                :colors (# start end)
-                :stops (0 1)
-            )
-        )
-    )
+    (import widget.ink-well-overlay)
+    (import widget.site-brief)
 
     (def (site-image props)
         (aspect-ratio
@@ -26,53 +17,11 @@
         )
     )
 
-    (def (site-title props)
-        (row
-            :children (text
-                :text (title props)
-                :style (text-style
-                    :color colors.white
-                    :font-size current-theme.text-theme.headline-medium.font-size
-                    :font-weight font-weight.w400
-                )
-            )
-        )
-    )
-
     (def (site-ink-well props)
-        (def color current-theme.color-scheme.primary-container)
-        (def color1 (color.with :a 0.9))
-        (def color2 (color.with :a 0.6))
-        (def color3 (color.with :a 0.0))
-        (ink-well
+        (ink-well-overlay
+            :title (title props)
+            :body (site-brief :site props.id)
             :on-tap (go :route 'site :id props.id)
-            :child
-            (column
-                :cross-axis-alignment cross-axis-alignment.stretch
-                :main-axis-alignment main-axis-alignment.end
-                :children (
-                    (expanded
-                        :child (container
-                            :decoration (gradient color2 color3)
-                        )
-                    )
-                    (column
-                        :cross-axis-alignment cross-axis-alignment.start
-                        :children (
-                            (container
-                                :padding (edge-insets-only :left 16 :right 16)
-                                :decoration (gradient color1 color2)
-                                :child (site-title props)
-                            )
-                            (container
-                                :padding (edge-insets-only :left 16 :right 16 :bottom 8)
-                                :color color1
-                                :child (site-brief :site props.id)
-                            )
-                        )
-                    )
-                )
-            )
         )
     )
 
@@ -82,10 +31,7 @@
                 (site-image :image (load-image :src props.image))
                 (positioned
                     :top 0 :bottom 0 :left 0 :right 0
-                    :child (material
-                        :color colors.transparent
-                        :child (site-ink-well props)
-                    )
+                    :child (site-ink-well props)
                 )
             )
         )
