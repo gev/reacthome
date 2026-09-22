@@ -1,0 +1,35 @@
+(module widget.camera-card
+    (export camera-card)
+
+    (import lib.data)
+    (import lib.navigation)
+    (import widget.ink-well-overlay)
+
+    (def (camera-card palette props)
+        (hero
+            :key props.id
+            :tag props.id
+            :child (card
+                :clip-behavior clip.anti-alias
+                :child (stack
+                    :children (
+                        (media-player
+                            :fit box-fit.cover
+                            :width 144
+                            :height 200
+                            :url (?? props.preview_URL props.main_URL)
+                        )
+                        (positioned
+                            :top 0 :bottom 0 :left 0 :right 0
+                            :child (ink-well-overlay
+                                :color colors.black
+                                :on-tap (go :target applet :route 'camera :id props.id :palette palette)
+                                :title (title props)
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    )
+)
