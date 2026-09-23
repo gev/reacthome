@@ -15,7 +15,7 @@
                     :children (
                         (media-player
                             :fit box-fit.cover
-                            :width 144
+                            :width 200
                             :height 200
                             :url (?? props.preview_URL props.main_URL)
                         )
