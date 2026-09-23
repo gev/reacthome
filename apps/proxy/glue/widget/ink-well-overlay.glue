@@ -46,15 +46,19 @@
                         (column
                             :cross-axis-alignment cross-axis-alignment.start
                             :children (
-                                (container
-                                    :padding (edge-insets-only :left 16 :right 16)
-                                    :decoration (overlay-gradient color1 color2)
-                                    :child (overlay-title props.title)
+                                (if (exists? props.title)
+                                    (container
+                                        :padding (edge-insets-only :left 16 :right 16)
+                                        :decoration (overlay-gradient color1 color2)
+                                        :child (overlay-title props.title)
+                                    )
                                 )
-                                (container
-                                    :padding (edge-insets-only :left 16 :right 16 :bottom 8)
-                                    :color color1
-                                    :child props.body
+                                (if (exists? props.body)
+                                    (container
+                                        :padding (edge-insets-only :left 16 :right 16 :bottom 8)
+                                        :color color1
+                                        :child props.body
+                                    )
                                 )
                             )
                         )

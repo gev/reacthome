@@ -1,11 +1,25 @@
 (module widget.camera
     (export camera)
 
+    (import lib.data)
+    (import widget.ink-well-overlay)
+
     (def (camera props)
-        (sized-box
-            :width 320
-            :height 180
-            :child (media-player :url props.main_URL)
+        (stack
+            :children (
+                (media-player
+                    :width media-query.width
+                    :height media-query.height
+                    :url (?? props.main_URL props.preview_URL)
+                )
+                (positioned
+                    :top 0 :bottom 0 :left 0 :right 0
+                    :child (ink-well-overlay
+                        :color colors.black
+                        :title (title props)
+                    )
+                )
+            )
         )
     )
 )
