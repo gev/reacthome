@@ -8,7 +8,7 @@ import Reacthome.Proxy.Bridge.Cache (makeCache)
 import Reacthome.Proxy.Bridge.Downstream (makeDownstream)
 import Reacthome.Proxy.Bridge.Upstream (makeUpstream)
 import Reacthome.Proxy.Config (AppConfig (..))
-import Reacthome.Proxy.Daemon (runProxyDaemon)
+import Reacthome.Proxy.Daemon (pingProxyDaemon, runProxyDaemon)
 import Reacthome.Proxy.Discovery
 import Reacthome.Proxy.Glue.PubSub.Publisher (makeGluePublisher)
 import Reacthome.Proxy.Glue.Store (GlueStore (..), makeGlueStore)
@@ -31,15 +31,17 @@ runApp config = do
     pubsub <- makeGluePublisher
     let ?pubsub = pubsub
 
-    let ?upstream = makeUpstream
-
-    let ?assets = makeAssets config.assets
-
     discovery <- makeProxyDiscovery config.discovery config.proxy
     let ?discovery = discovery
+
+    let ?upstream = makeUpstream config.proxy
+
+    let ?assets = makeAssets config.assets
 
     void . forkIO $ runProxyServer config.proxy
     void . forkIO $ runProxyDaemon config.daemon
     void . forkIO $ discovery.runAnnouncer
+
+    pingProxyDaemon config.proxy
 
     ?store.runWatcher pubsub.publish
