@@ -2,7 +2,8 @@ module Reacthome.Proxy.Server where
 
 import Control.Concurrent.Async (race)
 import Control.Concurrent.Chan.Unagi.Bounded (newChan, tryRead, tryReadChan, writeChan)
-import Data.String
+import Data.Text (Text)
+import Data.Text.Encoding (encodeUtf8)
 import Data.UUID.V4 (nextRandom)
 import Reacthome.Proxy.Assets (Assets)
 import Reacthome.Proxy.Bridge.Downstream (Downstream)
@@ -37,9 +38,9 @@ proxyServer ::
     , ?sinks :: SinkRegistry
     , ?downstream :: Downstream
     ) =>
-    String -> WebSocketPendingConnection -> IO ()
+    Text -> WebSocketPendingConnection -> IO ()
 proxyServer daemon pending = do
-    let path = "/" <> fromString daemon
+    let path = "/" <> encodeUtf8 daemon
     if pending.path /= path
         then
             logError $ InvalidProxyDaemon pending.path
