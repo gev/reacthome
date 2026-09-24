@@ -15,7 +15,7 @@ import Glue.Serialize (serializeAST)
 import Reacthome.Proxy.Config (DiscoveryConfig (..), ProxyConfig (..))
 
 data Discovery = Discovery
-    { justAnnounce :: Text -> Text -> Text -> IO ()
+    { justAnnounce :: [(Text, AST)] -> IO ()
     , runAnnouncer :: IO ()
     , justRespond :: IO ()
     }
@@ -27,9 +27,8 @@ makeProxyDiscovery config proxy = do
 
     let getAnnounceMessage = readIORef announceMessage
 
-    let justAnnounce uid title code =
-            writeIORef announceMessage do
-                Just (makeAnnounceMessage uid title code)
+    let justAnnounce =
+            writeIORef announceMessage . Just . makeAnnounceMessage
 
     let ?announce =
             AnnounceConfig
@@ -76,24 +75,20 @@ makeProxyDiscovery config proxy = do
     --                )
     --            )
     --
-    makeAnnounceMessage uid title code = serialize do
+    makeAnnounceMessage payload = serialize do
+        let spec =
+                [ ("version", Integer 0)
+                , ("id", String proxy.daemon)
+                , ("type", String "legacy-daemon-proxy")
+                , ("scheme", String "ws")
+                , ("port", Integer proxy.port)
+                , ("uri", String $ "/" <> proxy.daemon)
+                ]
         List
             [ Symbol "discovery"
             , Object
                 [ ("version", Integer 1)
-                ,
-                    ( "service"
-                    , Object
-                        [ ("version", Integer 0)
-                        , ("id", String uid)
-                        , ("type", String "legacy-daemon-proxy")
-                        , ("scheme", String "ws")
-                        , ("port", Integer proxy.port)
-                        , ("uri", String $ "/" <> uid)
-                        , ("title", String title)
-                        , ("code", String code)
-                        ]
-                    )
+                , ("service", Object (spec <> payload))
                 ]
             ]
 
