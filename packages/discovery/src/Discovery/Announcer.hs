@@ -8,9 +8,11 @@ import Discovery.Utils
 
 announce ::
     (?announce :: AnnounceConfig) =>
-    ByteString -> IO ()
-announce message = do
+    IO (Maybe ByteString) -> IO ()
+announce getMessage = do
     addr <- resolve ?announce.group ?announce.port
     forever do
-        broadcast addr message
+        getMessage >>= maybe
+            do pure ()
+            do broadcast addr
         delay ?announce.interval
