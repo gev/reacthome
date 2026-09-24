@@ -1,5 +1,7 @@
 module Reacthome.Proxy.Config where
 
+import Data.Text (Text)
+
 data AppConfig = AppConfig
     { proxy :: ProxyConfig
     , daemon :: DaemonConfig
@@ -11,7 +13,7 @@ data AppConfig = AppConfig
 data ProxyConfig = ProxyConfig
     { host :: String
     , port :: Int
-    , daemon :: String
+    , daemon :: Text
     }
 
 data DaemonConfig = DaemonConfig
@@ -21,7 +23,7 @@ data DaemonConfig = DaemonConfig
     }
 
 data AssetsConfig = AssetsConfig
-    { path :: String
+    { path :: FilePath
     , proxy :: String
     }
 
