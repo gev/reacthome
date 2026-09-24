@@ -4,7 +4,8 @@ import Control.Concurrent (forkIO)
 import Data.ByteString (ByteString)
 import Data.ByteString.Lazy qualified as L
 import Data.Functor (void)
-import Data.String (fromString)
+import Data.IORef (newIORef, readIORef, writeIORef)
+import Data.Text (Text)
 import Data.Text.Lazy.Encoding qualified as E
 import Discovery.Announcer (announce)
 import Discovery.Config (AnnounceConfig (..), ProbeConfig (..))
@@ -13,9 +14,22 @@ import Glue.AST (AST (..))
 import Glue.Serialize (serializeAST)
 import Reacthome.Proxy.Config (DiscoveryConfig (..), ProxyConfig (..))
 
-runProxyDiscovery :: DiscoveryConfig -> ProxyConfig -> IO ()
-runProxyDiscovery config proxy = do
-    let announceMessage = makeAnnounceMessage proxy
+data Discovery = Discovery
+    { justAnnounce :: Text -> Text -> Text -> IO ()
+    , runAnnouncer :: IO ()
+    , justRespond :: IO ()
+    }
+
+makeProxyDiscovery ::
+    DiscoveryConfig -> ProxyConfig -> IO Discovery
+makeProxyDiscovery config proxy = do
+    announceMessage <- newIORef Nothing
+
+    let getAnnounceMessage = readIORef announceMessage
+
+    let justAnnounce uid title code =
+            writeIORef announceMessage do
+                Just (makeAnnounceMessage uid title code)
 
     let ?announce =
             AnnounceConfig
@@ -24,9 +38,10 @@ runProxyDiscovery config proxy = do
                 , interval = config.announceInterval
                 , timeout = config.timeout
                 }
-    void $
-        forkIO
-            (announce announceMessage)
+
+    let runAnnouncer = void do
+            forkIO
+                (announce getAnnounceMessage)
 
     let ?probe =
             ProbeConfig
@@ -34,61 +49,59 @@ runProxyDiscovery config proxy = do
                 , port = fromIntegral config.probePort
                 , timeout = config.timeout
                 }
-    void $
-        forkIO
-            ( respond \msg ->
-                if msg == probeMessage
-                    then Just announceMessage
-                    else Nothing
-            )
 
-{- | Generates and serializes a UDP announcement for the proxy server.
-
-    (discovery
-        :version 1
-        :service (
-            :version 0
-            :id "node-4f8a2c1e"
-            :type "legacy-daemon-proxy"
-            :scheme "ws"
-            :port 3005
-            :uri "/node-4f8a2c1e"
-        )
-    )
--}
-makeAnnounceMessage :: ProxyConfig -> ByteString
-makeAnnounceMessage proxy = serialize do
-    List
-        [ Symbol "discovery"
-        , Object
-            [ ("version", Integer 1)
-            ,
-                ( "service"
-                , Object
-                    [ ("version", Integer 0)
-                    , ("id", String uid)
-                    , ("type", String "legacy-daemon-proxy")
-                    , ("scheme", String "ws")
-                    , ("port", Integer proxy.port)
-                    , ("uri", String uri)
-                    ]
+    let justRespond = void do
+            forkIO
+                ( respond \msg ->
+                    if msg == probeMessage
+                        then getAnnounceMessage
+                        else pure Nothing
                 )
-            ]
-        ]
+
+    pure Discovery{..}
   where
-    uid = fromString proxy.daemon
-    uri = "/" <> uid
+    -- \| Generates and serializes a UDP announcement for the proxy server.
+    --
+    --            (discovery
+    --                :version 1
+    --                :service (
+    --                    :version 0
+    --                    :id "node-4f8a2c1e"
+    --                    :type "legacy-daemon-proxy"
+    --                    :scheme "ws"
+    --                    :port 3005
+    --                    :uri "/node-4f8a2c1e"
+    --                    :title "service-title"
+    --                    :code "service-code"
+    --                )
+    --            )
+    --
+    makeAnnounceMessage uid title code = serialize do
+        List
+            [ Symbol "discovery"
+            , Object
+                [ ("version", Integer 1)
+                ,
+                    ( "service"
+                    , Object
+                        [ ("version", Integer 0)
+                        , ("id", String uid)
+                        , ("type", String "legacy-daemon-proxy")
+                        , ("scheme", String "ws")
+                        , ("port", Integer proxy.port)
+                        , ("uri", String $ "/" <> uid)
+                        , ("title", String title)
+                        , ("code", String code)
+                        ]
+                    )
+                ]
+            ]
 
-{- | Runs the background UDP-multicast discovery loop for the proxy server.
+    probeMessage = serialize do
+        List
+            [ Symbol "probe"
+            , Object [("version", Integer 1)]
+            ]
 
-    (probe :version 1)
--}
-probeMessage :: ByteString
-probeMessage = serialize do
-    List
-        [ Symbol "probe"
-        , Object [("version", Integer 1)]
-        ]
-
-serialize :: AST -> ByteString
-serialize = L.toStrict . E.encodeUtf8 . serializeAST
+    serialize :: AST -> ByteString
+    serialize = L.toStrict . E.encodeUtf8 . serializeAST
