@@ -41,4 +41,4 @@ makeUpstream config =
         Upstream{..}
   where
     extractPayload =
-        filter ((`elem` ["title", "code"]) . fst)
+        filter $ (`elem` ["title", "code"]) . fst
