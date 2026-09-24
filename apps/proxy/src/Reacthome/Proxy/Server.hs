@@ -47,7 +47,7 @@ proxyServer daemon pending = do
             pending.accept >>= \case
                 Left !e -> logError $ WebSocketError e
                 Right !connection -> do
-                    (inChan, outChan) <- newChan 10_000
+                    (inChan, outChan) <- newChan 1_000
                     res <-
                         either id id <$> race
                             do
