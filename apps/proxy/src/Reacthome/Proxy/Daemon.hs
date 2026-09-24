@@ -3,7 +3,8 @@ module Reacthome.Proxy.Daemon where
 import Control.Monad (void)
 import Reacthome.Proxy.Bridge.Downstream (Downstream (..))
 import Reacthome.Proxy.Bridge.Upstream (Upstream (..))
-import Reacthome.Proxy.Config (DaemonConfig (..))
+import Reacthome.Proxy.Config (DaemonConfig (..), ProxyConfig (..))
+import Reacthome.Proxy.Daemon.Actions.Encode (actionGet)
 import WebSockets.Client (runWebSocketClient)
 import WebSockets.Options (defaultWebSocketOptions)
 
@@ -21,3 +22,9 @@ runProxyDaemon config = do
             config.host
             config.port
             config.uri
+
+pingProxyDaemon ::
+    (?downstream :: Downstream) =>
+    ProxyConfig -> IO ()
+pingProxyDaemon config =
+    ?downstream.send $ actionGet config.daemon
