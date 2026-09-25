@@ -5,8 +5,9 @@
     (import screen.site)
 
     (def (daemon-route home args)
+        (def id (concat "proxy." home.id))
         (route
-            :screen (daemon-screen :id home.proxy)
+            :screen (daemon-screen :id id)
         )
     )
 
