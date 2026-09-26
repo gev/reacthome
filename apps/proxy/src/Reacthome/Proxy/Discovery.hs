@@ -1,11 +1,10 @@
 module Reacthome.Proxy.Discovery where
 
 import Control.Concurrent (forkIO)
-import Data.ByteString (ByteString)
 import Data.ByteString.Lazy qualified as L
 import Data.Functor (void)
 import Data.IORef (newIORef, readIORef, writeIORef)
-import Data.Text (Text)
+import Data.Text (Text, pack)
 import Data.Text.Lazy.Encoding qualified as E
 import Discovery.Announcer (announce)
 import Discovery.Config (AnnounceConfig (..), ProbeConfig (..))
@@ -58,11 +57,11 @@ makeProxyDiscovery config proxy = do
     makeAnnounceMessage payload = serialize do
         let spec =
                 [ ("version", Integer 0)
-                , ("id", String proxy.daemon)
+                , ("id", String daemon)
                 , ("type", String "legacy-daemon-proxy")
                 , ("scheme", String "ws")
                 , ("port", Integer proxy.port)
-                , ("uri", String $ "/" <> proxy.daemon)
+                , ("uri", String $ "/" <> daemon)
                 ]
         List
             [ Symbol "discovery"
@@ -78,5 +77,6 @@ makeProxyDiscovery config proxy = do
             , Object [("version", Integer 1)]
             ]
 
-    serialize :: AST -> ByteString
     serialize = L.toStrict . E.encodeUtf8 . serializeAST
+
+    daemon = pack proxy.daemon
