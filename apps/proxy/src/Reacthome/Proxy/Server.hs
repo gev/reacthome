@@ -2,8 +2,8 @@ module Reacthome.Proxy.Server where
 
 import Control.Concurrent.Async (race)
 import Control.Concurrent.Chan.Unagi.Bounded (newChan, tryRead, tryReadChan, writeChan)
-import Data.Text (Text)
-import Data.Text.Encoding (encodeUtf8)
+import Data.ByteString (ByteString)
+import Data.String (IsString (fromString))
 import Data.UUID.V4 (nextRandom)
 import Reacthome.Proxy.Assets (Assets)
 import Reacthome.Proxy.Bridge.Downstream (Downstream)
@@ -30,7 +30,9 @@ runProxyServer config = do
     runWebSocketServer
         config.host
         config.port
-        (proxyServer config.daemon)
+        (proxyServer daemon)
+  where
+    daemon = fromString config.daemon
 
 proxyServer ::
     ( ?pubsub :: GluePublisher
@@ -38,9 +40,9 @@ proxyServer ::
     , ?sinks :: SinkRegistry
     , ?downstream :: Downstream
     ) =>
-    Text -> WebSocketPendingConnection -> IO ()
+    ByteString -> WebSocketPendingConnection -> IO ()
 proxyServer daemon pending = do
-    let path = "/" <> encodeUtf8 daemon
+    let path = "/" <> daemon
     if pending.path /= path
         then
             logError $ InvalidProxyDaemon pending.path
