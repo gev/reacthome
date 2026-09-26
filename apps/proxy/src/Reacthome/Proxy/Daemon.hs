@@ -1,6 +1,7 @@
 module Reacthome.Proxy.Daemon where
 
 import Control.Monad (void)
+import Data.Text (pack)
 import Reacthome.Proxy.Bridge.Downstream (Downstream (..))
 import Reacthome.Proxy.Bridge.Upstream (Upstream (..))
 import Reacthome.Proxy.Config (ClientConfig (..), ProxyConfig (..))
@@ -27,4 +28,6 @@ pingProxyDaemon ::
     (?downstream :: Downstream) =>
     ProxyConfig -> IO ()
 pingProxyDaemon config =
-    ?downstream.send $ actionGet config.daemon
+    ?downstream.send $ actionGet daemon
+  where
+    daemon = pack config.daemon
