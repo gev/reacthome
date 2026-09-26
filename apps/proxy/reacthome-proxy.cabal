@@ -73,6 +73,7 @@ library
     fsnotify,
     glue,
     network,
+    proxy,
     pubsub,
     scientific,
     text,

@@ -34,12 +34,10 @@ library
   exposed-modules:
     Reacthome.Relay
     Reacthome.Relay.App
-    Reacthome.Relay.Client
     Reacthome.Relay.Dispatcher
     Reacthome.Relay.Error
     Reacthome.Relay.Message
     Reacthome.Relay.Server
-    Reacthome.Relay.Stat
 
   build-depends:
     async,
