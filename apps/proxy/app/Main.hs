@@ -1,5 +1,5 @@
 import Reacthome.Proxy.App (runApp)
-import Reacthome.Proxy.Config (AppConfig (..), AssetsConfig (..), DaemonConfig (..), DiscoveryConfig (..), ProxyConfig (..))
+import Reacthome.Proxy.Config (AppConfig (..), AssetsConfig (..), ClientConfig (..), DiscoveryConfig (..), ProxyConfig (..))
 
 main :: IO ()
 main = do
@@ -12,10 +12,16 @@ main = do
                         , daemon = "a265dc7e-62c4-451e-9299-305fb97742b9"
                         }
                 , daemon =
-                    DaemonConfig
+                    ClientConfig
                         { host = "server.local"
                         , port = 3000
                         , uri = "/"
+                        }
+                , relay =
+                    ClientConfig
+                        { host = "relay.reacthome.net"
+                        , port = 3003
+                        , uri = "/v1"
                         }
                 , discovery =
                     DiscoveryConfig

@@ -3,7 +3,7 @@ module Reacthome.Proxy.Daemon where
 import Control.Monad (void)
 import Reacthome.Proxy.Bridge.Downstream (Downstream (..))
 import Reacthome.Proxy.Bridge.Upstream (Upstream (..))
-import Reacthome.Proxy.Config (DaemonConfig (..), ProxyConfig (..))
+import Reacthome.Proxy.Config (ClientConfig (..), ProxyConfig (..))
 import Reacthome.Proxy.Daemon.Actions.Encode (actionGet)
 import WebSockets.Client (runWebSocketClient)
 import WebSockets.Options (defaultWebSocketOptions)
@@ -12,7 +12,7 @@ runProxyDaemon ::
     ( ?downstream :: Downstream
     , ?upstream :: Upstream
     ) =>
-    DaemonConfig -> IO ()
+    ClientConfig -> IO ()
 runProxyDaemon config = do
     let ?options = defaultWebSocketOptions
     let ?sink = ?upstream.publish

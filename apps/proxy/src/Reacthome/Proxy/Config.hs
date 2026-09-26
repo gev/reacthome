@@ -4,7 +4,8 @@ import Data.Text (Text)
 
 data AppConfig = AppConfig
     { proxy :: ProxyConfig
-    , daemon :: DaemonConfig
+    , daemon :: ClientConfig
+    , relay :: ClientConfig
     , discovery :: DiscoveryConfig
     , gluePath :: FilePath
     , assets :: AssetsConfig
@@ -16,12 +17,11 @@ data ProxyConfig = ProxyConfig
     , daemon :: Text
     }
 
-data DaemonConfig = DaemonConfig
+data ClientConfig = ClientConfig
     { host :: String
     , port :: Int
     , uri :: String
     }
-
 data AssetsConfig = AssetsConfig
     { path :: FilePath
     , proxy :: String
