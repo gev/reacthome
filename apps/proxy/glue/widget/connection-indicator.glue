@@ -1,7 +1,7 @@
-(module widget.session
-    (export session-status)
+(module widget.connection-indicator
+    (export connection-indicator)
 
-    (def (status props)
+    (def (indicator props)
         (animated-positioned
             :top props.position
             :left 20
@@ -20,9 +20,9 @@
         )
     )
 
-    (def (session-status props)
-        (def (session state)
-            (if (== state session-state.connected)
+    (def (connection-indicator props)
+        (def (connection state)
+            (if (== state connection-status.connected)
                 (status
                     :position props.connected-position
                     :color current-theme.color-scheme.surface-container
@@ -33,7 +33,7 @@
                         )
                     )
                 )
-                (status
+                (indicator
                     :position props.disconnected-position
                     :color current-theme.color-scheme.error
                     :child (row
@@ -60,6 +60,6 @@
                 )
             )
         )
-        (listen session local-session-monitor)
+        (listen connection local-connection-monitor)
     )
 )

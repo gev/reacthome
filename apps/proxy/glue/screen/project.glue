@@ -6,7 +6,7 @@
     (import screen.weather)
 
     (import widget.compact-nav-bar)
-    (import widget.session)
+    (import widget.connection-indicator)
 
     (def (show home select screen)
         (material
@@ -34,7 +34,7 @@
                                 )
                             )
                         )
-                        (session-status
+                        (connection-indicator
                             :connected-position -48
                             :disconnected-position 12
                         )
