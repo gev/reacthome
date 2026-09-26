@@ -1,7 +1,5 @@
 module Reacthome.Proxy.Config where
 
-import Data.Text (Text)
-
 data AppConfig = AppConfig
     { proxy :: ProxyConfig
     , daemon :: ClientConfig
@@ -14,7 +12,7 @@ data AppConfig = AppConfig
 data ProxyConfig = ProxyConfig
     { host :: String
     , port :: Int
-    , daemon :: Text
+    , daemon :: String
     }
 
 data ClientConfig = ClientConfig
