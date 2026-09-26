@@ -8,7 +8,7 @@ import WebSockets.Options (defaultWebSocketOptions)
 
 runProxyRelay :: ClientConfig -> ProxyConfig -> IO ()
 runProxyRelay config proxy = do
-    let uri = config.uri <> "/" <> proxy.daemon
+    let uri = "/v1?peer=" <> proxy.daemon
     let ?options = defaultWebSocketOptions
     let ?sink = print
     let ?source = pure (Nothing, pure empty)
