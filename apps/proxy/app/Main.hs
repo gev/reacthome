@@ -20,7 +20,7 @@ main = do
                 , relay =
                     ClientConfig
                         { host = "relay.reacthome.net"
-                        , port = 3003
+                        , port = 443
                         , uri = "/v1"
                         }
                 , discovery =
