@@ -1,5 +1,6 @@
 module Reacthome.Proxy.Relay where
 
+import Control.Concurrent (forkIO)
 import Control.Monad (void)
 import Data.ByteString.Lazy (empty)
 import Reacthome.Proxy.Bridge.Downstream (Downstream (..))
@@ -9,7 +10,7 @@ import WebSockets.Client (runSecureWebSocketClient)
 import WebSockets.Options (defaultWebSocketOptions)
 
 runProxyRelay :: ClientConfig -> IO ()
-runProxyRelay config = do
+runProxyRelay config = void $ forkIO do
     let ?options = defaultWebSocketOptions
     let ?sink = print
     let ?source = pure (Nothing, pure empty)

@@ -1,7 +1,9 @@
 module Reacthome.Proxy.Server where
 
+import Control.Concurrent (forkIO)
 import Control.Concurrent.Async (race)
 import Control.Concurrent.Chan.Unagi.Bounded (newChan, tryRead, tryReadChan, writeChan)
+import Control.Monad (void)
 import Data.Text (Text)
 import Data.Text.Encoding (encodeUtf8)
 import Data.UUID.V4 (nextRandom)
@@ -25,7 +27,7 @@ runProxyServer ::
     , ?downstream :: Downstream
     ) =>
     ProxyConfig -> IO ()
-runProxyServer config = do
+runProxyServer config = void $ forkIO do
     let ?options = defaultWebSocketOptions
     runWebSocketServer
         config.host

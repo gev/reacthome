@@ -38,9 +38,8 @@ makeProxyDiscovery config proxy = do
                 , timeout = config.timeout
                 }
 
-    let runAnnouncer = void do
-            forkIO
-                (announce getAnnounceMessage)
+    let runAnnouncer = void $ forkIO do
+            announce getAnnounceMessage
 
     let ?probe =
             ProbeConfig
@@ -49,32 +48,14 @@ makeProxyDiscovery config proxy = do
                 , timeout = config.timeout
                 }
 
-    let justRespond = void do
-            forkIO
-                ( respond \msg ->
-                    if msg == probeMessage
-                        then getAnnounceMessage
-                        else pure Nothing
-                )
+    let justRespond = void $ forkIO do
+            respond \msg ->
+                if msg == probeMessage
+                    then getAnnounceMessage
+                    else pure Nothing
 
     pure Discovery{..}
   where
-    -- \| Generates and serializes a UDP announcement for the proxy server.
-    --
-    --            (discovery
-    --                :version 1
-    --                :service (
-    --                    :version 0
-    --                    :id "node-4f8a2c1e"
-    --                    :type "legacy-daemon-proxy"
-    --                    :scheme "ws"
-    --                    :port 3005
-    --                    :uri "/node-4f8a2c1e"
-    --                    :title "service-title"
-    --                    :code "service-code"
-    --                )
-    --            )
-    --
     makeAnnounceMessage payload = serialize do
         let spec =
                 [ ("version", Integer 0)

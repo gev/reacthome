@@ -1,7 +1,5 @@
 module Reacthome.Proxy.App where
 
-import Control.Concurrent (forkIO)
-import Control.Monad (void)
 import PubSub.Publisher (Publisher (..))
 import Reacthome.Proxy.Assets (makeAssets)
 import Reacthome.Proxy.Bridge.Cache (makeCache)
@@ -12,6 +10,7 @@ import Reacthome.Proxy.Daemon (pingProxyDaemon, runProxyDaemon)
 import Reacthome.Proxy.Discovery
 import Reacthome.Proxy.Glue.PubSub.Publisher (makeGluePublisher)
 import Reacthome.Proxy.Glue.Store (GlueStore (..), makeGlueStore)
+import Reacthome.Proxy.Relay (runProxyRelay)
 import Reacthome.Proxy.Server (runProxyServer)
 import Reacthome.Proxy.Sink (makeSinkRegistry)
 
@@ -38,9 +37,10 @@ runApp config = do
 
     let ?assets = makeAssets config.assets
 
-    void . forkIO $ runProxyServer config.proxy
-    void . forkIO $ runProxyDaemon config.daemon
-    void . forkIO $ discovery.runAnnouncer
+    runProxyServer config.proxy
+    runProxyDaemon config.daemon
+    runProxyRelay config.relay
+    discovery.runAnnouncer
 
     pingProxyDaemon config.proxy
 
