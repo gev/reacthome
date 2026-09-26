@@ -11,10 +11,7 @@ build-type: Simple
 
 common common-options
   build-depends:
-    base,
-    stm,
-    stm-containers,
-    ws,
+    base
 
   default-language: GHC2024
   default-extensions:
@@ -59,6 +56,7 @@ library
     Reacthome.Proxy.Glue.PubSub.Publisher
     Reacthome.Proxy.Glue.PubSub.Types
     Reacthome.Proxy.Glue.Store
+    Reacthome.Proxy.Relay
     Reacthome.Proxy.Server
     Reacthome.Proxy.Sink
 
@@ -76,11 +74,14 @@ library
     proxy,
     pubsub,
     scientific,
+    stm,
+    stm-containers,
     text,
     time,
     unagi-chan,
     uuid,
     vector,
+    ws,
 
   hs-source-dirs: src
 
