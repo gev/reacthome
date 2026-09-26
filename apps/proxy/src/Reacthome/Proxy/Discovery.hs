@@ -17,7 +17,7 @@ import Reacthome.Proxy.Config (DiscoveryConfig (..), ProxyConfig (..))
 data Discovery = Discovery
     { justAnnounce :: [(Text, AST)] -> IO ()
     , runAnnouncer :: IO ()
-    , justRespond :: IO ()
+    , runResponder :: IO ()
     }
 
 makeProxyDiscovery ::
@@ -38,8 +38,7 @@ makeProxyDiscovery config proxy = do
                 , timeout = config.timeout
                 }
 
-    let runAnnouncer = void $ forkIO do
-            announce getAnnounceMessage
+    let runAnnouncer = announce getAnnounceMessage
 
     let ?probe =
             ProbeConfig
@@ -48,7 +47,7 @@ makeProxyDiscovery config proxy = do
                 , timeout = config.timeout
                 }
 
-    let justRespond = void $ forkIO do
+    let runResponder = void $ forkIO do
             respond \msg ->
                 if msg == probeMessage
                     then getAnnounceMessage

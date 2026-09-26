@@ -1,5 +1,7 @@
 module Reacthome.Proxy.App where
 
+import Control.Concurrent (forkIO)
+import Control.Monad (void)
 import PubSub.Publisher (Publisher (..))
 import Reacthome.Proxy.Assets (makeAssets)
 import Reacthome.Proxy.Bridge.Cache (makeCache)
@@ -37,11 +39,15 @@ runApp config = do
 
     let ?assets = makeAssets config.assets
 
-    runProxyServer config.proxy
-    runProxyDaemon config.daemon
-    runProxyRelay config.relay
-    discovery.runAnnouncer
+    fork do runProxyServer config.proxy
+    fork do runProxyDaemon config.daemon
+    fork do runProxyRelay config.relay
+
+    fork do discovery.runAnnouncer
+    fork do discovery.runResponder
 
     pingProxyDaemon config.proxy
 
     ?store.runWatcher pubsub.publish
+  where
+    fork = void . forkIO

@@ -1,6 +1,5 @@
 module Reacthome.Proxy.Daemon where
 
-import Control.Concurrent (forkIO)
 import Control.Monad (void)
 import Reacthome.Proxy.Bridge.Downstream (Downstream (..))
 import Reacthome.Proxy.Bridge.Upstream (Upstream (..))
@@ -14,7 +13,7 @@ runProxyDaemon ::
     , ?upstream :: Upstream
     ) =>
     ClientConfig -> IO ()
-runProxyDaemon config = void $ forkIO do
+runProxyDaemon config = do
     let ?options = defaultWebSocketOptions
     let ?sink = ?upstream.publish
     let ?source = ?downstream.receive
