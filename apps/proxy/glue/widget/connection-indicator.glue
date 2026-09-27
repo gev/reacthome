@@ -60,6 +60,6 @@
                 )
             )
         )
-        (listen connection local-connection-monitor)
+        (listen connection direct-connection-monitor)
     )
 )
