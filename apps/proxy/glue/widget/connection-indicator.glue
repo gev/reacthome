@@ -21,9 +21,9 @@
     )
 
     (def (connection-indicator props)
-        (def (connection state)
-            (if (== state connection-status.connected)
-                (status
+        (def (monitor status)
+            (if (== status connection-status.connected)
+                (indicator
                     :position props.connected-position
                     :color current-theme.color-scheme.surface-container
                     :child (text
@@ -60,6 +60,6 @@
                 )
             )
         )
-        (listen connection direct-connection-monitor)
+        (listen monitor direct-connection-monitor)
     )
 )
