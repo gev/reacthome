@@ -12,7 +12,7 @@ import Data.Text qualified as T
 import Glue.Eval (Eval, throwError)
 import Glue.Eval.Exception (wrongArgumentType)
 import Glue.IR (IR (..), hostValue)
-import Reacthome.Proxy.Config (
+import Reacthome.Proxy.Config.App (
     AppConfig (..),
     AssetsConfig (..),
     ClientConfig (..),
@@ -37,7 +37,7 @@ parseAppConfig path m = do
     relay <- field path "relay" parseClientConfig m
     discovery <- field path "discovery" parseDiscoveryConfig m
     assets <- field path "assets" parseAssetsConfig m
-    gluePath <- field path "gluePath" parseString m
+    gluePath <- field path "glue-path" parseString m
     pure AppConfig{..}
 
 parseProxyConfig :: [Text] -> IR Eval -> Eval ProxyConfig
