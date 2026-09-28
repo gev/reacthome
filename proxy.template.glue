@@ -1,0 +1,30 @@
+(app
+    :proxy (
+        :host "0.0.0.0"
+        :port 3005
+        :daemon "00000000-0000-0000-0000-000000000000"
+    )
+    :daemon (
+        :host "server.local"
+        :port 3000
+        :uri "/"
+    )
+    :relay (
+        :host "relay.reacthome.net"
+        :port 443
+        :uri "/v1"
+    )
+    :discovery (
+        :announce-interval 10
+        :announce-group "239.0.20.26"
+        :announce-port 2026
+        :probe-group "239.0.20.27"
+        :probe-port 2027
+        :timeout 1
+    )
+    :assets (
+        :path "./assets"
+        :proxy "../reacthome-daemon/var/assets"
+    )
+    :glue-path "./glue"
+)
