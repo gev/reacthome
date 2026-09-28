@@ -10,8 +10,6 @@
         (def min-w (?? props.min-width min-width))
         (def max-w (?? props.max-width max-width))
         
-
-        (print media-query.size.width)
         (def screen-width (+ media-query.size.width grid-spacing))
         (def n (min (max 1 (floor (/ screen-width (+ min-w grid-spacing)))) (length props.children)))
         (def width (- (/ screen-width n) grid-spacing))

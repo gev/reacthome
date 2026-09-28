@@ -4,7 +4,6 @@
     (import widget.app-bar)
 
     (def (screen props)
-        (print media-query.padding)
         (material
             :color current-theme.color-scheme.surface-container
             :child (container
