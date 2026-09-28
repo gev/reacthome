@@ -8,8 +8,8 @@
         (stack
             :children (
                 (media-player
-                    :width media-query.width
-                    :height media-query.height
+                    :width media-query.size.width
+                    :height media-query.size.height
                     :url (?? props.main_URL props.preview_URL)
                 )
                 (positioned

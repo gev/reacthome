@@ -2,7 +2,7 @@
     (export modal)
 
     (def (modal props)
-        (def size media-query.width)
+        (def size media-query.size.width)
         (def width (if (< size 600) (* size 0.9) 600))
         (container
             :width width
