@@ -3,14 +3,13 @@ module Reacthome.Proxy.Error where
 import Control.Exception (Exception)
 import Data.ByteString (ByteString)
 import Debug.Trace (traceIO)
-import Glue.Error (GlueError)
 import WebSockets.Error (WebSocketError)
 import Prelude hiding (error)
 
 data ProxyError
     = WebSocketError WebSocketError
     | InvalidProxyDaemon ByteString
-    | ConfigError GlueError
+    | ConfigError String
     deriving (Show)
 
 instance Exception ProxyError
@@ -24,4 +23,4 @@ logError err =
             InvalidProxyDaemon d ->
                 "Invalid daemon id to proxy: " <> show d
             ConfigError e ->
-                "Invalid config: " <> show e
+                "Invalid config: " <> e

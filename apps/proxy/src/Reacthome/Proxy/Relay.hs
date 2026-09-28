@@ -2,7 +2,7 @@ module Reacthome.Proxy.Relay where
 
 import Control.Monad (void)
 import Data.ByteString.Lazy (empty)
-import Reacthome.Proxy.Config (ClientConfig (..), ProxyConfig (..))
+import Reacthome.Proxy.Config.App (ClientConfig (..), ProxyConfig (..))
 import WebSockets.Client (runSecureWebSocketClient)
 import WebSockets.Options (defaultWebSocketOptions)
 

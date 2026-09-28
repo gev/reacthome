@@ -9,7 +9,7 @@ import Data.Foldable (traverse_)
 import Data.Text (Text)
 import Data.Text qualified as T
 import Data.Text.Encoding qualified as T
-import Reacthome.Proxy.Config (AssetsConfig (..))
+import Reacthome.Proxy.Config.App (AssetsConfig (..))
 import Reacthome.Proxy.Sink (Sink)
 import System.Directory (doesFileExist, getFileSize)
 import System.FilePath ((</>))

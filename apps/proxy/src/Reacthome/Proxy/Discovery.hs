@@ -11,7 +11,7 @@ import Discovery.Config (AnnounceConfig (..), ProbeConfig (..))
 import Discovery.Responder (respond)
 import Glue.AST (AST (..))
 import Glue.Serialize (serializeAST)
-import Reacthome.Proxy.Config (DiscoveryConfig (..), ProxyConfig (..))
+import Reacthome.Proxy.Config.App (DiscoveryConfig (..), ProxyConfig (..))
 
 data Discovery = Discovery
     { justAnnounce :: [(Text, AST)] -> IO ()

@@ -13,7 +13,7 @@ import PubSub.Revision (Revision (..))
 import Reacthome.Proxy.Glue.PubSub.Types (GlueLookup, GluePublish)
 import System.Directory (canonicalizePath, getModificationTime)
 import System.FSNotify (Event (..), EventIsDirectory (..), watchTree, withManager)
-import System.FilePath (pathSeparator, splitDirectories)
+import System.FilePath (pathSeparator, splitDirectories, (</>))
 import Prelude hiding (lookup)
 
 data GlueStore = GlueStore
@@ -25,7 +25,7 @@ makeGlueStore :: FilePath -> GlueStore
 makeGlueStore folder = GlueStore{..}
   where
     lookup parts = do
-        let file = folder <> intercalate [pathSeparator] (T.unpack <$> parts) <> ".glue"
+        let file = folder </> intercalate [pathSeparator] (T.unpack <$> parts) <> ".glue"
         catch @SomeException
             do
                 payload <- L.readFile file
