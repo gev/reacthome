@@ -7,6 +7,7 @@ import Data.UUID (UUID)
 import Data.Word (Word8)
 import Reacthome.Proxy.Assets (Assets)
 import Reacthome.Proxy.Bridge.Downstream (Downstream)
+import Reacthome.Proxy.Glue.Env.Vision (visionEnv)
 import Reacthome.Proxy.Glue.Evaluator (run)
 import Reacthome.Proxy.Glue.PubSub.Types (GluePublisher)
 import Reacthome.Proxy.Sink (Sink)
@@ -50,7 +51,7 @@ runGlue message = do
     case decodeUtf8' message of
         Left err -> print err
         Right expression -> do
-            run (toStrict expression) >>= \case
+            run (toStrict expression) visionEnv >>= \case
                 Left err -> print err
                 _ -> pure ()
 

@@ -5,8 +5,8 @@ import Glue.Module (ModuleInfo, nativeModule)
 import Reacthome.Proxy.Glue.Lib.Config.App (appConfig)
 import Prelude hiding (log)
 
-vision :: ModuleInfo Eval
-vision =
+config :: ModuleInfo Eval
+config =
     nativeModule
         "proxy.config"
         [("app", appConfig)]

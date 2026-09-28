@@ -1,4 +1,4 @@
-module Reacthome.Proxy.Glue.Env where
+module Reacthome.Proxy.Glue.Env.Vision where
 
 import Data.UUID (UUID)
 import Glue.Eval (Eval)
@@ -12,7 +12,7 @@ import Reacthome.Proxy.Glue.Lib.Vision (vision)
 import Reacthome.Proxy.Glue.PubSub.Types (GluePublisher)
 import Reacthome.Proxy.Sink (Sink)
 
-env ::
+visionEnv ::
     ( ?session :: UUID
     , ?pubsub :: GluePublisher
     , ?assets :: Assets
@@ -20,7 +20,7 @@ env ::
     , ?downstream :: Downstream
     ) =>
     Env Eval
-env =
+visionEnv =
     envFromModules
         [ builtin
         , actions
