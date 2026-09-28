@@ -32,12 +32,12 @@ main = do
                         , probePort = 2027
                         , timeout = 1
                         }
-                , gluePath = "./apps/proxy/glue/"
                 , assets =
                     AssetsConfig
                         { path = "./assets"
                         , proxy = "/Users/evgenygazdovsky/workspace/reacthome-daemon-legacy/var/assets"
                         }
+                , gluePath = "./apps/proxy/glue/"
                 }
     putStrLn $
         "Run Reacthome Proxy on "
