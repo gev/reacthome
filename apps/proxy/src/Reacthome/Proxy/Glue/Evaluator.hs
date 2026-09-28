@@ -1,25 +1,13 @@
 module Reacthome.Proxy.Glue.Evaluator where
 
 import Data.Text (Text)
-import Data.UUID (UUID)
 import Glue.Compile (compile)
 import Glue.Error (GlueError (..))
 import Glue.Eval (Eval, eval, runEvalSimple)
-import Glue.IR (Env)
+import Glue.IR (Env, IR)
 import Glue.Parse (parseGlue)
-import Reacthome.Proxy.Assets (Assets)
-import Reacthome.Proxy.Bridge.Downstream (Downstream)
-import Reacthome.Proxy.Glue.PubSub.Types (GluePublisher)
-import Reacthome.Proxy.Sink (Sink)
 
-run ::
-    ( ?session :: UUID
-    , ?pubsub :: GluePublisher
-    , ?assets :: Assets
-    , ?sink :: Sink
-    , ?downstream :: Downstream
-    ) =>
-    Text -> Env Eval -> IO (Either GlueError ())
+run :: Text -> Env Eval -> IO (Either GlueError (IR Eval))
 run expression env = case parseGlue expression of
     Left err -> pure . Left $ GlueError err
     Right ast -> do
@@ -27,4 +15,4 @@ run expression env = case parseGlue expression of
         result <- runEvalSimple (eval irTree) env
         pure case result of
             Left err -> Left $ GlueError err
-            _ -> Right ()
+            Right (res, _) -> Right res
