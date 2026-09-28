@@ -11,7 +11,7 @@
                     :children (
                         (props.body)
                         (positioned
-                            :top media-query.padding.top
+                            :top (max media-query.padding.top 16)
                             :left 16
                             :right 16
                             :child (app-bar _)
