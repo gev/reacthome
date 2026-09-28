@@ -20,7 +20,7 @@ vision ::
     ModuleInfo Eval
 vision =
     nativeModule
-        "vision"
+        "proxy.vision"
         [ ("subscribe", subscribe)
         , ("download", download)
         , ("log", log)

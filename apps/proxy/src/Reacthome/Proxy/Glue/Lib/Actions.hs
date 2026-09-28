@@ -9,7 +9,7 @@ import Reacthome.Proxy.Glue.Lib.Actions.ActionValue (actionValue)
 actions :: (?downstream :: Downstream) => ModuleInfo Eval
 actions =
     nativeModule
-        "actions"
+        "proxy.actions"
         [ ("turn-on", actionState "ACTION_ON")
         , ("turn-off", actionState "ACTION_OFF")
         , ("dim", actionValue "ACTION_DIM" "value")

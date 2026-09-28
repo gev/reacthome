@@ -50,11 +50,7 @@ library
     Reacthome.Proxy.Glue.Lib.Actions.ActionState
     Reacthome.Proxy.Glue.Lib.Actions.ActionValue
     Reacthome.Proxy.Glue.Lib.Config
-    Reacthome.Proxy.Glue.Lib.Config.AppConfig
-    Reacthome.Proxy.Glue.Lib.Config.AssetsConfig
-    Reacthome.Proxy.Glue.Lib.Config.ClientConfig
-    Reacthome.Proxy.Glue.Lib.Config.DiscoveryConfig
-    Reacthome.Proxy.Glue.Lib.Config.ProxyConfig
+    Reacthome.Proxy.Glue.Lib.Config.App
     Reacthome.Proxy.Glue.Lib.Vision
     Reacthome.Proxy.Glue.Lib.Vision.Download
     Reacthome.Proxy.Glue.Lib.Vision.Log
