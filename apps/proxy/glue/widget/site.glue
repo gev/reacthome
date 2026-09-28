@@ -30,7 +30,7 @@
                                 :image (load-image :src props.image)
                                 :fit box-fit.fit-width
                             )
-                            (sized-box :height (+ media-query.padding.top 40))
+                            (sized-box :height (+ media-query.padding.top 48))
                         )
                         (padding
                             :padding (edge-insets-symmetric :horizontal 16)

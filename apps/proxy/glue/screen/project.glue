@@ -36,7 +36,7 @@
                         )
                         (connection-indicator
                             :connected-position -48
-                            :disconnected-position 12
+                            :disconnected-position (+ media-query.padding.top 12)
                         )
                     )
                 )
