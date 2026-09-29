@@ -10,8 +10,8 @@
         :uri "/"
     )
     :relay (
-        :host "relay.reacthome.net"
-        :port 443
+        :host "relay.local"
+        :port 3003
         :uri "/v1"
     )
     :discovery (
