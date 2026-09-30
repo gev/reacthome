@@ -33,4 +33,4 @@ source-repository-package
 source-repository-package
     type:     git
     location: https://github.com/gev/crypton.git
-    tag:      2ced2da573cb3b8500809cd6555daf20f908f423
+    tag:      b0c5feb20414d9ddb1e4b2de5b198f1a75f54615
