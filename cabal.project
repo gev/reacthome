@@ -5,9 +5,6 @@ packages:
 constraints:
     base >= 4.19 && < 5
 
-package crypton
-    flags: -support_sha3
-    
 package *
     ghc-options:
         -O2
@@ -15,9 +12,11 @@ package *
         -threaded
         -with-rtsopts=-N
         -Wall
+        -optc-mcpu=cortex-a72
+        -optc-U__ARM_FEATURE_SHA3        
 
     split-sections: True
-
+    
 source-repository-package
     type:     git
     location: https://github.com/gev/glue.git
