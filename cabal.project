@@ -5,9 +5,6 @@ packages:
 constraints:
     base >= 4.19 && < 5,
 
-package crypton
-    flags: +use_target_attributes
-    
 package *
     ghc-options:
         -O2
