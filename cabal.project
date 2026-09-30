@@ -16,9 +16,6 @@ package *
 
     split-sections: True
 
-package crypton
-    flags: -target-attributes
-    
 source-repository-package
     type:     git
     location: https://github.com/gev/glue.git
