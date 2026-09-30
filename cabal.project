@@ -19,7 +19,8 @@ package crypton
     flags: 
         -target-attributes
     ghc-options: 
-        -optc-march=armv8.2-a+crypto+sha3
+        -optc-march=armv8-a+nocrypto 
+        -optc-mcpu=cortex-a72
     
 source-repository-package
     type:     git
