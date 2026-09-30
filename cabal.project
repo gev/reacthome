@@ -13,6 +13,7 @@ package *
         -with-rtsopts=-N
         -Wall
         -optc-march=armv8-a+sha3
+        -opta-march=armv8-a+sha3
 
     split-sections: True
 
