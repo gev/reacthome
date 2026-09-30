@@ -17,6 +17,7 @@ package *
 
 package crypton
     flags: +use_target_attributes
+    cc-options: -march=armv8.2-a+crypto+sha3
 
 source-repository-package
     type:     git
