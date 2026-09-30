@@ -16,8 +16,12 @@ package *
     split-sections: True
 
 package crypton
-    flags: -target-attributes
-    ghc-options: -optc-march=armv8-a -optc-mcpu=cortex-a72
+    flags: 
+        -support-sse 
+        -target-attributes
+    ghc-options: 
+        -optc-march=armv8-a+crypto+sha3 
+        -optc-mcpu=cortex-a72
     
 source-repository-package
     type:     git
