@@ -17,11 +17,11 @@ package *
 
 package crypton
     flags: 
-        -support-sse 
         -target-attributes
     ghc-options: 
-        -optc-march=armv8-a+crypto+sha3 
-        -optc-mcpu=cortex-a72
+        -optc-march=armv8-a 
+        -optc-mcpu=cortex-a72 
+        -optc-Wa,-march=armv8.2-a+sha3
     
 source-repository-package
     type:     git
