@@ -3,7 +3,7 @@ packages:
     packages/*/*.cabal
 
 constraints:
-    base >= 4.19 && < 5
+    base >= 4.19 && < 5,
     crypton == 2.1.2
 
 package *
