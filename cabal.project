@@ -15,9 +15,6 @@ package *
 
     split-sections: True
 
-package crypton
-    flags: +use_target_attributes
-
 source-repository-package
     type:     git
     location: https://github.com/gev/glue.git
@@ -29,8 +26,3 @@ source-repository-package
     location: https://github.com/gev/network.git
     tag:      297ea723ec5d2d30ad0512d613575ab8378cc50c
     post-checkout-command:   sh -c "autoreconf -i"
-
-source-repository-package
-    type:     git
-    location: https://github.com/gev/crypton.git
-    tag:      268c05b9fd56055dbf4cd647c5ea9e5c75090a17
