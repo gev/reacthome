@@ -12,6 +12,7 @@ package *
         -threaded
         -with-rtsopts=-N
         -Wall
+        -optc-march=armv8-a+sha3
 
     split-sections: True
 
