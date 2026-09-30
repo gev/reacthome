@@ -4,7 +4,6 @@ packages:
 
 constraints:
     base >= 4.19 && < 5,
-    crypton == 1.1.5
 
 package *
     ghc-options:
