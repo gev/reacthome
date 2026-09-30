@@ -5,6 +5,9 @@ packages:
 constraints:
     base >= 4.19 && < 5
 
+package crypton
+    flags: -support_sha3
+    
 package *
     ghc-options:
         -O2
@@ -12,8 +15,6 @@ package *
         -threaded
         -with-rtsopts=-N
         -Wall
-        -optc-march=armv8-a+sha3
-        -opta-march=armv8-a+sha3
 
     split-sections: True
 
