@@ -12,8 +12,6 @@ package *
         -threaded
         -with-rtsopts=-N
         -Wall
-        -optc-mcpu=cortex-a72
-        -optc-U__ARM_FEATURE_SHA3        
 
     split-sections: True
     
