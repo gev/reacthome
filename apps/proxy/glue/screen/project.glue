@@ -7,11 +7,11 @@
         (def screen
             (local-state 1)
         )
-        (def (select current)
+        (def (select-panel current)
             (\ ()
                 (write screen current)
             )
         )
-        (listen (project-layout home select) screen)
+        (listen (project-layout home select-panel) screen)
     )
 )

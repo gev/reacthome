@@ -1,14 +1,14 @@
 (module layout.project
     (export project-layout)
 
-    (import screen.home)
-    (import screen.systems)
-    (import screen.weather)
+    (import panel.home)
+    (import panel.systems)
+    (import panel.weather)
 
     (import widget.compact-nav-bar)
     (import widget.connection-indicator)
 
-    (def (project-layout home select screen)
+    (def (project-layout home select-panel screen)
         (material
             :color current-theme.color-scheme.surface-container
             :child (container
@@ -17,9 +17,9 @@
                         (indexed-stack
                             :index screen
                             :children (
-                                (weather-screen _)
-                                (home-screen home _)
-                                (systems-screen _)
+                                (weather-panel _)
+                                (home-panel home _)
+                                (systems-panel _)
                             )
                         )
                         (positioned
@@ -30,7 +30,7 @@
                                 :alignment alignment.center
                                 :child (nav-bar
                                     :screen screen
-                                    :select select
+                                    :select select-panel
                                 )
                             )
                         )

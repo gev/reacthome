@@ -1,11 +1,11 @@
-(module  screen.weather
-    (export weather-screen)
+(module  panel.weather
+    (export weather-panel)
 
     (import lib.i18n)
     (import i18n.dict)
     (import layout.screen)
 
-    (def (weather-screen args)
+    (def (weather-panel args)
         (screen-layout
             :body (center
                 :child (text

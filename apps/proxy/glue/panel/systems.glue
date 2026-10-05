@@ -1,11 +1,11 @@
-(module  screen.systems
-    (export systems-screen)
+(module  panel.systems
+    (export systems-panel)
 
     (import lib.i18n)
     (import i18n.dict)
     (import layout.screen)
 
-    (def (systems-screen args)
+    (def (systems-panel args)
         (screen-layout
             :body (center
                 :child (text

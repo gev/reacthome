@@ -1,5 +1,5 @@
-(module screen.home
-    (export home-screen)
+(module panel.home
+    (export home-panel)
 
     (import screen.daemon)
     (import screen.site)
@@ -17,7 +17,7 @@
         )
     )
 
-    (def (home-screen home args)
+    (def (home-panel home args)
         (navigator
             :routes (
                 :index (daemon-route home)
