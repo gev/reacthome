@@ -5,7 +5,7 @@
     (import layout.site)
 
     (def (daemon props)
-        (select site props.project)
+        (select site-layout props.project)
     )
 
     (def (daemon-screen args)

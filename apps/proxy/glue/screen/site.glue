@@ -5,6 +5,6 @@
     (import layout.site)
 
     (def (site-screen args)
-        (select site args.id)
+        (select site-layout args.id)
     )
 )

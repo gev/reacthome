@@ -1,5 +1,5 @@
 (module layout.site
-    (export site)
+    (export site-layout)
 
     (import lib.log)
     (import lib.data)
@@ -90,7 +90,7 @@
 
     )
 
-    (def (site props)
+    (def (site-layout props)
         (if (exists? props.palette.vibrant)
             (let
                 (def palette (
