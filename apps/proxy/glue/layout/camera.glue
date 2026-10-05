@@ -1,4 +1,4 @@
-(module widget.camera
+(module layout.camera
     (export camera)
 
     (import lib.data)

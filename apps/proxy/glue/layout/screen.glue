@@ -1,4 +1,4 @@
-(module widget.screen
+(module layout.screen
     (export screen)
 
     (import widget.app-bar)

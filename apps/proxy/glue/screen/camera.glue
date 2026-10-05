@@ -2,7 +2,7 @@
     (export camera-screen)
 
     (import lib.data)
-    (import widget.camera)
+    (import layout.camera)
 
     (def (camera-screen args)
         (select camera args.id)

@@ -2,7 +2,7 @@
     (export daemon-screen)
 
     (import lib.data)
-    (import widget.site)
+    (import layout.site)
 
     (def (daemon props)
         (select site props.project)

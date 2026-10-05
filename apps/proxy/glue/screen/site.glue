@@ -2,7 +2,7 @@
     (export site-screen)
 
     (import lib.data)
-    (import widget.site)
+    (import layout.site)
 
     (def (site-screen args)
         (select site args.id)

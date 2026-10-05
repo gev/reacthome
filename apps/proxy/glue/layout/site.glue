@@ -1,11 +1,11 @@
-(module widget.site
+(module layout.site
     (export site)
 
     (import lib.log)
     (import lib.data)
     (import lib.navigation)
 
-    (import widget.screen)
+    (import layout.screen)
     (import widget.containers)
     (import widget.site-breadcrumbs)
     (import widget.site-info)

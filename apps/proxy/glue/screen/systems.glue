@@ -3,7 +3,7 @@
 
     (import lib.i18n)
     (import i18n.dict)
-    (import widget.screen)
+    (import layout.screen)
 
     (def (systems-screen args)
         (screen

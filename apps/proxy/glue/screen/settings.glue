@@ -6,7 +6,7 @@
 
     (import i18n.dict)
 
-    (import widget.screen)
+    (import layout.screen)
 
     (def (settings-screen home args)
         (screen

@@ -5,7 +5,6 @@
     )
 
     (import lib.data)
-    (import widget.screen)
     (import widget.curtain-regulator)
 
     (def (curtain-regulator-screen body args)
