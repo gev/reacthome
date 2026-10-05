@@ -1,9 +1,9 @@
 (module layout.screen
-    (export screen)
+    (export screen-layout)
 
     (import widget.app-bar)
 
-    (def (screen props)
+    (def (screen-layout props)
         (material
             :color current-theme.color-scheme.surface-container
             :child (container

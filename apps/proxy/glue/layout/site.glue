@@ -18,7 +18,7 @@
     (import widget.ventilation-regulator-card)
 
     (def (site-screen palette props)
-        (screen
+        (screen-layout
             :body (single-child-scroll-view
                 :padding (edge-insets-only :bottom 128)
                 :child (column

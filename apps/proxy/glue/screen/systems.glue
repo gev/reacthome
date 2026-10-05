@@ -6,7 +6,7 @@
     (import layout.screen)
 
     (def (systems-screen args)
-        (screen
+        (screen-layout
             :body (center
                 :child (text
                     :text (select-locale i18n-systems)

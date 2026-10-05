@@ -1,0 +1,47 @@
+(module layout.project
+    (export project-layout)
+
+    (import screen.home)
+    (import screen.systems)
+    (import screen.weather)
+
+    (import widget.compact-nav-bar)
+    (import widget.connection-indicator)
+
+    (def (project-layout home select screen)
+        (material
+            :color current-theme.color-scheme.surface-container
+            :child (container
+                :child (stack
+                    :children(
+                        (indexed-stack
+                            :index screen
+                            :children (
+                                (weather-screen _)
+                                (home-screen home _)
+                                (systems-screen _)
+                            )
+                        )
+                        (positioned
+                            :bottom 16
+                            :left 16
+                            :right 16
+                            :child (container
+                                :alignment alignment.center
+                                :child (nav-bar
+                                    :screen screen
+                                    :select select
+                                )
+                            )
+                        )
+                        (connection-indicator
+                            :connected-position -48
+                            :disconnected-position (+ media-query.padding.top 12)
+                        )
+                    )
+                )
+            )
+        )
+    )
+
+)

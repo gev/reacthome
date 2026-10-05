@@ -13,68 +13,68 @@
     (def (overlay screen args)
         (overlay-route
             :tag args.id
-            :screen (screen args)
-            :duration 300
-            :opacity 0.5
+            :screen screen-layout args)
+        :duration 300
+        :opacity 0.5
+    )
+)
+
+(def (project-route home args)
+    (route
+        :screen (project-screen home args)
+    )
+)
+
+(def (settings-route home args)
+    (route
+        :screen (settings-screen home args)
+    )
+)
+
+(def camera-route
+    (overlay camera-screen)
+)
+
+(def light-regulator-route
+    (overlay light-regulator-screen)
+)
+
+(def positioned-curtain-regulator-route
+    (overlay positioned-curtain-regulator-screen)
+)
+
+(def non-positioned-curtain-regulator-route
+    (overlay non-positioned-curtain-regulator-screen)
+)
+
+(def temperature-regulator-route
+    (overlay temperature-regulator-screen)
+)
+
+(def humidity-regulator-route
+    (overlay humidity-regulator-screen)
+)
+
+(def ventilation-regulator-route
+    (overlay ventilation-regulator-screen)
+)
+
+(def (main home)
+    (app
+        :navigator-key applet
+        :seed-color colors.grey
+        :dynamic-scheme-variant dynamic-scheme-variant.tonal
+        :routes (
+            :index (project-route home)
+            :settings (settings-route home)
+            :camera camera-route
+            :light-regulator light-regulator-route
+            :positioned-curtain-regulator positioned-curtain-regulator-route
+            :non-positioned-curtain-regulator non-positioned-curtain-regulator-route
+            :temperature-regulator temperature-regulator-route
+            :humidity-regulator humidity-regulator-route
+            :ventilation-regulator ventilation-regulator-route
         )
     )
-
-    (def (project-route home args)
-        (route
-            :screen (project-screen home args)
-        )
-    )
-
-    (def (settings-route home args)
-        (route
-            :screen (settings-screen home args)
-        )
-    )
-
-    (def camera-route
-        (overlay camera-screen)
-    )
-
-    (def light-regulator-route
-        (overlay light-regulator-screen)
-    )
-
-    (def positioned-curtain-regulator-route
-        (overlay positioned-curtain-regulator-screen)
-    )
-
-    (def non-positioned-curtain-regulator-route
-        (overlay non-positioned-curtain-regulator-screen)
-    )
-
-    (def temperature-regulator-route
-        (overlay temperature-regulator-screen)
-    )
-
-    (def humidity-regulator-route
-        (overlay humidity-regulator-screen)
-    )
-
-    (def ventilation-regulator-route
-        (overlay ventilation-regulator-screen)
-    )
-
-    (def (main home)
-        (app
-            :navigator-key applet
-            :seed-color colors.grey
-            :dynamic-scheme-variant dynamic-scheme-variant.tonal
-            :routes (
-                :index (project-route home)
-                :settings (settings-route home)
-                :camera camera-route
-                :light-regulator light-regulator-route
-                :positioned-curtain-regulator positioned-curtain-regulator-route
-                :non-positioned-curtain-regulator non-positioned-curtain-regulator-route
-                :temperature-regulator temperature-regulator-route
-                :humidity-regulator humidity-regulator-route
-                :ventilation-regulator ventilation-regulator-route
-            )
-        )
-    )
+)
 )

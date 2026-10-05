@@ -1,48 +1,7 @@
 (module screen.project
     (export project-screen)
 
-    (import screen.home)
-    (import screen.systems)
-    (import screen.weather)
-
-    (import widget.compact-nav-bar)
-    (import widget.connection-indicator)
-
-    (def (show home select screen)
-        (material
-            :color current-theme.color-scheme.surface-container
-            :child (container
-                :child (stack
-                    :children(
-                        (indexed-stack
-                            :index screen
-                            :children (
-                                (weather-screen _)
-                                (home-screen home _)
-                                (systems-screen _)
-                            )
-                        )
-                        (positioned
-                            :bottom 16
-                            :left 16
-                            :right 16
-                            :child (container
-                                :alignment alignment.center
-                                :child (nav-bar
-                                    :screen screen
-                                    :select select
-                                )
-                            )
-                        )
-                        (connection-indicator
-                            :connected-position -48
-                            :disconnected-position (+ media-query.padding.top 12)
-                        )
-                    )
-                )
-            )
-        )
-    )
+    (import layout.project)
 
     (def (project-screen home args)
         (def screen
@@ -53,6 +12,6 @@
                 (write screen current)
             )
         )
-        (listen (show home select) screen)
+        (listen (project-layout home select) screen)
     )
 )

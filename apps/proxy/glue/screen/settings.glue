@@ -9,7 +9,7 @@
     (import layout.screen)
 
     (def (settings-screen home args)
-        (screen
+        (screen-layout
             :body (column
                 :spacing 32
                 :cross-axis-alignment cross-axis-alignment.start

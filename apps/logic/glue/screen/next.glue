@@ -4,33 +4,33 @@
     (import lib.vision)
 
     (def (next-screen props)
-        (screen
-            :body (center
-                :child (
-                    column
-                    :main-axis-size main-axis-size.min
-                    :spacing 32
-                    :children (
-                        (image
-                            :image (asset-image :src "icon.png")
-                            :width 100)
-                        (text :text props.title)
-                        (text :text (foo 10))
-                        (row
-                            :main-axis-size main-axis-size.min
-                            :spacing 32
-                            :children (
-                                (button
-                                    :child (text :text "< Назад")
-                                    :on-pressed back)
-                                (filled-button
-                                    :child (text :text "Далее >")
-                                    :on-pressed (go 'next))
-                            )
+        screen-layout
+        :body (center
+            :child (
+                column
+                :main-axis-size main-axis-size.min
+                :spacing 32
+                :children (
+                    (image
+                        :image (asset-image :src "icon.png")
+                        :width 100)
+                    (text :text props.title)
+                    (text :text (foo 10))
+                    (row
+                        :main-axis-size main-axis-size.min
+                        :spacing 32
+                        :children (
+                            (button
+                                :child (text :text "< Назад")
+                                :on-pressed back)
+                            (filled-button
+                                :child (text :text "Далее >")
+                                :on-pressed (go 'next))
                         )
                     )
                 )
             )
         )
     )
+)
 )
