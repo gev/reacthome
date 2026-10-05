@@ -1,0 +1,27 @@
+(module widget.site-theme
+    (export site-theme)
+
+    (def (apply-palette site palette props)
+        (with-seed-color
+            :seed-color palette.seed-color
+            :dynamic-scheme-variant palette.dynamic-scheme-variant
+            :child (site palette props)
+        )
+
+    )
+
+    (def (site-theme site props)
+        (if (exists? props.palette.vibrant)
+            (let
+                (def palette (
+                        :seed-color props.palette.vibrant
+                        :dynamic-scheme-variant dynamic-scheme-variant.content
+                    )
+                )
+                (apply-palette site palette props)
+            )
+            (site _ props)
+        )
+    )
+    
+)
