@@ -17,7 +17,7 @@
     (import widget.humidity-regulator-card)
     (import widget.ventilation-regulator-card)
 
-    (def (site palette props)
+    (def (md-site-layout palette props)
         (screen-layout
             :body (single-child-scroll-view
                 :padding (edge-insets-only :bottom 128)
@@ -78,29 +78,6 @@
                     )
                 )
             )
-        )
-    )
-
-    (def (site-with-palette palette props)
-        (with-seed-color
-            :seed-color palette.seed-color
-            :dynamic-scheme-variant palette.dynamic-scheme-variant
-            :child (site palette props)
-        )
-
-    )
-
-    (def (md-site-layout props)
-        (if (exists? props.palette.vibrant)
-            (let
-                (def palette (
-                        :seed-color props.palette.vibrant
-                        :dynamic-scheme-variant dynamic-scheme-variant.content
-                    )
-                )
-                (site-with-palette palette props)
-            )
-            (site _ props)
         )
     )
 )

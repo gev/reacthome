@@ -2,30 +2,31 @@
     (export site-layout)
 
     (import lib.layout)
+    (import widget.site-theme)
 
     (def (xs-layout props)
         (import layout.site-xs)
-        (xs-site-layout props)
+        (site-theme xs-site-layout props)
     )
 
     (def (sm-layout props)
         (import layout.site-sm)
-        (sm-site-layout props)
+        (site-theme sm-site-layout props)
     )
 
     (def (md-layout props)
         (import layout.site-md)
-        (md-site-layout props)
+        (site-theme md-site-layout props)
     )
 
     (def (lg-layout props)
         (import layout.site-lg)
-        (lg-site-layout props)
+        (site-theme lg-site-layout props)
     )
 
     (def (xl-layout props)
         (import layout.site-xl)
-        (xl-site-layout props)
+        (site-theme xl-site-layout props)
     )
 
     (def site-layout
