@@ -1,10 +1,10 @@
 (module layout.camera
-    (export camera)
+    (export camera-layout)
 
     (import lib.data)
     (import widget.ink-well-overlay)
 
-    (def (camera props)
+    (def (camera-layout props)
         (stack
             :children (
                 (media-player

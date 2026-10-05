@@ -5,6 +5,6 @@
     (import layout.camera)
 
     (def (camera-screen args)
-        (select camera args.id)
+        (select camera-layout args.id)
     )
 )
