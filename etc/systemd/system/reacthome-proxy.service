@@ -1,0 +1,12 @@
+[Unit]
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/reacthome-proxy
+ExecStart=/home/pi/reacthome-proxy/reacthome-proxy
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
