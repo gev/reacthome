@@ -1,0 +1,106 @@
+(module layout.site-md
+    (export md-site-layout)
+
+    (import lib.log)
+    (import lib.data)
+    (import lib.navigation)
+
+    (import layout.screen)
+    (import widget.containers)
+    (import widget.site-breadcrumbs)
+    (import widget.site-info)
+    (import widget.site-card)
+    (import widget.light-card)
+    (import widget.curtain-card)
+    (import widget.camera-card)
+    (import widget.temperature-regulator-card)
+    (import widget.humidity-regulator-card)
+    (import widget.ventilation-regulator-card)
+
+    (def (site palette props)
+        (screen-layout
+            :body (single-child-scroll-view
+                :padding (edge-insets-only :bottom 128)
+                :child (column
+                    :spacing 16
+                    :cross-axis-alignment cross-axis-alignment.start
+                    :children (
+                        (if (exists? props.image)
+                            (image
+                                :image (load-image :src props.image)
+                                :fit box-fit.fit-width
+                            )
+                            (sized-box :height (+ media-query.padding.top 48))
+                        )
+                        (padding
+                            :padding (edge-insets-symmetric :horizontal 16)
+                            :child (wrap
+                                :spacing 16
+                                :run-spacing 8
+                                :cross-axis-alignment wrap-cross-alignment.center
+                                :children (
+                                    (text
+                                        :text (title props)
+                                        :style current-theme.text-theme.headline-large
+                                    )
+                                    (site-breadcrumbs
+                                        :site props.parent
+                                        :action (\ (id) (go :route 'site :id id))
+                                    )
+                                )
+                            )
+                        )
+                        (site-info :site props.id)
+                        (select-in-grid (light-card palette) props.light_220)
+                        (select-in-grid (light-card palette) props.light_LED)
+                        (single-child-scroll-view
+                            :scroll-direction axis.horizontal
+                            :child (row
+                                :spacing 16
+                                :children (
+                                    (select-in-row (temperature-regulator-card props) props.thermostat)
+                                    (select-in-row (humidity-regulator-card props) props.hygrostat)
+                                    (select-in-row (ventilation-regulator-card props) props.co2_stat)
+                                )
+                            )
+                        )
+                        (select-in-grid (curtain-card palette) props.curtains)
+
+                        (single-child-scroll-view
+                            :scroll-direction axis.horizontal
+                            :child (row
+                                :spacing 16
+                                :children (select-in-row (camera-card palette) props.camera)
+                            )
+                        )
+                        
+                        (select-in-column site-card props.site)
+                    )
+                )
+            )
+        )
+    )
+
+    (def (site-with-palette palette props)
+        (with-seed-color
+            :seed-color palette.seed-color
+            :dynamic-scheme-variant palette.dynamic-scheme-variant
+            :child (site palette props)
+        )
+
+    )
+
+    (def (md-site-layout props)
+        (if (exists? props.palette.vibrant)
+            (let
+                (def palette (
+                        :seed-color props.palette.vibrant
+                        :dynamic-scheme-variant dynamic-scheme-variant.content
+                    )
+                )
+                (site-with-palette palette props)
+            )
+            (site _ props)
+        )
+    )
+)

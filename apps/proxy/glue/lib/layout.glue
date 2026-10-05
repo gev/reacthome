@@ -1,0 +1,41 @@
+(module lib.layout
+    (export select-layout)
+
+    (def xs 480)
+    (def sm 880)
+    (def md 1200)
+    (def lg 2000)
+
+    (def (select-breakpoint breakpoints props constraints)
+        (def breakpoint
+            (if (< constraints.width xs)
+                breakpoints.xs
+                (if (< constraints.width sm)
+                    breakpoints.sm
+                    (if (< constraints.width md)
+                        breakpoints.md
+                        (if (< constraints.width lg)
+                            breakpoints.lg
+                            breakpoints.xl
+                        )
+                    )
+                )
+            )
+        )
+        (if (exists? breakpoint)
+            (breakpoint props)
+            (center
+                :child (text
+                    :text constraints.width
+                    :style current-theme.text-theme.display-medium
+                )
+            )
+        )
+    )
+
+    (def (select-layout breakpoints props)
+        (layout
+            (select-breakpoint breakpoints props)
+        )
+    )
+)
