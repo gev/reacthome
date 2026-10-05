@@ -1,5 +1,5 @@
-(module screen.daemon
-    (export daemon-screen)
+(module panel.daemon
+    (export daemon-panel)
 
     (import lib.data)
     (import layout.site)
@@ -8,7 +8,7 @@
         (select site-layout props.project)
     )
 
-    (def (daemon-screen args)
+    (def (daemon-panel args)
         (select daemon args.id)
     )
 )

@@ -1,19 +1,19 @@
 (module panel.home
     (export home-panel)
 
-    (import screen.daemon)
-    (import screen.site)
+    (import panel.daemon)
+    (import panel.site)
 
     (def (daemon-route home args)
         (def id (concat "proxy." home.id))
         (route
-            :screen (daemon-screen :id id)
+            :screen (daemon-panel :id id)
         )
     )
 
     (def (site-route args)
         (route
-            :screen (site-screen args)
+            :screen (site-panel args)
         )
     )
 
