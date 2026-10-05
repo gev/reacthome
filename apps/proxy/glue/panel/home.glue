@@ -1,14 +1,26 @@
 (module panel.home
     (export home-panel)
 
-    (import panel.daemon)
-    (import panel.site)
+    (import lib.data)
+    (import layout.site)
 
-    (def (daemon-route home args)
+    (def (project props)
+        (select site-layout props.project)
+    )
+
+    (def (daemon args)
+        (select project args.id)
+    )
+
+    (def (index-route home args)
         (def id (concat "proxy." home.id))
         (route
-            :screen (daemon-panel :id id)
+            :screen (daemon :id id)
         )
+    )
+
+    (def (site-panel args)
+        (select site-layout args.id)
     )
 
     (def (site-route args)
@@ -20,7 +32,7 @@
     (def (home-panel home args)
         (navigator
             :routes (
-                :index (daemon-route home)
+                :index (index-route home)
                 :site site-route
             )
         )
