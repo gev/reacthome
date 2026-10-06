@@ -1,10 +1,10 @@
 (module lib.layout
     (export select-layout)
 
-    (def xs 480)
-    (def sm 880)
-    (def md 1200)
-    (def lg 2000)
+    (def xs 600)
+    (def sm 960)
+    (def md 1280)
+    (def lg 1920)
 
     (def (select-breakpoint breakpoints props constraints)
         (def breakpoint
