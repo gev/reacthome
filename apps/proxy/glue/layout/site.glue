@@ -32,10 +32,10 @@
     (def site-layout
         (select-layout
             :xs xs-layout
-            :sm sm-layout
-            :md md-layout
-            :lg lg-layout
-            :xl xl-layout
+            :sm xs-layout
+            :md xs-layout
+            :lg xs-layout
+            :xl xs-layout
         )
     )
 )
