@@ -9,11 +9,16 @@
         (site-theme xs-site-layout props constraints)
     )
 
+    (def (md-layout props constraints)
+        (import layout.site-md)
+        (site-theme md-site-layout props constraints)
+    )
+
     (def site-layout
         (select-layout
             :xs xs-layout
             :sm xs-layout
-            :md xs-layout
+            :md md-layout
             :lg xs-layout
             :xl xs-layout
         )

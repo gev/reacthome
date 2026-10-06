@@ -1,13 +1,13 @@
 (module layout.site-md
-    (export xs-site-layout)
+    (export md-site-layout)
 
     (import layout.screen-md)
     (import widget.site-header)
     (import widget.site-body)
 
-    (def (xs-site-layout palette props constraints)
+    (def (md-site-layout palette props constraints)
         (screen-layout-md
-            :head (site-header props)
+            :header (site-header props)
             :body (single-child-scroll-view
                 :padding (edge-insets-only :bottom 128)
                 :child (site-body palette props)

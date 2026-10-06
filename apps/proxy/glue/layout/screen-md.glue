@@ -14,7 +14,7 @@
                     )
                     (expanded
                         :flex 2
-                        :child props.header
+                        :child props.body
                     )
                 )
             )
