@@ -1,0 +1,59 @@
+(module widget.site-header
+    (export site-header)
+
+    (import lib.data)
+    (import lib.navigation)
+
+    (import widget.site-breadcrumbs)
+    (import widget.site-info)
+
+    (def (site-image props)
+        (if (exists? props.image)
+            (image
+                :image (load-image :src props.image)
+                :fit box-fit.fit-width
+            )
+            (sized-box :height (+ media-query.padding.top 48))
+        )
+    )
+
+    (def (site-title props)
+        (padding
+            :padding (edge-insets-symmetric :horizontal 16)
+            :child (column
+                :cross-axis-alignment cross-axis-alignment.start
+                :children (
+                    (text
+                        :text (title props)
+                        :style current-theme.text-theme.headline-large
+                    )
+                    (site-breadcrumbs
+                        :site props.parent
+                        :action (\ (id) (go :route 'site :id id))
+                    )
+                )
+            )
+        )
+    )
+
+    (def (site-description props)
+        (column
+            :spacing 16
+            :cross-axis-alignment cross-axis-alignment.start
+            :children (
+                (site-title props)
+                (site-info :site props.id)
+            )
+        )
+    )
+
+    (def (site-header props)
+        (stack
+            :children(
+                (site-image props)
+                (site-description props)
+            )
+        )
+    )
+
+)

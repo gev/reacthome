@@ -7,6 +7,7 @@
 
     (import layout.screen)
     (import widget.containers)
+    (import widget.site-header)
     (import widget.site-breadcrumbs)
     (import widget.site-info)
     (import widget.site-card)
@@ -25,32 +26,7 @@
                     :spacing 16
                     :cross-axis-alignment cross-axis-alignment.start
                     :children (
-                        (if (exists? props.image)
-                            (image
-                                :image (load-image :src props.image)
-                                :fit box-fit.fit-width
-                            )
-                            (sized-box :height (+ media-query.padding.top 48))
-                        )
-                        (padding
-                            :padding (edge-insets-symmetric :horizontal 16)
-                            :child (wrap
-                                :spacing 16
-                                :run-spacing 8
-                                :cross-axis-alignment wrap-cross-alignment.center
-                                :children (
-                                    (text
-                                        :text (title props)
-                                        :style current-theme.text-theme.headline-large
-                                    )
-                                    (site-breadcrumbs
-                                        :site props.parent
-                                        :action (\ (id) (go :route 'site :id id))
-                                    )
-                                )
-                            )
-                        )
-                        (site-info :site props.id)
+                        (site-header props)
                         (select-in-grid (light-card palette) props.light_220)
                         (select-in-grid (light-card palette) props.light_LED)
                         (single-child-scroll-view
