@@ -2,16 +2,21 @@
     (export screen-layout)
 
     (import widget.app-bar)
+    (import widget.floating-bar)
+
 
     (def (screen-size props)
         (def size (media-query.size))
-        (card
-            :child (row
-                :spacing 4
-                :children (
-                    (text :text (round size.width))
-                    (text :text "x")
-                    (text :text (round size.height))
+        (floating-bar
+            :child (padding
+                :padding (edge-insets-all 8)
+                :child (row
+                    :spacing 4
+                    :children (
+                        (text :text (round size.width))
+                        (text :text "x")
+                        (text :text (round size.height))
+                    )
                 )
             )
         )
@@ -24,7 +29,7 @@
                 :children (
                     (props.body)
                     (positioned
-                        :top (+ media-query.padding.top 16)
+                        :top (+ media-query.padding.top 20)
                         :right 16
                         :child (screen-size _)
                     )
