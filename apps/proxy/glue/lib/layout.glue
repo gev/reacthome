@@ -1,22 +1,30 @@
 (module lib.layout
     (export select-layout)
 
-    (def xs 600)
-    (def sm 960)
-    (def md 1280)
-    (def lg 1920)
+    (def wc 280)
+    (def xs (+ wc wc))
+    (def sm (+ xs wc))
+    (def md (+ sm wc))
+    (def lg (+ md wc))
+    (def xl (+ lg wc))
 
     (def (select-breakpoint breakpoints props constraints)
         (def breakpoint
-            (if (< constraints.width xs)
-                breakpoints.xs
-                (if (< constraints.width sm)
-                    breakpoints.sm
-                    (if (< constraints.width md)
-                        breakpoints.md
-                        (if (< constraints.width lg)
-                            breakpoints.lg
-                            breakpoints.xl
+            (if (< constraints.width wc)
+                (?? breakpoints.xxs breakpoints.xs)
+                (if (< constraints.width xs)
+                    breakpoints.xs
+                    (if (< constraints.width sm)
+                        breakpoints.sm
+                        (if (< constraints.width md)
+                            breakpoints.md
+                            (if (< constraints.width lg)
+                                breakpoints.lg
+                                (if (< constraints.width xl)
+                                    breakpoints.xl
+                                    (?? breakpoints.xxl breakpoints.xl)
+                                )
+                            )
                         )
                     )
                 )
