@@ -5,7 +5,7 @@
     (import widget.site-header)
     (import widget.site-body)
 
-    (def (xs-site-layout palette props)
+    (def (xs-site-layout palette props constraints)
         (screen-layout-xs
             :body (single-child-scroll-view
                 :padding (edge-insets-only :bottom 128)

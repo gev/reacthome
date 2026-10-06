@@ -1,15 +1,15 @@
 (module widget.site-theme
     (export site-theme)
 
-    (def (apply-palette site palette props)
+    (def (apply-palette site palette props constraints)
         (with-seed-color
             :seed-color palette.seed-color
             :dynamic-scheme-variant palette.dynamic-scheme-variant
-            :child (site palette props)
+            :child (site palette props constraints)
         )
     )
 
-    (def (site-theme site props)
+    (def (site-theme site props constraints)
         (if (exists? props.palette.vibrant)
             (let
                 (def palette (
@@ -17,9 +17,9 @@
                         :dynamic-scheme-variant dynamic-scheme-variant.content
                     )
                 )
-                (apply-palette site palette props)
+                (apply-palette site palette props constraints)
             )
-            (site _ props)
+            (site _ props constraints)
         )
     )
 )
