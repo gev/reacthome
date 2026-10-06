@@ -13,7 +13,7 @@
     (def (overlay screen args)
         (overlay-route
             :tag args.id
-            :screen (screen-layout args)
+            :screen (screen args)
             :duration 300
             :opacity 0.5
         )
