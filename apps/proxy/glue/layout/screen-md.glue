@@ -1,24 +1,20 @@
 (module layout.screen-md
     (export screen-layout-md)
 
-    (import widget.app-bar)
-    (import widget.screen-size)
+    (import widget.screen)
 
     (def (screen-layout-md props)
-        (material
-            :color current-theme.color-scheme.surface-container
-            :child (stack
+        (screen
+            :body (row
+                :cross-axis-alignment cross-axis-alignment.stretch
                 :children (
-                    (props.body)
-                    (positioned
-                        :top (+ media-query.padding.top 20)
-                        :right 16
-                        :child (screen-size _)
+                    (expanded
+                        :flex 1
+                        :child props.header
                     )
-                    (positioned
-                        :top (+ media-query.padding.top 16)
-                        :left 16
-                        :child (app-bar _)
+                    (expanded
+                        :flex 2
+                        :child props.header
                     )
                 )
             )
