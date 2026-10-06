@@ -4,7 +4,7 @@
     (import lib.vision)
 
     (def (home-screen props)
-        screen-layout
+        screen-layout-xs
         :body (center
             :child (
                 column

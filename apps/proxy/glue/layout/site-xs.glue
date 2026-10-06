@@ -1,25 +1,12 @@
 (module layout.site-xs
     (export xs-site-layout)
 
-    (import lib.log)
-    (import lib.data)
-    (import lib.navigation)
-
-    (import layout.screen)
-    (import widget.containers)
+    (import layout.screen-xs)
     (import widget.site-header)
-    (import widget.site-breadcrumbs)
-    (import widget.site-info)
-    (import widget.site-card)
-    (import widget.light-card)
-    (import widget.curtain-card)
-    (import widget.camera-card)
-    (import widget.temperature-regulator-card)
-    (import widget.humidity-regulator-card)
-    (import widget.ventilation-regulator-card)
+    (import widget.site-body)
 
     (def (xs-site-layout palette props)
-        (screen-layout
+        (screen-layout-xs
             :body (single-child-scroll-view
                 :padding (edge-insets-only :bottom 128)
                 :child (column
@@ -27,30 +14,7 @@
                     :cross-axis-alignment cross-axis-alignment.start
                     :children (
                         (site-header props)
-                        (select-in-grid (light-card palette) props.light_220)
-                        (select-in-grid (light-card palette) props.light_LED)
-                        (single-child-scroll-view
-                            :scroll-direction axis.horizontal
-                            :child (row
-                                :spacing 16
-                                :children (
-                                    (select-in-row (temperature-regulator-card props) props.thermostat)
-                                    (select-in-row (humidity-regulator-card props) props.hygrostat)
-                                    (select-in-row (ventilation-regulator-card props) props.co2_stat)
-                                )
-                            )
-                        )
-                        (select-in-grid (curtain-card palette) props.curtains)
-
-                        (single-child-scroll-view
-                            :scroll-direction axis.horizontal
-                            :child (row
-                                :spacing 16
-                                :children (select-in-row (camera-card palette) props.camera)
-                            )
-                        )
-                        
-                        (select-in-column site-card props.site)
+                        (site-body palette props)
                     )
                 )
             )

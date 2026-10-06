@@ -1,10 +1,10 @@
-(module layout.screen
-    (export screen-layout)
+(module layout.screen-xs
+    (export screen-layout-xs)
 
     (import widget.app-bar)
     (import widget.screen-size)
 
-    (def (screen-layout props)
+    (def (screen-layout-xs props)
         (material
             :color current-theme.color-scheme.surface-container
             :child (stack

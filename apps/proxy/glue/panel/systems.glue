@@ -3,10 +3,10 @@
 
     (import lib.i18n)
     (import i18n.dict)
-    (import layout.screen)
+    (import layout.screen-xs)
 
     (def (systems-panel args)
-        (screen-layout
+        (screen-layout-xs
             :body (center
                 :child (text
                     :text (select-locale i18n-systems)
