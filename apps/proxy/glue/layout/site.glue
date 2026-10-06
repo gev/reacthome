@@ -4,9 +4,9 @@
     (import lib.layout)
     (import widget.site-theme)
 
-    (def (xs-layout props)
+    (def (xs-layout props constraints)
         (import layout.site-xs)
-        (site-theme xs-site-layout props)
+        (site-theme xs-site-layout props constraints)
     )
 
     (def site-layout
