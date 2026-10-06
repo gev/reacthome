@@ -7,16 +7,10 @@
 
     (def (xs-site-layout palette props constraints)
         (screen-layout-md
+            :head (site-header props)
             :body (single-child-scroll-view
                 :padding (edge-insets-only :bottom 128)
-                :child (column
-                    :spacing 16
-                    :cross-axis-alignment cross-axis-alignment.start
-                    :children (
-                        (site-header props)
-                        (site-body palette props)
-                    )
-                )
+                :child (site-body palette props)
             )
         )
     )
