@@ -24,12 +24,6 @@
         )
         (if (exists? breakpoint)
             (breakpoint props)
-            (center
-                :child (text
-                    :text constraints.width
-                    :style current-theme.text-theme.display-medium
-                )
-            )
         )
     )
 
