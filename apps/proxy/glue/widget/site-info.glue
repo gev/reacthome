@@ -51,8 +51,8 @@
             :spacing 4
             :main-axis-size main-axis-size.min
             :children (
-                (?> tile-description props.description)
                 (?> tile-value props.value)
+                (?> tile-description props.description)
                 (?> tile-unit props.unit)
             )
         ))
