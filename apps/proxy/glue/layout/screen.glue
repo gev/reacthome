@@ -12,12 +12,10 @@
                     (text :text (round size.width))
                     (text :text "x")
                     (text :text (round size.height))
-                    
                 )
             )
         )
     )
-
 
     (def (screen-layout props)
         (material
