@@ -3,45 +3,54 @@
 
     (import widget.site-aggregate)
 
-    (def (site-brief-container props)
-        (row
-            :spacing 16
-            :children props.children)
+    (def (tile-icon props)
+        (icon
+            :icon (symbol props.icon.symbol)
+            :color current-theme.color-scheme.on-surface-variant
+            :fill props.icon.fill
+            :size 16
+        )
     )
 
-    (def (site-brief-parameter props)
+    (def (tile-value value)
+        (text
+            :text value
+            :style current-theme.text-theme.title-small
+        )
+    )
+
+    (def (tile-unit unit)
+        (text
+            :text unit
+            :style (text-style
+                :font-style current-theme.text-theme.title-small.font-size
+                :color current-theme.color-scheme.on-surface-variant
+            )
+        )
+    )
+
+    (def (tile props)
         (row
             :spacing 4
             :children (
-                (icon
-                    :icon (symbol props.icon.symbol)
-                    :color current-theme.color-scheme.on-surface-variant
-                    :fill props.icon.fill
-                    :size 16
-                )
-                (if (exists? props.value)
-                    (text
-                        :text props.value
-                        :style current-theme.text-theme.title-small
-                    )
-                )
-                (if (exists? props.unit)
-                    (text
-                        :text props.unit
-                        :style (text-style
-                            :font-style current-theme.text-theme.title-small.font-size
-                            :color current-theme.color-scheme.on-surface-variant
-                        )
-                    )
-                )
+                (tile-icon props)
+                (?> tile-value props.value)
+                (?> tile-unit props.unit)
             )
+        )
+    )
+
+    (def (info props)
+        (row
+            :spacing 16
+            :children props.children
         )
     )
 
     (def (site-brief props)
         (site-aggregate
-            :container site-brief-container
-            :parameter site-brief-parameter
+            :container info
+            :parameter tile
             :sites (# props.site)
             :acc ()
         )

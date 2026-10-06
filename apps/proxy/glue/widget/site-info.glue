@@ -4,60 +4,79 @@
     (import lib.i18n)
     (import widget.site-aggregate)
 
-    (def (site-info-container props)
-        (filled-card
-            :child (column
-                :children props.children)
+    (def (variant-style theme)
+        (text-style
+            :font-size current-theme.text-theme.title-medium.font-size
+            :color current-theme.color-scheme.on-surface-variant
         )
     )
 
-    (def (site-info-parameter props)
+    (def (tile-icon props)
+        (icon
+            :icon (symbol props.icon.symbol)
+            :color current-theme.color-scheme.on-surface
+            :fill props.icon.fill
+        )
+    )
+
+    (def (tile-title props)
+        (text
+            :text (select-locale props.label)
+        )
+    )
+
+    (def (tile-value value)
+        (text
+            :text value
+            :style current-theme.text-theme.title-medium
+        )
+    )
+
+    (def (tile-description description)
+        (text
+            :text (select-locale description)
+            :style (variant-style current-theme)
+        )
+    )
+
+    (def (tile-unit unit)
+        (text
+            :text unit
+            :style (variant-style current-theme)
+        )
+    )
+
+    (def (tile-info props)
+        (row
+            :spacing 4
+            :main-axis-size main-axis-size.min
+            :children (
+                (?> tile-description props.description)
+                (?> tile-value props.value)
+                (?> tile-unit props.unit)
+            )
+        ))
+
+    (def (tile props)
         (list-tile
-            :leading (icon
-                :icon (symbol props.icon.symbol)
-                :color current-theme.color-scheme.on-surface
-                :fill props.icon.fill
-            )
-            :title (text
-                :text (select-locale props.label)
-            )
-            :trailing (row
-                :spacing 4
-                :main-axis-size main-axis-size.min
-                :children (
-                    (if (exists? props.description)
-                        (text
-                            :text (select-locale props.description)
-                            :style (text-style
-                                :font-size current-theme.text-theme.title-medium.font-size
-                                :color current-theme.color-scheme.on-surface-variant
-                            )
-                        )
-                    )
-                    (if (exists? props.value)
-                        (text
-                            :text props.value
-                            :style current-theme.text-theme.title-medium
-                        )
-                    )
-                    (if (exists? props.unit)
-                        (text
-                            :text props.unit
-                            :style (text-style
-                                :font-size current-theme.text-theme.title-medium.font-size
-                                :color current-theme.color-scheme.on-surface-variant
-                            )
-                        )
-                    )
-                )
+            :leading (tile-icon props)
+            :title (tile-title props)
+            :trailing (tile-info props)
+        )
+    )
+
+    (def (info props)
+        (filled-card
+            :child (column
+                :children props.children
             )
         )
     )
 
     (def (site-info props)
         (site-aggregate
-            :container site-info-container
-            :parameter site-info-parameter
+            :container info
+            :parameter tile
             :sites (# props.site)
             :acc ()
         )
