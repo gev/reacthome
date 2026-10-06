@@ -1,0 +1,23 @@
+(module layout.site-md
+    (export xs-site-layout)
+
+    (import layout.screen-md)
+    (import widget.site-header)
+    (import widget.site-body)
+
+    (def (xs-site-layout palette props constraints)
+        (screen-layout-md
+            :body (single-child-scroll-view
+                :padding (edge-insets-only :bottom 128)
+                :child (column
+                    :spacing 16
+                    :cross-axis-alignment cross-axis-alignment.start
+                    :children (
+                        (site-header props)
+                        (site-body palette props)
+                    )
+                )
+            )
+        )
+    )
+)
