@@ -9,26 +9,6 @@
         (site-theme xs-site-layout props)
     )
 
-    (def (sm-layout props)
-        (import layout.site-sm)
-        (site-theme sm-site-layout props)
-    )
-
-    (def (md-layout props)
-        (import layout.site-md)
-        (site-theme md-site-layout props)
-    )
-
-    (def (lg-layout props)
-        (import layout.site-lg)
-        (site-theme lg-site-layout props)
-    )
-
-    (def (xl-layout props)
-        (import layout.site-xl)
-        (site-theme xl-site-layout props)
-    )
-
     (def site-layout
         (select-layout
             :xs xs-layout
