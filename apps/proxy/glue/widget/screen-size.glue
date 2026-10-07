@@ -1,23 +1,15 @@
 (module widget.screen-size
     (export screen-size)
 
-    (import widget.floating-bar)
-
     (def (screen-size props)
         (def size (media-query.size))
-        (floating-bar
-            :child (padding
-                :padding (edge-insets-all 8)
-                :child (row
-                    :spacing 4
-                    :children (
-                        (text :text (round size.width))
-                        (text :text "x")
-                        (text :text (round size.height))
-                    )
-                )
+        (row
+            :spacing 4
+            :children (
+                (text :text (round size.width))
+                (text :text "x")
+                (text :text (round size.height))
             )
         )
     )
-
 )

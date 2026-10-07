@@ -1,5 +1,5 @@
-(module widget.curtain-card
-    (export curtain-card)
+(module widget.curtain-regulator-card
+    (export curtain-regulator-card)
 
     (import i18n.status)
 
@@ -31,7 +31,7 @@
     )
     
 
-    (def (positioned-curtain-card props)
+    (def (positioned-curtain-regulator-card props)
         (if (props.value)
             (active-card
                 :key props.id
@@ -60,7 +60,7 @@
         )
     )
 
-    (def (non-positioned-curtain-card props)
+    (def (non-positioned-curtain-regulator-card props)
         (if (props.value)
             (active-card
                 :key props.id
@@ -89,11 +89,11 @@
         )
     )
 
-    (def (bound-curtain-card palette props bind)
+    (def (bound-curtain-regulator-card palette props bind)
         (def card
             (if bind.positioned
-                positioned-curtain-card
-                non-positioned-curtain-card
+                positioned-curtain-regulator-card
+                non-positioned-curtain-regulator-card
             )
         )
         (card
@@ -104,7 +104,7 @@
         )
     )
 
-    (def (unbound-curtain-card props)
+    (def (unbound-curtain-regulator-card props)
         (inactive-card
             :key props.id
             :card-color current-theme.color-scheme.surface-variant
@@ -117,10 +117,10 @@
         )
     )
 
-    (def (curtain-card palette props)
+    (def (curtain-regulator-card palette props)
         (if (exists? props.bind)
-            (select (bound-curtain-card palette props) props.bind)
-            (unbound-curtain-card props)
+            (select (bound-curtain-regulator-card palette props) props.bind)
+            (unbound-curtain-regulator-card props)
         )
     )
 )

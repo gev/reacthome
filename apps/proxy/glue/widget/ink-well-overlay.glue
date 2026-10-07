@@ -18,7 +18,7 @@
                 :text title
                 :style (text-style
                     :color colors.white
-                    :font-size current-theme.text-theme.headline-medium.font-size
+                    :font-size current-theme.text-theme.title-medium.font-size
                     :font-weight font-weight.w400
                 )
             )

@@ -9,16 +9,16 @@
             :color current-theme.color-scheme.surface-container
             :child (stack
                 :children (
+                    (props.background)
                     (props.body)
-                    (positioned
-                        :top (+ media-query.padding.top 20)
-                        :right 16
-                        :child (screen-size _)
-                    )
                     (positioned
                         :top (+ media-query.padding.top 16)
                         :left 16
-                        :child (app-bar _)
+                        :right 16
+                        :child (app-bar
+                            :title props.title
+                            :trailing ((screen-size _))
+                        )
                     )
                 )
             )

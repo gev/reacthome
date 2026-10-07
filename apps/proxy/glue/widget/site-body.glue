@@ -8,8 +8,8 @@
     (import widget.site-breadcrumbs)
     (import widget.site-info)
     (import widget.site-card)
-    (import widget.light-card)
-    (import widget.curtain-card)
+    (import widget.light-regulator-card)
+    (import widget.curtain-regulator-card)
     (import widget.camera-card)
     (import widget.temperature-regulator-card)
     (import widget.humidity-regulator-card)
@@ -18,7 +18,7 @@
     (def (scroll-row props)
         (single-child-scroll-view
             :scroll-direction axis.horizontal
-            :children (row props)
+            :child (row props)
         )
     )
 
@@ -36,8 +36,8 @@
             :spacing 16
             :cross-axis-alignment cross-axis-alignment.start
             :children (
-                (select-in grid (light-card palette) props.light_220)
-                (select-in grid (light-card palette) props.light_LED)
+                (select-in grid (light-regulator-card palette) props.light_220)
+                (select-in grid (light-regulator-card palette) props.light_LED)
                 (scroll-row
                     :spacing 16
                     :children (
@@ -46,9 +46,9 @@
                         (select-in row (ventilation-regulator-card props) props.co2_stat)
                     )
                 )
-                (select-in grid (curtain-card palette) props.curtains)
+                (select-in grid (curtain-regulator-card palette) props.curtains)
                 (select-in scroll-row (camera-card palette) props.camera)
-                (select-in grid site-card props.site)
+                (select-in scroll-row site-card props.site)
             )
         )
     )

@@ -1,16 +1,163 @@
 (module layout.site-md
     (export md-site-layout)
 
-    (import layout.screen-md)
-    (import widget.site-header)
-    (import widget.site-body)
+    (import lib.data)
+    (import lib.navigation)
 
+    (import widget.screen)
+    (import widget.site-info)
+    (import widget.site-breadcrumbs)
+    (import widget.site-card)
+    (import widget.light-regulator-card)
+    (import widget.curtain-regulator-card)
+    (import widget.camera-card)
+    (import widget.temperature-regulator-card)
+    (import widget.humidity-regulator-card)
+    (import widget.ventilation-regulator-card)
+
+    (def (scrolled-column props)
+        (single-child-scroll-view
+            :child (container
+                :width props.width
+                :padding (edge-insets-symmetric :vertical 96)
+                :child (column
+                    :spacing 8
+                    :children props.children
+                )
+            )
+        )
+    )
+
+    (def (site-title props)
+        (single-child-scroll-view
+            :clip-behavior clip.anti-alias
+            :scroll-direction axis.horizontal
+            :child (row
+                :spacing 16
+                :main-axis-size main-axis-size.min
+                :cross-axis-alignment cross-axis-alignment.center
+                :children (
+                    (text
+                        :text (title props)
+                        :style current-theme.text-theme.headline-medium
+                    )
+                    (site-breadcrumbs
+                        :site props.parent
+                        :action (\ (id) (go :route 'site :id id))
+                    )
+                )
+            )
+        )
+    )
+
+    (def (background props constraints)
+        (if (exists? props.image)
+            (image
+                :width constraints.width
+                :height constraints.height
+                :fit box-fit.cover
+                :image (load-image :src props.image)
+            )
+        )
+    )
+
+    (def (camera palette props)
+        (camera-card palette
+            (concat props
+                (:width 360 :height 200)
+            )
+        )
+    )
+    
     (def (md-site-layout palette props constraints)
-        (screen-layout-md
-            :header (site-header (concat props (:height constraints.height)))
+        (def info
+            (site-info :site props.id)
+        )
+        (def light-220
+            (select-collection (light-regulator-card palette) props.light_220)
+        )
+        (def light-led
+            (select-collection (light-regulator-card palette) props.light_LED)
+        )
+        (def curtains
+            (select-collection (curtain-regulator-card palette) props.curtains)
+        )
+        (def cameras
+            (select-collection (camera palette) props.camera)
+        )
+        (def temperature-regulator
+            (select-collection (temperature-regulator-card props) props.thermostat)
+        )
+        (def humidity-regulator
+            (select-collection (humidity-regulator-card props) props.hygrostat)
+        )
+        (def ventilation-regulator
+            (select-collection (ventilation-regulator-card props) props.co2_stat)
+        )
+        (def sites
+            (select-collection site-card props.site)
+        )
+
+        (def has-any (not (empty? (filter exists? (#
+                            light-220
+                            light-led
+                            curtains
+                            cameras
+                            temperature-regulator
+                            humidity-regulator
+                            temperature-regulator
+                        )))))
+
+        (screen
+            :title (site-title props)
+            :background (background props constraints)
             :body (single-child-scroll-view
-                :padding (edge-insets-only :bottom 128)
-                :child (site-body palette props)
+                :scroll-direction axis.horizontal
+                :child (row
+                    :cross-axis-alignment cross-axis-alignment.start
+                    :spacing 16
+                    :children (
+                        (scrolled-column
+                            :width 360
+                            :children (prepend info (?? cameras ()))
+                        )
+                        (if (|| (exists? light-220) (exists? light-led))
+                            (scrolled-column
+                                :width 200
+                                :children (concat light-220 light-led)
+                            )
+                        )
+                        (if (exists? temperature-regulator)
+                            (scrolled-column
+                                :width 360
+                                :children temperature-regulator
+                            )
+                        )
+                        (if (exists? humidity-regulator)
+                            (scrolled-column
+                                :width 360
+                                :children humidity-regulator
+                            )
+                        )
+                        (if (exists? ventilation-regulator)
+                            (scrolled-column
+                                :width 360
+                                :children ventilation-regulator
+                            )
+                        )
+                        (if (exists? curtains)
+                            (scrolled-column
+                                :width 200
+                                :children curtains
+                            )
+                        )
+                        (if (exists? sites)
+                            (scrolled-column
+                                :children sites
+                            )
+                        )
+                    )
+                )
             )
         )
     )

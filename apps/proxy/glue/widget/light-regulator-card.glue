@@ -1,5 +1,5 @@
-(module widget.light-card
-    (export light-card)
+(module widget.light-regulator-card
+    (export light-regulator-card)
 
     (import i18n.status)
 
@@ -32,7 +32,7 @@
         )
     )
     
-    (def (dimmable-light-card props)
+    (def (dimmable-light-regulator-card props)
         (if (props.value)
             (active-card
                 :key props.id
@@ -63,7 +63,7 @@
         )
     )
 
-    (def (non-dimmable-light-card props)
+    (def (non-dimmable-light-regulator-card props)
         (if (props.value)
             (active-card
                 :key props.id
@@ -92,11 +92,11 @@
         )
     )
 
-    (def (bound-light-card palette props bind)
+    (def (bound-light-regulator-card palette props bind)
         (def card
             (if bind.dimmable
-                dimmable-light-card
-                non-dimmable-light-card
+                dimmable-light-regulator-card
+                non-dimmable-light-regulator-card
             )
         )
         (card
@@ -111,7 +111,7 @@
         )
     )
 
-    (def (unbound-light-card props)
+    (def (unbound-light-regulator-card props)
         (inactive-card
             :key props.id
             :card-color current-theme.color-scheme.surface-variant
@@ -124,10 +124,10 @@
         )
     )
 
-    (def (light-card palette props)
+    (def (light-regulator-card palette props)
         (if (exists? props.bind)
-            (select (bound-light-card palette props) props.bind)
-            (unbound-light-card props)
+            (select (bound-light-regulator-card palette props) props.bind)
+            (unbound-light-regulator-card props)
         )
     )
 )

@@ -58,12 +58,15 @@
     )
 
     (def (site-card props)
-        (card
-            :key props.id
-            :clip-behavior clip.anti-alias
-            :child (if (exists? props.image)
-                (site-with-image props)
-                (site-ink-well props)
+        (sized-box
+            :width (?? props.width 360)
+            :child (card
+                :key props.id
+                :clip-behavior clip.anti-alias
+                :child (if (exists? props.image)
+                    (site-with-image props)
+                    (site-ink-well props)
+                )
             )
         )
     )

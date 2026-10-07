@@ -16,11 +16,12 @@
     )
 
     (def (select-collection go keys)
-        (map (select go) keys)
+        (if (exists? keys)
+            (map (select go) keys)
+        )
     )
 
     (def (title props)
         (?? props.title props.code)
     )
-
 )

@@ -17,8 +17,8 @@
                             (media-player
                                 :url (?? props.preview_URL props.main_URL)
                                 :fit box-fit.cover
-                                :width 200
-                                :height 200
+                                :width (?? props.width 200)
+                                :height (?? props.height 200)
                             )
                             (positioned
                                 :top 0 :bottom 0 :left 0 :right 0
