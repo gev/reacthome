@@ -3,7 +3,7 @@
 
     (import lib.property)
 
-    (import widget.regulator-card)
+    (import widget.regulator-active-card)
     (import widget.temperature-regulator)
 
     (def (temperature-regulator-active-card site regulator)
@@ -12,7 +12,7 @@
             :key regulator.id
             :seed-color (temperature-regulator-color mode)
             :dynamic-scheme-variant dynamic-scheme-variant.content
-            :child (regulator-card
+            :child (regulator-active-card
                 :site site
                 :regulator regulator
                 :route 'temperature-regulator
