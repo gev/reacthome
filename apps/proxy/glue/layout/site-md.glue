@@ -8,12 +8,12 @@
     (import widget.site-info)
     (import widget.site-breadcrumbs)
     (import widget.site-card)
-    (import widget.light-regulator-card)
-    (import widget.curtain-regulator-card)
+    (import widget.light-regulator-active-card)
+    (import widget.curtain-regulator-active-card)
     (import widget.camera-card)
-    (import widget.temperature-regulator-card)
-    (import widget.humidity-regulator-card)
-    (import widget.ventilation-regulator-card)
+    (import widget.temperature-regulator-active-card)
+    (import widget.humidity-regulator-active-card)
+    (import widget.ventilation-regulator-active-card)
 
     (def (scrolled-column props)
         (single-child-scroll-view
@@ -74,25 +74,25 @@
             (site-info :site props.id)
         )
         (def light-220
-            (select-collection (light-regulator-card palette) props.light_220)
+            (select-collection (light-regulator-active-card palette) props.light_220)
         )
         (def light-led
-            (select-collection (light-regulator-card palette) props.light_LED)
+            (select-collection (light-regulator-active-card palette) props.light_LED)
         )
         (def curtains
-            (select-collection (curtain-regulator-card palette) props.curtains)
+            (select-collection (curtain-regulator-active-card palette) props.curtains)
         )
         (def cameras
             (select-collection (camera palette) props.camera)
         )
         (def temperature-regulator
-            (select-collection (temperature-regulator-card props) props.thermostat)
+            (select-collection (temperature-regulator-active-card props) props.thermostat)
         )
         (def humidity-regulator
-            (select-collection (humidity-regulator-card props) props.hygrostat)
+            (select-collection (humidity-regulator-active-card props) props.hygrostat)
         )
         (def ventilation-regulator
-            (select-collection (ventilation-regulator-card props) props.co2_stat)
+            (select-collection (ventilation-regulator-active-card props) props.co2_stat)
         )
         (def sites
             (select-collection site-card props.site)
