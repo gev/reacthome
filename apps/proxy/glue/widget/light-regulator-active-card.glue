@@ -1,4 +1,4 @@
-(module widget.light-regulator-card
+(module widget.light-regulator-active-card
     (export light-regulator-active-card)
 
     (import i18n.status)
@@ -9,7 +9,6 @@
     (import lib.conversion)
     (import lib.data)
     (import lib.i18n)
-    (import lib.navigation)
     (import lib.property)
 
     (import widget.card)
@@ -38,7 +37,6 @@
                 :key props.id
                 :tag props.id
                 :on-pressed (turn-off props.id)
-                :on-long-press (go :target applet :route 'light-regulator :id props.id :palette props.palette)
                 :card-color current-theme.color-scheme.surface-bright
                 :elevation elevation-on
                 :child (light-tile
@@ -51,7 +49,6 @@
                 :key props.id
                 :tag props.id
                 :on-pressed (turn-on props.id)
-                :on-long-press (go :target applet :route 'light-regulator :id props.id :palette props.palette)
                 :card-color current-theme.color-scheme.surface-dim
                 :elevation elevation-off
                 :child (light-tile
@@ -92,7 +89,7 @@
         )
     )
 
-    (def (bound-light-regulator-card palette props bind)
+    (def (bound-light-regulator-card props bind)
         (def card
             (if bind.dimmable
                 dimmable-light-regulator-card
@@ -107,7 +104,6 @@
                 (? bind.value bind.brightness 0)
                 bind.value
             )
-            :palette palette
         )
     )
 
@@ -124,9 +120,9 @@
         )
     )
 
-    (def (light-regulator-active-card palette props)
+    (def (light-regulator-active-card props)
         (if (exists? props.bind)
-            (select (bound-light-regulator-card palette props) props.bind)
+            (select (bound-light-regulator-card props) props.bind)
             (unbound-light-regulator-card props)
         )
     )

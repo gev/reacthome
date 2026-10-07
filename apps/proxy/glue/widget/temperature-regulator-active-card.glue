@@ -1,4 +1,4 @@
-(module widget.temperature-regulator-card
+(module widget.temperature-regulator-active-card
     (export temperature-regulator-active-card)
 
     (import lib.property)

@@ -74,13 +74,13 @@
             (site-info :site props.id)
         )
         (def light-220
-            (select-collection (light-regulator-active-card palette) props.light_220)
+            (select-collection light-regulator-active-card props.light_220)
         )
         (def light-led
-            (select-collection (light-regulator-active-card palette) props.light_LED)
+            (select-collection light-regulator-active-card props.light_LED)
         )
         (def curtains
-            (select-collection (curtain-regulator-active-card palette) props.curtains)
+            (select-collection curtain-regulator-active-card props.curtains)
         )
         (def cameras
             (select-collection (camera palette) props.camera)

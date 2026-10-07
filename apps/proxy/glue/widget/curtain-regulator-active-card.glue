@@ -1,11 +1,10 @@
-(module widget.curtain-regulator-card
+(module widget.curtain-regulator-active-card
     (export curtain-regulator-active-card)
 
     (import i18n.status)
 
     (import lib.data)
     (import lib.i18n)
-    (import lib.navigation)
     (import lib.property)
 
     (import iconic.curtain)
@@ -33,10 +32,9 @@
 
     (def (positioned-curtain-regulator-card props)
         (if (props.value)
-            (active-card
+            (inactive-card
                 :key props.id
                 :tag props.id
-                :on-pressed (go :target applet :route 'positioned-curtain-regulator :id props.id :palette props.palette)
                 :card-color current-theme.color-scheme.surface-dim
                 :elevation elevation-on
                 :child (curtain-tile
@@ -45,10 +43,9 @@
                     :status (select-locale i18n-closed)
                 )
             )
-            (active-card
+            (inactive-card
                 :key props.id
                 :tag props.id
-                :on-pressed (go :target applet :route 'positioned-curtain-regulator :id props.id :palette props.palette)
                 :card-color current-theme.color-scheme.surface-bright
                 :elevation elevation-off
                 :child (curtain-tile
@@ -62,10 +59,9 @@
 
     (def (non-positioned-curtain-regulator-card props)
         (if (props.value)
-            (active-card
+            (inactive-card
                 :key props.id
                 :tag props.id
-                :on-pressed (go :target applet :route 'non-positioned-curtain-regulator :id props.id :palette props.palette)
                 :card-color current-theme.color-scheme.surface-dim
                 :elevation elevation-on
                 :child (curtain-tile
@@ -74,10 +70,9 @@
                     :status (select-locale i18n-closed)
                 )
             )
-            (active-card
+            (inactive-card
                 :key props.id
                 :tag props.id
-                :on-pressed (go :target applet :route 'non-positioned-curtain-regulator :id props.id :palette props.palette)
                 :card-color current-theme.color-scheme.surface-bright
                 :elevation elevation-off
                 :child (curtain-tile
@@ -89,7 +84,7 @@
         )
     )
 
-    (def (bound-curtain-regulator-card palette props bind)
+    (def (bound-curtain-regulator-card props bind)
         (def card
             (if bind.positioned
                 positioned-curtain-regulator-card
@@ -100,7 +95,6 @@
             :id props.id
             :label (title props)
             :value props.value
-            :palette palette
         )
     )
 
@@ -117,9 +111,9 @@
         )
     )
 
-    (def (curtain-regulator-active-card palette props)
+    (def (curtain-regulator-active-card props)
         (if (exists? props.bind)
-            (select (bound-curtain-regulator-card palette props) props.bind)
+            (select (bound-curtain-regulator-card props) props.bind)
             (unbound-curtain-regulator-card props)
         )
     )

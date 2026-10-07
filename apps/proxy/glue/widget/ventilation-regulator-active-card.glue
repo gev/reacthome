@@ -1,4 +1,4 @@
-(module widget.ventilation-regulator-card
+(module widget.ventilation-regulator-active-card
     (export ventilation-regulator-active-card)
 
     (import lib.property)

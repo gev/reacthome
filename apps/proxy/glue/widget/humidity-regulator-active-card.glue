@@ -1,4 +1,4 @@
-(module widget.humidity-regulator-card
+(module widget.humidity-regulator-active-card
     (export humidity-regulator-active-card)
 
     (import lib.property)
