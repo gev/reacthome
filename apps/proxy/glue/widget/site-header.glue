@@ -11,8 +11,10 @@
     (def (site-image props)
         (if (exists? props.image)
             (image
-                :image (load-image :src props.image)
+                :height props.height
+                :width props.width
                 :fit box-fit.cover
+                :image (load-image :src props.image)
             )
             (sized-box :height (+ media-query.padding.top 48))
         )
@@ -21,49 +23,46 @@
     (def (site-title props)
         (padding
             :padding (edge-insets-symmetric :horizontal 16)
-            :child (column
-                :cross-axis-alignment cross-axis-alignment.start
-                :children (
-                    (text
-                        :text (title props)
-                        :style current-theme.text-theme.headline-large
-                    )
-                    (site-breadcrumbs
-                        :site props.parent
-                        :action (\ (id) (go :route 'site :id id))
-                    )
-                )
+            :child (text
+                :text (title props)
+                :style current-theme.text-theme.headline-large
             )
         )
     )
 
     (def (site-description props)
-        (floating-bar
-            :child (column
-                :spacing 16
-                :main-axis-size main-axis-size.max
-                :main-axis-alignment main-axis-alignment.end
-                :cross-axis-alignment cross-axis-alignment.start
-                :children (
-                    (site-title props)
-                    (site-info :site props.id)
+        (column
+            :spacing 16
+            :main-axis-size main-axis-size.max
+            :main-axis-alignment main-axis-alignment.end
+            :cross-axis-alignment cross-axis-alignment.start
+            :children (
+                (site-title props)
+                (site-breadcrumbs
+                    :site props.parent
+                    :action (\ (id) (go :route 'site :id id))
                 )
+                (site-info :site props.id)
             )
         )
     )
 
     (def (site-header props)
-        (stack
-            :children(
-                (site-image props)
-                (padding
-                    :padding (edge-insets-only
-                        :top (+ media-query.padding.top 96)
-                        :left 8
-                        :right 8
-                        :bottom 16
+        (sized-box
+            :width props.width
+            :height props.height
+            :child (stack
+                :children(
+                    (site-image props)
+                    (padding
+                        :padding (edge-insets-only
+                            :top (+ media-query.padding.top 96)
+                            :left 8
+                            :right 8
+                            :bottom 16
+                        )
+                        :child (site-description props)
                     )
-                    :child (site-description props)
                 )
             )
         )

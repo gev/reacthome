@@ -7,7 +7,7 @@
 
     (def (md-site-layout palette props constraints)
         (screen-layout-md
-            :header (site-header props)
+            :header (site-header (concat props (:height constraints.height)))
             :body (single-child-scroll-view
                 :padding (edge-insets-only :bottom 128)
                 :child (site-body palette props)
