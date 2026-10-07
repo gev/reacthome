@@ -1,6 +1,7 @@
 (module lib.data
     (export
         select
+        select-collection
         title
     )
 
@@ -12,6 +13,10 @@
             )
         )
         (listen handle (remote-persistent-state key))
+    )
+
+    (def (select-collection go keys)
+        (map (select go) keys)
     )
 
     (def (title props)
