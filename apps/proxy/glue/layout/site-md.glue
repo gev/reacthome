@@ -147,7 +147,7 @@
                         )
                         (if (exists? curtains)
                             (scrolled-column
-                                :width 360
+                                :width 420
                                 :children curtains
                             )
                         )
