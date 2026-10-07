@@ -19,8 +19,8 @@
             :xs xs-layout
             :sm xs-layout
             :md md-layout
-            :lg xs-layout
-            :xl xs-layout
+            :lg md-layout
+            :xl md-layout
         )
     )
 )
