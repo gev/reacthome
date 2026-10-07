@@ -1,6 +1,7 @@
 (module widget.curtain-regulator-active-card
     (export curtain-regulator-active-card)
 
+    (import i18n.action)
     (import i18n.status)
 
     (import lib.data)
@@ -18,17 +19,56 @@
     (def elevation-on 2)
 
     (def (curtain-tile props)
-        (entity-tile
-            :icon (
-                :symbol (? props.value curtains.icon.closed curtains.icon.opened)
-                :color (@ current-theme.color-scheme curtains.color)
-                :fill 1
+        (row
+            :cross-axis-alignment cross-axis-alignment.start
+            :main-axis-size main-axis-size.max
+            :spacing 8
+            :children (
+                (expanded
+                    :flex 1
+                    :child (column
+                        :spacing 8
+                        :cross-axis-alignment cross-axis-alignment.stretch
+                        :children (
+                            (entity-tile
+                                :icon (
+                                    :symbol (? props.value curtains.icon.closed curtains.icon.opened)
+                                    :color (@ current-theme.color-scheme curtains.color)
+                                    :fill 1
+                                )
+                                :label (:text props.label)
+                                :status (:text props.status)
+                            )
+                            (button
+                                :child (text
+                                    :text (select-locale i18n-open)
+                                )
+                            )
+                            (button
+                                :child (text
+                                    :text (select-locale i18n-stop)
+                                )
+                            )
+                            (button
+                                :child (text
+                                    :text (select-locale i18n-close)
+                                )
+                            )
+                        )
+                    )
+                )
+                (expanded
+                    :flex 2
+                    :child (double-curtain
+                        :width 336
+                        :height 172
+                        :active-color (@ current-theme.color-scheme curtains.color)
+                        :jump-to-tap false
+                    )
+                )
             )
-            :label (:text props.label)
-            :status (:text props.status)
         )
     )
-    
 
     (def (positioned-curtain-regulator-card props)
         (if (props.value)
