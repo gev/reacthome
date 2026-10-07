@@ -6,6 +6,7 @@
     (def (screen-layout-md props)
         (screen
             :body (row
+                :spacing 16
                 :cross-axis-alignment cross-axis-alignment.stretch
                 :children (
                     (expanded
