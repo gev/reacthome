@@ -1,7 +1,7 @@
 (module widget.ventilation-regulator
     (export
         ventilation-regulator-color
-        ventilation-regulator
+        ventilation-regulator-modal
     )
 
     (import lib.actions)
@@ -48,7 +48,7 @@
         )
     )
 
-    (def (ventilation-regulator site regulator)
+    (def (ventilation-regulator-modal site regulator)
         (with-seed-color
             :seed-color ventilation-regulator-color
             :dynamic-scheme-variant dynamic-scheme-variant.content

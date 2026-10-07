@@ -1,7 +1,7 @@
 (module widget.humidity-regulator
     (export
         humidity-regulator-color
-        humidity-regulator
+        humidity-regulator-modal
     )
 
     (import lib.actions)
@@ -37,7 +37,7 @@
         )
     )
 
-    (def (humidity-regulator site regulator)
+    (def (humidity-regulator-modal site regulator)
         (with-seed-color
             :seed-color humidity-regulator-color
             :dynamic-scheme-variant dynamic-scheme-variant.content

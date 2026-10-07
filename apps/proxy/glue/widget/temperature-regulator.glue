@@ -2,7 +2,7 @@
     (export
         temperature-regulator-mode
         temperature-regulator-color
-        temperature-regulator
+        temperature-regulator-modal
     )
 
     (import lib.actions)
@@ -71,7 +71,7 @@
         )
     )
 
-    (def (temperature-regulator mode)
+    (def (temperature-regulator-modal mode)
         (def state
             (local-state mode)
         )

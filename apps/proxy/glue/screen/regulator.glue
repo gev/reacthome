@@ -17,14 +17,14 @@
 
     (def (temperature-regulator-screen args)
         (def mode (temperature-regulator-mode args.mode))
-        (regulator-screen (temperature-regulator mode) args)
+        (regulator-screen (temperature-regulator-modal mode) args)
     )
 
     (def (humidity-regulator-screen args)
-        (regulator-screen humidity-regulator args)
+        (regulator-screen humidity-regulator-modal args)
     )
 
     (def (ventilation-regulator-screen args)
-        (regulator-screen ventilation-regulator args)
+        (regulator-screen ventilation-regulator-modal args)
     )
 )
