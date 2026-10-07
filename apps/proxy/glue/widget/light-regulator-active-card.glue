@@ -1,0 +1,133 @@
+(module widget.light-regulator-card
+    (export light-regulator-active-card)
+
+    (import i18n.status)
+
+    (import iconic.light)
+
+    (import lib.actions)
+    (import lib.conversion)
+    (import lib.data)
+    (import lib.i18n)
+    (import lib.navigation)
+    (import lib.property)
+
+    (import widget.card)
+    (import widget.entity-tile)
+    (import widget.iconic)
+
+    (def elevation-unbound 0)
+    (def elevation-off 1)
+    (def elevation-on 2)
+
+    (def (light-tile props)
+        (entity-tile
+            :icon (
+                :symbol light.icon
+                :color (@ current-theme.color-scheme light.color)
+                :fill (? props.value 1 0)
+            )
+            :label (:text props.label)
+            :status (:text props.status)
+        )
+    )
+    
+    (def (dimmable-light-regulator-card props)
+        (if (props.value)
+            (active-card
+                :key props.id
+                :tag props.id
+                :on-pressed (turn-off props.id)
+                :on-long-press (go :target applet :route 'light-regulator :id props.id :palette props.palette)
+                :card-color current-theme.color-scheme.surface-bright
+                :elevation elevation-on
+                :child (light-tile
+                    :value props.brightness
+                    :label props.label
+                    :status (to-percents props.brightness)
+                )
+            )
+            (active-card
+                :key props.id
+                :tag props.id
+                :on-pressed (turn-on props.id)
+                :on-long-press (go :target applet :route 'light-regulator :id props.id :palette props.palette)
+                :card-color current-theme.color-scheme.surface-dim
+                :elevation elevation-off
+                :child (light-tile
+                    :value props.brightness
+                    :label props.label
+                    :status (select-locale i18n-off)
+                )
+            )
+        )
+    )
+
+    (def (non-dimmable-light-regulator-card props)
+        (if (props.value)
+            (active-card
+                :key props.id
+                :tag props.id
+                :on-pressed (turn-off props.id)
+                :card-color current-theme.color-scheme.surface-bright
+                :elevation elevation-on
+                :child (light-tile
+                    :value props.value
+                    :label props.label
+                    :status (select-locale i18n-on)
+                )
+            )
+            (active-card
+                :key props.id
+                :tag props.id
+                :on-pressed (turn-on props.id)
+                :card-color current-theme.color-scheme.surface-dim
+                :elevation elevation-off
+                :child (light-tile
+                    :value props.value
+                    :label props.label
+                    :status (select-locale i18n-off)
+                )
+            )
+        )
+    )
+
+    (def (bound-light-regulator-card palette props bind)
+        (def card
+            (if bind.dimmable
+                dimmable-light-regulator-card
+                non-dimmable-light-regulator-card
+            )
+        )
+        (card
+            :id props.id
+            :label (title props)
+            :value props.value
+            :brightness (if (exists? bind.brightness)
+                (? bind.value bind.brightness 0)
+                bind.value
+            )
+            :palette palette
+        )
+    )
+
+    (def (unbound-light-regulator-card props)
+        (inactive-card
+            :key props.id
+            :card-color current-theme.color-scheme.surface-variant
+            :elevation elevation-unbound
+            :child (disabled-entity-tile
+                :icon (:symbol light.icon)
+                :label (:text (title props))
+                :status (:text (select-locale i18n-not-available))
+            )
+        )
+    )
+
+    (def (light-regulator-active-card palette props)
+        (if (exists? props.bind)
+            (select (bound-light-regulator-card palette props) props.bind)
+            (unbound-light-regulator-card props)
+        )
+    )
+)

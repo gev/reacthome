@@ -1,0 +1,126 @@
+(module widget.curtain-regulator-card
+    (export curtain-regulator-active-card)
+
+    (import i18n.status)
+
+    (import lib.data)
+    (import lib.i18n)
+    (import lib.navigation)
+    (import lib.property)
+
+    (import iconic.curtain)
+
+    (import widget.card)
+    (import widget.entity-tile)
+    (import widget.iconic)
+
+    (def elevation-unbound 0)
+    (def elevation-off 1)
+    (def elevation-on 2)
+
+    (def (curtain-tile props)
+        (entity-tile
+            :icon (
+                :symbol (? props.value curtains.icon.closed curtains.icon.opened)
+                :color (@ current-theme.color-scheme curtains.color)
+                :fill 1
+            )
+            :label (:text props.label)
+            :status (:text props.status)
+        )
+    )
+    
+
+    (def (positioned-curtain-regulator-card props)
+        (if (props.value)
+            (active-card
+                :key props.id
+                :tag props.id
+                :on-pressed (go :target applet :route 'positioned-curtain-regulator :id props.id :palette props.palette)
+                :card-color current-theme.color-scheme.surface-dim
+                :elevation elevation-on
+                :child (curtain-tile
+                    :value props.value
+                    :label props.label
+                    :status (select-locale i18n-closed)
+                )
+            )
+            (active-card
+                :key props.id
+                :tag props.id
+                :on-pressed (go :target applet :route 'positioned-curtain-regulator :id props.id :palette props.palette)
+                :card-color current-theme.color-scheme.surface-bright
+                :elevation elevation-off
+                :child (curtain-tile
+                    :value props.value
+                    :label props.label
+                    :status (select-locale i18n-opened)
+                )
+            )
+        )
+    )
+
+    (def (non-positioned-curtain-regulator-card props)
+        (if (props.value)
+            (active-card
+                :key props.id
+                :tag props.id
+                :on-pressed (go :target applet :route 'non-positioned-curtain-regulator :id props.id :palette props.palette)
+                :card-color current-theme.color-scheme.surface-dim
+                :elevation elevation-on
+                :child (curtain-tile
+                    :value props.value
+                    :label props.label
+                    :status (select-locale i18n-closed)
+                )
+            )
+            (active-card
+                :key props.id
+                :tag props.id
+                :on-pressed (go :target applet :route 'non-positioned-curtain-regulator :id props.id :palette props.palette)
+                :card-color current-theme.color-scheme.surface-bright
+                :elevation elevation-off
+                :child (curtain-tile
+                    :value props.value
+                    :label props.label
+                    :status (select-locale i18n-opened)
+                )
+            )
+        )
+    )
+
+    (def (bound-curtain-regulator-card palette props bind)
+        (def card
+            (if bind.positioned
+                positioned-curtain-regulator-card
+                non-positioned-curtain-regulator-card
+            )
+        )
+        (card
+            :id props.id
+            :label (title props)
+            :value props.value
+            :palette palette
+        )
+    )
+
+    (def (unbound-curtain-regulator-card props)
+        (inactive-card
+            :key props.id
+            :card-color current-theme.color-scheme.surface-variant
+            :elevation elevation-unbound
+            :child (disabled-entity-tile
+                :icon (:symbol (curtains.icon.opened))
+                :label (:text (title props))
+                :status (:text (select-locale i18n-not-available))
+            )
+        )
+    )
+
+    (def (curtain-regulator-active-card palette props)
+        (if (exists? props.bind)
+            (select (bound-curtain-regulator-card palette props) props.bind)
+            (unbound-curtain-regulator-card props)
+        )
+    )
+)
