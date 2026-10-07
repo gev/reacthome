@@ -2,6 +2,7 @@
     (export
         ventilation-regulator-color
         ventilation-regulator-modal
+        ventilation-regulator
     )
 
     (import lib.actions)
@@ -38,7 +39,7 @@
         )
     )
 
-    (def (regulator-body regulator)
+    (def (ventilation-regulator regulator)
         (column
             :children (
                 (setpoint regulator)
@@ -56,7 +57,7 @@
                 :site site
                 :regulator regulator
                 :param CO2
-                :body (regulator-body regulator)
+                :body (ventilation-regulator regulator)
             )
         )
     )

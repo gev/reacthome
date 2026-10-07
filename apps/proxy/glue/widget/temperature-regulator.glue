@@ -3,6 +3,7 @@
         temperature-regulator-mode
         temperature-regulator-color
         temperature-regulator-modal
+        temperature-regulator
     )
 
     (import lib.actions)
@@ -60,7 +61,7 @@
         )
     )
 
-    (def (regulator-body regulator mode on-changed)
+    (def (temperature-regulator regulator mode on-changed)
         (column
             :children (
                 (setpoint regulator)
@@ -87,7 +88,7 @@
                         :site site
                         :regulator regulator
                         :param temperature
-                        :body (regulator-body regulator mode on-changed)
+                        :body (temperature-regulator regulator mode on-changed)
                     )
                 )
             )

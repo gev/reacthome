@@ -2,6 +2,7 @@
     (export
         humidity-regulator-color
         humidity-regulator-modal
+        humidity-regulator
     )
 
     (import lib.actions)
@@ -28,7 +29,7 @@
         )
     )
     
-    (def (regulator-body regulator)
+    (def (humidity-regulator regulator)
         (column
             :children (
                 (setpoint regulator)
@@ -45,7 +46,7 @@
                 :site site
                 :regulator regulator
                 :param humidity
-                :body (regulator-body regulator)
+                :body (humidity-regulator regulator)
             )
         )
     )
