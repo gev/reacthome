@@ -45,7 +45,7 @@
                     :value props.value
                     :min 0
                     :max 100
-                    :width 255
+                    :width 168
                     :height 24
                     :focused-width 48
                     :border-radius 8
