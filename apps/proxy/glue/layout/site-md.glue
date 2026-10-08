@@ -15,6 +15,21 @@
     (import widget.humidity-regulator-active-card)
     (import widget.ventilation-regulator-active-card)
 
+    (def (background props constraints)
+        (if (exists? props.image)
+            (image-filtered
+                :key props.id
+                :image-filter (image-filter-blur :sigma-x 40 :sigma-y 40)
+                :child (image
+                    :width constraints.width
+                    :height constraints.height
+                    :fit box-fit.cover
+                    :image (load-image :src props.image)
+                )
+            )
+        )
+    )
+
     (def (scrolled-column props)
         (single-child-scroll-view
             :child (container
@@ -47,17 +62,6 @@
                         :action (\ (id) (go :route 'site :id id))
                     )
                 )
-            )
-        )
-    )
-
-    (def (background props constraints)
-        (if (exists? props.image)
-            (image
-                :width constraints.width
-                :height constraints.height
-                :fit box-fit.cover
-                :image (load-image :src props.image)
             )
         )
     )
