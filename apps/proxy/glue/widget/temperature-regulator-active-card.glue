@@ -3,20 +3,69 @@
 
     (import lib.property)
 
+    (import widget.regulator-title)
+    (import widget.regulator-theme)
     (import widget.regulator-active-card)
     (import widget.temperature-regulator)
 
+    (def state (local-state _))
+
+    (def (on-changed mode)
+        (write state mode)
+    )
+
     (def (temperature-regulator-active-card site regulator)
-        (def mode (temperature-regulator-mode regulator.mode))
+        (def current-mode
+            (temperature-regulator-mode regulator.mode)
+        )
+        (def initial-mode
+            (read state)
+        )
+        (if (empty? initial-mode)
+            (write state current-mode)
+        )
+        (def (regulator-mode title start-color mode)
+            (with-seed-color
+                :seed-color (temperature-regulator-color mode)
+                :dynamic-scheme-variant dynamic-scheme-variant.content
+                :child (let
+                    (def end-color current-theme.color-scheme.primary)
+                    (card
+                        :clip-behavior clip.anti-alias
+                        :child (container
+                            :padding (edge-insets-all 8)
+                            :decoration (box-decoration
+                                :gradient (linear-gradient
+                                    :begin alignment.top-center
+                                    :end alignment.bottom-center
+                                    :colors (# start-color end-color)
+                                    :stops (0 1)
+                                )
+                            )
+                            :child (column
+                                :children (
+                                    (title)
+                                    (temperature-regulator regulator mode on-changed)
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
         (with-seed-color
             :key regulator.id
-            :seed-color (temperature-regulator-color mode)
+            :seed-color (temperature-regulator-color current-mode)
             :dynamic-scheme-variant dynamic-scheme-variant.content
-            :child (regulator-active-card
-                :site site
-                :regulator regulator
-                :route 'temperature-regulator
-                :param temperature
+            :child (let
+                (def title
+                    (regulator-title
+                        :param temperature
+                        :value (@ site temperature.property)
+                    )
+                )
+                (def start-color current-theme.color-scheme.primary)
+                (listen (regulator-mode title start-color) state)
             )
         )
     )

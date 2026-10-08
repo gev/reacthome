@@ -3,6 +3,7 @@
 
     (import lib.property)
 
+    (import widget.regulator-title)
     (import widget.regulator-active-card)
     (import widget.ventilation-regulator)
 
@@ -12,10 +13,11 @@
             :seed-color ventilation-regulator-color
             :dynamic-scheme-variant dynamic-scheme-variant.content
             :child (regulator-active-card
-                :site site
-                :regulator regulator
-                :route 'ventilation-regulator
-                :param CO2
+                :title (regulator-title
+                    :param CO2
+                    :value (@ site CO2.property)
+                )
+                :body (ventilation-regulator regulator)
             )
         )
     )

@@ -1,0 +1,28 @@
+(module widget.regulator-title
+    (export regulator-title)
+
+    (import lib.conversion)
+    (import lib.i18n)
+    (import widget.tile)
+
+    (def (regulator-title props)
+        (tile
+            :icon (
+                :symbol props.param.icon
+                :color current-theme.color-scheme.on-primary
+            )
+            :label (
+                :text (select-locale props.param.label)
+                :color current-theme.color-scheme.on-primary
+            )
+            :status (
+                :text (round-to-resolution props.value props.param.resolution)
+                :color current-theme.color-scheme.on-primary
+            )
+            :details (
+                :text props.param.unit
+                :color current-theme.color-scheme.on-primary
+            )
+        )
+    )
+)

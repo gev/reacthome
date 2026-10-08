@@ -2,8 +2,7 @@
     (export regulator-tile)
 
     (import lib.conversion)
-    (import lib.i18n)
-    (import widget.tile)
+    (import widget.regulator-title)
 
     (def (setpoint props)
         (stack
@@ -53,24 +52,7 @@
                         current-theme.color-scheme.on-surface-variant)
                     :unit props.param.unit
                 )
-                (tile
-                    :icon (
-                        :symbol props.param.icon
-                        :color current-theme.color-scheme.on-primary
-                    )
-                    :label (
-                        :text (select-locale props.param.label)
-                        :color current-theme.color-scheme.on-primary
-                    )
-                    :status (
-                        :text (round-to-resolution props.value props.param.resolution)
-                        :color current-theme.color-scheme.on-primary
-                    )
-                    :details (
-                        :text props.param.unit
-                        :color current-theme.color-scheme.on-primary
-                    )
-                )
+                (regulator-title props)
             )
         )
     )

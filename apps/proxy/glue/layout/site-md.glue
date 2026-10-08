@@ -19,6 +19,7 @@
         (single-child-scroll-view
             :child (container
                 :width props.width
+                :margin (edge-insets-symmetric :horizontal 16)
                 :padding (edge-insets-symmetric :vertical 96)
                 :child (column
                     :spacing 8

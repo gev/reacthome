@@ -2,7 +2,6 @@
     (export regulator-active-card)
 
     (import widget.card)
-    (import widget.regulator-tile)
     (import widget.regulator-theme)
 
     (def (regulator-active-card props)
@@ -10,12 +9,10 @@
         (inactive-card
             :tag props.regulator.id
             :card-color color-scheme.surface
-            :child (regulator-tile
-                :param props.param
-                :value (@ props.site props.param.property)
-                :setpoint (
-                    :value props.regulator.setpoint
-                    :color color-scheme.on-surface
+            :child (column
+                :children (
+                    (props.title)
+                    (props.body)
                 )
             )
         )
