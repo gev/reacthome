@@ -6,7 +6,6 @@
     (import panel.weather)
 
     (import widget.compact-nav-bar)
-    (import widget.connection-indicator)
 
     (def (md-project-layout home select-panel screen constraints)
         (material
@@ -33,10 +32,6 @@
                                     :select select-panel
                                 )
                             )
-                        )
-                        (connection-indicator
-                            :connected-position -48
-                            :disconnected-position (+ media-query.padding.top 12)
                         )
                     )
                 )

@@ -2,6 +2,7 @@
     (export screen)
 
     (import widget.app-bar)
+    (import widget.connection-indicator)
     (import widget.screen-size)
 
     (def (screen props)
@@ -19,6 +20,10 @@
                             :title props.title
                             :trailing ((screen-size _))
                         )
+                    )
+                    (connection-indicator
+                        :connected-position -48
+                        :disconnected-position (+ media-query.padding.top 12)
                     )
                 )
             )
