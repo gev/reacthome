@@ -1,0 +1,46 @@
+(module layout.project-md
+    (export md-project-layout)
+
+    (import panel.home)
+    (import panel.systems)
+    (import panel.weather)
+
+    (import widget.compact-nav-bar)
+    (import widget.connection-indicator)
+
+    (def (md-project-layout home select-panel screen constraints)
+        (material
+            :color current-theme.color-scheme.surface-container
+            :child (container
+                :child (stack
+                    :children(
+                        (indexed-stack
+                            :index screen
+                            :children (
+                                (weather-panel _)
+                                (home-panel home _)
+                                (systems-panel _)
+                            )
+                        )
+                        (positioned
+                            :bottom 16
+                            :left 16
+                            :right 16
+                            :child (container
+                                :alignment alignment.center
+                                :child (nav-bar
+                                    :screen screen
+                                    :select select-panel
+                                )
+                            )
+                        )
+                        (connection-indicator
+                            :connected-position -48
+                            :disconnected-position (+ media-query.padding.top 12)
+                        )
+                    )
+                )
+            )
+        )
+    )
+)

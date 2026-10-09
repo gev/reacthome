@@ -14,13 +14,13 @@
         (site-theme md-site-layout props constraints)
     )
 
-    (def site-layout
+    (def (site-layout props)
         (select-layout
-            :xs xs-layout
-            :sm xs-layout
-            :md md-layout
-            :lg md-layout
-            :xl md-layout
+            :xs (xs-layout props)
+            :sm (xs-layout props)
+            :md (md-layout props)
+            :lg (md-layout props)
+            :xl (md-layout props)
         )
     )
 )

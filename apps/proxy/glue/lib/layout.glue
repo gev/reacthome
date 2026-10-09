@@ -8,7 +8,7 @@
     (def lg (+ md wc))
     (def xl (+ lg wc))
 
-    (def (select-breakpoint breakpoints props constraints)
+    (def (select-breakpoint breakpoints constraints)
         (def breakpoint
             (if (< constraints.width wc)
                 (?? breakpoints.xxs breakpoints.xs)
@@ -31,13 +31,13 @@
             )
         )
         (if (exists? breakpoint)
-            (breakpoint props constraints)
+            (breakpoint constraints)
         )
     )
 
-    (def (select-layout breakpoints props)
+    (def (select-layout breakpoints)
         (layout
-            (select-breakpoint breakpoints props)
+            (select-breakpoint breakpoints)
         )
     )
 )
