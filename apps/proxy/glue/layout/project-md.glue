@@ -5,32 +5,18 @@
     (import panel.systems)
     (import panel.weather)
 
-    (import widget.compact-nav-bar)
-
-    (def (md-project-layout home select-panel screen constraints)
+    (def (md-project-layout props constraints)
         (material
             :color current-theme.color-scheme.surface-container
             :child (container
                 :child (stack
                     :children(
                         (indexed-stack
-                            :index screen
+                            :index props.current-panel
                             :children (
-                                (weather-panel _)
-                                (home-panel home _)
-                                (systems-panel _)
-                            )
-                        )
-                        (positioned
-                            :bottom 16
-                            :left 16
-                            :right 16
-                            :child (container
-                                :alignment alignment.center
-                                :child (nav-bar
-                                    :screen screen
-                                    :select select-panel
-                                )
+                                (weather-panel props)
+                                (home-panel props)
+                                (systems-panel props)
                             )
                         )
                     )

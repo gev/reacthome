@@ -10,10 +10,10 @@
     )
 
     (def (site-theme site props constraints)
-        (if (exists? props.palette.vibrant)
+        (if (exists? props.site.palette.vibrant)
             (let
                 (def palette (
-                        :seed-color props.palette.vibrant
+                        :seed-color props.site.palette.vibrant
                         :dynamic-scheme-variant dynamic-scheme-variant.content
                     )
                 )

@@ -14,7 +14,10 @@
         (site-theme md-site-layout props constraints)
     )
 
-    (def (site-layout props)
+    (def (site-layout props site)
+        (def props
+            (concat props (:site site))
+        )
         (select-layout
             :xs (xs-layout props)
             :sm (xs-layout props)

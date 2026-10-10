@@ -4,14 +4,14 @@
     (import layout.project)
 
     (def (project-screen home args)
-        (def screen
+        (def panel
             (local-state 1)
         )
         (def (select-panel current)
             (\ ()
-                (write screen current)
+                (write panel current)
             )
         )
-        (listen (project-layout home select-panel) screen)
+        (listen (project-layout home select-panel) panel)
     )
 )

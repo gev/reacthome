@@ -76,31 +76,31 @@
     
     (def (md-site-layout palette props constraints)
         (def info
-            (site-info :site props.id)
+            (site-info :site props.site.id)
         )
         (def light-220
-            (select-collection light-regulator-active-card props.light_220)
+            (select-collection light-regulator-active-card props.site.light_220)
         )
         (def light-led
-            (select-collection light-regulator-active-card props.light_LED)
+            (select-collection light-regulator-active-card props.site.light_LED)
         )
         (def curtains
-            (select-collection curtain-regulator-active-card props.curtains)
+            (select-collection curtain-regulator-active-card props.site.curtains)
         )
         (def cameras
-            (select-collection (camera palette) props.camera)
+            (select-collection (camera palette) props.site.camera)
         )
         (def temperature-regulator
-            (select-collection (temperature-regulator-active-card props) props.thermostat)
+            (select-collection (temperature-regulator-active-card props.site) props.site.thermostat)
         )
         (def humidity-regulator
-            (select-collection (humidity-regulator-active-card props) props.hygrostat)
+            (select-collection (humidity-regulator-active-card props.site) props.site.hygrostat)
         )
         (def ventilation-regulator
-            (select-collection (ventilation-regulator-active-card props) props.co2_stat)
+            (select-collection (ventilation-regulator-active-card props.site) props.site.co2_stat)
         )
         (def sites
-            (select-collection site-card props.site)
+            (select-collection site-card props.site.site)
         )
 
         (def has-any (not (empty? (filter exists? (#
@@ -114,8 +114,8 @@
                         )))))
 
         (screen
-            :title (site-title props)
-            :background (background props constraints)
+            :title (site-title props.site)
+            :background (background props.site constraints)
             :body (single-child-scroll-view
                 :scroll-direction axis.horizontal
                 :child (row

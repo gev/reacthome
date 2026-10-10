@@ -3,23 +3,29 @@
 
     (import lib.layout)
 
-    (def (xs-layout home select-panel screen constraints)
+    (def (xs-layout props constraints)
         (import layout.project-xs)
-        (xs-project-layout home select-panel screen constraints)
+        (xs-project-layout props constraints)
     )
 
-    (def (md-layout home select-panel screen constraints)
+    (def (md-layout props constraints)
         (import layout.project-md)
-        (md-project-layout home select-panel screen constraints)
+        (md-project-layout props constraints)
     )
 
-    (def (project-layout home select-panel screen)
+    (def (project-layout home select panel)
+        (def props (
+                :home home
+                :select-panel select
+                :current-panel panel
+            )
+        )
         (select-layout
-            :xs (xs-layout home select-panel screen)
-            :sm (xs-layout home select-panel screen)
-            :md (md-layout home select-panel screen)
-            :lg (md-layout home select-panel screen)
-            :xl (md-layout home select-panel screen)
+            :xs (xs-layout props)
+            :sm (xs-layout props)
+            :md (md-layout props)
+            :lg (md-layout props)
+            :xl (md-layout props)
         )
     )
 )

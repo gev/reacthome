@@ -4,36 +4,36 @@
     (import lib.data)
     (import layout.site)
 
-    (def (project props)
-        (select site-layout props.project)
+    (def (project props args)
+        (select (site-layout props) args.project)
     )
 
-    (def (daemon args)
-        (select project args.id)
+    (def (daemon props)
+        (def id (concat "proxy." props.home.id))
+        (select (project props) id)
     )
 
-    (def (index-route home args)
-        (def id (concat "proxy." home.id))
+    (def (index-route props args)
         (route
-            :screen (daemon :id id)
+            :screen (daemon props)
         )
     )
 
-    (def (site-panel args)
-        (select site-layout args.id)
+    (def (site-panel props args)
+        (select (site-layout props) args.id)
     )
 
-    (def (site-route args)
+    (def (site-route props args)
         (route
-            :screen (site-panel args)
+            :screen (site-panel props args)
         )
     )
 
-    (def (home-panel home args)
+    (def (home-panel props)
         (navigator
             :routes (
-                :index (index-route home)
-                :site site-route
+                :index (index-route props)
+                :site (site-route props)
             )
         )
     )

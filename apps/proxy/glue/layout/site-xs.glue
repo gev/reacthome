@@ -13,8 +13,8 @@
                     :spacing 16
                     :cross-axis-alignment cross-axis-alignment.start
                     :children (
-                        (site-header props)
-                        (site-body palette props)
+                        (site-header props.site)
+                        (site-body palette props.site)
                     )
                 )
             )
