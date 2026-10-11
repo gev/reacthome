@@ -37,12 +37,12 @@
             :leading (
                 (icon-button
                     :child (icon :icon (symbol 'weather.mix))
-                    :on-pressed (go :route 'weather :target applet)
+                    :on-pressed (props.select-screen 0)
                 )
                 (site-title props)
                 (icon-button
                     :child (icon :icon (symbol 'dashboard))
-                    :on-pressed (go :route 'systems :target applet)
+                    :on-pressed (props.select-screen 2)
                 )
             )
             :trailing (
