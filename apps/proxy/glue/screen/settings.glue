@@ -9,7 +9,7 @@
     (import widget.app-bar)
     (import widget.screen)
 
-    (def (settings-screen home args)
+    (def (settings-screen props)
         (screen
             :app-bar (app-bar _)
             :body (column

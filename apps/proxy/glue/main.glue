@@ -27,27 +27,21 @@
         )
     )
 
-    (def (project-route props args)
-        (route
-            :screen (project-screen props args)
-        )
-    )
-
     (def (weather-route props args)
         (route
-            :screen (weather-screen props args)
+            :screen (weather-screen props)
         )
     )
 
     (def (systems-route props args)
         (route
-            :screen (systems-screen props args)
+            :screen (systems-screen props)
         )
     )
 
     (def (settings-route props args)
         (route
-            :screen (settings-screen props args)
+            :screen (settings-screen props)
         )
     )
 
