@@ -1,5 +1,5 @@
-(module widget.home-app-bar
-    (export home-app-bar)
+(module widget.project-app-bar
+    (export project-app-bar)
 
     (import lib.data)
     (import lib.navigation)
@@ -32,23 +32,23 @@
         )
     )
     
-    (def (home-app-bar props)
+    (def (project-app-bar props)
         (app-bar
             :leading (
                 (icon-button
                     :child (icon :icon (symbol 'weather.mix))
-                    :on-pressed (go :route 'weather)
+                    :on-pressed (go :route 'weather :target applet)
                 )
                 (site-title props)
                 (icon-button
                     :child (icon :icon (symbol 'dashboard))
-                    :on-pressed (go :route 'systems)
+                    :on-pressed (go :route 'systems :target applet)
                 )
             )
             :trailing (
                 (icon-button
                     :child (icon :icon (symbol 'settings))
-                    :on-pressed (go :route 'settings)
+                    :on-pressed (go :route 'settings :target applet)
                 )
             )
         )
