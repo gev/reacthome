@@ -4,6 +4,8 @@
     (import lib.navigation)
 
     (import screen.project)
+    (import screen.weather)
+    (import screen.systems)
     (import screen.settings)
     (import screen.camera)
     (import screen.light-regulator)
@@ -19,15 +21,27 @@
         )
     )
 
-    (def (project-route home args)
+    (def (project-route props args)
         (route
-            :screen (project-screen home args)
+            :screen (project-screen props args)
         )
     )
 
-    (def (settings-route home args)
+    (def (project-route props args)
         (route
-            :screen (settings-screen home args)
+            :screen (project-screen props args)
+        )
+    )
+
+    (def (weather-route props args)
+        (route
+            :screen (weather-screen props args)
+        )
+    )
+
+    (def (systems-route props args)
+        (route
+            :screen (systems-screen props args)
         )
     )
 
@@ -60,13 +74,16 @@
     )
 
     (def (main home)
+        (def props (:home home))
         (app
             :navigator-key applet
             :seed-color colors.grey
             :dynamic-scheme-variant dynamic-scheme-variant.tonal
             :routes (
-                :index (project-route home)
-                :settings (settings-route home)
+                :index (project-route props)
+                :weather (weather-route props)
+                :systems (systems-route props)
+                :settings (settings-route props)
                 :camera camera-route
                 :light-regulator light-regulator-route
                 :positioned-curtain-regulator positioned-curtain-regulator-route
