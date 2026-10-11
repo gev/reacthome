@@ -1,5 +1,5 @@
-(module panel.home
-    (export home-panel)
+(module screen.home
+    (export home-screen)
 
     (import lib.data)
     (import layout.site)
@@ -19,17 +19,17 @@
         )
     )
 
-    (def (site-panel props args)
+    (def (site-screen props args)
         (select (site-layout props) args.id)
     )
 
     (def (site-route props args)
         (route
-            :screen (site-panel props args)
+            :screen (site-screen props args)
         )
     )
 
-    (def (home-panel props)
+    (def (home-screen props)
         (navigator
             :routes (
                 :index (index-route props)

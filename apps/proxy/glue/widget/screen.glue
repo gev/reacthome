@@ -3,7 +3,6 @@
 
     (import widget.app-bar)
     (import widget.connection-indicator)
-    (import widget.screen-size)
 
     (def (screen props)
         (material
@@ -12,13 +11,12 @@
                 :children (
                     (props.background)
                     (props.body)
-                    (positioned
-                        :top (+ media-query.padding.top 16)
-                        :left 16
-                        :right 16
-                        :child (app-bar
-                            :title props.title
-                            :trailing ((screen-size _))
+                    (if (exists? props.app-bar)
+                        (positioned
+                            :top (+ media-query.padding.top 16)
+                            :left 16
+                            :right 16
+                            :child props.app-bar
                         )
                     )
                     (connection-indicator

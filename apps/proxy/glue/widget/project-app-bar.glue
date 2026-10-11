@@ -1,0 +1,61 @@
+(module widget.project-app-bar
+    (export project-app-bar)
+
+    (import lib.data)
+    (import lib.navigation)
+
+    (import widget.app-bar)
+    (import widget.site-breadcrumbs)
+
+    (def (site-title props)
+        (icon-button
+            :style (button-style
+                :background-color current-theme.color-scheme.secondary-container
+            )
+            :on-pressed (props.select-screen 1)
+            :child (single-child-scroll-view
+                :scroll-direction axis.horizontal
+                :child (row
+                    :spacing 8
+                    :cross-axis-alignment cross-axis-alignment.center
+                    :children (
+                        (icon
+                            :icon (symbol 'home)
+                        )
+                        (text
+                            :text (title props.site)
+                            :style current-theme.text-theme.title-large
+                        )
+                        (site-breadcrumbs
+                            :site props.site.parent
+                            :action (\ (id) (go :route 'site :id id))
+                        )
+                    )
+                )
+            )
+        )
+    )
+    
+    (def (project-app-bar props)
+        (app-bar
+            :leading (
+                (icon-button
+                    :child (icon :icon (symbol 'weather.mix))
+                    :on-pressed (props.select-screen 0)
+                )
+                (site-title props)
+                (icon-button
+                    :child (icon :icon (symbol 'dashboard))
+                    :on-pressed (props.select-screen 2)
+                )
+            )
+            :trailing (
+                (icon-button
+                    :child (icon :icon (symbol 'settings))
+                    :on-pressed (go :target applet :route 'settings)
+                )
+            )
+        )
+    )
+
+)

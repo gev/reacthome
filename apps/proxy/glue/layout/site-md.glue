@@ -4,9 +4,9 @@
     (import lib.data)
     (import lib.navigation)
 
+    (import widget.project-app-bar)
     (import widget.screen)
     (import widget.site-info)
-    (import widget.site-breadcrumbs)
     (import widget.site-card)
     (import widget.light-regulator-active-card)
     (import widget.curtain-regulator-active-card)
@@ -39,28 +39,6 @@
                 :child (column
                     :spacing 8
                     :children props.children
-                )
-            )
-        )
-    )
-
-    (def (site-title props)
-        (single-child-scroll-view
-            :clip-behavior clip.anti-alias
-            :scroll-direction axis.horizontal
-            :child (row
-                :spacing 16
-                :main-axis-size main-axis-size.min
-                :cross-axis-alignment cross-axis-alignment.center
-                :children (
-                    (text
-                        :text (title props)
-                        :style current-theme.text-theme.headline-medium
-                    )
-                    (site-breadcrumbs
-                        :site props.parent
-                        :action (\ (id) (go :route 'site :id id))
-                    )
                 )
             )
         )
@@ -114,7 +92,7 @@
                         )))))
 
         (screen
-            :title (site-title props.site)
+            :app-bar (project-app-bar props)
             :background (background props.site constraints)
             :body (single-child-scroll-view
                 :scroll-direction axis.horizontal

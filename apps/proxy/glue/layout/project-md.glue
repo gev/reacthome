@@ -1,27 +1,12 @@
 (module layout.project-md
     (export md-project-layout)
 
-    (import panel.home)
-    (import panel.systems)
-    (import panel.weather)
+    (import screen.home)
 
     (def (md-project-layout props constraints)
         (material
             :color current-theme.color-scheme.surface-container
-            :child (container
-                :child (stack
-                    :children(
-                        (indexed-stack
-                            :index props.current-panel
-                            :children (
-                                (weather-panel props)
-                                (home-panel props)
-                                (systems-panel props)
-                            )
-                        )
-                    )
-                )
-            )
+            :child (home-screen props)
         )
     )
 )

@@ -13,11 +13,11 @@
         (md-project-layout props constraints)
     )
 
-    (def (project-layout home select panel)
+    (def (project-layout home select screen)
         (def props (
                 :home home
-                :select-panel select
-                :current-panel panel
+                :select-screen select
+                :current-screen screen
             )
         )
         (select-layout

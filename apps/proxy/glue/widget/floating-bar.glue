@@ -9,6 +9,7 @@
         (def radius (?? props.radius 24))
         (def sigma (?? props.sigma 12))
         (container
+            :clip-behavior clip.anti-alias
             :decoration (box-decoration
                 :color (color.with :a opacity)
                 :border (border-all

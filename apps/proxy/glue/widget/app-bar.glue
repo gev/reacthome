@@ -3,44 +3,43 @@
 
     (import lib.navigation)
     (import widget.floating-bar)
+    (import widget.screen-size)
 
     (def (section child)
         (floating-bar
-            :child (icon-button
-                :child child
-            )
+            :child child
         )
     )
-
-    (def (title-bar title)
-        (expanded
-            :child (center
-                :child (section
-                    (padding
-                        :padding (edge-insets-symmetric :horizontal 4)
-                        :child title
-                    )
-                )
-            )
-        )
-    )
-
 
     (def (app-bar props)
         (row
             :spacing 16
             :cross-axis-alignment cross-axis-alignment.center
             :main-axis-alignment main-axis-alignment.space-between
-            :children (flatten
-                (
-                    (if (can-pop? _)
-                        (floating-bar
-                            :child (back-button :on-pressed back)
+            :children (
+                (row
+                    :spacing 16
+                    :cross-axis-alignment cross-axis-alignment.center
+                    :children (flatten
+                        (
+                            (if (can-pop? _)
+                                (floating-bar
+                                    :child (back-button :on-pressed back)
+                                )
+                            )
+                            (?> (map section) props.leading)
                         )
                     )
-                    (?> (map section) props.leading)
-                    (?> title-bar props.title)
-                    (?> (map section) props.trailing)
+                )
+                (row
+                    :spacing 16
+                    :cross-axis-alignment cross-axis-alignment.center
+                    :children (flatten
+                        (
+                            (?> (map section) props.trailing)
+                            (section (screen-size _))
+                        )
+                    )
                 )
             )
         )

@@ -6,10 +6,12 @@
 
     (import i18n.dict)
 
-    (import layout.screen-xs)
+    (import widget.app-bar)
+    (import widget.screen)
 
     (def (settings-screen home args)
-        (screen-layout-xs
+        (screen
+            :app-bar (app-bar _)
             :body (column
                 :spacing 32
                 :cross-axis-alignment cross-axis-alignment.start

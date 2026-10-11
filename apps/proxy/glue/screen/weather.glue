@@ -1,12 +1,14 @@
-(module  panel.weather
-    (export weather-panel)
+(module  screen.weather
+    (export weather-screen)
 
     (import lib.i18n)
     (import i18n.dict)
-    (import layout.screen-xs)
+    (import widget.app-bar)
+    (import widget.screen)
 
-    (def (weather-panel args)
-        (screen-layout-xs
+    (def (weather-screen props)
+        (screen
+            :app-bar (app-bar _)
             :body (center
                 :child (text
                     :text (select-locale i18n-weather)

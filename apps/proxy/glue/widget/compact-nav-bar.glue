@@ -27,10 +27,10 @@
             )
         )
     )
-
+    
     (def (nav-bar props)
-        (def (selected? panel)
-            (== panel props.current-panel)
+        (def (selected? screen)
+            (== screen props.current-screen)
         )
         (row
             :main-axis-alignment main-axis-alignment.center
@@ -45,17 +45,17 @@
                                 (nav-bar-button
                                     :symbol 'weather.mix
                                     :selected (selected? 0)
-                                    :on-pressed (props.select-panel 0)
+                                    :on-pressed (props.select-screen 0)
                                 )
                                 (nav-bar-button
                                     :symbol 'home
                                     :selected (selected? 1)
-                                    :on-pressed (props.select-panel 1)
+                                    :on-pressed (props.select-screen 1)
                                 )
                                 (nav-bar-button
                                     :symbol 'dashboard
                                     :selected (selected? 2)
-                                    :on-pressed (props.select-panel 2)
+                                    :on-pressed (props.select-screen 2)
                                 )
                             )
                         )

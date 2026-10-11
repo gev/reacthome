@@ -1,9 +1,9 @@
 (module layout.project-xs
     (export xs-project-layout)
 
-    (import panel.home)
-    (import panel.systems)
-    (import panel.weather)
+    (import screen.home)
+    (import screen.systems)
+    (import screen.weather)
 
     (import widget.compact-nav-bar)
 
@@ -14,11 +14,11 @@
                 :child (stack
                     :children(
                         (indexed-stack
-                            :index props.current-panel
+                            :index props.current-screen
                             :children (
-                                (weather-panel props)
-                                (home-panel props)
-                                (systems-panel props)
+                                (weather-screen props)
+                                (home-screen props)
+                                (systems-screen props)
                             )
                         )
                         (positioned
