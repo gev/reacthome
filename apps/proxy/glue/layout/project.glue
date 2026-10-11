@@ -3,6 +3,10 @@
 
     (import lib.layout)
 
+    (import screen.home)
+    (import screen.systems)
+    (import screen.weather)
+
     (def (xs-layout props constraints)
         (import layout.project-xs)
         (xs-project-layout props constraints)
@@ -15,7 +19,18 @@
 
     (def (project-layout props current-screen)
         (def props
-            (concat props (:current-screen current-screen))
+            (concat props (
+                    :current-screen current-screen
+                    :screens (indexed-stack
+                        :index current-screen
+                        :children (
+                            (weather-screen props)
+                            (home-screen props)
+                            (systems-screen props)
+                        )
+                    )
+                )
+            )
         )
         (select-layout
             :xs (xs-layout props)

@@ -6,7 +6,7 @@
     (def (md-project-layout props constraints)
         (material
             :color current-theme.color-scheme.surface-container
-            :child (home-screen props)
+            :child props.screens
         )
     )
 )

@@ -1,55 +1,27 @@
 (module layout.project-xs
     (export xs-project-layout)
 
-    (import screen.home)
-    (import screen.systems)
-    (import screen.weather)
-
     (import widget.compact-nav-bar)
 
-    (def screen
-        (local-state 1)
-    )
-
-    (def (select-screen current)
-        (\ ()
-            (write screen current)
-        )
-    )
-
-    (def (project props constraints current-screen)
+    (def (xs-project-layout props constraints)
         (material
             :color current-theme.color-scheme.surface-container
             :child (container
                 :child (stack
                     :children (
-                        (indexed-stack
-                            :index current-screen
-                            :children (
-                                (weather-screen props)
-                                (home-screen props)
-                                (systems-screen props)
-                            )
-                        )
+                        (props.screens)
                         (positioned
                             :bottom 16
                             :left 16
                             :right 16
                             :child (container
                                 :alignment alignment.center
-                                :child (nav-bar
-                                    :current-screen current-screen
-                                    :select-screen select-screen
-                                )
+                                :child (nav-bar props)
                             )
                         )
                     )
                 )
             )
         )
-    )
-        
-    (def (xs-project-layout props constraints)
-        (listen (project props constraints) screen)
     )
 )
