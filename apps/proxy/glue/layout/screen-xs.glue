@@ -1,9 +1,0 @@
-(module layout.screen-xs
-    (export screen-layout-xs)
-
-    (import widget.screen)
-
-    (def (screen-layout-xs props)
-        (screen props)
-    )
-)
