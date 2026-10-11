@@ -1,20 +1,41 @@
 (module screen.project
     (export project-screen)
 
-    (import layout.project)
+    (import screen.home)
+    (import screen.weather)
+    (import screen.systems)
 
-    (def (project-screen props args)
-        (def screen
-            (local-state 1)
+    (def screen
+        (local-state 1)
+    )
+    (def (select-screen current)
+        (\ ()
+            (write screen current)
         )
-        (def (select-screen current)
-            (\ ()
-                (write screen current)
+    )
+
+    (def (project props current-screen)
+        (def props
+            (concat props
+                (:current-screen current-screen)
             )
         )
-        (def props
-            (concat props (:select-screen select-screen))
+        (indexed-stack
+            :index current-screen
+            :children (
+                (weather-screen props)
+                (home-screen props)
+                (systems-screen props)
+            )
         )
-        (listen (project-layout props) screen)
+    )
+
+    (def (project-screen props args)
+        (def props
+            (concat props
+                (:select-screen select-screen)
+            )
+        )
+        (listen (project props) screen)
     )
 )

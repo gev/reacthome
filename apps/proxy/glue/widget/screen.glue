@@ -19,6 +19,18 @@
                             :child props.app-bar
                         )
                     )
+                    (if (exists? props.nav-bar)
+
+                        (positioned
+                            :bottom 16
+                            :left 16
+                            :right 16
+                            :child (container
+                                :alignment alignment.center
+                                :child props.nav-bar
+                            )
+                        )
+                    )
                     (connection-indicator
                         :connected-position -48
                         :disconnected-position (+ media-query.padding.top 12)

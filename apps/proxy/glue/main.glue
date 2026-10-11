@@ -4,8 +4,6 @@
     (import lib.navigation)
 
     (import screen.project)
-    (import screen.weather)
-    (import screen.systems)
     (import screen.settings)
     (import screen.camera)
     (import screen.light-regulator)
@@ -24,18 +22,6 @@
     (def (project-route props args)
         (route
             :screen (project-screen props args)
-        )
-    )
-
-    (def (weather-route props args)
-        (route
-            :screen (weather-screen props)
-        )
-    )
-
-    (def (systems-route props args)
-        (route
-            :screen (systems-screen props)
         )
     )
 
@@ -81,8 +67,6 @@
             :dynamic-scheme-variant dynamic-scheme-variant.tonal
             :routes (
                 :index (project-route props)
-                :weather (weather-route props)
-                :systems (systems-route props)
                 :settings (settings-route props)
                 :camera camera-route
                 :light-regulator light-regulator-route

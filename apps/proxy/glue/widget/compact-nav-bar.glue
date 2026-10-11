@@ -66,7 +66,7 @@
                         :padding (edge-insets-all 8)
                         :child (icon-button
                             :child (icon :icon (symbol 'settings))
-                            :on-pressed (go :route 'settings)
+                            :on-pressed (go :route 'settings :target applet)
                         )
                     )
                 )
