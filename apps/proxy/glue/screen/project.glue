@@ -1,17 +1,26 @@
 (module screen.project
     (export project-screen)
 
-    (import layout.project)
+    (import lib.layout)
+
+    (def (xs-layout props constraints)
+        (import layout.project-xs)
+        (xs-project-layout props constraints)
+    )
+
+    (def (md-layout props constraints)
+        (import layout.project-md)
+        (md-project-layout props constraints)
+    )
 
     (def (project-screen home args)
-        (def screen
-            (local-state 1)
+        (def props (:home home))
+        (select-layout
+            :xs (xs-layout props)
+            :sm (xs-layout props)
+            :md (md-layout props)
+            :lg (md-layout props)
+            :xl (md-layout props)
         )
-        (def (select-screen current)
-            (\ ()
-                (write screen current)
-            )
-        )
-        (listen (project-layout home select-screen) screen)
     )
 )
