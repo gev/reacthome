@@ -4,7 +4,7 @@
     (import lib.data)
     (import lib.navigation)
 
-    (import widget.project-app-bar)
+    (import widget.home-app-bar)
     (import widget.screen)
     (import widget.site-info)
     (import widget.site-card)
@@ -92,7 +92,7 @@
                         )))))
 
         (screen
-            :app-bar (project-app-bar props)
+            :app-bar (home-app-bar props)
             :background (background props.site constraints)
             :body (single-child-scroll-view
                 :scroll-direction axis.horizontal

@@ -1,5 +1,5 @@
-(module widget.project-app-bar
-    (export project-app-bar)
+(module widget.home-app-bar
+    (export home-app-bar)
 
     (import lib.data)
     (import lib.navigation)
@@ -32,7 +32,7 @@
         )
     )
     
-    (def (project-app-bar props)
+    (def (home-app-bar props)
         (app-bar
             :leading (
                 (icon-button
@@ -48,7 +48,7 @@
             :trailing (
                 (icon-button
                     :child (icon :icon (symbol 'settings))
-                    :on-pressed (go :target applet :route 'settings)
+                    :on-pressed (go :route 'settings)
                 )
             )
         )

@@ -45,6 +45,12 @@
         )
     )
 
+    (def (settings-route props args)
+        (route
+            :screen (settings-screen props args)
+        )
+    )
+
     (def camera-route
         (overlay camera-screen)
     )
