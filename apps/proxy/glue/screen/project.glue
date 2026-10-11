@@ -13,8 +13,7 @@
         (md-project-layout props constraints)
     )
 
-    (def (project-screen home args)
-        (def props (:home home))
+    (def (project-screen props args)
         (select-layout
             :xs (xs-layout props)
             :sm (xs-layout props)
