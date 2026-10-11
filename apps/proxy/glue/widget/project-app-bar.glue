@@ -9,10 +9,6 @@
 
     (def (site-title props)
         (icon-button
-            :style (button-style
-                :background-color current-theme.color-scheme.secondary-container
-            )
-            :on-pressed (props.select-screen 1)
             :child (single-child-scroll-view
                 :scroll-direction axis.horizontal
                 :child (row
@@ -41,12 +37,12 @@
             :leading (
                 (icon-button
                     :child (icon :icon (symbol 'weather.mix))
-                    :on-pressed (props.select-screen 0)
+                    :on-pressed (go :route 'weather)
                 )
                 (site-title props)
                 (icon-button
                     :child (icon :icon (symbol 'dashboard))
-                    :on-pressed (props.select-screen 2)
+                    :on-pressed (go :route 'systems)
                 )
             )
             :trailing (
