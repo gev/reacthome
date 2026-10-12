@@ -4,13 +4,13 @@
     (import lib.layout)
 
     (def (xs-layout props constraints)
-        (import layout.systems-xs)
-        (xs-systems-layout props constraints)
+        (import layout.weather-xs)
+        (xs-weather-layout props constraints)
     )
 
     (def (md-layout props constraints)
-        (import layout.systems-md)
-        (md-systems-layout props constraints)
+        (import layout.weather-md)
+        (md-weather-layout props constraints)
     )
 
     (def (weather-screen props)

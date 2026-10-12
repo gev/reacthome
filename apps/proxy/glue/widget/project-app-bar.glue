@@ -9,6 +9,7 @@
 
     (def (site-title props)
         (icon-button
+            :on-pressed (props.select-screen 1)
             :child (single-child-scroll-view
                 :scroll-direction axis.horizontal
                 :child (row
