@@ -16,9 +16,9 @@
     )
 
     (def (active-segment action color props)
-        (filled-button
+        (button
             :style (button-style
-                :background-color colors.transparent
+                :elevation 0
                 :foreground-color (?? color
                     current-theme.color-scheme.on-surface-variant)
             )
