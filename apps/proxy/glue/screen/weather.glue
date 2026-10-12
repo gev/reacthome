@@ -1,22 +1,25 @@
 (module  screen.weather
     (export weather-screen)
 
-    (import lib.i18n)
-    (import i18n.dict)
-    (import widget.app-bar)
-    (import widget.compact-nav-bar)
-    (import widget.screen)
+    (import lib.layout)
+
+    (def (xs-layout props constraints)
+        (import layout.systems-xs)
+        (xs-systems-layout props constraints)
+    )
+
+    (def (md-layout props constraints)
+        (import layout.systems-md)
+        (md-systems-layout props constraints)
+    )
 
     (def (weather-screen props)
-        (screen
-            :app-bar (app-bar _)
-            :nav-bar (nav-bar props)
-            :body (center
-                :child (text
-                    :text (select-locale i18n-weather)
-                    :style current-theme.text-theme.display-medium
-                )
-            )
+        (select-layout
+            :xs (xs-layout props)
+            :sm (xs-layout props)
+            :md (md-layout props)
+            :lg (md-layout props)
+            :xl (md-layout props)
         )
     )
 )

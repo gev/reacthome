@@ -1,0 +1,21 @@
+(module  layout.systems-md
+    (export md-systems-layout)
+
+    (import lib.i18n)
+    (import i18n.dict)
+    (import widget.project-app-bar)
+    (import widget.compact-nav-bar)
+    (import widget.screen)
+
+    (def (md-systems-layout props constraints)
+        (screen
+            :app-bar (project-app-bar props)
+            :body (center
+                :child (text
+                    :text (select-locale i18n-systems)
+                    :style current-theme.text-theme.display-medium
+                )
+            )
+        )
+    )
+)

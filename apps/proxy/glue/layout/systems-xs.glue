@@ -1,0 +1,22 @@
+(module  layout.systems-xs
+    (export xs-systems-layout)
+
+    (import lib.i18n)
+    (import i18n.dict)
+    (import widget.app-bar)
+    (import widget.compact-nav-bar)
+    (import widget.screen)
+
+    (def (xs-systems-layout props constraints)
+        (screen
+            :app-bar (app-bar _)
+            :nav-bar (nav-bar props)
+            :body (center
+                :child (text
+                    :text (select-locale i18n-systems)
+                    :style current-theme.text-theme.display-medium
+                )
+            )
+        )
+    )
+)

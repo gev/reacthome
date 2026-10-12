@@ -1,0 +1,22 @@
+(module  layout.weather-xs
+    (export xs-weather-layout)
+
+    (import lib.i18n)
+    (import i18n.dict)
+    (import widget.app-bar)
+    (import widget.compact-nav-bar)
+    (import widget.screen)
+
+    (def (xs-weather-layout props constraints)
+        (screen
+            :app-bar (app-bar _)
+            :nav-bar (nav-bar props)
+            :body (center
+                :child (text
+                    :text (select-locale i18n-weather)
+                    :style current-theme.text-theme.display-medium
+                )
+            )
+        )
+    )
+)

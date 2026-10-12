@@ -1,0 +1,21 @@
+(module  layout.weather-md
+    (export md-weather-layout)
+
+    (import lib.i18n)
+    (import i18n.dict)
+    (import widget.project-app-bar)
+    (import widget.compact-nav-bar)
+    (import widget.screen)
+
+    (def (md-weather-layout props constraints)
+        (screen
+            :app-bar (project-app-bar props)
+            :body (center
+                :child (text
+                    :text (select-locale i18n-weather)
+                    :style current-theme.text-theme.display-medium
+                )
+            )
+        )
+    )
+)
