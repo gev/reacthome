@@ -1,6 +1,8 @@
 (module screen.project
     (export project-screen)
 
+    (import lib.data)
+
     (import screen.home)
     (import screen.weather)
     (import screen.systems)
@@ -8,6 +10,7 @@
     (def screen
         (local-state 1)
     )
+
     (def (select-screen current)
         (\ ()
             (write screen current)
@@ -30,12 +33,19 @@
         )
     )
 
-    (def (project-screen props args)
+    (def (home props daemon)
         (def props
-            (concat props
-                (:select-screen select-screen)
+            (concat props (
+                    :id daemon.project
+                    :select-screen select-screen
+                )
             )
         )
         (listen (project props) screen)
+    )
+
+    (def (project-screen props args)
+        (def id (concat "proxy." props.home.id))
+        (select (home props) id)
     )
 )

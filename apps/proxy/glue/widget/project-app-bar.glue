@@ -8,6 +8,7 @@
     (import widget.site-breadcrumbs)
 
     (def (site-title props)
+        (print props)
         (icon-button
             :on-pressed (props.select-screen 1)
             :child (single-child-scroll-view

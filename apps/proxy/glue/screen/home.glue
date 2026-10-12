@@ -4,18 +4,13 @@
     (import lib.data)
     (import layout.site)
 
-    (def (project props args)
-        (select (site-layout props) args.project)
-    )
-
-    (def (daemon props)
-        (def id (concat "proxy." props.home.id))
-        (select (project props) id)
+    (def (project props)
+        (select (site-layout props) props.id)
     )
 
     (def (index-route props args)
         (route
-            :screen (daemon props)
+            :screen (project props)
         )
     )
 
