@@ -33,8 +33,8 @@
         ))
 
     (def i18n-CO2 (
-            :en "CO2"
-            :ru "CO2"
+            :en "CO₂"
+            :ru "CO₂"
         ))
 
     (def i18n-VOC (
