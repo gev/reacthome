@@ -7,14 +7,11 @@
     (import i18n.dict)
 
     (import widget.app-bar)
-    (import widget.app-bar-back-button)
     (import widget.screen)
 
     (def (settings-screen props)
         (screen
-            :app-bar (app-bar
-                :leading ((app-bar-back-button _))
-            )
+            :app-bar (app-bar _)
             :body (column
                 :spacing 32
                 :cross-axis-alignment cross-axis-alignment.start
