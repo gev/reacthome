@@ -2,6 +2,7 @@
     (export app-bar)
 
     (import lib.navigation)
+    (import widget.app-bar-back-button)
     (import widget.floating-bar)
 
     (def (section child)
@@ -17,12 +18,7 @@
             :main-axis-alignment main-axis-alignment.space-between
             :children (flatten
                 (
-                    (if (can-pop? _)
-                        (floating-bar
-                            :child (back-button :on-pressed back)
-                        )
-                        (sized-box :width 48)
-                    )
+                    (app-bar-back-button _)
                     (?> (map section) props.leading)
                     (?> section props.title)
                     (?> (map section) props.trailing)

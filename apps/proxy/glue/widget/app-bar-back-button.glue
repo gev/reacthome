@@ -1,0 +1,15 @@
+(module widget.app-bar-back-button
+    (export app-bar-back-button)
+
+    (import lib.navigation)
+    (import widget.floating-bar)
+
+    (def (app-bar-back-button props)
+        (if (can-pop? _)
+            (floating-bar
+                :child (back-button :on-pressed back)
+            )
+            (sized-box :width 48)
+        )
+    )
+)
