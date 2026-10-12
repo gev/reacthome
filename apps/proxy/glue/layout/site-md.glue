@@ -6,8 +6,10 @@
 
     (import widget.app-bar)
     (import widget.screen)
-    (import widget.site-info)
+    (import widget.site-breadcrumbs)
     (import widget.site-card)
+    (import widget.site-info)
+    (import widget.site-brief)
     (import widget.light-regulator-active-card)
     (import widget.curtain-regulator-active-card)
     (import widget.camera-card)
@@ -20,11 +22,14 @@
             (image-filtered
                 :key props.id
                 :image-filter (image-filter-blur :sigma-x 40 :sigma-y 40)
-                :child (image
-                    :width constraints.width
-                    :height constraints.height
-                    :fit box-fit.cover
-                    :image (load-image :src props.image)
+                :child (opacity
+                    :opacity 0.6
+                    :child (image
+                        :width constraints.width
+                        :height constraints.height
+                        :fit box-fit.cover
+                        :image (load-image :src props.image)
+                    )
                 )
             )
         )
@@ -34,8 +39,7 @@
         (single-child-scroll-view
             :child (container
                 :width props.width
-                :margin (edge-insets-symmetric :horizontal 16)
-                :padding (edge-insets-symmetric :vertical 96)
+                :margin (edge-insets-all 16)
                 :child (column
                     :spacing 8
                     :children props.children
@@ -51,8 +55,44 @@
             )
         )
     )
-    
-    (def (md-site-layout palette props constraints)
+
+    (def (scene props)
+        (button
+            :child (text :text (title))
+        )
+    )
+
+    (def (site-title props)
+        (padding
+            :padding (edge-insets-symmetric :horizontal 16)
+            :child (text
+                :text (title props.site)
+                :style current-theme.text-theme.headline-large
+            )
+        )
+    )
+
+    (def (head props)
+        (def scenes
+            (select-collection scene props.site.scene)
+        )
+        (print props.site)
+        (row
+            :spacing 16
+            :children (flatten
+                (
+                    (site-title props)
+                    (site-breadcrumbs
+                        :site props.site.parent
+                        :action (\ (id) (go :route 'site :id id))
+                    )
+                    (scenes)
+                )
+            )
+        )
+    )
+
+    (def (body palette props)
         (def info
             (site-info :site props.site.id)
         )
@@ -91,53 +131,68 @@
                             temperature-regulator
                         )))))
 
+        (single-child-scroll-view
+            :scroll-direction axis.horizontal
+            :child (row
+                :cross-axis-alignment cross-axis-alignment.start
+                :spacing 32
+                :children (
+                    (scrolled-column
+                        :width 360
+                        :children (prepend info (?? cameras ()))
+                    )
+                    (if (|| (exists? light-220) (exists? light-led))
+                        (scrolled-column
+                            :width 200
+                            :children (concat light-220 light-led)
+                        )
+                    )
+                    (if (exists? temperature-regulator)
+                        (scrolled-column
+                            :width 360
+                            :children temperature-regulator
+                        )
+                    )
+                    (if (exists? humidity-regulator)
+                        (scrolled-column
+                            :width 360
+                            :children humidity-regulator
+                        )
+                    )
+                    (if (exists? ventilation-regulator)
+                        (scrolled-column
+                            :width 360
+                            :children ventilation-regulator
+                        )
+                    )
+                    (if (exists? curtains)
+                        (scrolled-column
+                            :width 420
+                            :children curtains
+                        )
+                    )
+                    (if (exists? sites)
+                        (scrolled-column
+                            :children sites
+                        )
+                    )
+                )
+            )
+        )
+    )
+    
+    (def (md-site-layout palette props constraints)
+
         (screen
             :app-bar (app-bar _)
             :background (background props.site constraints)
-            :body (single-child-scroll-view
-                :scroll-direction axis.horizontal
-                :child (row
-                    :cross-axis-alignment cross-axis-alignment.start
-                    :spacing 32
+            :body (padding
+                :padding (edge-insets-only :top 80)
+                :child (column
                     :children (
-                        (scrolled-column
-                            :width 360
-                            :children (prepend info (?? cameras ()))
-                        )
-                        (if (|| (exists? light-220) (exists? light-led))
-                            (scrolled-column
-                                :width 200
-                                :children (concat light-220 light-led)
-                            )
-                        )
-                        (if (exists? temperature-regulator)
-                            (scrolled-column
-                                :width 360
-                                :children temperature-regulator
-                            )
-                        )
-                        (if (exists? humidity-regulator)
-                            (scrolled-column
-                                :width 360
-                                :children humidity-regulator
-                            )
-                        )
-                        (if (exists? ventilation-regulator)
-                            (scrolled-column
-                                :width 360
-                                :children ventilation-regulator
-                            )
-                        )
-                        (if (exists? curtains)
-                            (scrolled-column
-                                :width 420
-                                :children curtains
-                            )
-                        )
-                        (if (exists? sites)
-                            (scrolled-column
-                                :children sites
-                            )
+                        (head props)
+                        (expanded
+                            :child (body palette props)
                         )
                     )
                 )
