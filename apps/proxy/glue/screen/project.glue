@@ -3,6 +3,8 @@
 
     (import lib.data)
 
+    (import layout.project)
+
     (import screen.home)
     (import screen.weather)
     (import screen.systems)
@@ -23,14 +25,16 @@
                 (:current-screen current-screen)
             )
         )
-        (indexed-stack
-            :index current-screen
-            :children (
-                (weather-screen props)
-                (home-screen props)
-                (systems-screen props)
+        (def body (indexed-stack
+                :index current-screen
+                :children (
+                    (weather-screen props)
+                    (home-screen props)
+                    (systems-screen props)
+                )
             )
         )
+        (project-layout body props)
     )
 
     (def (home props daemon)

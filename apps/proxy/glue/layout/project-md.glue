@@ -1,0 +1,18 @@
+(module  layout.project-md
+    (export md-project-layout)
+
+    (import widget.connection-indicator)
+    (import widget.project-app-bar)
+    (import widget.screen)
+
+    (def (md-project-layout body props constraints)
+        (screen
+            :body body
+            :app-bar (project-app-bar props)
+            :snack-bar (connection-indicator
+                :connected-position -48
+                :disconnected-position (+ media-query.padding.top 12)
+            )
+        )
+    )
+)

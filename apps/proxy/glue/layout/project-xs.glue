@@ -1,0 +1,18 @@
+(module  layout.project-xs
+    (export xs-project-layout)
+
+    (import widget.connection-indicator)
+    (import widget.compact-nav-bar)
+    (import widget.screen)
+
+    (def (xs-project-layout body props constraints)
+        (screen
+            :body body
+            :nav-bar (nav-bar props)
+            :snack-bar (connection-indicator
+                :connected-position -48
+                :disconnected-position (+ media-query.padding.top 12)
+            )
+        )
+    )
+)

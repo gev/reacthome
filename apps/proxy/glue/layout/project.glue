@@ -1,0 +1,25 @@
+(module layout.project
+    (export project-layout)
+
+    (import lib.layout)
+
+    (def (xs-layout body props constraints)
+        (import layout.project-xs)
+        (xs-project-layout body props constraints)
+    )
+
+    (def (md-layout body props constraints)
+        (import layout.project-md)
+        (md-project-layout body props constraints)
+    )
+
+    (def (project-layout body props)
+        (select-layout
+            :xs (xs-layout body props)
+            :sm (xs-layout body props)
+            :md (md-layout body props)
+            :lg (md-layout body props)
+            :xl (md-layout body props)
+        )
+    )
+)
