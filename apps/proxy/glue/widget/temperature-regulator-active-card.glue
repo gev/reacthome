@@ -30,22 +30,25 @@
                 :dynamic-scheme-variant dynamic-scheme-variant.content
                 :child (let
                     (def end-color current-theme.color-scheme.primary)
-                    (card
-                        :clip-behavior clip.anti-alias
-                        :child (container
-                            :padding (edge-insets-all 8)
-                            :decoration (box-decoration
-                                :gradient (linear-gradient
-                                    :begin alignment.top-center
-                                    :end alignment.bottom-center
-                                    :colors (# start-color end-color)
-                                    :stops (0 1)
+                    (hero
+                        :tag regulator.id
+                        :child (card
+                            :clip-behavior clip.anti-alias
+                            :child (container
+                                :padding (edge-insets-all 8)
+                                :decoration (box-decoration
+                                    :gradient (linear-gradient
+                                        :begin alignment.top-center
+                                        :end alignment.bottom-center
+                                        :colors (# start-color end-color)
+                                        :stops (0 1)
+                                    )
                                 )
-                            )
-                            :child (column
-                                :children (
-                                    (title)
-                                    (temperature-regulator regulator mode on-changed)
+                                :child (column
+                                    :children (
+                                        (title)
+                                        (temperature-regulator regulator mode on-changed)
+                                    )
                                 )
                             )
                         )

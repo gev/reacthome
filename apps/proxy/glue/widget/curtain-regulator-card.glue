@@ -107,6 +107,7 @@
     (def (unbound-curtain-regulator-card props)
         (inactive-card
             :key props.id
+            :tag props.id
             :card-color current-theme.color-scheme.surface-variant
             :elevation elevation-unbound
             :child (disabled-entity-tile

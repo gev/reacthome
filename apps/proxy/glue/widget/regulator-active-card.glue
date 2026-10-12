@@ -5,9 +5,10 @@
     (import widget.regulator-theme)
 
     (def (regulator-active-card props)
+        (print props)
         (def color-scheme (regulator-color-scheme current-theme))
         (inactive-card
-            :tag props.regulator.id
+            :tag props.tag
             :card-color color-scheme.surface
             :child (column
                 :children (

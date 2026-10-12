@@ -12,12 +12,15 @@
     )
 
     (def (inactive-card props)
-        (card
+        (hero
             :key props.key
-            :clip-behavior clip.anti-alias
-            :color props.card-color
-            :elevation props.elevation
-            :child (adopt props.child)
+            :tag props.tag
+            :child (card
+                :clip-behavior clip.anti-alias
+                :color props.card-color
+                :elevation props.elevation
+                :child (adopt props.child)
+            )
         )
     )
 

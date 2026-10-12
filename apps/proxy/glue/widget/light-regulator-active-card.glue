@@ -60,6 +60,7 @@
         (if (value)
             (active-card
                 :key props.id
+                :tag props.id
                 :on-pressed (turn-off props.id)
                 :card-color current-theme.color-scheme.surface-bright
                 :elevation elevation-on
@@ -72,6 +73,7 @@
             )
             (active-card
                 :key props.id
+                :tag props.id
                 :on-pressed (turn-on props.id)
                 :card-color current-theme.color-scheme.surface-dim
                 :elevation elevation-off
@@ -102,6 +104,7 @@
         (if (props.value)
             (active-card
                 :key props.id
+                :tag props.id
                 :on-pressed (turn-off props.id)
                 :card-color current-theme.color-scheme.surface-bright
                 :elevation elevation-on
@@ -113,6 +116,7 @@
             )
             (active-card
                 :key props.id
+                :tag props.id
                 :on-pressed (turn-on props.id)
                 :card-color current-theme.color-scheme.surface-dim
                 :elevation elevation-off
@@ -146,6 +150,7 @@
     (def (unbound-light-regulator-card props)
         (inactive-card
             :key props.id
+            :tag props.id
             :card-color current-theme.color-scheme.surface-variant
             :elevation elevation-unbound
             :child (disabled-entity-tile

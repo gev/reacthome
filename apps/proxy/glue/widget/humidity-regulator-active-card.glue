@@ -13,6 +13,7 @@
             :seed-color humidity-regulator-color
             :dynamic-scheme-variant dynamic-scheme-variant.content
             :child (regulator-active-card
+                :tag regulator.id
                 :title (regulator-title
                     :param humidity
                     :value (@ site humidity.property)
