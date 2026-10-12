@@ -16,9 +16,10 @@
     )
     
     (def (app-bar-button props)
-        (filled-button
+        (button
             :on-pressed props.on-pressed
             :style (button-style
+                :elevation (? props.selected 1 0)
                 :background-color (
                     ? props.selected
                     current-theme.color-scheme.secondary-container
@@ -40,7 +41,7 @@
                             :fill (? props.selected 1 0)
                             :icon (symbol props.symbol)
                         )
-                        (props.title)
+                        (text :text props.title)
                     )
                 )
                 (icon
@@ -51,39 +52,34 @@
         )
     )
 
-    (def (site-title props)
-        (label
-            :text (title props)
-        )
-    )
-
-    (def (project-title props)
-        (app-bar-button
-            :symbol 'home
-            :selected (== props.current-screen 1)
-            :on-pressed (props.select-screen 1)
-            :title (if (exists? props.site)
-                (site-title props.site)
-                (select site-title props.id)
-            )
-        )
-    )
-    
     (def (project-app-bar props)
         (app-bar
             :leading (
-                (project-title props)
-                (app-bar-button
-                    :symbol 'dashboard
-                    :title (label :text (select-locale i18n-systems))
-                    :selected (== props.current-screen 2)
-                    :on-pressed (props.select-screen 2)
-                )
-                (app-bar-button
-                    :symbol 'weather.mix
-                    :title (label :text (select-locale i18n-weather))
-                    :selected (== props.current-screen 0)
-                    :on-pressed (props.select-screen 0)
+                (padding
+                    :padding (edge-insets-all 4)
+                    :child (row
+                        :spacing 4
+                        :children (
+                            (app-bar-button
+                                :symbol 'home
+                                :title (select-locale i18n-home)
+                                :selected (== props.current-screen 1)
+                                :on-pressed (props.select-screen 1)
+                            )
+                            (app-bar-button
+                                :symbol 'dashboard
+                                :title (select-locale i18n-systems)
+                                :selected (== props.current-screen 2)
+                                :on-pressed (props.select-screen 2)
+                            )
+                            (app-bar-button
+                                :symbol 'weather.mix
+                                :title (select-locale i18n-weather)
+                                :selected (== props.current-screen 0)
+                                :on-pressed (props.select-screen 0)
+                            )
+                        )
+                    )
                 )
             )
             :trailing (

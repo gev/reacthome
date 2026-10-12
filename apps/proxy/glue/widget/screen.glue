@@ -2,7 +2,6 @@
     (export screen)
 
     (import widget.app-bar)
-    (import widget.connection-indicator)
 
     (def (screen props)
         (material
@@ -20,7 +19,6 @@
                         )
                     )
                     (if (exists? props.nav-bar)
-
                         (positioned
                             :bottom 16
                             :left 16
@@ -31,9 +29,8 @@
                             )
                         )
                     )
-                    (connection-indicator
-                        :connected-position -48
-                        :disconnected-position (+ media-query.padding.top 12)
+                    (if (exists? props.snack-bar)
+                        (props.snack-bar)
                     )
                 )
             )
