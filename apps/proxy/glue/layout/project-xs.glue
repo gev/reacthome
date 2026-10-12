@@ -1,13 +1,26 @@
 (module  layout.project-xs
     (export xs-project-layout)
 
-    (import widget.connection-indicator)
+    (import lib.navigation)
+
+    (import widget.app-bar)
+    (import widget.floating-bar)
     (import widget.compact-nav-bar)
+    (import widget.connection-indicator)
     (import widget.screen)
 
     (def (xs-project-layout body props constraints)
         (screen
             :body body
+            :app-bar (app-bar
+                :trailing ((floating-bar
+                        :child (icon-button
+                            :child (icon :icon (symbol 'settings))
+                            :on-pressed (go :route 'settings :target applet)
+                        )
+                    )
+                )
+            )
             :nav-bar (nav-bar props)
             :snack-bar (connection-indicator
                 :connected-position -48
