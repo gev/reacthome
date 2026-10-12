@@ -3,7 +3,6 @@
 
     (import lib.navigation)
     (import widget.floating-bar)
-    (import widget.screen-size)
 
     (def (section child)
         (floating-bar
@@ -13,42 +12,20 @@
 
     (def (app-bar props)
         (row
-            :spacing 4
-            :main-axis-alignment main-axis-alignment.space-between
+            :spacing 16
             :cross-axis-alignment cross-axis-alignment.center
-            :children (
-                (row
-                    :spacing 4
-                    :main-axis-size main-axis-size.min
-                    :cross-axis-alignment cross-axis-alignment.center
-                    :children (flatten
-                        (
-                            (if (can-pop? _)
-                                (floating-bar
-                                    :child (back-button :on-pressed back)
-                                )
-                            )
-                            (single-child-scroll-view
-                                :scroll-direction axis.horizontal
-                                :child (row
-                                    :spacing 4
-                                    :main-axis-size main-axis-size.min
-                                    :cross-axis-alignment cross-axis-alignment.center
-                                    :children (?> (map section) props.leading)
-                                )
-                            )
+            :main-axis-alignment main-axis-alignment.space-between
+            :children (flatten
+                (
+                    (if (can-pop? _)
+                        (floating-bar
+                            :child (back-button :on-pressed back)
                         )
+                        (sized-box :width 48)
                     )
-                )
-                (row
-                    :spacing 16
-                    :cross-axis-alignment cross-axis-alignment.center
-                    :children (flatten
-                        (
-                            (?> (map section) props.trailing)
-                            (section (screen-size _))
-                        )
-                    )
+                    (?> (map section) props.leading)
+                    (?> section props.title)
+                    (?> (map section) props.trailing)
                 )
             )
         )
