@@ -13,12 +13,13 @@
 
     (def (app-bar props)
         (row
-            :spacing 16
-            :cross-axis-alignment cross-axis-alignment.center
+            :spacing 4
             :main-axis-alignment main-axis-alignment.space-between
+            :cross-axis-alignment cross-axis-alignment.center
             :children (
                 (row
-                    :spacing 16
+                    :spacing 4
+                    :main-axis-size main-axis-size.min
                     :cross-axis-alignment cross-axis-alignment.center
                     :children (flatten
                         (
@@ -27,7 +28,15 @@
                                     :child (back-button :on-pressed back)
                                 )
                             )
-                            (?> (map section) props.leading)
+                            (single-child-scroll-view
+                                :scroll-direction axis.horizontal
+                                :child (row
+                                    :spacing 4
+                                    :main-axis-size main-axis-size.min
+                                    :cross-axis-alignment cross-axis-alignment.center
+                                    :children (?> (map section) props.leading)
+                                )
+                            )
                         )
                     )
                 )

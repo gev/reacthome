@@ -1,35 +1,70 @@
 (module widget.project-app-bar
     (export project-app-bar)
 
+    (import i18n.dict)
+
+    (import lib.i18n)
     (import lib.data)
     (import lib.navigation)
-
     (import widget.app-bar)
-    (import widget.site-breadcrumbs)
 
-    (def (site-title props)
-        (print props)
-        (icon-button
-            :on-pressed (props.select-screen 1)
-            :child (single-child-scroll-view
-                :scroll-direction axis.horizontal
-                :child (row
+    (def (label props)
+        (text
+            :text props.text
+            :style current-theme.text-theme.title-medium
+        )
+    )
+    
+    (def (app-bar-button props)
+        (filled-button
+            :on-pressed props.on-pressed
+            :style (button-style
+                :background-color (
+                    ? props.selected
+                    current-theme.color-scheme.secondary-container
+                    colors.transparent
+                )
+                :foreground-color (
+                    ? props.selected
+                    current-theme.color-scheme.on-secondary-container
+                    current-theme.color-scheme.on-surface-variant
+                )
+            )
+            :child (if (exists? props.title)
+                (row
                     :spacing 8
+                    :main-axis-size main-axis-size.min
                     :cross-axis-alignment cross-axis-alignment.center
                     :children (
                         (icon
-                            :icon (symbol 'home)
+                            :fill (? props.selected 1 0)
+                            :icon (symbol props.symbol)
                         )
-                        (text
-                            :text (title props.site)
-                            :style current-theme.text-theme.title-large
-                        )
-                        (site-breadcrumbs
-                            :site props.site.parent
-                            :action (\ (id) (go :route 'site :id id))
-                        )
+                        (props.title)
                     )
                 )
+                (icon
+                    :fill (? props.selected 1 0)
+                    :icon (symbol props.symbol)
+                )
+            )
+        )
+    )
+
+    (def (site-title props)
+        (label
+            :text (title props)
+        )
+    )
+
+    (def (project-title props)
+        (app-bar-button
+            :symbol 'home
+            :selected (== props.current-screen 1)
+            :on-pressed (props.select-screen 1)
+            :title (if (exists? props.site)
+                (site-title props.site)
+                (select site-title props.id)
             )
         )
     )
@@ -37,14 +72,18 @@
     (def (project-app-bar props)
         (app-bar
             :leading (
-                (icon-button
-                    :child (icon :icon (symbol 'weather.mix))
-                    :on-pressed (props.select-screen 0)
-                )
-                (site-title props)
-                (icon-button
-                    :child (icon :icon (symbol 'dashboard))
+                (project-title props)
+                (app-bar-button
+                    :symbol 'dashboard
+                    :title (label :text (select-locale i18n-systems))
+                    :selected (== props.current-screen 2)
                     :on-pressed (props.select-screen 2)
+                )
+                (app-bar-button
+                    :symbol 'weather.mix
+                    :title (label :text (select-locale i18n-weather))
+                    :selected (== props.current-screen 0)
+                    :on-pressed (props.select-screen 0)
                 )
             )
             :trailing (
@@ -55,5 +94,4 @@
             )
         )
     )
-
 )
