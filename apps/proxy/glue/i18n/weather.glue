@@ -1,0 +1,265 @@
+(module i18n.weather
+    (export
+        i18n-sunset
+        i18n-sunrise
+
+        i18n-wind
+        i18n-visibility
+        i18n-feels-like
+
+    )
+
+    (def i18n-sunset (
+            :en "Sunset"
+            :ru "Рассвет"
+        ))
+
+    (def i18n-sunrise (
+            :en "Sunrise"
+            :ru "Закат"
+        ))
+
+    (def i18n-wind (
+            :en "Wind"
+            :ru "Ветер"
+        ))
+
+    (def i18n-visibility (
+            :en "Visibility"
+            :ru "Видимость"
+        ))
+
+    (def i18n-feels-like (
+            :en "Feels like"
+            :ru "Ощущается как"
+        ))
+
+    (def i18n-weather-conditions (
+            :thunderstorm-light-rain (
+                :en "Thunderstorm with light rain"
+                :ru "Гроза со слабым дождем"
+            )
+            :thunderstorm-rain (
+                :en "Thunderstorm with rain"
+                :ru "Гроза с дождем"
+            )
+            :thunderstorm-heavy-rain (
+                :en "Thunderstorm with heavy rain"
+                :ru "Гроза с сильным дождем"
+            )
+            :thunderstorm-light (
+                :en "Light thunderstorm"
+                :ru "Слабая гроза"
+            )
+            :thunderstorm (
+                :en "Thunderstorm"
+                :ru "Гроза"
+            )
+            :thunderstorm-heavy (
+                :en "Heavy thunderstorm"
+                :ru "Сильная гроза"
+            )
+            :thunderstorm-ragged (
+                :en "Ragged thunderstorm"
+                :ru "Шквалистая гроза"
+            )
+            :thunderstorm-light-drizzle (
+                :en "Thunderstorm with light drizzle"
+                :ru "Гроза со слабой моросью"
+            )
+            :thunderstorm-drizzle (
+                :en "Thunderstorm with drizzle"
+                :ru "Гроза с моросью"
+            )
+            :thunderstorm-heavy-drizzle (
+                :en "Thunderstorm with heavy drizzle"
+                :ru "Гроза с сильной моросью"
+            )
+
+            :drizzle-light (
+                :en "Light intensity drizzle"
+                :ru "Слабая морось"
+            )
+            :drizzle (
+                :en "Drizzle"
+                :ru "Морось"
+            )
+            :drizzle-heavy (
+                :en "Heavy intensity drizzle"
+                :ru "Сильная морось"
+            )
+            :drizzle-rain-light (
+                :en "Light intensity drizzle rain"
+                :ru "Слабый моросящий дождь"
+            )
+            :drizzle-rain (
+                :en "Drizzle rain"
+                :ru "Моросящий дождь"
+            )
+            :drizzle-rain-heavy (
+                :en "Heavy intensity drizzle rain"
+                :ru "Сильный моросящий дождь"
+            )
+            :shower-and-drizzle (
+                :en "Shower rain and drizzle"
+                :ru "Ливневый дождь с моросью"
+            )
+            :heavy-shower-and-drizzle (
+                :en "Heavy shower rain and drizzle"
+                :ru "Сильный ливневый дождь с моросью"
+            )
+            :shower-drizzle (
+                :en "Shower drizzle"
+                :ru "Ливневая морось"
+            )
+
+            :rain-light (
+                :en "Light rain"
+                :ru "Небольшой дождь"
+            )
+            :rain-moderate (
+                :en "Moderate rain"
+                :ru "Умеренный дождь"
+            )
+            :rain-heavy (
+                :en "Heavy intensity rain"
+                :ru "Сильный дождь"
+            )
+            :rain-very-heavy (
+                :en "Very heavy rain"
+                :ru "Очень сильный дождь"
+            )
+            :rain-extreme (
+                :en "Extreme rain"
+                :ru "Экстремальный дождь"
+            )
+            :freezing-rain (
+                :en "Freezing rain"
+                :ru "Ледяной дождь"
+            )
+            :shower-rain-light (
+                :en "Light intensity shower rain"
+                :ru "Слабый ливень"
+            )
+            :shower-rain (
+                :en "Shower rain"
+                :ru "Ливень"
+            )
+            :shower-rain-heavy (
+                :en "Heavy intensity shower rain"
+                :ru "Сильный ливень"
+            )
+            :shower-rain-ragged (
+                :en "Ragged shower rain"
+                :ru "Внезапный ливень"
+            )
+
+            :snow-light (
+                :en "Light snow"
+                :ru "Небольшой снег"
+            )
+            :snow (
+                :en "Snow"
+                :ru "Снег"
+            )
+            :snow-heavy (
+                :en "Heavy snow"
+                :ru "Сильный снег"
+            )
+            :sleet (
+                :en "Sleet"
+                :ru "Мокрый снег"
+            )
+            :sleet-shower-light (
+                :en "Light shower sleet"
+                :ru "Слабый мокрый снег с дождем"
+            )
+            :sleet-shower (
+                :en "Shower sleet"
+                :ru "Мокрый снег с дождем"
+            )
+            :rain-and-snow-light (
+                :en "Light rain and snow"
+                :ru "Небольшой дождь со снегом"
+            )
+            :rain-and-snow (
+                :en "Rain and snow"
+                :ru "Дождь со снегом"
+            )
+            :snow-shower-light (
+                :en "Light shower snow"
+                :ru "Слабый снегопад"
+            )
+            :snow-shower (
+                :en "Shower snow"
+                :ru "Снегопад"
+            )
+            :snow-shower-heavy (
+                :en "Heavy shower snow"
+                :ru "Сильный снегопад"
+            )
+
+            :mist (
+                :en "Mist"
+                :ru "Дымка"
+            )
+            :smoke (
+                :en "Smoke"
+                :ru "Задымление"
+            )
+            :haze (
+                :en "Haze"
+                :ru "Мгла"
+            )
+            :dust-whirls (
+                :en "Sand/dust whirls"
+                :ru "Песчаные/пылевые вихри"
+            )
+            :fog (
+                :en "Fog"
+                :ru "Туман"
+            )
+            :sand (
+                :en "Sand"
+                :ru "Песок"
+            )
+            :dust (
+                :en "Dust"
+                :ru "Пыль"
+            )
+            :volcanic-ash (
+                :en "Volcanic ash"
+                :ru "Вулканический пепел"
+            )
+            :squalls (
+                :en "Squalls"
+                :ru "Шквал"
+            )
+            :tornado (
+                :en "Tornado"
+                :ru "Торнадо"
+            )
+
+            :sky-clear (
+                :en "Clear sky"
+                :ru "Ясно"
+
+            )
+            :clouds-few (
+                :en "Few clouds: 11-25%"
+                :ru "Малооблачно"
+            )
+            :clouds-scattered (
+                :en "Scattered clouds: 25-50%"
+                :ru "Переменная облачность"
+            )
+            :clouds-broken (
+                :en "Broken clouds: 51-84%"
+                :ru "Облачно с прояснениями"
+            )
+            :clouds-overcast (
+                :en "Overcast clouds: 85-100%"
+                :ru "Пасмурно"
+            )
+        ))
+)
