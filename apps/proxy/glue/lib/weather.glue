@@ -1,0 +1,317 @@
+(module  lib.weather
+    (export weather)
+
+    (import i18n.weather)
+
+    (def weather-conditions (
+            (
+                :code 200
+                :description i18n-weather-conditions.thunderstorm-light-rain
+                :type (:day weather-type.thunder :night weather-type.thunder)
+            )
+            (
+                :code 201
+                :description i18n-weather-conditions.thunderstorm-rain
+                :type (:day weather-type.thunder :night weather-type.thunder)
+            )
+            (
+                :code 202
+                :description i18n-weather-conditions.thunderstorm-heavy-rain
+                :type (:day weather-type.thunder :night weather-type.thunder)
+            )
+            (
+                :code 210
+                :description i18n-weather-conditions.thunderstorm-light
+                :type (:day weather-type.thunder :night weather-type.thunder)
+            )
+            (
+                :code 211
+                :description i18n-weather-conditions.thunderstorm
+                :type (:day weather-type.thunder :night weather-type.thunder)
+            )
+            (
+                :code 212
+                :description i18n-weather-conditions.thunderstorm-heavy
+                :type (:day weather-type.thunder :night weather-type.thunder)
+            )
+            (
+                :code 221
+                :description i18n-weather-conditions.thunderstorm-ragged
+                :type (:day weather-type.thunder :night weather-type.thunder)
+            )
+            (
+                :code 230
+                :description i18n-weather-conditions.thunderstorm-light-drizzle
+                :type (:day weather-type.thunder :night weather-type.thunder)
+            )
+            (
+                :code 231
+                :description i18n-weather-conditions.thunderstorm-drizzle
+                :type (:day weather-type.thunder :night weather-type.thunder)
+            )
+            (
+                :code 232
+                :description i18n-weather-conditions.thunderstorm-heavy-drizzle
+                :type (:day weather-type.thunder :night weather-type.thunder)
+            )
+
+            (
+                :code 300
+                :description i18n-weather-conditions.drizzle-light
+                :type (:day weather-type.light-rainy :night weather-type.light-rainy)
+            )
+            (
+                :code 301
+                :description i18n-weather-conditions.drizzle
+                :type (:day weather-type.light-rainy :night weather-type.light-rainy)
+            )
+            (
+                :code 302
+                :description i18n-weather-conditions.drizzle-heavy
+                :type (:day weather-type.middle-rainy :night weather-type.middle-rainy)
+            )
+            (
+                :code 310
+                :description i18n-weather-conditions.drizzle-rain-light
+                :type (:day weather-type.light-rainy :night weather-type.light-rainy)
+            )
+            (
+                :code 311
+                :description i18n-weather-conditions.drizzle-rain
+                :type (:day weather-type.light-rainy :night weather-type.light-rainy)
+            )
+            (
+                :code 312
+                :description i18n-weather-conditions.drizzle-rain-heavy
+                :type (:day weather-type.middle-rainy :night weather-type.middle-rainy)
+            )
+            (
+                :code 313
+                :description i18n-weather-conditions.shower-and-drizzle
+                :type (:day weather-type.middle-rainy :night weather-type.middle-rainy)
+            )
+            (
+                :code 314
+                :description i18n-weather-conditions.heavy-shower-and-drizzle
+                :type (:day weather-type.heavy-rainy :night weather-type.heavy-rainy)
+            )
+            (
+                :code 321
+                :description i18n-weather-conditions.shower-drizzle
+                :type (:day weather-type.light-rainy :night weather-type.light-rainy)
+            )
+
+            (
+                :code 500
+                :description i18n-weather-conditions.rain-light
+                :type (:day weather-type.light-rainy :night weather-type.light-rainy)
+            )
+            (
+                :code 501
+                :description i18n-weather-conditions.rain-moderate
+                :type (:day weather-type.middle-rainy :night weather-type.middle-rainy)
+            )
+            (
+                :code 502
+                :description i18n-weather-conditions.rain-heavy
+                :type (:day weather-type.heavy-rainy :night weather-type.heavy-rainy)
+            )
+            (
+                :code 503
+                :description i18n-weather-conditions.rain-very-heavy
+                :type (:day weather-type.heavy-rainy :night weather-type.heavy-rainy)
+            )
+            (
+                :code 504
+                :description i18n-weather-conditions.rain-extreme
+                :type (:day weather-type.heavy-rainy :night weather-type.heavy-rainy)
+            )
+            (
+                :code 511
+                :description i18n-weather-conditions.freezing-rain
+                :type (:day weather-type.heavy-rainy :night weather-type.heavy-rainy)
+            )
+            (
+                :code 520
+                :description i18n-weather-conditions.shower-rain-light
+                :type (:day weather-type.light-rainy :night weather-type.light-rainy)
+            )
+            (
+                :code 521
+                :description i18n-weather-conditions.shower-rain
+                :type (:day weather-type.middle-rainy :night weather-type.middle-rainy)
+            )
+            (
+                :code 522
+                :description i18n-weather-conditions.shower-rain-heavy
+                :type (:day weather-type.heavy-rainy :night weather-type.heavy-rainy)
+            )
+            (
+                :code 531
+                :description i18n-weather-conditions.shower-rain-ragged
+                :type (:day weather-type.middle-rainy :night weather-type.middle-rainy)
+            )
+
+            (
+                :code 600
+                :description i18n-weather-conditions.snow-light
+                :type (:day weather-type.light-snow :night weather-type.light-snow)
+            )
+            (
+                :code 601
+                :description i18n-weather-conditions.snow
+                :type (:day weather-type.middle-snow :night weather-type.middle-snow)
+            )
+            (
+                :code 602
+                :description i18n-weather-conditions.snow-heavy
+                :type (:day weather-type.heavy-snow :night weather-type.heavy-snow)
+            )
+            (
+                :code 611
+                :description i18n-weather-conditions.sleet
+                :type (:day weather-type.middle-snow :night weather-type.middle-snow)
+            )
+            (
+                :code 612
+                :description i18n-weather-conditions.sleet-shower-light
+                :type (:day weather-type.light-snow :night weather-type.light-snow)
+            )
+            (
+                :code 613
+                :description i18n-weather-conditions.sleet-shower
+                :type (:day weather-type.middle-snow :night weather-type.middle-snow)
+            )
+            (
+                :code 615
+                :description i18n-weather-conditions.rain-and-snow-light
+                :type (:day weather-type.light-snow :night weather-type.light-snow)
+            )
+            (
+                :code 616
+                :description i18n-weather-conditions.rain-and-snow
+                :type (:day weather-type.middle-snow :night weather-type.middle-snow)
+            )
+            (
+                :code 620
+                :description i18n-weather-conditions.snow-shower-light
+                :type (:day weather-type.light-snow :night weather-type.light-snow)
+            )
+            (
+                :code 621
+                :description i18n-weather-conditions.snow-shower
+                :type (:day weather-type.middle-snow :night weather-type.middle-snow)
+            )
+            (
+                :code 622
+                :description i18n-weather-conditions.snow-shower-heavy
+                :type (:day weather-type.heavy-snow :night weather-type.heavy-snow)
+            )
+
+            (
+                :code 701
+                :description i18n-weather-conditions.mist
+                :type (:day weather-type.hazy :night weather-type.hazy)
+            )
+            (
+                :code 711
+                :description i18n-weather-conditions.smoke
+                :type (:day weather-type.dusty :night weather-type.dusty)
+            )
+            (
+                :code 721
+                :description i18n-weather-conditions.haze
+                :type (:day weather-type.hazy :night weather-type.hazy)
+            )
+            (
+                :code 731
+                :description i18n-weather-conditions.dust-whirls
+                :type (:day weather-type.dusty :night weather-type.dusty)
+            )
+            (
+                :code 741
+                :description i18n-weather-conditions.fog
+                :type (:day weather-type.foggy :night weather-type.foggy)
+            )
+            (
+                :code 751
+                :description i18n-weather-conditions.sand
+                :type (:day weather-type.dusty :night weather-type.dusty)
+            )
+            (
+                :code 761
+                :description i18n-weather-conditions.dust
+                :type (:day weather-type.dusty :night weather-type.dusty)
+            )
+            (
+                :code 762
+                :description i18n-weather-conditions.volcanic-ash
+                :type (:day weather-type.dusty :night weather-type.dusty)
+            )
+            (
+                :code 771
+                :description i18n-weather-conditions.squalls
+                :type (:day weather-type.thunder :night weather-type.thunder)
+            )
+            (
+                :code 781
+                :description i18n-weather-conditions.tornado
+                :type (:day weather-type.thunder :night weather-type.thunder)
+            )
+
+            (
+                :code 800
+                :description i18n-weather-conditions.sky-clear
+                :type (:day weather-type.sunny :night weather-type.sunny-night)
+            )
+
+            (
+                :code 801
+                :description i18n-weather-conditions.clouds-few
+                :type (:day weather-type.cloudy :night weather-type.cloudy-night)
+            )
+            (
+                :code 802
+                :description i18n-weather-conditions.clouds-scattered
+                :type (:day weather-type.cloudy :night weather-type.cloudy-night)
+            )
+            (
+                :code 803
+                :description i18n-weather-conditions.clouds-broken
+                :type (:day weather-type.cloudy :night weather-type.cloudy-night)
+            )
+            (
+                :code 804
+                :description i18n-weather-conditions.clouds-overcast
+                :type (:day weather-type.overcast :night weather-type.overcast)
+            )
+        ))
+    
+    (def (day? time props)
+        (&& (> time props.sunrise) (< time props.sunset))
+    )
+
+    (def (by-code code condition)
+        (== condition.code code)
+    )
+
+    (def (weather props)
+        (def time (* props.dt 1000))
+        (def weather (head props.weather))
+        (def condition (find (by-code weather.id) weather-conditions))
+        (
+            :time time
+            :feels-like props.main.feels_like
+            :temperature props.main.feels_like
+            :humidity props.main.humidity
+            :pressure props.main.pressure
+            :wind props.wind
+            :sunset props.sys.sunset
+            :sunrise props.sys.sunrise
+            :visibility props.visibility
+            :description condition.description
+            :type (?? (day? time props.sys)
+                condition.type.day condition.type.night)
+        )
+    )
+)
