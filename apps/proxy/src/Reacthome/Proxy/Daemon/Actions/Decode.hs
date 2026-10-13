@@ -113,6 +113,7 @@ processKey "wet_threshold" = processKeyFloat
 -- Process as Value
 processKey "value" = processKeyValue
 -- Process as Reference
+processKey "action" = processKeyReference
 processKey "bind" = processKeyReference
 processKey "site" = processKeyReference
 processKey "parent" = processKeyReference
