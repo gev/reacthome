@@ -7,22 +7,22 @@ import Data.Scientific (fromFloatDigits)
 import Data.Text (Text)
 import Data.Vector qualified as V
 
-actionGet :: Text -> A.Object
-actionGet uid =
+getAction :: Text -> A.Object
+getAction uid =
     A.fromList
         [ ("type", "get")
         , ("state", A.Array $ V.fromList [A.String uid])
         ]
 
-actionState :: A.Value -> Text -> A.Object
-actionState action uid =
+simpleAction :: A.Value -> Text -> A.Object
+simpleAction action uid =
     A.fromList
         [ ("type", action)
         , ("id", A.String uid)
         ]
 
-actionValue :: A.Value -> A.Key -> Double -> Text -> A.Object
-actionValue action key value uid =
+valueAction :: A.Value -> A.Key -> Double -> Text -> A.Object
+valueAction action key value uid =
     A.fromList
         [ ("type", action)
         , ("id", A.String uid)

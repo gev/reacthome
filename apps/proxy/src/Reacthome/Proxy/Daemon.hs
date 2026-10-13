@@ -5,7 +5,7 @@ import Data.Text (pack)
 import Reacthome.Proxy.Bridge.Downstream (Downstream (..))
 import Reacthome.Proxy.Bridge.Upstream (Upstream (..))
 import Reacthome.Proxy.Config.App (ClientConfig (..), ProxyConfig (..))
-import Reacthome.Proxy.Daemon.Actions.Encode (actionGet)
+import Reacthome.Proxy.Daemon.Actions.Encode (getAction)
 import WebSockets.Client (runWebSocketClient)
 import WebSockets.Options (defaultWebSocketOptions)
 
@@ -28,6 +28,6 @@ pingProxyDaemon ::
     (?downstream :: Downstream) =>
     ProxyConfig -> IO ()
 pingProxyDaemon config =
-    ?downstream.send $ actionGet daemon
+    ?downstream.send $ getAction daemon
   where
     daemon = pack config.daemon

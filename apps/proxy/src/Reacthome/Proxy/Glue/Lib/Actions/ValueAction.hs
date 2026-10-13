@@ -1,4 +1,4 @@
-module Reacthome.Proxy.Glue.Lib.Actions.ActionValue where
+module Reacthome.Proxy.Glue.Lib.Actions.ValueAction where
 
 import Control.Monad (void)
 import Data.Aeson qualified as A
@@ -10,30 +10,30 @@ import Glue.IR qualified as IR
 import Reacthome.Proxy.Bridge.Downstream (Downstream (..))
 import Reacthome.Proxy.Daemon.Actions.Encode qualified as E
 
-actionValue ::
+valueAction ::
     (?downstream :: Downstream) =>
     A.Value -> A.Key -> IR Eval
-actionValue action key = NativeFunc (actionValueImpl action key)
+valueAction action key = NativeFunc (valueActionImpl action key)
 
-actionValueImpl ::
+valueActionImpl ::
     (?downstream :: Downstream) =>
     A.Value -> A.Key -> IR Eval -> Eval (IR Eval)
-actionValueImpl action key ir = case ir of
-    String uid -> actionValueId $ T.split (== '.') uid
-    Symbol uid -> actionValueId $ T.split (== '.') uid
-    DottedSymbol uid -> actionValueId uid
+valueActionImpl action key ir = case ir of
+    String uid -> valueActionId $ T.split (== '.') uid
+    Symbol uid -> valueActionId $ T.split (== '.') uid
+    DottedSymbol uid -> valueActionId uid
     _ -> errId
   where
-    actionValueId ["proxy", uid] = do
-        pure $ IR.NativeFunc (matchActionValue uid)
-    actionValueId _ = errId
+    valueActionId ["proxy", uid] = do
+        pure $ IR.NativeFunc (matchValueAction uid)
+    valueActionId _ = errId
 
-    matchActionValue uid (Float value) = go uid value
-    matchActionValue uid (Integer value) = go uid $ fromIntegral value
-    matchActionValue _ _ = errValue
+    matchValueAction uid (Float value) = go uid value
+    matchValueAction uid (Integer value) = go uid $ fromIntegral value
+    matchValueAction _ _ = errValue
 
     go uid value = do
-        void . liftIO $ ?downstream.send $ E.actionValue action key value uid
+        void . liftIO $ ?downstream.send $ E.valueAction action key value uid
         pure Void
 
     errId = throwError $ wrongArgumentType ["String `id` required"]

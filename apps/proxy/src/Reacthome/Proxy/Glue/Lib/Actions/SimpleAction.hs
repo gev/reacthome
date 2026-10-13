@@ -1,4 +1,4 @@
-module Reacthome.Proxy.Glue.Lib.Actions.ActionState where
+module Reacthome.Proxy.Glue.Lib.Actions.SimpleAction where
 
 import Control.Monad (void)
 import Data.Aeson qualified as A
@@ -9,20 +9,20 @@ import Glue.IR (IR (..))
 import Reacthome.Proxy.Bridge.Downstream (Downstream (..))
 import Reacthome.Proxy.Daemon.Actions.Encode qualified as E
 
-actionState :: (?downstream :: Downstream) => A.Value -> IR Eval
-actionState action = NativeFunc $ actionStateImpl action
+simpleAction :: (?downstream :: Downstream) => A.Value -> IR Eval
+simpleAction action = NativeFunc $ simpleActionImpl action
 
-actionStateImpl ::
+simpleActionImpl ::
     (?downstream :: Downstream) =>
     A.Value -> IR Eval -> Eval (IR Eval)
-actionStateImpl action = \case
+simpleActionImpl action = \case
     String uid -> go $ T.split (== '.') uid
     Symbol uid -> go $ T.split (== '.') uid
     DottedSymbol uid -> go uid
     _ -> err
   where
     go ["proxy", uid] = do
-        void . liftIO $ ?downstream.send $ E.actionState action uid
+        void . liftIO $ ?downstream.send $ E.simpleAction action uid
         pure Void
     go _ = err
 
