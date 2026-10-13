@@ -13,7 +13,7 @@
         (weather-background
             :width constraints.width
             :height constraints.height
-            :weather-type weather-type.thunder
+            :weather-type props.type
         )
     )
 
