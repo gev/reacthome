@@ -2,6 +2,7 @@
     (export
         i18n-brightness
         i18n-humidity
+        i18n-pressure
         i18n-temperature
         i18n-setpoint
         i18n-CO2
@@ -25,6 +26,11 @@
     (def i18n-humidity (
             :en "Humidity"
             :ru "Влажность"
+        ))
+
+    (def i18n-pressure (
+            :en "Pressure"
+            :ru "Давление"
         ))
 
     (def i18n-temperature (
