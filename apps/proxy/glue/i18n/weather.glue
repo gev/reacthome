@@ -254,19 +254,19 @@
 
             )
             :clouds-few (
-                :en "Few clouds: 11-25%"
+                :en "Few clouds"
                 :ru "Малооблачно"
             )
             :clouds-scattered (
-                :en "Scattered clouds: 25-50%"
+                :en "Scattered clouds"
                 :ru "Переменная облачность"
             )
             :clouds-broken (
-                :en "Broken clouds: 51-84%"
+                :en "Broken clouds"
                 :ru "Облачно с прояснениями"
             )
             :clouds-overcast (
-                :en "Overcast clouds: 85-100%"
+                :en "Overcast clouds"
                 :ru "Пасмурно"
             )
         ))
