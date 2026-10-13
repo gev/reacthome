@@ -28,9 +28,10 @@
         stop-ventilation
         toggle-ventilation
         set-ventilation-intensity
+        run-script
     )
 
-    (def (state-action action uid)
+    (def (simple-action action uid)
         (\ ()
             (post (# action uid))
         )
@@ -49,8 +50,8 @@
         )
     )
 
-    (def turn-on (state-action 'turn-on))
-    (def turn-off (state-action 'turn-off))
+    (def turn-on (simple-action 'turn-on))
+    (def turn-off (simple-action 'turn-off))
     (def toggle-on-off (toggle-action 'turn-on 'turn-off))
 
     (def dim (value-action 'dim))
@@ -59,30 +60,32 @@
     (def set-humidity-setpoint (value-action 'set-humidity-setpoint))
     (def set-co2-setpoint (value-action 'set-co2-setpoint))
 
-    (def start-cool (state-action 'start-cool))
-    (def stop-cool (state-action 'stop-cool))
+    (def start-cool (simple-action 'start-cool))
+    (def stop-cool (simple-action 'stop-cool))
     (def toggle-cool (toggle-action 'start-cool 'stop-cool))
     (def set-cool-intensity (value-action 'set-cool-intensity))
 
-    (def start (state-action 'start))
-    (def stop (state-action 'stop))
+    (def start (simple-action 'start))
+    (def stop (simple-action 'stop))
     (def toggle-start-stop (toggle-action 'start 'stop))
 
-    (def start-heat (state-action 'start-heat))
-    (def stop-heat (state-action 'stop-heat))
+    (def start-heat (simple-action 'start-heat))
+    (def stop-heat (simple-action 'stop-heat))
     (def toggle-heat (toggle-action 'start-heat 'stop-heat))
     (def set-heat-intensity (value-action 'set-heat-intensity))
 
-    (def start-wet (state-action 'start-wet))
-    (def stop-wet (state-action 'stop-wet))
+    (def start-wet (simple-action 'start-wet))
+    (def stop-wet (simple-action 'stop-wet))
     (def toggle-wet (toggle-action 'start-wet 'stop-wet))
 
-    (def start-dry (state-action 'start-dry))
-    (def stop-dry (state-action 'stop-dry))
+    (def start-dry (simple-action 'start-dry))
+    (def stop-dry (simple-action 'stop-dry))
     (def toggle-dry (toggle-action 'start-dry 'stop-dry))
 
-    (def start-ventilation (state-action 'start-ventilation))
-    (def stop-ventilation (state-action 'stop-ventilation))
+    (def start-ventilation (simple-action 'start-ventilation))
+    (def stop-ventilation (simple-action 'stop-ventilation))
     (def toggle-ventilation (toggle-action 'start-ventilation 'stop-ventilation))
     (def set-ventilation-intensity (value-action 'set-ventilation-intensity))
+
+    (def run-script (simple-action 'run-script))
 )

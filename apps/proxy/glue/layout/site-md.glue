@@ -1,6 +1,7 @@
 (module layout.site-md
     (export md-site-layout)
 
+    (import lib.actions)
     (import lib.data)
     (import lib.navigation)
 
@@ -57,8 +58,23 @@
     )
 
     (def (scene props)
-        (button
-            :child (text :text (title))
+        (def label (text :text (title props)))
+        (if (exists? props.action)
+            (button
+                :style (button-style
+                    :elevation 0
+                    :foreground-color current-theme.color-scheme.tertiary
+                )
+                :on-pressed  (run-script props.id)
+                :child label
+            )
+            (text-button
+                :style (button-style
+                    :elevation 0
+                    :foreground-color current-theme.color-scheme.on-surface-variant
+                )
+                :child label
+            )
         )
     )
 
@@ -76,17 +92,28 @@
         (def scenes
             (select-collection scene props.site.scene)
         )
-        (print props.site)
-        (row
-            :spacing 16
-            :children (flatten
-                (
-                    (site-title props)
-                    (site-breadcrumbs
-                        :site props.site.parent
-                        :action (\ (id) (go :route 'site :id id))
+        (single-child-scroll-view
+            :scroll-direction axis.horizontal
+            :child (row
+                :spacing 32
+                :children (
+                    (row
+                        :main-axis-size main-axis-size.min
+                        :children (
+                            (site-title props)
+                            (site-breadcrumbs
+                                :site props.site.parent
+                                :action (\ (id) (go :route 'site :id id))
+                            )
+                        )
                     )
-                    (scenes)
+                    (if (exists? scenes)
+                        (row
+                            :spacing 4
+                            :main-axis-size main-axis-size.min
+                            :children scenes
+                        )
+                    )
                 )
             )
         )
@@ -134,8 +161,8 @@
         (single-child-scroll-view
             :scroll-direction axis.horizontal
             :child (row
-                :cross-axis-alignment cross-axis-alignment.start
                 :spacing 32
+                :cross-axis-alignment cross-axis-alignment.start
                 :children (
                     (scrolled-column
                         :width 360
@@ -189,6 +216,7 @@
             :body (padding
                 :padding (edge-insets-only :top 80)
                 :child (column
+                    :cross-axis-alignment cross-axis-alignment.start
                     :children (
                         (head props)
                         (expanded
