@@ -49,8 +49,8 @@ library
     Reacthome.Proxy.Glue.Env.Vision
     Reacthome.Proxy.Glue.Evaluator
     Reacthome.Proxy.Glue.Lib.Actions
-    Reacthome.Proxy.Glue.Lib.Actions.ActionState
-    Reacthome.Proxy.Glue.Lib.Actions.ActionValue
+    Reacthome.Proxy.Glue.Lib.Actions.SimpleAction
+    Reacthome.Proxy.Glue.Lib.Actions.ValueAction
     Reacthome.Proxy.Glue.Lib.Config
     Reacthome.Proxy.Glue.Lib.Config.App
     Reacthome.Proxy.Glue.Lib.Vision
