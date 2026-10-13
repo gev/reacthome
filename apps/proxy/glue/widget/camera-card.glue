@@ -14,7 +14,7 @@
                     :clip-behavior clip.anti-alias
                     :child (stack
                         :children (
-                            (media-player
+                            (video-player
                                 :url (?? props.preview_URL props.main_URL)
                                 :fit box-fit.cover
                                 :width (?? props.width 200)
