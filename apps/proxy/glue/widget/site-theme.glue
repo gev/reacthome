@@ -14,7 +14,7 @@
             (let
                 (def palette (
                         :seed-color props.site.palette.vibrant
-                        :dynamic-scheme-variant dynamic-scheme-variant.content
+                        :dynamic-scheme-variant dynamic-scheme-variant.expressive
                     )
                 )
                 (apply-palette site palette props constraints)

@@ -6,6 +6,7 @@
     (import lib.navigation)
 
     (import widget.app-bar)
+    (import widget.background)
     (import widget.screen)
     (import widget.site-breadcrumbs)
     (import widget.site-card)
@@ -17,24 +18,6 @@
     (import widget.temperature-regulator-active-card)
     (import widget.humidity-regulator-active-card)
     (import widget.ventilation-regulator-active-card)
-
-    (def (background props constraints)
-        (if (exists? props.image)
-            (image-filtered
-                :key props.id
-                :image-filter (image-filter-blur :sigma-x 40 :sigma-y 40)
-                :child (opacity
-                    :opacity 0.6
-                    :child (image
-                        :width constraints.width
-                        :height constraints.height
-                        :fit box-fit.cover
-                        :image (load-image :src props.image)
-                    )
-                )
-            )
-        )
-    )
 
     (def (scrolled-column props)
         (single-child-scroll-view
@@ -62,8 +45,9 @@
         (if (exists? props.action)
             (button
                 :style (button-style
-                    :elevation 0
-                    :foreground-color current-theme.color-scheme.tertiary
+                    :elevation 1
+                    :foreground-color current-theme.color-scheme.on-surface
+                    :background-color current-theme.color-scheme.surface
                 )
                 :on-pressed  (run-script props.id)
                 :child label
@@ -209,10 +193,9 @@
     )
     
     (def (md-site-layout palette props constraints)
-
         (screen
             :app-bar (app-bar _)
-            :background (background props.site constraints)
+            :background (background _)
             :body (padding
                 :padding (edge-insets-only :top 80)
                 :child (column

@@ -1,0 +1,23 @@
+(module widget.background
+    (export background)
+
+    (def (background props)
+        (container
+            :width props.width
+            :height props.height
+            :decoration (box-decoration
+                :gradient (linear-gradient
+                    :begin alignment.top-left
+                    :end alignment.bottom-right
+                    :colors (#
+                        current-theme.color-scheme.primary-container
+                        current-theme.color-scheme.secondary-container
+                        current-theme.color-scheme.tertiary-container
+                    )
+                    :stops (0 0.5 1)
+                )
+            )
+            :child props.child
+        )
+    )
+)
