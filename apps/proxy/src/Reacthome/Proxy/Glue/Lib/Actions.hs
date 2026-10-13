@@ -31,4 +31,5 @@ actions =
         , ("start-ventilation", simpleAction "ACTION_START_VENTILATION")
         , ("stop-ventilation", simpleAction "ACTION_STOP_VENTILATION")
         , ("set-ventilation-intensity", valueAction "ACTION_INTENSITY" "ventilation")
+        , ("run-script", simpleAction "ACTION_SCRIPT_RUN")
         ]
