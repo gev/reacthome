@@ -64,7 +64,7 @@
         (app
             :navigator-key applet
             :seed-color colors.grey
-            :dynamic-scheme-variant dynamic-scheme-variant.tonal
+            :dynamic-scheme-variant dynamic-scheme-variant.content
             :routes (
                 :index (project-route props)
                 :settings (settings-route props)
