@@ -310,7 +310,7 @@
             :sunrise props.sys.sunrise
             :visibility props.visibility
             :description condition.description
-            :type (?? (day? time props.sys)
+            :type (? (day? time props.sys)
                 condition.type.day condition.type.night)
         )
     )
