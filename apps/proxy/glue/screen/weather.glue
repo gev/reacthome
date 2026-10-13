@@ -1,25 +1,40 @@
 (module  screen.weather
     (export weather-screen)
 
-    (import lib.layout)
+    (import i18n.dict)
+    
+    (import lib.i18n)
+    (import lib.data)
+    (import lib.weather)
 
-    (def (xs-layout props constraints)
-        (import layout.weather-xs)
-        (xs-weather-layout props constraints)
+    (import widget.screen)
+
+    (def (background props constraints)
+        (weather-background
+            :width constraints.width
+            :height constraints.height
+            :weather-type weather-type.thunder
+        )
     )
 
-    (def (md-layout props constraints)
-        (import layout.weather-md)
-        (md-weather-layout props constraints)
+    (def (body props)
+        (center
+            :child (text
+                :text (select-locale i18n-weather)
+                :style current-theme.text-theme.display-medium
+            )
+        )
+    )
+
+    (def (show props)
+        (def weather (weather props.weather))
+        (screen
+            :background (layout (background weather))
+            :body (body weather)
+        )
     )
 
     (def (weather-screen props)
-        (select-layout
-            :xs (xs-layout props)
-            :sm (xs-layout props)
-            :md (md-layout props)
-            :lg (md-layout props)
-            :xl (md-layout props)
-        )
+        (select show props.id)
     )
 )
