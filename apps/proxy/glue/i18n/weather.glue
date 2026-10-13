@@ -1,5 +1,7 @@
 (module i18n.weather
     (export
+        i18n-weather
+    
         i18n-sunset
         i18n-sunrise
 
@@ -9,6 +11,11 @@
 
         i18n-weather-conditions
     )
+
+    (def i18n-weather (
+            :en "Weather"
+            :ru "Погода"
+        ))
 
     (def i18n-sunset (
             :en "Sunset"

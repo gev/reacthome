@@ -1,7 +1,7 @@
 (module  screen.weather
     (export weather-screen)
 
-    (import i18n.dict)
+    (import i18n.weather)
     
     (import lib.i18n)
     (import lib.data)
@@ -28,6 +28,7 @@
 
     (def (show props)
         (def weather (weather props.weather))
+        (print weather)
         (screen
             :background (layout (background weather))
             :body (body weather)

@@ -4,7 +4,6 @@
         i18n-my-homes
         i18n-settings
         i18n-systems
-        i18n-weather
     )
 
     (def i18n-home (
@@ -25,10 +24,5 @@
     (def i18n-systems (
             :en "Systems"
             :ru "Системы"
-        ))
-
-    (def i18n-weather (
-            :en "Weather"
-            :ru "Погода"
         ))
 )
