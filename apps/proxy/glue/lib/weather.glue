@@ -3,7 +3,7 @@
 
     (import i18n.weather)
 
-    (def dark colors.black)
+    (def dark colors.blue-grey)
     (def light colors.white)
 
     (def weather-theme (
