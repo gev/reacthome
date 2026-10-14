@@ -44,7 +44,6 @@
     )
 
     (def (show-value props)
-        (print props)
         (def value-style (?? props.value-style props.style))
         (def unit-style (?? props.unit-style props.style))
         (row
