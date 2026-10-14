@@ -34,6 +34,7 @@
                 :child (ink-well
                     :on-tap props.on-pressed
                     :on-long-press props.on-long-press
+                    :elevation props.elevation
                     :child (adopt props.child)
                 )
             )
