@@ -1,0 +1,37 @@
+(module layout.screen-md
+    (export md-screen-layout)
+
+    (import widget.app-bar)
+    (import widget.background)
+    (import widget.screen)
+
+    (def (md-screen-layout props)
+        (def color current-theme.color-scheme.primary-container)
+        (def top (?? props.top 48))
+        (screen
+            :app-bar (app-bar _)
+            :background (background _)
+            :body (stack
+                :children (
+                    (padding
+                        :padding (edge-insets-only :top (+ top 80))
+                        :child props.body
+                    )
+                    (container
+                        :width infinity
+                        :padding (edge-insets-only :top 80 :bottom 16)
+                        :decoration (box-decoration
+                            :gradient (linear-gradient
+                                :begin alignment.top-center
+                                :end alignment.bottom-center
+                                :colors (# color (color.with :a 0))
+                                :stops (0.1 1)
+                            )
+                        )
+                        :child props.header
+                    )
+                )
+            )
+        )
+    )
+)

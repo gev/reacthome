@@ -5,9 +5,8 @@
     (import lib.data)
     (import lib.navigation)
 
-    (import widget.app-bar)
-    (import widget.background)
-    (import widget.screen)
+    (import layout.screen-md)
+
     (import widget.site-breadcrumbs)
     (import widget.site-card)
     (import widget.site-info)
@@ -193,21 +192,9 @@
     )
     
     (def (md-site-layout palette props constraints)
-        (screen
-            :app-bar (app-bar _)
-            :background (background _)
-            :body (padding
-                :padding (edge-insets-only :top 80)
-                :child (column
-                    :cross-axis-alignment cross-axis-alignment.start
-                    :children (
-                        (head props)
-                        (expanded
-                            :child (body palette props)
-                        )
-                    )
-                )
-            )
+        (md-screen-layout
+            :header (head props)
+            :body (body palette props)
         )
     )
 )
