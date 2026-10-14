@@ -24,7 +24,7 @@
         (text-style
             :font-size 100
             :font-weight font-weight.w700
-            :color props.appearance.foreground
+            :color (props.appearance.foreground.with :a 0.75)
         )
     )
 
@@ -32,44 +32,39 @@
         (text-style
             :font-size 100
             :font-weight font-weight.w100
-            :color props.appearance.foreground
+            :color (props.appearance.foreground.with :a 0.5)
         )
     )
 
     (def (body-style props)
         (text-style
-            :font-size current-theme.text-theme.body-large.font-size
-            :color props.appearance.foreground
+            :font-size current-theme.text-theme.headline-large.font-size
+            :color (props.appearance.foreground.with :a 0.9)
         )
     )
 
-    (def (show-value props)
+    (def (value props)
         (def value-style (?? props.value-style props.style))
         (def unit-style (?? props.unit-style props.style))
         (row
-            :spacing (?? props.spacing 8)
             :main-axis-size main-axis-size.min
-            :cross-axis.alignment cross-axis-alignment.end
+            :cross-axis-alignment cross-axis-alignment.end
             :children (
-                (row
-                    :children (
-                        (if (< props.value 0)
-                            (text
-                                :text "−"
-                                :style value-style
-                            )
-                        )
-                        (if (> props.value 0)
-                            (text
-                                :text "+"
-                                :style value-style
-                            )
-                        )
-                        (text
-                            :text (abs (round props.value))
-                            :style value-style
-                        )
+                (if (< props.value 0)
+                    (text
+                        :text "−"
+                        :style value-style
                     )
+                )
+                (if (> props.value 0)
+                    (text
+                        :text "+"
+                        :style value-style
+                    )
+                )
+                (text
+                    :text (abs (round props.value))
+                    :style value-style
                 )
                 (text
                     :text props.unit
@@ -79,19 +74,30 @@
         )
     )
 
+    (def (label props)
+        (text
+            :text (select-locale props.text)
+            :style props.style
+        )
+    )
+    
     (def (body props)
+        (print props)
+        (def body-style (body-style props))
         (def title-style (title-style props))
         (def subtitle-style (subtitle-style props))
-        (def body-style (body-style props))
-        (container
-            :child (padding
-                :padding (edge-insets-all 32)
-                :child (show-value
-                    :spacing 16
+        (column
+            :main-axis-alignment main-axis-alignment.center
+            :children (
+                (value
                     :value props.temperature
                     :value-style title-style
                     :unit temperature.unit
                     :unit-style subtitle-style
+                )
+                (label
+                    :text props.description
+                    :style body-style
                 )
             )
         )
