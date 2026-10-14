@@ -2,10 +2,12 @@
     (export weather-screen)
 
     (import i18n.weather)
+    (import i18n.parameter)
     
     (import lib.i18n)
     (import lib.data)
     (import lib.weather)
+    (import lib.property)
 
     (import widget.screen)
 
@@ -13,15 +15,21 @@
         (weather-background
             :width constraints.width
             :height constraints.height
-            :weather-type props.type
+            :weather-type props.appearance.background
         )
     )
 
     (def (body props)
-        (center
-            :child (text
-                :text (select-locale i18n-weather)
-                :style current-theme.text-theme.display-medium
+        (container
+            :child (padding
+                :padding (edge-insets-all 32)
+                :child (text
+                    :text (select-locale i18n-weather)
+                    :style (text-style
+                        :font-size current-theme.text-theme.display-large.font-size
+                        :color props.appearance.foreground
+                    )
+                )
             )
         )
     )
@@ -31,7 +39,9 @@
         (print weather)
         (screen
             :background (layout (background weather))
-            :body (body weather)
+            :body (center
+                :child (body weather)
+            )
         )
     )
 
