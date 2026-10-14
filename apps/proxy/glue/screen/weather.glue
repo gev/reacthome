@@ -6,6 +6,7 @@
     
     (import lib.i18n)
     (import lib.data)
+    (import lib.conversion)
     (import lib.weather)
     (import lib.property)
 
@@ -19,16 +20,79 @@
         )
     )
 
+    (def (title-style props)
+        (text-style
+            :font-size 100
+            :font-weight font-weight.w700
+            :color props.appearance.foreground
+        )
+    )
+
+    (def (subtitle-style props)
+        (text-style
+            :font-size 100
+            :font-weight font-weight.w100
+            :color props.appearance.foreground
+        )
+    )
+
+    (def (body-style props)
+        (text-style
+            :font-size current-theme.text-theme.body-large.font-size
+            :color props.appearance.foreground
+        )
+    )
+
+    (def (show-value props)
+        (print props)
+        (def value-style (?? props.value-style props.style))
+        (def unit-style (?? props.unit-style props.style))
+        (row
+            :spacing (?? props.spacing 8)
+            :main-axis-size main-axis-size.min
+            :cross-axis.alignment cross-axis-alignment.end
+            :children (
+                (row
+                    :children (
+                        (if (< props.value 0)
+                            (text
+                                :text "−"
+                                :style value-style
+                            )
+                        )
+                        (if (> props.value 0)
+                            (text
+                                :text "+"
+                                :style value-style
+                            )
+                        )
+                        (text
+                            :text (abs (round props.value))
+                            :style value-style
+                        )
+                    )
+                )
+                (text
+                    :text props.unit
+                    :style unit-style
+                )
+            )
+        )
+    )
+
     (def (body props)
+        (def title-style (title-style props))
+        (def subtitle-style (subtitle-style props))
+        (def body-style (body-style props))
         (container
             :child (padding
                 :padding (edge-insets-all 32)
-                :child (text
-                    :text (select-locale i18n-weather)
-                    :style (text-style
-                        :font-size current-theme.text-theme.display-large.font-size
-                        :color props.appearance.foreground
-                    )
+                :child (show-value
+                    :spacing 16
+                    :value props.temperature
+                    :value-style title-style
+                    :unit temperature.unit
+                    :unit-style subtitle-style
                 )
             )
         )
@@ -36,7 +100,6 @@
 
     (def (show props)
         (def weather (weather props.weather))
-        (print weather)
         (screen
             :background (layout (background weather))
             :body (center
