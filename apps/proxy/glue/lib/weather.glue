@@ -70,14 +70,14 @@
         ))
 
     (def (whole-day-night theme)
-        (whole-day-night theme :night theme)
+        (:day theme :night theme)
     )
 
     (def weather-conditions (
             (
                 :code 200
                 :description i18n-weather-conditions.thunderstorm-light-rain
-                :appearance weather-theme.thunder
+                :appearance (whole-day-night weather-theme.thunder)
             )
             (
                 :code 201
@@ -332,23 +332,23 @@
             (
                 :code 800
                 :description i18n-weather-conditions.sky-clear
-                :appearance (whole-day-night weather-theme.sunny :night weather-theme.sunny-night)
+                :appearance (:day weather-theme.sunny :night weather-theme.sunny-night)
             )
 
             (
                 :code 801
                 :description i18n-weather-conditions.clouds-few
-                :appearance (whole-day-night weather-theme.cloudy :night weather-theme.cloudy-night)
+                :appearance (:day weather-theme.cloudy :night weather-theme.cloudy-night)
             )
             (
                 :code 802
                 :description i18n-weather-conditions.clouds-scattered
-                :appearance (whole-day-night weather-theme.cloudy :night weather-theme.cloudy-night)
+                :appearance (:day weather-theme.cloudy :night weather-theme.cloudy-night)
             )
             (
                 :code 803
                 :description i18n-weather-conditions.clouds-broken
-                :appearance (whole-day-night weather-theme.cloudy :night weather-theme.cloudy-night)
+                :appearance (:day weather-theme.cloudy :night weather-theme.cloudy-night)
             )
             (
                 :code 804
