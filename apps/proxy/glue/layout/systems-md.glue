@@ -29,8 +29,12 @@
                 :foreground-color current-theme.color-scheme.on-surface
                 :background-color current-theme.color-scheme.surface
             )
-            :child (text
-                :text props.label
+            :child (row
+                :children (
+                    (text
+                        :text (select-locale props.label)
+                    )
+                )
             )
         )
     )
@@ -42,7 +46,9 @@
                 :spacing 32
                 :children (prepend
                     (site-title props)
-               
+                    (map system (#
+                            light
+                        ))
                 )
             )
         )
