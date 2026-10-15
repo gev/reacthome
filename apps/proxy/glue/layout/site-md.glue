@@ -42,9 +42,8 @@
     (def (scene props)
         (def label (text :text (title props)))
         (if (exists? props.action)
-            (button
+            (elevated-button
                 :style (button-style
-                    :elevation 1
                     :foreground-color current-theme.color-scheme.on-surface
                     :background-color current-theme.color-scheme.surface
                 )
@@ -66,7 +65,10 @@
             :padding (edge-insets-symmetric :horizontal 16)
             :child (text
                 :text (title props)
-                :style current-theme.text-theme.headline-large
+                :style (text-style
+                    :font-size current-theme.text-theme.headline-large.font-size
+                    :color current-theme.color-scheme.on-tertiary-container
+                )
             )
         )
     )
@@ -85,6 +87,7 @@
                         :children (
                             (site-title props.site)
                             (site-breadcrumbs
+                                :color current-theme.color-scheme.on-tertiary-container
                                 :site props.site.parent
                                 :action (\ (id) (go :route 'site :id id))
                             )
