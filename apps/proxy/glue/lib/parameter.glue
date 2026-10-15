@@ -1,5 +1,6 @@
 (module lib.parameter
     (export
+        brightness
         temperature
         humidity
         CO2
@@ -7,6 +8,15 @@
 
     (import i18n.parameter)
     (import lib.action)
+
+    (def brightness (
+            :property 'value
+            :label i18n-brightness
+            :color 'primary
+            :icon 'lightbulb.2
+            :resolution 1
+            :unit "%"
+        ))
 
     (def temperature (
             :property 'temperature

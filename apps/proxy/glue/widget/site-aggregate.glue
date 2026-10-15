@@ -4,7 +4,6 @@
     (import lib.combinator)
     (import lib.conversion)
     (import lib.parameter)
-    (import lib.system)
 
     (import i18n.status)
 
@@ -37,7 +36,7 @@
     )
 
     (def (aggregate-lights props param lights)
-        (def acc (foldl (monoid || light.property) (empty false) lights))
+        (def acc (foldl (monoid || brightness.property) (empty false) lights))
         (if (> acc.total 0)
             (props.parameter
                 :label param.label
@@ -75,7 +74,7 @@
         (def children (flatten
                 (#
                     (if (exists? lights_all)
-                        (listen (aggregate-lights props light) lights_all)
+                        (listen (aggregate-lights props brightness) lights_all)
                         ()
                     )
                     (aggregate-sensors props temperature)

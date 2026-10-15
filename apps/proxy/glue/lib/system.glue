@@ -9,23 +9,19 @@
         cooling
         heating
 
-        systems
+        system
     )
 
     (import i18n.system)
     (import lib.action)
 
     (def light (
-            :property 'value
             :label i18n-light
             :color 'primary
             :icon 'lightbulb.2
-            :resolution 1
-            :unit "%"
         ))
 
     (def curtains (
-            :property 'curtains
             :label i18n-curtains
             :color 'tertiary
             :icon (
@@ -65,10 +61,5 @@
             :icon 'mode_fan_2
         ))
 
-    (def all-systems (#
-            light
-            curtains
-        ))
-
-    (def systems _)
+    (def system _)
 )

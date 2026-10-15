@@ -22,8 +22,8 @@
             :site props.site
             :background-color background-color
             :title (title props)
-            :value (round-to-resolution value light.resolution)
-            :unit light.unit
+            :value (round-to-resolution value brightness.resolution)
+            :unit brightness.unit
             :body (vertical-slider
                 :value value
                 :min 0
@@ -32,7 +32,7 @@
                 :height 200
                 :focused-width 90
                 :border-radius 30
-                :active-color (@ current-theme.color-scheme light.color)
+                :active-color (@ current-theme.color-scheme brightness.color)
                 :on-changed on-changed
             )
         )

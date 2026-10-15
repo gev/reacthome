@@ -10,6 +10,7 @@
     (import lib.data)
     (import lib.i18n)
     (import lib.optimistic)
+    (import lib.parameter)
     (import lib.system)
 
     (import widget.card)
@@ -67,7 +68,7 @@
                 :child (dimmable-light-tile
                     :value value
                     :label props.label
-                    :status (round-to-resolution value light.resolution)
+                    :status (round-to-resolution value brightness.resolution)
                     :on-changed on-changed
                 )
             )
