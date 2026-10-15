@@ -5,13 +5,11 @@
         i18n-curtains
         i18n-cameras
         i18n-water
-
         i18n-heating
         i18n-cooling
         i18n-ventilation
         i18n-wetting
         i18n-drying
-
     )
 
     (def i18n-systems (
