@@ -17,7 +17,7 @@
                     current-theme.color-scheme.on-surface-variant
                 )
             )
-            :child (if (exists? props.title)
+            :child (if (exists? props.label)
                 (row
                     :spacing 8
                     :main-axis-size main-axis-size.min
@@ -27,7 +27,7 @@
                             :fill (? props.selected 1 0)
                             :icon props.icon
                         )
-                        (text :text props.title)
+                        (text :text props.label)
                     )
                 )
                 (icon
