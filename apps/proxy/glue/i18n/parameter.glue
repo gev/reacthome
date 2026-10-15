@@ -1,6 +1,7 @@
 (module i18n.parameter
     (export
         i18n-brightness
+        i18n-position
         i18n-humidity
         i18n-pressure
         i18n-temperature

@@ -1,0 +1,30 @@
+(module lib.mode
+    (export
+        cooling-mode
+        heating-mode
+    )
+
+    (import i18n.system)
+    (import lib.action)
+
+    (def cooling-mode (
+            :color colors.blue
+            :label i18n-cooling
+            :intensity "cool_intensity"
+            :on-intensity "onCoolIntensity"
+            :set-intensity set-cool-intensity
+            :toggle toggle-cool
+            :value "cool"
+            
+        ))
+
+    (def heating-mode (
+            :color colors.red
+            :label i18n-heating
+            :intensity "heat_intensity"
+            :on-intensity "onHeatIntensity"
+            :set-intensity set-heat-intensity
+            :toggle toggle-heat
+            :value "heat"
+        ))
+)

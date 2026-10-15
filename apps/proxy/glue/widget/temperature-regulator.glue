@@ -7,20 +7,20 @@
     )
 
     (import lib.action)
+    (import lib.mode)
     (import lib.parameter)
-    (import lib.system)
 
     (import widget.regulator-modal)
     (import widget.regulator-mode)
     (import widget.regulator-toggle)
     (import widget.regulator-intensity)
     (import widget.setpoint-slider)
-
+        
     (def (temperature-regulator-mode mode)
         (if (== mode "cool")
-            cooling
+            cooling-mode
             (if (== mode "heat")
-                heating
+                heating-mode
                 void
             )
         )
@@ -33,7 +33,7 @@
     (def (select-mode regulator mode on-changed)
         (regulator-mode
             :mode mode
-            :modes (# cooling heating)
+            :modes (# cooling-mode heating-mode)
             :on-changed on-changed
         )
     )
