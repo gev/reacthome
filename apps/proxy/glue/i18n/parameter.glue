@@ -16,6 +16,11 @@
             :ru "Яркость"
         ))
 
+    (def i18n-position (
+            :en "Position"
+            :ru "Позиция"
+        ))
+
     (def i18n-humidity (
             :en "Humidity"
             :ru "Влажность"

@@ -28,8 +28,6 @@
                 :closed 'shades.closed
                 :opened 'shades
             )
-            :resolution 1
-            :unit "%"
         ))
 
     (def cooling (
