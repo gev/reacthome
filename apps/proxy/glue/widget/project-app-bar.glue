@@ -2,7 +2,7 @@
     (export project-app-bar)
 
     (import i18n.dict)
-    (import i18n.systems)
+    (import i18n.system)
     (import i18n.weather)
 
     (import lib.i18n)

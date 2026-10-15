@@ -1,7 +1,7 @@
 (module widget.humidity-regulator-active-card
     (export humidity-regulator-active-card)
 
-    (import lib.property)
+    (import lib.parameter)
 
     (import widget.regulator-title)
     (import widget.regulator-active-card)

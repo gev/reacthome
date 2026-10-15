@@ -7,10 +7,10 @@
     (import i18n.action)
     (import i18n.status)
 
-    (import lib.actions)
+    (import lib.action)
     (import lib.data)
     (import lib.i18n)
-    (import lib.property)
+    (import lib.parameter)
 
     (import widget.entity-modal)
 

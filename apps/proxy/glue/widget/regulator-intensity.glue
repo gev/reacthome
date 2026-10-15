@@ -4,7 +4,7 @@
     (import i18n.parameter)
 
     (import lib.i18n)
-    (import lib.property)
+    (import lib.system)
 
     (import lib.optimistic)
     (import widget.regulator-theme)

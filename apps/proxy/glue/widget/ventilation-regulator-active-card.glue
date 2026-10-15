@@ -1,7 +1,7 @@
 (module widget.ventilation-regulator-active-card
     (export ventilation-regulator-active-card)
 
-    (import lib.property)
+    (import lib.parameter)
 
     (import widget.regulator-title)
     (import widget.regulator-active-card)

@@ -6,7 +6,7 @@
     (import lib.data)
     (import lib.i18n)
     (import lib.navigation)
-    (import lib.property)
+    (import lib.parameter)
 
     (import iconic.curtain)
 

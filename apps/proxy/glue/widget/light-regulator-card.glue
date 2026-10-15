@@ -5,12 +5,12 @@
 
     (import iconic.light)
 
-    (import lib.actions)
+    (import lib.action)
     (import lib.conversion)
     (import lib.data)
     (import lib.i18n)
     (import lib.navigation)
-    (import lib.property)
+    (import lib.parameter)
 
     (import widget.card)
     (import widget.entity-tile)

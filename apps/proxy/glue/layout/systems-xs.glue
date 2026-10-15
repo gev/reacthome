@@ -1,11 +1,11 @@
-(module  layout.systems-xs
+(module  layout.system-xs
     (export xs-systems-layout)
 
     (import lib.i18n)
 
     (import i18n.dict)
-    (import i18n.systems)
-    
+    (import i18n.system)
+
     (import widget.screen)
 
     (def (xs-systems-layout props constraints)

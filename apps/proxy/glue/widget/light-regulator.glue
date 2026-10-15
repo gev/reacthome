@@ -3,11 +3,11 @@
 
     (import i18n.status)
 
-    (import lib.actions)
+    (import lib.action)
     (import lib.conversion)
     (import lib.data)
     (import lib.optimistic)
-    (import lib.property)
+    (import lib.parameter)
 
     (import widget.entity-modal)
     

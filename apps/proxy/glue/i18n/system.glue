@@ -1,0 +1,66 @@
+(module i18n.system
+    (export
+        i18n-systems
+        i18n-light
+        i18n-curtains
+        i18n-cameras
+        i18n-water
+
+        i18n-heating
+        i18n-cooling
+        i18n-ventilation
+        i18n-wetting
+        i18n-drying
+
+    )
+
+    (def i18n-systems (
+            :en "Systems"
+            :ru "Системы"
+        ))
+
+    (def i18n-light (
+            :en "Light"
+            :ru "Свет"
+        ))
+
+    (def i18n-curtains (
+            :en "Curtains"
+            :ru "Шторы"
+        ))
+
+    (def i18n-cameras (
+            :en "Cameras"
+            :ru "Камеры"
+        ))
+
+    (def i18n-water (
+            :en "Water"
+            :ru "Вода"
+        ))
+
+    (def i18n-heating (
+            :en "Heating"
+            :ru "Отопление"
+        ))
+    (def i18n-cooling (
+            :en "Cooling"
+            :ru "Охлаждение"
+        ))
+
+    (def i18n-ventilation (
+            :en "Ventilation"
+            :ru "Вентиляция"
+        ))
+
+    (def i18n-wetting (
+            :en "Wetting"
+            :ru "Увлажнение"
+        ))
+
+    (def i18n-drying (
+            :en "Drying"
+            :ru "Осушение"
+        ))
+
+)

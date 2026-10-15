@@ -8,7 +8,7 @@
     (import lib.data)
     (import lib.conversion)
     (import lib.weather)
-    (import lib.property)
+    (import lib.parameter)
 
     (import widget.screen)
 

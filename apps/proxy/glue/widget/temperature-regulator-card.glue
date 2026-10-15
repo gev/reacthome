@@ -1,7 +1,7 @@
 (module widget.temperature-regulator-card
     (export temperature-regulator-card)
 
-    (import lib.property)
+    (import lib.parameter)
 
     (import widget.regulator-card)
     (import widget.temperature-regulator)

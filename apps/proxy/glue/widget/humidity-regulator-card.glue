@@ -1,7 +1,7 @@
 (module widget.humidity-regulator-card
     (export humidity-regulator-card)
 
-    (import lib.property)
+    (import lib.parameter)
 
     (import widget.regulator-card)
     (import widget.humidity-regulator)

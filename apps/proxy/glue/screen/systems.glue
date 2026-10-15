@@ -5,7 +5,7 @@
     (import lib.layout)
 
     (def (xs-layout props constraints)
-        (import layout.systems-xs)
+        (import layout.system-xs)
         (xs-systems-layout props constraints)
     )
 

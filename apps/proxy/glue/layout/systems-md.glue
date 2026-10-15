@@ -2,7 +2,7 @@
     (export md-systems-layout)
 
     (import i18n.dict)
-    (import i18n.systems)
+    (import i18n.system)
 
     (import lib.i18n)
     (import lib.data)

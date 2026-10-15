@@ -1,4 +1,4 @@
-(module lib.actions
+(module lib.action
     (export
         turn-on
         turn-off

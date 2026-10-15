@@ -1,7 +1,7 @@
 (module layout.site-md
     (export md-site-layout)
 
-    (import lib.actions)
+    (import lib.action)
     (import lib.data)
     (import lib.navigation)
 

@@ -1,0 +1,44 @@
+(module lib.parameter
+    (export
+        temperature
+        humidity
+        CO2
+    )
+
+    (import i18n.parameter)
+    (import lib.action)
+
+    (def temperature (
+            :property 'temperature
+            :label i18n-temperature
+            :color 'secondary
+            :icon 'thermometer
+            :min 5
+            :max 40
+            :resolution 0.1
+            :unit "°C"
+        ))
+
+    (def humidity (
+            :property 'humidity
+            :label i18n-humidity
+            :color 'secondary
+            :icon 'water.voc
+            :min 20
+            :max 80
+            :resolution 1
+            :unit "%"
+        ))
+
+    (def CO2 (
+            :property 'co2
+            :label i18n-CO2
+            :color 'secondary
+            :icon 'air
+            :min 300
+            :max 900
+            :resolution 10
+            :unit "ppm"
+        ))
+
+)

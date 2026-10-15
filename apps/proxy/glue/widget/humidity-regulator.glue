@@ -5,8 +5,8 @@
         humidity-regulator
     )
 
-    (import lib.actions)
-    (import lib.property)
+    (import lib.action)
+    (import lib.parameter)
 
     (import widget.regulator-modal)
     (import widget.regulator-toggle)
