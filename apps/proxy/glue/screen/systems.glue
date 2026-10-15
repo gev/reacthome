@@ -1,6 +1,7 @@
 (module  screen.systems
     (export systems-screen)
 
+    (import lib.data)
     (import lib.layout)
 
     (def (xs-layout props constraints)
@@ -13,7 +14,7 @@
         (md-systems-layout props constraints)
     )
 
-    (def (systems-screen props)
+    (def (show props)
         (select-layout
             :xs (xs-layout props)
             :sm (xs-layout props)
@@ -21,5 +22,9 @@
             :lg (md-layout props)
             :xl (md-layout props)
         )
+    )
+
+    (def (systems-screen props)
+        (select show props.id)
     )
 )
