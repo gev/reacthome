@@ -1,0 +1,40 @@
+(module widget.app-bar-button
+    (export app-bar-button)
+
+    (def (app-bar-button props)
+        (button
+            :on-pressed props.on-pressed
+            :style (button-style
+                :elevation (? props.selected 1 0)
+                :background-color (
+                    ? props.selected
+                    current-theme.color-scheme.secondary-container
+                    colors.transparent
+                )
+                :foreground-color (
+                    ? props.selected
+                    current-theme.color-scheme.on-secondary-container
+                    current-theme.color-scheme.on-surface-variant
+                )
+            )
+            :child (if (exists? props.title)
+                (row
+                    :spacing 8
+                    :main-axis-size main-axis-size.min
+                    :cross-axis-alignment cross-axis-alignment.center
+                    :children (
+                        (icon
+                            :fill (? props.selected 1 0)
+                            :icon props.icon
+                        )
+                        (text :text props.title)
+                    )
+                )
+                (icon
+                    :fill (? props.selected 1 0)
+                    :icon props.icon
+                )
+            )
+        )
+    )
+)
