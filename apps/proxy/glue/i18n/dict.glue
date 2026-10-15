@@ -3,7 +3,6 @@
         i18n-home
         i18n-my-homes
         i18n-settings
-        i18n-systems
     )
 
     (def i18n-home (
@@ -19,10 +18,5 @@
     (def i18n-settings (
             :en "Settings"
             :ru "Настройки"
-        ))
-
-    (def i18n-systems (
-            :en "Systems"
-            :ru "Системы"
         ))
 )
