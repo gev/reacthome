@@ -65,7 +65,7 @@
         (padding
             :padding (edge-insets-symmetric :horizontal 16)
             :child (text
-                :text (title props.site)
+                :text (title props)
                 :style current-theme.text-theme.headline-large
             )
         )
@@ -83,7 +83,7 @@
                     (row
                         :main-axis-size main-axis-size.min
                         :children (
-                            (site-title props)
+                            (site-title props.site)
                             (site-breadcrumbs
                                 :site props.site.parent
                                 :action (\ (id) (go :route 'site :id id))
