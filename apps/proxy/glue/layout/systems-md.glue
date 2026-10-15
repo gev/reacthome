@@ -25,12 +25,9 @@
 
     (def (system props)
         (elevated-button
-            :style (button-style
-                :foreground-color current-theme.color-scheme.on-surface
-                :background-color current-theme.color-scheme.surface
-            )
             :child (row
                 :children (
+                    (icon :icon props.icon)
                     (text
                         :text (select-locale props.label)
                     )
