@@ -10,11 +10,10 @@
                     :begin alignment.top-left
                     :end alignment.bottom-right
                     :colors (#
-                        current-theme.color-scheme.primary-container
-                        current-theme.color-scheme.secondary-container
                         current-theme.color-scheme.tertiary-container
+                        current-theme.color-scheme.primary-container
                     )
-                    :stops (0 0.5 1)
+                    :stops (0 1)
                 )
             )
             :child props.child
