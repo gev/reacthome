@@ -16,10 +16,10 @@
     )
 
     (def (active-segment action color props)
-        (outlined-button
+        (elevated-button
             :style (button-style
-                :elevation 0
-                :foreground-color current-theme.color-scheme.on-surface-variant
+                :foreground-color (?? color
+                    current-theme.color-scheme.on-surface-variant)
             )
             :on-pressed (action props.id)
             :child (text
