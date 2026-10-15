@@ -3,11 +3,13 @@
         light
         curtains
 
-        power
-        fan
-
         cooling
         heating
+        wetting
+        ventilation
+
+        power
+        fan
 
         system
     )
@@ -33,6 +35,7 @@
     (def cooling (
             :color colors.blue
             :label i18n-cooling
+            :icon 'snow_flake
             :intensity "cool_intensity"
             :on-intensity "onCoolIntensity"
             :set-intensity set-cool-intensity
@@ -44,11 +47,22 @@
     (def heating (
             :color colors.red
             :label i18n-heating
+            :icon 'heat
             :intensity "heat_intensity"
             :on-intensity "onHeatIntensity"
             :set-intensity set-heat-intensity
             :toggle toggle-heat
             :value "heat"
+        ))
+
+    (def wetting (
+            :label i18n-wetting
+            :icon 'water.voc
+        ))
+
+    (def ventilation (
+            :label i18n-ventilation
+            :icon 'mode_fan_2
         ))
 
     (def power (
