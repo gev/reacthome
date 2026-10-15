@@ -42,14 +42,14 @@
                     :children (
                         (icon
                             :fill (? props.selected 1 0)
-                            :icon (symbol props.symbol)
+                            :icon props.symbol
                         )
                         (text :text props.title)
                     )
                 )
                 (icon
                     :fill (? props.selected 1 0)
-                    :icon (symbol props.symbol)
+                    :icon props.symbol
                 )
             )
         )

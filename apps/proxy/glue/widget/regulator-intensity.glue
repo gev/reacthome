@@ -33,7 +33,7 @@
                 :children (
                     (list-tile
                         :leading (icon
-                            :icon (symbol fan.icon)
+                            :icon fan.icon
                             :color color-scheme.on-surface
                         )
                         :title (text

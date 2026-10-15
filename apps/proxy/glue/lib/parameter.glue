@@ -13,7 +13,7 @@
     (def brightness (
             :property 'value
             :label i18n-brightness
-            :icon 'lightbulb.2
+            :icon (symbol 'lightbulb.2)
             :resolution 1
             :unit "%"
         ))
@@ -29,7 +29,7 @@
             :property 'temperature
             :label i18n-temperature
             :color 'secondary
-            :icon 'thermometer
+            :icon (symbol 'thermometer)
             :min 5
             :max 40
             :resolution 0.1
@@ -40,7 +40,7 @@
             :property 'humidity
             :label i18n-humidity
             :color 'secondary
-            :icon 'water.voc
+            :icon (symbol 'water.voc)
             :min 20
             :max 80
             :resolution 1
@@ -51,7 +51,7 @@
             :property 'co2
             :label i18n-CO2
             :color 'secondary
-            :icon 'air
+            :icon (symbol 'air)
             :min 300
             :max 900
             :resolution 10

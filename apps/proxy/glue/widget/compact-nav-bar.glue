@@ -23,7 +23,7 @@
             )
             :child (icon
                 :fill (? props.selected 1 0)
-                :icon (symbol props.symbol)
+                :icon props.symbol
             )
         )
     )

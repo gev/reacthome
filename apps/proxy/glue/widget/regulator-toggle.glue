@@ -20,7 +20,7 @@
         (def (tile value)
             (list-tile
                 :leading (icon
-                    :icon (symbol power.icon)
+                    :icon power.icon
                     :color color-scheme.on-surface
                 )
                 :title (text

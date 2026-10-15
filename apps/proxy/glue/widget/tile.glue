@@ -9,7 +9,7 @@
 
     (def (tile-leading props)
         (icon
-            :icon (symbol props.symbol)
+            :icon props.symbol
             :color props.color
             :fill (?? props.fill 0)
             :size 32

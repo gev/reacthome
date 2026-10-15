@@ -13,7 +13,7 @@
 
     (def (tile-icon props)
         (icon
-            :icon (symbol props.icon.symbol)
+            :icon props.icon.symbol
             :color current-theme.color-scheme.on-surface
             :fill props.icon.fill
         )

@@ -26,38 +26,38 @@
             :label i18n-curtains
             :color 'tertiary
             :icon (
-                :closed 'shades.closed
-                :opened 'shades
+                :closed (symbol 'shades.closed)
+                :opened (symbol 'shades)
             )
         ))
 
     (def cooling (
             :label i18n-cooling
-            :icon 'snow_flake
+            :icon (symbol 'snowflake)
             
         ))
 
     (def heating (
             :label i18n-heating
-            :icon 'heat
+            :icon (symbol 'heat)
         ))
 
     (def wetting (
             :label i18n-wetting
-            :icon 'water.voc
+            :icon (symbol 'water.voc)
         ))
 
     (def ventilation (
             :label i18n-ventilation
-            :icon 'mode_fan_2
+            :icon (symbol 'mode_fan_2)
         ))
 
     (def power (
-            :icon 'power_settings_new
+            :icon (symbol 'power_settings_new)
         ))
 
     (def fan (
-            :icon 'mode_fan_2
+            :icon (symbol 'mode_fan_2)
         ))
 
     (def system _)
