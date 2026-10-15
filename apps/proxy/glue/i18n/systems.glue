@@ -1,0 +1,28 @@
+(module i18n.systems
+    (export
+        i18n-systems
+        i18n-light
+        i18n-cameras
+        i18n-water
+    )
+
+    (def i18n-systems (
+            :en "Systems"
+            :ru "Системы"
+        ))
+
+    (def i18n-light (
+            :en "Light"
+            :ru "Свет"
+        ))
+
+    (def i18n-cameras (
+            :en "Cameras"
+            :ru "Камеры"
+        ))
+
+    (def i18n-water (
+            :en "Water"
+            :ru "Вода"
+        ))
+)
