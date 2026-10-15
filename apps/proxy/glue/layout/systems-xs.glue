@@ -2,7 +2,10 @@
     (export xs-systems-layout)
 
     (import lib.i18n)
+
     (import i18n.dict)
+    (import i18n.systems)
+    
     (import widget.screen)
 
     (def (xs-systems-layout props constraints)
