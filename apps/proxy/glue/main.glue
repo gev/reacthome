@@ -63,7 +63,7 @@
         (def props (:home home))
         (app
             :navigator-key applet
-            :seed-color colors.grey
+            :seed-color colors.indigo
             :dynamic-scheme-variant dynamic-scheme-variant.content
             :routes (
                 :index (project-route props)
