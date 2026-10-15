@@ -196,6 +196,7 @@
     
     (def (md-site-layout palette props constraints)
         (md-screen-layout
+            :top 48
             :header (head props)
             :body (body palette props)
         )

@@ -20,6 +20,16 @@
             )
         )
     )
+
+    (def (system props)
+        (elevated-button
+            :style (button-style
+                :foreground-color current-theme.color-scheme.on-surface
+                :background-color current-theme.color-scheme.surface
+            )
+            :child label
+        )
+    )
     
     (def (head props)
         (single-child-scroll-view
@@ -44,7 +54,8 @@
 
     (def (md-systems-layout props constraints)
         (md-screen-layout
-            :header (head props)
+            :bottom 80
+            :footer (head props)
             :body (body props)
         )
     )
