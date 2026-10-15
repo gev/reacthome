@@ -22,7 +22,7 @@
         (entity-tile
             :icon (
                 :symbol light.icon
-                :color (@ current-theme.color-scheme light.color)
+                :color current-theme.color-scheme.primary
                 :fill (? props.value 1 0)
             )
             :label (:text props.label)

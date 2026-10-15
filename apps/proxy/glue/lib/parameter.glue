@@ -13,7 +13,6 @@
     (def brightness (
             :property 'value
             :label i18n-brightness
-            :color 'primary
             :icon 'lightbulb.2
             :resolution 1
             :unit "%"
@@ -22,7 +21,6 @@
     (def position (
             :property 'position
             :label i18n-position
-            :color 'tertiary
             :resolution 1
             :unit "%"
         ))

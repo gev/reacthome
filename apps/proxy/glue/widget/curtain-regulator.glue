@@ -33,7 +33,7 @@
                 :main-axis-size main-axis-size.min
                 :children (
                     (double-curtain
-                        :active-color (@ current-theme.color-scheme curtains.color)
+                        :active-color current-theme.color-scheme.tertiary
                         :jump-to-tap false
                     )
                     (wrap
@@ -80,7 +80,7 @@
                 :main-axis-size main-axis-size.min
                 :children (
                     (double-curtain
-                        :active-color (@ current-theme.color-scheme curtains.color)
+                        :active-color current-theme.color-scheme.tertiary
                         :jump-to-tap false
                     )
                     (wrap

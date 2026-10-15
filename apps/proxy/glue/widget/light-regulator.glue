@@ -32,7 +32,7 @@
                 :height 200
                 :focused-width 90
                 :border-radius 30
-                :active-color (@ current-theme.color-scheme light.color)
+                :active-color current-theme.color-scheme.primary
                 :on-changed on-changed
             )
         )

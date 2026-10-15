@@ -19,7 +19,6 @@
 
     (def light (
             :label i18n-light
-            :color 'primary
             :icon 'lightbulb.2
         ))
 

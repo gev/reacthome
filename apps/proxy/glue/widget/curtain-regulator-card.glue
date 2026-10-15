@@ -22,7 +22,7 @@
         (entity-tile
             :icon (
                 :symbol (? props.value curtains.icon.closed curtains.icon.opened)
-                :color (@ current-theme.color-scheme curtains.color)
+                :color current-theme.color-scheme.tertiary
                 :fill 1
             )
             :label (:text props.label)

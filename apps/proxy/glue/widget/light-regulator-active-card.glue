@@ -29,7 +29,7 @@
         (entity-tile
             :icon (
                 :symbol light.icon
-                :color (@ current-theme.color-scheme light.color)
+                :color current-theme.color-scheme.primary
                 :fill (? props.value 1 0)
             )
             :label (:text props.label)
@@ -50,7 +50,7 @@
                     :height 24
                     :focused-width 48
                     :border-radius 8
-                    :active-color (@ current-theme.color-scheme light.color)
+                    :active-color current-theme.color-scheme.primary
                     :on-changed props.on-changed
                 )
             )

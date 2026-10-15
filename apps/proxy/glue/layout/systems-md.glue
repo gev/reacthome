@@ -6,6 +6,7 @@
 
     (import lib.i18n)
     (import lib.data)
+    (import lib.system)
 
     (import layout.screen-md)
 
@@ -28,7 +29,9 @@
                 :foreground-color current-theme.color-scheme.on-surface
                 :background-color current-theme.color-scheme.surface
             )
-            :child label
+            :child (text
+                :text props.label
+            )
         )
     )
     
@@ -37,8 +40,9 @@
             :scroll-direction axis.horizontal
             :child (row
                 :spacing 32
-                :children (
+                :children (prepend
                     (site-title props)
+               
                 )
             )
         )

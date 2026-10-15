@@ -31,7 +31,7 @@
                             (entity-tile
                                 :icon (
                                     :symbol (? props.value curtains.icon.closed curtains.icon.opened)
-                                    :color (@ current-theme.color-scheme curtains.color)
+                                    :color current-theme.color-scheme.tertiary
                                     :fill 1
                                 )
                                 :label (:text props.label)
@@ -59,7 +59,7 @@
                     :flex 2
                     :child (double-curtain
                         :height 172
-                        :active-color (@ current-theme.color-scheme curtains.color)
+                        :active-color current-theme.color-scheme.tertiary
                         :jump-to-tap false
                     )
                 )
