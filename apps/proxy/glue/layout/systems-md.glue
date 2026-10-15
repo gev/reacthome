@@ -20,7 +20,7 @@
             )
         )
     )
-
+    
     (def (head props)
         (single-child-scroll-view
             :scroll-direction axis.horizontal
@@ -33,15 +33,19 @@
         )
     )
 
+    (def (body props)
+        (center
+            :child (text
+                :text (select-locale i18n-systems)
+                :style current-theme.text-theme.display-medium
+            )
+        )
+    )
+
     (def (md-systems-layout props constraints)
         (md-screen-layout
             :header (head props)
-            :body (center
-                :child (text
-                    :text (select-locale i18n-systems)
-                    :style current-theme.text-theme.display-medium
-                )
-            )
+            :body (body props)
         )
     )
 )
