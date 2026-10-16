@@ -1,0 +1,16 @@
+(module screen.system.cameras
+    (export system-cameras)
+
+    (import i18n.system)
+
+    (import lib.i18n)
+
+    (def (system-cameras props)
+        (center
+            :child (text
+                :text (select-locale i18n-cameras)
+                :style current-theme.text-theme.display-medium
+            )
+        )
+    )
+)

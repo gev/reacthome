@@ -1,0 +1,16 @@
+(module screen.system.light
+    (export system-light)
+
+    (import i18n.system)
+
+    (import lib.i18n)
+
+    (def (system-light props)
+        (center
+            :child (text
+                :text (select-locale i18n-light)
+                :style current-theme.text-theme.display-medium
+            )
+        )
+    )
+)

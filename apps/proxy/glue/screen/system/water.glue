@@ -1,0 +1,16 @@
+(module screen.system.water
+    (export system-water)
+
+    (import i18n.system)
+
+    (import lib.i18n)
+
+    (def (system-water props)
+        (center
+            :child (text
+                :text (select-locale i18n-water)
+                :style current-theme.text-theme.display-medium
+            )
+        )
+    )
+)

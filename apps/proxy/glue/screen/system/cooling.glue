@@ -1,0 +1,16 @@
+(module screen.system.cooling
+    (export system-cooling)
+
+    (import i18n.system)
+
+    (import lib.i18n)
+
+    (def (system-cooling props)
+        (center
+            :child (text
+                :text (select-locale i18n-cooling)
+                :style current-theme.text-theme.display-medium
+            )
+        )
+    )
+)

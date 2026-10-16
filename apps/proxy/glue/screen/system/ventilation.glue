@@ -1,0 +1,16 @@
+(module screen.system.ventilation
+    (export system-ventilation)
+
+    (import i18n.system)
+
+    (import lib.i18n)
+
+    (def (system-ventilation props)
+        (center
+            :child (text
+                :text (select-locale i18n-ventilation)
+                :style current-theme.text-theme.display-medium
+            )
+        )
+    )
+)

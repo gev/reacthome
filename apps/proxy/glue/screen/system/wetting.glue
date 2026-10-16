@@ -1,0 +1,16 @@
+(module screen.system.wetting
+    (export system-wetting)
+
+    (import i18n.system)
+
+    (import lib.i18n)
+
+    (def (system-wetting props)
+        (center
+            :child (text
+                :text (select-locale i18n-wetting)
+                :style current-theme.text-theme.display-medium
+            )
+        )
+    )
+)
