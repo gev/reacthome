@@ -1,5 +1,5 @@
 (module  screen.project.weather
-    (export weather-screen)
+    (export project-weather-screen)
 
     (import i18n.weather)
     (import i18n.parameter)
@@ -127,7 +127,7 @@
         )
     )
 
-    (def (weather-screen props)
+    (def (project-weather-screen props)
         (select show props.id)
     )
 )

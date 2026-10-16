@@ -30,9 +30,9 @@
         (def body (indexed-stack
                 :index current-screen
                 :children (
-                    (weather-screen props)
-                    (home-screen props)
-                    (systems-screen props)
+                    (project-weather-screen props)
+                    (project-home-screen props)
+                    (project-systems-screen props)
                 )
             )
         )

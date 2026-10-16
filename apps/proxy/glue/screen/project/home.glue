@@ -1,5 +1,5 @@
 (module screen.project.home
-    (export home-screen)
+    (export project-home-screen)
 
     (import lib.data)
     (import layout.site)
@@ -24,7 +24,7 @@
         )
     )
 
-    (def (home-screen props)
+    (def (project-home-screen props)
         (navigator
             :routes (
                 :index (index-route props)

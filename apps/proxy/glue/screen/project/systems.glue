@@ -1,9 +1,18 @@
 (module  screen.project.systems
-    (export systems-screen)
+    (export project-systems-screen)
 
     (import lib.data)
     
     (import layout.systems)
+
+    (import screen.system.light)
+    (import screen.system.curtains)
+    (import screen.system.heating)
+    (import screen.system.cooling)
+    (import screen.system.wetting)
+    (import screen.system.ventilation)
+    (import screen.system.water)
+    (import screen.system.cameras)
 
     (def screen
         (local-state 0)
@@ -23,10 +32,24 @@
                 )
             )
         )
+        (def body (indexed-stack
+                :index current-screen
+                :children (
+                    (system-light-screen props)
+                    (system-curtains-screen props)
+                    (system-heating-screen props)
+                    (system-cooling-screen props)
+                    (system-wetting-screen props)
+                    (system-ventilation-screen props)
+                    (system-water-screen props)
+                    (system-cameras-screen props)
+                )
+            )
+        )
         (select (systems-layout props) props.id)
     )
 
-    (def (systems-screen props)
+    (def (project-systems-screen props)
         (listen (systems props) screen)
     )
 )
