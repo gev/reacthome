@@ -30,7 +30,7 @@
                         :children (
                             (entity-tile
                                 :icon (
-                                    :symbol (? props.value curtains.icon.closed curtains.icon.opened)
+                                    :symbol (? props.value curtains.icons.closed curtains.icons.opened)
                                     :color current-theme.color-scheme.tertiary
                                     :fill 1
                                 )
@@ -142,7 +142,7 @@
             :card-color current-theme.color-scheme.surface-variant
             :elevation elevation-unbound
             :child (disabled-entity-tile
-                :icon (:symbol (curtains.icon.opened))
+                :icon (:symbol (curtains.icons.opened))
                 :label (:text (title props))
                 :status (:text (select-locale i18n-not-available))
             )

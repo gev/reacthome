@@ -1,22 +1,30 @@
 (module widget.app-bar-button
     (export app-bar-button)
 
+    (def (selected-style props)
+        (button-style
+            :elevation 1
+            :background-color (
+                ?? props.selected-color
+                current-theme.color-scheme.secondary-container
+            )
+        )
+    )
+
+    (def (unselected-style props)
+        (button-style
+            :elevation 0
+            :background-color (
+                ?? props.unselected-color
+                colors.transparent)
+        )
+    )
+
     (def (app-bar-button props)
+        (def style (? props.selected selected-style unselected-style))
         (button
             :on-pressed props.on-pressed
-            :style (button-style
-                :elevation (? props.selected 1 0)
-                :background-color (
-                    ? props.selected
-                    current-theme.color-scheme.secondary-container
-                    colors.transparent
-                )
-                :foreground-color (
-                    ? props.selected
-                    current-theme.color-scheme.on-secondary-container
-                    current-theme.color-scheme.on-surface-variant
-                )
-            )
+            :style (style props)
             :child (if (exists? props.label)
                 (row
                     :spacing 8

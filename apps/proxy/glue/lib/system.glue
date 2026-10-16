@@ -24,8 +24,7 @@
 
     (def curtains (
             :label i18n-curtains
-            :color 'tertiary
-            :icon (
+            :icons (
                 :closed (symbol 'shades.closed)
                 :opened (symbol 'shades)
             )
