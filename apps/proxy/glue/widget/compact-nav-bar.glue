@@ -4,34 +4,9 @@
     (import lib.navigation)
 
     (import widget.floating-bar)
+    (import widget.selected-button)
 
-    (def (nav-bar-button props)
-        (button
-            :on-pressed props.on-pressed
-            :style (button-style
-                :elevation (? props.selected 1 0)
-                :background-color (
-                    ? props.selected
-                    current-theme.color-scheme.secondary-container
-                    colors.transparent
-                )
-                :foreground-color (
-                    ? props.selected
-                    current-theme.color-scheme.on-secondary-container
-                    current-theme.color-scheme.on-surface-variant
-                )
-            )
-            :child (icon
-                :fill (? props.selected 1 0)
-                :icon props.symbol
-            )
-        )
-    )
-    
     (def (nav-bar props)
-        (def (selected? screen)
-            (== screen props.current-screen)
-        )
         (row
             :main-axis-alignment main-axis-alignment.center
             :spacing 16
@@ -42,20 +17,20 @@
                         :child (row
                             :spacing 16
                             :children (
-                                (nav-bar-button
-                                    :symbol 'weather.mix
-                                    :selected (selected? 0)
-                                    :on-pressed (props.select-screen 0)
+                                (selected-button
+                                    :icon (symbol 'weather.mix)
+                                    :selected (== props.current-screen 0)
+                                    :on-select (props.select-screen 0)
                                 )
-                                (nav-bar-button
-                                    :symbol 'home
-                                    :selected (selected? 1)
-                                    :on-pressed (props.select-screen 1)
+                                (selected-button
+                                    :icon (symbol 'home)
+                                    :selected (== props.current-screen 1)
+                                    :on-select (props.select-screen 1)
                                 )
-                                (nav-bar-button
-                                    :symbol 'dashboard
-                                    :selected (selected? 2)
-                                    :on-pressed (props.select-screen 2)
+                                (selected-button
+                                    :icon (symbol 'dashboard)
+                                    :selected (== props.current-screen 2)
+                                    :on-select (props.select-screen 2)
                                 )
                             )
                         )
