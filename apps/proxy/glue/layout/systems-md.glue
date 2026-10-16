@@ -43,7 +43,7 @@
             :selected-color current-theme.color-scheme.tertiary-container
             :unselected-color current-theme.color-scheme.surface-container
             :selected false
-            :on-tap (\ () ())
+            :on-select (\ () ())
         )
     )
     

@@ -22,13 +22,15 @@
 
     (def (selected-list-tile props)
         (def style (? props.selected selected-style unselected-style))
-        (list-tile
-            :on-pressed props.on-pressed
-            :leading (icon
-                :fill (? props.selected 1 0)
-                :icon props.icon
+        (ink-well
+            :on-tap props.on-select
+            :child (list-tile
+                :leading (icon
+                    :fill (? props.selected 1 0)
+                    :icon props.icon
+                )
+                :title (text :text props.label)
             )
-            :title (text :text props.label)
         )
     )
 )
