@@ -1,5 +1,5 @@
-(module widget.app-bar-button
-    (export app-bar-button)
+(module widget.selected-button
+    (export selected-button)
 
     (def (selected-style props)
         (button-style
@@ -20,7 +20,7 @@
         )
     )
 
-    (def (app-bar-button props)
+    (def (selected-button props)
         (def style (? props.selected selected-style unselected-style))
         (button
             :on-pressed props.on-pressed

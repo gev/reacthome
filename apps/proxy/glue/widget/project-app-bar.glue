@@ -10,7 +10,7 @@
     (import lib.navigation)
     
     (import widget.app-bar)
-    (import widget.app-bar-button)
+    (import widget.selected-button)
 
     (def (project-app-bar props)
         (app-bar
@@ -19,19 +19,19 @@
                 :child (row
                     :spacing 4
                     :children (
-                        (app-bar-button
+                        (selected-button
                             :icon (symbol 'home)
                             :label (select-locale i18n-home)
                             :selected (== props.current-screen 1)
                             :on-pressed (props.select-screen 1)
                         )
-                        (app-bar-button
+                        (selected-button
                             :icon (symbol 'dashboard)
                             :label (select-locale i18n-systems)
                             :selected (== props.current-screen 2)
                             :on-pressed (props.select-screen 2)
                         )
-                        (app-bar-button
+                        (selected-button
                             :icon (symbol 'weather.mix)
                             :label (select-locale i18n-weather)
                             :selected (== props.current-screen 0)

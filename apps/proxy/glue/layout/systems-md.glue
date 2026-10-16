@@ -10,7 +10,7 @@
 
     (import layout.screen-md)
 
-    (import widget.app-bar-button)
+    (import widget.selected-button)
 
     (def (site-title props)
         (padding
@@ -26,7 +26,7 @@
     )
 
     (def (system props)
-        (app-bar-button
+        (selected-button
             :label (select-locale props.label)
             :icon props.icon
             :selected-color current-theme.color-scheme.tertiary-container
