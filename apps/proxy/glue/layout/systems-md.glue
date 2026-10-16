@@ -10,7 +10,18 @@
 
     (import layout.screen-md)
 
-    (import widget.selected-button)
+    (import widget.selected-list-tile)
+
+    (def systems (#
+            light
+            curtains
+            heating
+            cooling
+            wetting
+            ventilation
+            water
+            cameras
+        ))
 
     (def (site-title props)
         (padding
@@ -18,7 +29,7 @@
             :child (text
                 :text (title props)
                 :style (text-style
-                    :font-size current-theme.text-theme.headline-large.font-size
+                    :font-size current-theme.text-theme.headline-medium.font-size
                     :color current-theme.color-scheme.on-primary-container
                 )
             )
@@ -26,41 +37,34 @@
     )
 
     (def (system props)
-        (selected-button
+        (selected-list-tile
             :label (select-locale props.label)
             :icon props.icon
             :selected-color current-theme.color-scheme.tertiary-container
             :unselected-color current-theme.color-scheme.surface-container
             :selected false
-            :on-pressed (\ () ())
+            :on-tap (\ () ())
         )
     )
     
-    (def (head props)
-        (single-child-scroll-view
-            :scroll-direction axis.horizontal
-            :child (row
-                :spacing 4
-                :cross-axis-alignment cross-axis-alignment.center
-                :children (prepend
-                    (site-title props)
-                    (map system (#
-                            light
-                            curtains
-                            heating
-                            cooling
-                            wetting
-                            ventilation
-                            water
-                            cameras
-                        ))
+    (def (right-panel props)
+        (filled-card
+            :clip-behavior clip.anti-alias
+            :color (current-theme.color-scheme.surface.with :a 0.4)
+            :child (single-child-scroll-view
+                :padding (edge-insets-symmetric :vertical 16)
+                :child (column
+                    :cross-axis-alignment cross-axis-alignment.start
+                    :children (flatten
+                        (
+                            (site-title props)
+                            (divider _)
+                            (map system systems)
+                        )
+                    )
                 )
             )
         )
-    )
-
-    (def (right-panel props)
-        (site-title props)
     )
 
     (def (main-panel props)
@@ -73,12 +77,16 @@
     )
 
     (def (body props)
-        (padding
-            :padding (edge-insets-only :top 128)
-            :child (row
-                :children (
-                    (right-panel props)
-                    (main-panel props)
+        (row
+            :cross-axis-alignment cross-axis-alignment.stretch
+            :children (
+                (expanded
+                    :flex 1
+                    :child (right-panel props)
+                )
+                (expanded
+                    :flex 3
+                    :child (main-panel props)
                 )
             )
         )
@@ -86,8 +94,7 @@
 
     (def (md-systems-layout props constraints)
         (md-screen-layout
-            :bottom 80
-            :header (head props)
+            :app-bar (site-title props)
             :body (body props)
         )
     )
