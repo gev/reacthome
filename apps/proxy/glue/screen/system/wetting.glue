@@ -1,11 +1,11 @@
 (module screen.system.wetting
-    (export system-wetting)
+    (export system-wetting-screen)
 
     (import i18n.system)
 
     (import lib.i18n)
 
-    (def (system-wetting props)
+    (def (system-wetting-screen props)
         (center
             :child (text
                 :text (select-locale i18n-wetting)

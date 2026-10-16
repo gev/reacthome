@@ -1,11 +1,11 @@
 (module screen.system.curtains
-    (export system-curtains)
+    (export system-curtains-screen)
 
     (import i18n.system)
 
     (import lib.i18n)
 
-    (def (system-curtains props)
+    (def (system-curtains-screen props)
         (center
             :child (text
                 :text (select-locale i18n-curtains)

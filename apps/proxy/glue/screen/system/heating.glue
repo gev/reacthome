@@ -1,11 +1,11 @@
 (module screen.system.heating
-    (export system-heating)
+    (export system-heating-screen)
 
     (import i18n.system)
 
     (import lib.i18n)
 
-    (def (system-heating props)
+    (def (system-heating-screen props)
         (center
             :child (text
                 :text (select-locale i18n-heating)

@@ -1,11 +1,11 @@
 (module screen.system.cameras
-    (export system-cameras)
+    (export system-cameras-screen)
 
     (import i18n.system)
 
     (import lib.i18n)
 
-    (def (system-cameras props)
+    (def (system-cameras-screen props)
         (center
             :child (text
                 :text (select-locale i18n-cameras)

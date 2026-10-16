@@ -1,11 +1,11 @@
 (module screen.system.water
-    (export system-water)
+    (export system-water-screen)
 
     (import i18n.system)
 
     (import lib.i18n)
 
-    (def (system-water props)
+    (def (system-water-screen props)
         (center
             :child (text
                 :text (select-locale i18n-water)

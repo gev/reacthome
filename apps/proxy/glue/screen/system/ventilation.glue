@@ -1,11 +1,11 @@
 (module screen.system.ventilation
-    (export system-ventilation)
+    (export system-ventilation-screen)
 
     (import i18n.system)
 
     (import lib.i18n)
 
-    (def (system-ventilation props)
+    (def (system-ventilation-screen props)
         (center
             :child (text
                 :text (select-locale i18n-ventilation)
