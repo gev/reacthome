@@ -46,7 +46,7 @@
                 )
             )
         )
-        (select (systems-layout props) props.id)
+        (select (systems-layout body props) props.id)
     )
 
     (def (project-systems-screen props)

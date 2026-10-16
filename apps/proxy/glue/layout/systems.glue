@@ -3,26 +3,26 @@
 
     (import lib.layout)
 
-    (def (xs-layout props constraints)
+    (def (xs-layout body props constraints)
         (import layout.system-xs)
-        (xs-systems-layout props constraints)
+        (xs-systems-layout body props constraints)
     )
 
-    (def (md-layout props constraints)
+    (def (md-layout body props constraints)
         (import layout.systems-md)
-        (md-systems-layout props constraints)
+        (md-systems-layout body props constraints)
     )
 
-    (def (systems-layout props project)
+    (def (systems-layout body props project)
         (def props
             (concat props (:project project))
         )
         (select-layout
-            :xs (xs-layout props)
-            :sm (xs-layout props)
-            :md (md-layout props)
-            :lg (md-layout props)
-            :xl (md-layout props)
+            :xs (xs-layout body props)
+            :sm (xs-layout body props)
+            :md (md-layout body props)
+            :lg (md-layout body props)
+            :xl (md-layout body props)
         )
     )
 )

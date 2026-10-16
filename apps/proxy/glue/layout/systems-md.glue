@@ -76,25 +76,21 @@
         )
     )
 
-    (def (body props)
-        (row
-            :cross-axis-alignment cross-axis-alignment.stretch
-            :children (
-                (expanded
-                    :flex 1
-                    :child (right-panel props)
-                )
-                (expanded
-                    :flex 3
-                    :child (main-panel props)
+    (def (md-systems-layout body props constraints)
+        (md-screen-layout
+            :body (row
+                :cross-axis-alignment cross-axis-alignment.stretch
+                :children (
+                    (expanded
+                        :flex 1
+                        :child (right-panel props)
+                    )
+                    (expanded
+                        :flex 3
+                        :child body
+                    )
                 )
             )
-        )
-    )
-
-    (def (md-systems-layout props constraints)
-        (md-screen-layout
-            :body (body props)
         )
     )
 )

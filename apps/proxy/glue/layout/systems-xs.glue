@@ -8,7 +8,7 @@
 
     (import widget.screen)
 
-    (def (xs-systems-layout props constraints)
+    (def (xs-systems-layout body props constraints)
         (screen
             :body (center
                 :child (text
