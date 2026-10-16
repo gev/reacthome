@@ -2,6 +2,8 @@
     (export
         light
         curtains
+        cameras
+        water
 
         cooling
         heating
@@ -24,9 +26,10 @@
 
     (def curtains (
             :label i18n-curtains
+            :icon (symbol 'curtains)
             :icons (
-                :closed (symbol 'shades.closed)
-                :opened (symbol 'shades)
+                :closed (symbol 'curtains.closed)
+                :opened (symbol 'curtains)
             )
         ))
 
@@ -50,6 +53,17 @@
             :label i18n-ventilation
             :icon (symbol 'mode_fan_2)
         ))
+
+    (def cameras (
+            :label i18n-cameras
+            :icon (symbol 'videocam)
+        ))
+
+    (def water (
+            :label i18n-water
+            :icon (symbol 'water_drop)
+        ))
+
 
     (def power (
             :icon (symbol 'power_settings_new)

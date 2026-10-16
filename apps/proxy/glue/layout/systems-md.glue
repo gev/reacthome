@@ -10,6 +10,8 @@
 
     (import layout.screen-md)
 
+    (import widget.app-bar-button)
+
     (def (site-title props)
         (padding
             :padding (edge-insets-symmetric :horizontal 16)
@@ -24,15 +26,13 @@
     )
 
     (def (system props)
-        (elevated-button
-            :child (row
-                :children (
-                    (icon :icon props.icon)
-                    (text
-                        :text (select-locale props.label)
-                    )
-                )
-            )
+        (app-bar-button
+            :label (select-locale props.label)
+            :icon props.icon
+            :selected-color current-theme.color-scheme.tertiary-container
+            :unselected-color current-theme.color-scheme.surface-container
+            :selected false
+            :on-pressed (\ () ())
         )
     )
     
@@ -40,11 +40,19 @@
         (single-child-scroll-view
             :scroll-direction axis.horizontal
             :child (row
-                :spacing 32
+                :spacing 4
+                :cross-axis-alignment cross-axis-alignment.center
                 :children (prepend
                     (site-title props)
                     (map system (#
                             light
+                            curtains
+                            heating
+                            cooling
+                            wetting
+                            ventilation
+                            water
+                            cameras
                         ))
                 )
             )
