@@ -36,14 +36,14 @@
         )
     )
 
-    (def (system props)
+    (def (system props system index)
         (selected-list-tile
-            :label (select-locale props.label)
-            :icon props.icon
+            :label (select-locale system.label)
+            :icon system.icon
             :selected-color current-theme.color-scheme.tertiary-container
             :unselected-color current-theme.color-scheme.surface-container
             :selected false
-            :on-select (\ () ())
+            :on-select (props.select-screen index)
         )
     )
     
@@ -59,7 +59,7 @@
                         (
                             (project-title props)
                             (divider _)
-                            (map system systems)
+                            (zip-with (system props) systems (range (length systems)))
                         )
                     )
                 )
