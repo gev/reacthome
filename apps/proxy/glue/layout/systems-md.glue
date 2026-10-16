@@ -59,7 +59,11 @@
         )
     )
 
-    (def (body props)
+    (def (right-panel props)
+        (site-title props)
+    )
+
+    (def (main-panel props)
         (center
             :child (text
                 :text (select-locale i18n-systems)
@@ -68,10 +72,22 @@
         )
     )
 
+    (def (body props)
+        (padding
+            :padding (edge-insets-only :top 128)
+            :child (row
+                :children (
+                    (right-panel props)
+                    (main-panel props)
+                )
+            )
+        )
+    )
+
     (def (md-systems-layout props constraints)
         (md-screen-layout
             :bottom 80
-            :footer (head props)
+            :header (head props)
             :body (body props)
         )
     )
