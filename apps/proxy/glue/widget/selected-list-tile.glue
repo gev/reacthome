@@ -1,27 +1,7 @@
 (module widget.selected-list-tile
     (export selected-list-tile)
 
-    (def (selected-style props)
-        (button-style
-            :elevation 1
-            :background-color (
-                ?? props.selected-color
-                current-theme.color-scheme.secondary-container
-            )
-        )
-    )
-
-    (def (unselected-style props)
-        (button-style
-            :elevation 0
-            :background-color (
-                ?? props.unselected-color
-                colors.transparent)
-        )
-    )
-
     (def (selected-list-tile props)
-        (def style (? props.selected selected-style unselected-style))
         (ink-well
             :on-tap props.on-select
             :child (list-tile
@@ -30,6 +10,8 @@
                     :icon props.icon
                 )
                 :title (text :text props.label)
+                :selected props.selected
+                :selected-tile-color current-theme.color-scheme.primary-container
             )
         )
     )
