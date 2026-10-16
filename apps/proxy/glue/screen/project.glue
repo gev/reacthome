@@ -5,9 +5,9 @@
 
     (import layout.project)
 
-    (import screen.home)
-    (import screen.weather)
-    (import screen.systems)
+    (import screen.project.home)
+    (import screen.project.weather)
+    (import screen.project.systems)
 
     (def screen
         (local-state 1)

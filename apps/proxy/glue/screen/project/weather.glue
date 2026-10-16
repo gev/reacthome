@@ -1,4 +1,4 @@
-(module  screen.weather
+(module  screen.project.weather
     (export weather-screen)
 
     (import i18n.weather)

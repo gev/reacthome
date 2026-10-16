@@ -1,4 +1,4 @@
-(module screen.home
+(module screen.project.home
     (export home-screen)
 
     (import lib.data)
