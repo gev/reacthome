@@ -20,6 +20,12 @@
                     :spacing 4
                     :children (
                         (selected-button
+                            :icon (symbol 'weather.mix)
+                            :label (select-locale i18n-weather)
+                            :selected (== props.current-screen 0)
+                            :on-select (props.select-screen 0)
+                        )
+                        (selected-button
                             :icon (symbol 'home)
                             :label (select-locale i18n-home)
                             :selected (== props.current-screen 1)
@@ -30,12 +36,6 @@
                             :label (select-locale i18n-systems)
                             :selected (== props.current-screen 2)
                             :on-select (props.select-screen 2)
-                        )
-                        (selected-button
-                            :icon (symbol 'weather.mix)
-                            :label (select-locale i18n-weather)
-                            :selected (== props.current-screen 0)
-                            :on-select (props.select-screen 0)
                         )
                     )
                 )
