@@ -42,7 +42,7 @@
             :icon system.icon
             :selected-color current-theme.color-scheme.tertiary-container
             :unselected-color current-theme.color-scheme.surface-container
-            :selected false
+            :selected (== props.current-screen index)
             :on-select (props.select-screen index)
         )
     )
