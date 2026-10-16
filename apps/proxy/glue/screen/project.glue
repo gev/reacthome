@@ -21,8 +21,10 @@
 
     (def (project props current-screen)
         (def props
-            (concat props
-                (:current-screen current-screen)
+            (concat props (
+                    :current-screen current-screen
+                    :select-screen select-screen
+                )
             )
         )
         (def body (indexed-stack
@@ -39,11 +41,7 @@
 
     (def (home props daemon)
         (def props
-            (concat props (
-                    :id daemon.project
-                    :select-screen select-screen
-                )
-            )
+            (concat props (:id daemon.project))
         )
         (listen (project props) screen)
     )

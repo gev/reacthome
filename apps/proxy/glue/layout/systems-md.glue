@@ -23,11 +23,11 @@
             cameras
         ))
 
-    (def (site-title props)
+    (def (project-title props)
         (padding
             :padding (edge-insets-symmetric :horizontal 16)
             :child (text
-                :text (title props)
+                :text (title props.project)
                 :style (text-style
                     :font-size current-theme.text-theme.headline-medium.font-size
                     :color current-theme.color-scheme.on-primary-container
@@ -57,7 +57,7 @@
                     :cross-axis-alignment cross-axis-alignment.start
                     :children (flatten
                         (
-                            (site-title props)
+                            (project-title props)
                             (divider _)
                             (map system systems)
                         )
@@ -94,7 +94,6 @@
 
     (def (md-systems-layout props constraints)
         (md-screen-layout
-            :app-bar (site-title props)
             :body (body props)
         )
     )
