@@ -1,0 +1,44 @@
+(module widget.systems
+    (export systems)
+
+    (import lib.i18n)
+    (import lib.navigation)
+
+    (import widget.site-breadcrumbs)
+
+    (def (no-system i18n-system)
+        (center
+            :child (text
+                :text (select-locale i18n-system)
+                :style current-theme.text-theme.display-medium
+            )
+        )
+    )
+
+    (def (system show props)
+        (column
+            :spacing 16
+            :children (prepend
+                (site-breadcrumbs
+                    :site props.site
+                    :action (\ (id) (go
+                            :target project-navigator
+                            :route 'site
+                            :id id
+                        ))
+                )
+                (map show props.systems)
+            )
+        )
+    )
+
+    (def (systems i18n-system show props)
+        (if (empty? props)
+            (no-system i18n-system)
+            (column
+                :spacing 32
+                :children (map (system show) props)
+            )
+        )
+    )
+)

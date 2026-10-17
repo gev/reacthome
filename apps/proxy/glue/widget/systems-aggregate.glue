@@ -1,0 +1,61 @@
+(module widget.systems-aggregate
+    (export systems-aggregate)
+
+    (import lib.combinator)
+
+    (def (has-children site)
+        (exists? site.site)
+    )
+
+    (def (get-children site)
+        (site.site)
+    )
+
+    (def (systems props acc site)
+        (def systems (foldl
+                (\ (acc system)
+                    (def system (@ site system))
+                    (if (exists? system)
+                        (append acc system)
+                    )
+                )
+                () props.systems)
+        )
+        (if (exists? systems)
+            (append acc (
+                    :site site.id
+                    :systems systems
+                )
+            )
+            acc
+        )
+    )
+
+    (def (aggregate-gen rec props)
+        (def (go sites)
+            (def sites-with-children (filter has-children sites))
+            (def children (map get-children sites-with-children))
+            (rec
+                :build props.build
+                :systems props.systems
+                :sites (flatten children)
+                :acc (foldl (systems props) props.acc sites)
+            )
+        )
+        (if (empty? props.sites)
+            (props.build props.acc)
+            (listen go (map remote-persistent-state props.sites))
+        )
+    )
+
+    (def aggregate (Z aggregate-gen))
+
+    (def (systems-aggregate props)
+        (aggregate
+            :sites (# props.id)
+            :systems props.systems
+            :build props.build
+            :acc ()
+        )
+    )
+)

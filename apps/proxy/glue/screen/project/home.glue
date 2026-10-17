@@ -2,6 +2,8 @@
     (export project-home-screen)
 
     (import lib.data)
+    (import lib.navigation)
+    
     (import layout.site)
 
     (def (project props)
@@ -26,6 +28,7 @@
 
     (def (project-home-screen props)
         (navigator
+            :navigator-key project-navigator
             :routes (
                 :index (index-route props)
                 :site (site-route props)

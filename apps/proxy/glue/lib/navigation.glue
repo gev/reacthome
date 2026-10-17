@@ -1,13 +1,15 @@
 (module lib.navigation
     (export
-        applet
+        applet-navigator
+        project-navigator
         back
         back-root
         go
         go-root
     )
 
-    (def applet global-key)
+    (def applet-navigator global-key)
+    (def project-navigator global-key)
 
     (def back
         (\ ()

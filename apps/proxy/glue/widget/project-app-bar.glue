@@ -43,7 +43,7 @@
             :trailing (
                 (icon-button
                     :child (icon :icon (symbol 'settings))
-                    :on-pressed (go :route 'settings :target applet)
+                    :on-pressed (go :route 'settings :target applet-navigator)
                 )
             )
         )

@@ -13,7 +13,7 @@
             :tag props.regulator.id
             :card-color color-scheme.surface
             :on-pressed (go
-                :target applet
+                :target applet-navigator
                 :route props.route
                 :id props.regulator.id
                 :site props.site.id
