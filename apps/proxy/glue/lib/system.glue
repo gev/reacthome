@@ -3,17 +3,15 @@
         light
         curtains
         cameras
+        multiroom
         water
-
         cooling
         heating
         wetting
         ventilation
-
         power
         fan
-
-        system
+        systems
     )
 
     (import i18n.system)
@@ -59,6 +57,11 @@
             :icon (symbol 'videocam)
         ))
 
+    (def multiroom (
+            :label i18n-multiroom
+            :icon (symbol 'music_note_2)
+        ))
+
     (def water (
             :label i18n-water
             :icon (symbol 'water_drop)
@@ -73,5 +76,16 @@
             :icon (symbol 'mode_fan_2)
         ))
 
-    (def system _)
+    (def systems (#
+            light
+            curtains
+            cameras
+            multiroom
+            heating
+            cooling
+            wetting
+            ventilation
+            water
+        )
+    )
 )

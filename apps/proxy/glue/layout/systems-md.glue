@@ -12,17 +12,6 @@
 
     (import widget.selected-list-tile)
 
-    (def systems (#
-            light
-            curtains
-            heating
-            cooling
-            wetting
-            ventilation
-            water
-            cameras
-        ))
-
     (def (project-title props)
         (padding
             :padding (edge-insets-symmetric :horizontal 16)

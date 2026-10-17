@@ -4,6 +4,7 @@
         i18n-light
         i18n-curtains
         i18n-cameras
+        i18n-multiroom
         i18n-water
         i18n-heating
         i18n-cooling
@@ -30,6 +31,11 @@
     (def i18n-cameras (
             :en "Cameras"
             :ru "Камеры"
+        ))
+
+    (def i18n-multiroom (
+            :en "Multiroom"
+            :ru "Мультирум"
         ))
 
     (def i18n-water (

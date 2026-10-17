@@ -7,12 +7,13 @@
 
     (import screen.system.light)
     (import screen.system.curtains)
+    (import screen.system.cameras)
+    (import screen.system.multiroom)
     (import screen.system.heating)
     (import screen.system.cooling)
     (import screen.system.wetting)
     (import screen.system.ventilation)
     (import screen.system.water)
-    (import screen.system.cameras)
 
     (def screen
         (local-state 0)
@@ -37,12 +38,13 @@
                 :children (
                     (system-light-screen props)
                     (system-curtains-screen props)
+                    (system-cameras-screen props)
+                    (system-multiroom-screen props)
                     (system-heating-screen props)
                     (system-cooling-screen props)
                     (system-wetting-screen props)
                     (system-ventilation-screen props)
                     (system-water-screen props)
-                    (system-cameras-screen props)
                 )
             )
         )

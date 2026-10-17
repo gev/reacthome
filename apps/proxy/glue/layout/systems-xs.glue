@@ -1,4 +1,4 @@
-(module  layout.system-xs
+(module  layout.systems-xs
     (export xs-systems-layout)
 
     (import lib.i18n)
