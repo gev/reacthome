@@ -3,14 +3,30 @@
 
     (import i18n.system)
 
-    (import lib.i18n)
+    (import lib.data)
+
+    (import widget.systems)
+    (import widget.systems-aggregate)
+    (import widget.humidity-regulator-active-card)
+
+    (def (wetting-card site props)
+        (sized-box
+            :width 360
+            :child (humidity-regulator-active-card site props)
+        )
+    )
+
+    (def (wetting props)
+        (wrap
+            :children (select-collection (wetting-card props) props.thermostat)
+        )
+    )
 
     (def (system-wetting-screen props)
-        (center
-            :child (text
-                :text (select-locale i18n-wetting)
-                :style current-theme.text-theme.display-medium
-            )
+        (systems-aggregate
+            :id props.id
+            :systems ("hygrostat")
+            :build (systems i18n-light wetting)
         )
     )
 )
