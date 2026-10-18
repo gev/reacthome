@@ -2,6 +2,7 @@
     (export project-screen)
 
     (import lib.data)
+    (import lib.indexed-screens)
 
     (import layout.project)
 
@@ -9,13 +10,9 @@
     (import screen.project.weather)
     (import screen.project.systems)
 
-    (def screen
-        (local-state 1)
-    )
-
     (def (select-screen current)
         (\ ()
-            (write screen current)
+            (project-screens.select-screen current)
         )
     )
 
@@ -43,7 +40,7 @@
         (def props
             (concat props (:id daemon.project))
         )
-        (listen (project props) screen)
+        (listen (project props) project-screens.current-screen)
     )
 
     (def (project-screen props args)

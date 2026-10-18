@@ -3,6 +3,7 @@
 
     (import lib.i18n)
     (import lib.navigation)
+    (import lib.indexed-screens)
 
     (import widget.site-breadcrumbs)
 
@@ -21,11 +22,16 @@
             :children (prepend
                 (site-breadcrumbs
                     :site props.site
-                    :action (\ (id) (go
-                            :target project-navigator
-                            :route 'site
-                            :id id
-                        ))
+                    :action (\ (id)
+                        (\ ()
+                            (push
+                                :target project-navigator
+                                :route 'site
+                                :id id
+                            )
+                            (project-screens.select-screen 1)
+                        )
+                    )
                 )
                 (map show props.systems)
             )

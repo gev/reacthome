@@ -2,6 +2,7 @@
     (export project-systems-screen)
 
     (import lib.data)
+    (import lib.indexed-screens)
     
     (import layout.systems)
 
@@ -15,13 +16,9 @@
     (import screen.system.ventilation)
     (import screen.system.water)
 
-    (def screen
-        (local-state 0)
-    )
-
     (def (select-screen current)
         (\ ()
-            (write screen current)
+            (systems-screens.select-screen current)
         )
     )
 
@@ -52,6 +49,6 @@
     )
 
     (def (project-systems-screen props)
-        (listen (systems props) screen)
+        (listen (systems props) systems-screens.current-screen)
     )
 )

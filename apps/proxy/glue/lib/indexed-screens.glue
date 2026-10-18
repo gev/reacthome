@@ -1,0 +1,18 @@
+(module lib.indexed-screens
+    (export
+        project-screens
+        systems-screens
+    )
+
+    (def (indexed-screens initial-screen)
+        (def screen (local-state initial-screen))
+        (
+            :current-screen screen
+            :select-screen (write screen)
+        )
+    )
+
+    (def project-screens (indexed-screens 1))
+    (def systems-screens (indexed-screens 0))
+
+)
