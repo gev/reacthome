@@ -19,7 +19,7 @@
 
     (def (cameras props)
         (wrap
-            :children (select-collection camera-card props)
+            :children (select-collection camera-card props.camera)
         )
     )
 

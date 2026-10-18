@@ -18,7 +18,7 @@
 
     (def (curtains props)
         (wrap
-            :children (select-collection curtains-card props)
+            :children (select-collection curtains-card props.curtains)
         )
     )
 

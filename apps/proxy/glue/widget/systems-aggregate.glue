@@ -12,23 +12,15 @@
     )
 
     (def (systems props acc site)
-        (def systems (foldl
+        (def has-systems
+            (foldl
                 (\ (acc system)
-                    (def system (@ site system))
-                    (if (exists? system)
-                        (append acc system)
-                    )
+                    (|| acc (exists? (@ site system)))
                 )
-                () props.systems)
-        )
-        (if (exists? systems)
-            (append acc (
-                    :site site
-                    :systems systems
-                )
+                false props.systems
             )
-            acc
         )
+        (? has-systems (append acc site) acc)
     )
 
     (def (aggregate-gen rec props)

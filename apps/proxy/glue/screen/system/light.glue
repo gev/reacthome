@@ -17,8 +17,15 @@
     )
 
     (def (light props)
-        (wrap
-            :children (select-collection light-card props)
+        (column
+            :children (
+                (wrap
+                    :children (select-collection light-card props.light_220)
+                )
+                (wrap
+                    :children (select-collection light-card props.light_LED)
+                )
+            )
         )
     )
 

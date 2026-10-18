@@ -20,9 +20,9 @@
         (column
             :spacing 16
             :cross-axis-alignment cross-axis-alignment.start
-            :children (prepend
+            :children (
                 (site-breadcrumbs
-                    :site props.site.id
+                    :site props.id
                     :action (\ (id)
                         (\ ()
                             (push
@@ -34,7 +34,7 @@
                         )
                     )
                 )
-                (map (show props.site) props.systems)
+                (show props)
             )
         )
     )
