@@ -23,7 +23,7 @@
         )
         (if (exists? systems)
             (append acc (
-                    :site site.id
+                    :site site
                     :systems systems
                 )
             )
