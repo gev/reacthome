@@ -3,14 +3,30 @@
 
     (import i18n.system)
 
-    (import lib.i18n)
+    (import lib.data)
+
+    (import widget.systems)
+    (import widget.systems-aggregate)
+    (import widget.curtain-regulator-active-card)
+
+    (def (curtains-card props)
+        (sized-box
+            :width 360
+            :child (curtain-regulator-active-card props)
+        )
+    )
+
+    (def (curtains props)
+        (wrap
+            :children (select-collection curtains-card props)
+        )
+    )
 
     (def (system-curtains-screen props)
-        (center
-            :child (text
-                :text (select-locale i18n-curtains)
-                :style current-theme.text-theme.display-medium
-            )
+        (systems-aggregate
+            :id props.id
+            :systems ("curtains")
+            :build (systems i18n-light curtains)
         )
     )
 )
