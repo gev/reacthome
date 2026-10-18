@@ -30,7 +30,6 @@
         )
     )
 
-
     (def (footer props)
         (if (exists? props.footer)
             (let
