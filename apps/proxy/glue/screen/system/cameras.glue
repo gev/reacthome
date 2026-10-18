@@ -3,14 +3,31 @@
 
     (import i18n.system)
 
-    (import lib.i18n)
+    (import lib.data)
+
+    (import widget.systems)
+    (import widget.systems-aggregate)
+    (import widget.camera-card)
+
+    (def (camera-card props)
+        (camera-card _
+            (concat props
+                (:width 360 :height 200)
+            )
+        )
+    )
+
+    (def (cameras props)
+        (wrap
+            :children (select-collection camera-card props)
+        )
+    )
 
     (def (system-cameras-screen props)
-        (center
-            :child (text
-                :text (select-locale i18n-cameras)
-                :style current-theme.text-theme.display-medium
-            )
+        (systems-aggregate
+            :id props.id
+            :systems ("camera")
+            :build (systems i18n-cameras cameras)
         )
     )
 )
