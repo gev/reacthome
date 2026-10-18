@@ -3,14 +3,30 @@
 
     (import i18n.system)
 
-    (import lib.i18n)
+    (import lib.data)
+
+    (import widget.systems)
+    (import widget.systems-aggregate)
+    (import widget.ventilation-regulator-active-card)
+
+    (def (ventilation-card site props)
+        (sized-box
+            :width 360
+            :child (ventilation-regulator-active-card site props)
+        )
+    )
+
+    (def (ventilation props)
+        (wrap
+            :children (select-collection (ventilation-card props) props.co2_stat)
+        )
+    )
 
     (def (system-ventilation-screen props)
-        (center
-            :child (text
-                :text (select-locale i18n-ventilation)
-                :style current-theme.text-theme.display-medium
-            )
+        (systems-aggregate
+            :id props.id
+            :systems ("co2_stat")
+            :build (systems i18n-light ventilation)
         )
     )
 )
