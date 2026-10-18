@@ -3,14 +3,33 @@
 
     (import i18n.system)
 
-    (import lib.i18n)
+    (import lib.data)
+
+    (import widget.systems)
+    (import widget.systems-aggregate)
+    (import widget.temperature-regulator-active-card)
+
+    (def (heating-card props)
+        (select (\ (site) (
+                    (sized-box
+                        :width 360
+                        :child (temperature-regulator-active-card site props)
+                    )
+
+                )) props.site)
+    )
+
+    (def (heating props)
+        (wrap
+            :children (select-collection heating-card props)
+        )
+    )
 
     (def (system-heating-screen props)
-        (center
-            :child (text
-                :text (select-locale i18n-heating)
-                :style current-theme.text-theme.display-medium
-            )
+        (systems-aggregate
+            :id props.id
+            :systems ("thermostat")
+            :build (systems i18n-light heating)
         )
     )
 )
