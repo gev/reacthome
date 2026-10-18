@@ -22,7 +22,7 @@
             :cross-axis-alignment cross-axis-alignment.start
             :children (prepend
                 (site-breadcrumbs
-                    :site props.site
+                    :site props.site.id
                     :action (\ (id)
                         (\ ()
                             (push
@@ -34,7 +34,7 @@
                         )
                     )
                 )
-                (map show props.systems)
+                (map (show props.site) props.systems)
             )
         )
     )
