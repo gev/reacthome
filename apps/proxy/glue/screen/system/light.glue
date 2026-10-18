@@ -18,7 +18,6 @@
 
     (def (light props)
         (wrap
-
             :children (select-collection light-card props)
         )
     )
