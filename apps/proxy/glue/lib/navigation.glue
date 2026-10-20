@@ -6,7 +6,10 @@
         back-root
         go
         go-root
+        go-site
     )
+
+    (import lib.indexed-screens)
 
     (def applet-navigator global-key)
     (def project-navigator global-key)
@@ -25,13 +28,30 @@
  
     (def (go route)
         (\ ()
-            (push route)
+            (jump-or-push route)
         )
     )
 
     (def (go-root route)
         (\ ()
-            (push-root route)
+            (jump-or-push-root route)
+        )
+    )
+
+    (def (go-site props)
+        (\ ()
+            (if (exists? props.parent)
+                (jump-or-push
+                    :target project-navigator
+                    :route 'site
+                    :id props.id
+                )
+                (jump-or-push
+                    :target project-navigator
+                    :route 'index
+                )
+            )
+            (project-screens.select-screen 1)
         )
     )
 )

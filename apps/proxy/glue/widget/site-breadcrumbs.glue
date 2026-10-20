@@ -21,7 +21,7 @@
                 :foreground-color (?? color
                     current-theme.color-scheme.on-surface-variant)
             )
-            :on-pressed (action props.id)
+            :on-pressed (action props)
             :child (text
                 :text (title props)
             )

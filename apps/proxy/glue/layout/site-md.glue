@@ -89,7 +89,7 @@
                             (site-breadcrumbs
                                 :color current-theme.color-scheme.on-tertiary-container
                                 :site props.site.parent
-                                :action (\ (id) (go :route 'site :id id))
+                                :action go-site
                             )
                         )
                     )

@@ -23,16 +23,7 @@
             :children (
                 (site-breadcrumbs
                     :site props.id
-                    :action (\ (id)
-                        (\ ()
-                            (push
-                                :target project-navigator
-                                :route 'site
-                                :id id
-                            )
-                            (project-screens.select-screen 1)
-                        )
-                    )
+                    :action go-site
                 )
                 (show props)
             )
