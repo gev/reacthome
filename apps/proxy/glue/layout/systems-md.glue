@@ -56,15 +56,6 @@
         )
     )
 
-    (def (main-panel props)
-        (center
-            :child (text
-                :text (select-locale i18n-systems)
-                :style current-theme.text-theme.display-medium
-            )
-        )
-    )
-
     (def (md-systems-layout body props constraints)
         (md-screen-layout
             :body (row
