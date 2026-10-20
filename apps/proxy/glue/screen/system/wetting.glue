@@ -26,7 +26,7 @@
         (systems-aggregate
             :id props.id
             :systems ("hygrostat")
-            :build (systems i18n-light wetting)
+            :build (systems i18n-wetting wetting)
         )
     )
 )
