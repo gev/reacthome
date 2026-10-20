@@ -4,6 +4,7 @@
     (import lib.combinator)
     (import lib.conversion)
     (import lib.parameter)
+    (import lib.system)
 
     (import i18n.status)
 
@@ -74,7 +75,7 @@
         (def children (flatten
                 (#
                     (if (exists? lights_all)
-                        (listen (aggregate-lights props brightness) lights_all)
+                        (listen (aggregate-lights props light) lights_all)
                         ()
                     )
                     (aggregate-sensors props temperature)
