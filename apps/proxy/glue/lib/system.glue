@@ -12,6 +12,8 @@
         power
         fan
         systems
+        valve-heating
+        warm-floor
     )
 
     (import i18n.system)
@@ -67,7 +69,14 @@
             :icon (symbol 'water_drop)
         ))
 
-
+    (def valve-heating (
+            :icon (symbol 'heat)
+        ))
+    
+    (def warm-floor (
+            :icon (symbol 'nest_true_radiant)
+        ))
+    
     (def power (
             :icon (symbol 'power_settings_new)
         ))

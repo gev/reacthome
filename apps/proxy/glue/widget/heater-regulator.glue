@@ -1,0 +1,57 @@
+(module widget.heater-regulator
+    (export heater-regulator)
+
+    (import i18n.status)
+
+    (import lib.action)
+    (import lib.conversion)
+    (import lib.data)
+    (import lib.optimistic)
+    (import lib.parameter)
+
+    (import widget.entity-modal)
+    
+    (def (regulator-modal props on-changed value)
+        (def background-color
+            (if value
+                current-theme.color-scheme.surface-bright
+                current-theme.color-scheme.surface-dim
+            )
+        )
+        (entity-modal
+            :site props.site
+            :background-color background-color
+            :title (title props)
+            :value (round-to-resolution value brightness.resolution)
+            :unit brightness.unit
+            :body (vertical-slider
+                :value value
+                :min 0
+                :max 100
+                :width 60
+                :height 200
+                :focused-width 90
+                :border-radius 30
+                :active-color current-theme.color-scheme.primary
+                :on-changed on-changed
+            )
+        )
+    )
+
+    (def throttle-200
+        (throttle (duration :milliseconds 200))
+    )
+    
+    (def (heater-regulator props bind)
+        (def dim-heater (dim props.id))
+        (def state
+            (optimistic
+                :value (to-percents bind.value)
+                :on-changed (\ (value)
+                    (throttle-200 (dim-heater (from-percents value)))
+                )
+            )
+        )
+        (listen (regulator-modal props state.set-value) state.value)
+    )
+)

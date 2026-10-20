@@ -17,6 +17,7 @@
     (import widget.temperature-regulator-active-card)
     (import widget.humidity-regulator-active-card)
     (import widget.ventilation-regulator-active-card)
+    (import widget.heater-regulator-active-card)
 
     (def (scrolled-column props)
         (single-child-scroll-view
@@ -130,6 +131,12 @@
         (def ventilation-regulator
             (select-collection (ventilation-regulator-active-card props.site) props.site.co2_stat)
         )
+        (def valve-heating
+            (select-collection heater-regulator-active-card props.site.valve_heating)
+        )
+        (def warm-floor
+            (select-collection heater-regulator-active-card props.site.warm_floor)
+        )
         (def sites
             (select-collection site-card props.site.site)
         )
@@ -142,6 +149,8 @@
                             temperature-regulator
                             humidity-regulator
                             temperature-regulator
+                            valve-heating
+                            warm-floor
                         )))))
 
         (single-child-scroll-view
@@ -164,6 +173,12 @@
                         (scrolled-column
                             :width 360
                             :children temperature-regulator
+                        )
+                    )
+                    (if (|| (exists? valve-heating) (exists? warm-floor))
+                        (scrolled-column
+                            :width 200
+                            :children (concat valve-heating warm-floor)
                         )
                     )
                     (if (exists? humidity-regulator)

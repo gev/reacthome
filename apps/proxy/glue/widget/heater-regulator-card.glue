@@ -1,0 +1,132 @@
+(module widget.heater-regulator-card
+    (export heater-regulator-card)
+
+    (import i18n.status)
+
+    (import lib.action)
+    (import lib.conversion)
+    (import lib.data)
+    (import lib.i18n)
+    (import lib.navigation)
+    (import lib.parameter)
+
+    (import widget.card)
+    (import widget.entity-tile)
+    (import widget.iconic)
+
+    (def elevation-unbound 0)
+    (def elevation-off 1)
+    (def elevation-on 2)
+
+    (def (heater-tile props)
+        (entity-tile
+            :icon (
+                :symbol heater.icon
+                :color current-theme.color-scheme.primary
+                :fill (? props.value 1 0)
+            )
+            :label (:text props.label)
+            :status (:text props.status)
+        )
+    )
+    
+    (def (dimmable-heater-regulator-card props)
+        (if (props.value)
+            (active-card
+                :key props.id
+                :tag props.id
+                :on-pressed (turn-off props.id)
+                :on-long-press (go :target applet-navigator :route 'heater-regulator :id props.id :palette props.palette)
+                :card-color current-theme.color-scheme.surface-bright
+                :elevation elevation-on
+                :child (heater-tile
+                    :value props.brightness
+                    :label props.label
+                    :status (to-percents props.brightness)
+                )
+            )
+            (active-card
+                :key props.id
+                :tag props.id
+                :on-pressed (turn-on props.id)
+                :on-long-press (go :target applet-navigator :route 'heater-regulator :id props.id :palette props.palette)
+                :card-color current-theme.color-scheme.surface-dim
+                :elevation elevation-off
+                :child (heater-tile
+                    :value props.brightness
+                    :label props.label
+                    :status (select-locale i18n-off)
+                )
+            )
+        )
+    )
+
+    (def (non-dimmable-heater-regulator-card props)
+        (if (props.value)
+            (active-card
+                :key props.id
+                :tag props.id
+                :on-pressed (turn-off props.id)
+                :card-color current-theme.color-scheme.surface-bright
+                :elevation elevation-on
+                :child (heater-tile
+                    :value props.value
+                    :label props.label
+                    :status (select-locale i18n-on)
+                )
+            )
+            (active-card
+                :key props.id
+                :tag props.id
+                :on-pressed (turn-on props.id)
+                :card-color current-theme.color-scheme.surface-dim
+                :elevation elevation-off
+                :child (heater-tile
+                    :value props.value
+                    :label props.label
+                    :status (select-locale i18n-off)
+                )
+            )
+        )
+    )
+
+    (def (bound-heater-regulator-card palette props bind)
+        (def card
+            (if bind.dimmable
+                dimmable-heater-regulator-card
+                non-dimmable-heater-regulator-card
+            )
+        )
+        (card
+            :id props.id
+            :label (title props)
+            :value props.value
+            :brightness (if (exists? bind.brightness)
+                (? bind.value bind.brightness 0)
+                bind.value
+            )
+            :palette palette
+        )
+    )
+
+    (def (unbound-heater-regulator-card props)
+        (inactive-card
+            :key props.id
+            :tag props.id
+            :card-color current-theme.color-scheme.surface-variant
+            :elevation elevation-unbound
+            :child (disabled-entity-tile
+                :icon (:symbol heater.icon)
+                :label (:text (title props))
+                :status (:text (select-locale i18n-not-available))
+            )
+        )
+    )
+
+    (def (heater-regulator-card palette props)
+        (if (exists? props.bind)
+            (select (bound-heater-regulator-card palette props) props.bind)
+            (unbound-heater-regulator-card props)
+        )
+    )
+)

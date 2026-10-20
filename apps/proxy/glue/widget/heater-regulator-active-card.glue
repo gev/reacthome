@@ -1,0 +1,182 @@
+(module widget.heater-regulator-active-card
+    (export heater-regulator-active-card)
+
+    (import i18n.status)
+
+    (import iconic.heater)
+
+    (import lib.action)
+    (import lib.conversion)
+    (import lib.data)
+    (import lib.i18n)
+    (import lib.optimistic)
+    (import lib.parameter)
+    (import lib.system)
+
+    (import widget.card)
+    (import widget.entity-tile)
+    (import widget.iconic)
+
+    (def elevation-unbound 0)
+    (def elevation-off 1)
+    (def elevation-on 2)
+
+    (def throttle-200
+        (throttle (duration :milliseconds 200))
+    )
+    
+    (def (heater-icon props)
+        (if (== props.type "warm_floor")
+            warm-floor.icon valve-heating.icon
+        )
+    )
+
+    (def (heater-tile props)
+        (entity-tile
+            :icon (
+                :symbol props.icon
+                :color current-theme.color-scheme.secondary
+                :fill (? props.value 1 0)
+            )
+            :label (:text props.label)
+            :status (:text props.status)
+        )
+    )
+
+    (def (dimmable-heater-tile props)
+        (column
+            :spacing 8
+            :children (
+                (heater-tile props)
+                (horizontal-slider
+                    :value props.value
+                    :min 0
+                    :max 100
+                    :width 168
+                    :height 24
+                    :focused-width 48
+                    :border-radius 8
+                    :active-color current-theme.color-scheme.primary
+                    :on-changed props.on-changed
+                )
+            )
+        )
+    )
+
+    (def (regulator props on-changed value)
+        (if (value)
+            (active-card
+                :key props.id
+                :tag props.id
+                :on-pressed (turn-off props.id)
+                :card-color current-theme.color-scheme.surface-bright
+                :elevation elevation-on
+                :child (dimmable-heater-tile
+                    :value value
+                    :label props.label
+                    :icon props.icon
+                    :status (round-to-resolution value brightness.resolution)
+                    :on-changed on-changed
+                )
+            )
+            (active-card
+                :key props.id
+                :tag props.id
+                :on-pressed (turn-on props.id)
+                :card-color current-theme.color-scheme.surface-dim
+                :elevation elevation-off
+                :child (dimmable-heater-tile
+                    :value props.brightness
+                    :label props.label
+                    :icon props.icon
+                    :status (select-locale i18n-off)
+                    :on-changed on-changed
+                )
+            )
+        )
+    )
+    
+    (def (dimmable-heater-regulator-card props)
+        (def dim-heater (dim props.id))
+        (def state
+            (optimistic
+                :value (to-percents props.brightness)
+                :on-changed (\ (value)
+                    (throttle-200 (dim-heater (from-percents value)))
+                )
+            )
+        )
+        (listen (regulator props state.set-value) state.value)
+    )
+
+    (def (non-dimmable-heater-regulator-card props)
+        (if (props.value)
+            (active-card
+                :key props.id
+                :tag props.id
+                :on-pressed (turn-off props.id)
+                :card-color current-theme.color-scheme.surface-bright
+                :elevation elevation-on
+                :child (heater-tile
+                    :value props.value
+                    :label props.label
+                    :icon props.icon
+                    :status (select-locale i18n-on)
+                )
+            )
+            (active-card
+                :key props.id
+                :tag props.id
+                :on-pressed (turn-on props.id)
+                :card-color current-theme.color-scheme.surface-dim
+                :elevation elevation-off
+                :child (heater-tile
+                    :value props.value
+                    :label props.label
+                    :icon props.icon
+                    :status (select-locale i18n-off)
+                )
+            )
+        )
+    )
+
+    (def (bound-heater-regulator-card props bind)
+        (def card
+            (if bind.dimmable
+                dimmable-heater-regulator-card
+                non-dimmable-heater-regulator-card
+            )
+        )
+        (card
+            :id props.id
+            :label (title props)
+            :icon (heater-icon props)
+            :value props.value
+            :brightness (if (exists? bind.brightness)
+                (? bind.value bind.brightness 0)
+                bind.value
+            )
+        )
+    )
+
+    (def (unbound-heater-regulator-card props)
+        (inactive-card
+            :key props.id
+            :tag props.id
+            :card-color current-theme.color-scheme.surface-variant
+            :elevation elevation-unbound
+            :child (disabled-entity-tile
+                :label (:text (title props))
+                :icon (:symbol (heater-icon props))
+                :status (:text (select-locale i18n-not-available))
+            )
+        )
+    )
+
+    (def (heater-regulator-active-card props)
+        (if (exists? props.bind)
+            (select (bound-heater-regulator-card props) props.bind)
+            (unbound-heater-regulator-card props)
+        )
+    )
+)
