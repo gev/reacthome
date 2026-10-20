@@ -12,7 +12,7 @@
         (positioned
             :left 0 :right 0 :top 0
             :child (container
-                :padding (edge-insets-only :top 80 :bottom 16)
+                :padding (edge-insets-only :top 80)
                 :decoration (box-decoration
                     :gradient (linear-gradient
                         :begin alignment.top-center
