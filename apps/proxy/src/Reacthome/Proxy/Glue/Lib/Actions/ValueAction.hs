@@ -18,7 +18,7 @@ valueAction action key = NativeFunc (valueActionImpl action key)
 valueActionImpl ::
     (?downstream :: Downstream) =>
     A.Value -> A.Key -> IR Eval -> Eval (IR Eval)
-valueActionImpl action key ir = case ir of
+valueActionImpl action key = \case
     String uid -> valueActionId $ T.split (== '.') uid
     Symbol uid -> valueActionId $ T.split (== '.') uid
     DottedSymbol uid -> valueActionId uid
