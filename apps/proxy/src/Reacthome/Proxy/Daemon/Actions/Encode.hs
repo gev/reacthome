@@ -28,3 +28,12 @@ valueAction action key value uid =
         , ("id", A.String uid)
         , (key, A.Number $ fromFloatDigits value)
         ]
+
+minMaxAction :: A.Value -> Double -> Double -> Text -> A.Object
+minMaxAction action minValue maxValue uid =
+    A.fromList
+        [ ("type", action)
+        , ("id", A.String uid)
+        , ("min", A.Number $ fromFloatDigits minValue)
+        , ("max", A.Number $ fromFloatDigits maxValue)
+        ]

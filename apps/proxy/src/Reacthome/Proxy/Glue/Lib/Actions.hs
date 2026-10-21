@@ -3,6 +3,7 @@ module Reacthome.Proxy.Glue.Lib.Actions where
 import Glue.Eval (Eval)
 import Glue.Module (ModuleInfo, nativeModule)
 import Reacthome.Proxy.Bridge.Downstream (Downstream)
+import Reacthome.Proxy.Glue.Lib.Actions.MinMaxAction (minMaxAction)
 import Reacthome.Proxy.Glue.Lib.Actions.SimpleAction (simpleAction)
 import Reacthome.Proxy.Glue.Lib.Actions.ValueAction (valueAction)
 
@@ -13,6 +14,7 @@ actions =
         [ ("turn-on", simpleAction "ACTION_ON")
         , ("turn-off", simpleAction "ACTION_OFF")
         , ("dim", valueAction "ACTION_DIM" "value")
+        , ("set-min-max-setpoint", minMaxAction "ACTION_SETPOINT_MIN_MAX")
         , ("set-temperature-setpoint", valueAction "ACTION_SETPOINT" "temperature")
         , ("set-humidity-setpoint", valueAction "ACTION_SETPOINT" "humidity")
         , ("set-co2-setpoint", valueAction "ACTION_SETPOINT" "co2")

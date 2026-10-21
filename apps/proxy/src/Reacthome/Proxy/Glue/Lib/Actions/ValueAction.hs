@@ -19,18 +19,18 @@ valueActionImpl ::
     (?downstream :: Downstream) =>
     A.Value -> A.Key -> IR Eval -> Eval (IR Eval)
 valueActionImpl action key = \case
-    String uid -> valueActionId $ T.split (== '.') uid
-    Symbol uid -> valueActionId $ T.split (== '.') uid
-    DottedSymbol uid -> valueActionId uid
+    String uid -> matchId $ T.split (== '.') uid
+    Symbol uid -> matchId $ T.split (== '.') uid
+    DottedSymbol uid -> matchId uid
     _ -> errId
   where
-    valueActionId ["proxy", uid] = do
-        pure $ IR.NativeFunc (matchValueAction uid)
-    valueActionId _ = errId
+    matchId ["proxy", uid] = do
+        pure $ IR.NativeFunc (matchValue uid)
+    matchId _ = errId
 
-    matchValueAction uid (Float value) = go uid value
-    matchValueAction uid (Integer value) = go uid $ fromIntegral value
-    matchValueAction _ _ = errValue
+    matchValue uid (Float value) = go uid value
+    matchValue uid (Integer value) = go uid $ fromIntegral value
+    matchValue _ _ = errValue
 
     go uid value = do
         void . liftIO $ ?downstream.send $ E.valueAction action key value uid
