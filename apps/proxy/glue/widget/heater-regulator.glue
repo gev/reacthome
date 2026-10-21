@@ -21,10 +21,13 @@
         (entity-modal
             :site props.site
             :background-color background-color
-            :title (title props)
+            :title (concat (title props) (concat "  " (concat
+                        (round-to-resolution sensor.temperature temperature.resolution)
+                        (concat " " temperature.unit)
+                    )))
             :value (round-to-resolution setpoint temperature.resolution)
             :unit temperature.unit
-            :body (vertical-slider
+            :body   (vertical-slider
                 :value setpoint
                 :min 10
                 :max 35
