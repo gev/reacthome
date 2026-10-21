@@ -6,9 +6,10 @@
     (import screen.project)
     (import screen.settings)
     (import screen.camera)
+    (import screen.regulator)
     (import screen.light-regulator)
     (import screen.curtain-regulator)
-    (import screen.regulator)
+    (import screen.heater-regulator)
 
     (def (overlay screen args)
         (overlay-route
@@ -59,6 +60,10 @@
         (overlay ventilation-regulator-screen)
     )
 
+    (def heater-regulator-route
+        (overlay heater-regulator-screen)
+    )
+
     (def (main home)
         (def props (:home home))
         (app
@@ -75,6 +80,7 @@
                 :temperature-regulator temperature-regulator-route
                 :humidity-regulator humidity-regulator-route
                 :ventilation-regulator ventilation-regulator-route
+                :heater-regulator heater-regulator-route
             )
         )
     )
