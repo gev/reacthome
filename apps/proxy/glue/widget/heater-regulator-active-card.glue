@@ -68,7 +68,7 @@
             (active-card
                 :key props.id
                 :tag props.id
-                :on-pressed (turn-off props.id)
+                :on-pressed (props.turn-off props.id)
                 :card-color current-theme.color-scheme.surface-bright
                 :elevation elevation-on
                 :child (dimmable-heater-tile
@@ -82,7 +82,7 @@
             (active-card
                 :key props.id
                 :tag props.id
-                :on-pressed (turn-on props.id)
+                :on-pressed (props.turn-on props.id)
                 :card-color current-theme.color-scheme.surface-dim
                 :elevation elevation-off
                 :child (dimmable-heater-tile
@@ -114,7 +114,7 @@
             (active-card
                 :key props.id
                 :tag props.id
-                :on-pressed (turn-off props.id)
+                :on-pressed (props.turn-off props.id)
                 :card-color current-theme.color-scheme.surface-bright
                 :elevation elevation-on
                 :child (heater-tile
@@ -127,7 +127,7 @@
             (active-card
                 :key props.id
                 :tag props.id
-                :on-pressed (turn-on props.id)
+                :on-pressed (props.turn-on props.id)
                 :card-color current-theme.color-scheme.surface-dim
                 :elevation elevation-off
                 :child (heater-tile
@@ -151,7 +151,9 @@
             :id props.id
             :label (title props)
             :icon (heater-icon props)
-            :value props.value
+            :value (? props.inverse (! bind.value) bind.value)
+            :turn-off (? props.inverse turn-on turn-off)
+            :turn-on (? props.inverse turn-off turn-on)
             :brightness (if (exists? bind.brightness)
                 (? bind.value bind.brightness 0)
                 bind.value
