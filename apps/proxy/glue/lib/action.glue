@@ -28,6 +28,7 @@
         stop-ventilation
         toggle-ventilation
         set-ventilation-intensity
+        set-min-max-setpoint
         run-script
     )
 
@@ -47,6 +48,12 @@
         (\ (value)
             (def action (? value true-action false-action))
             (post (# action uid))
+        )
+    )
+
+    (def (min-max-action action uid)
+        (\ (value)
+            (post (# action uid (- value 5) (+ value 5)))
         )
     )
 
@@ -86,6 +93,8 @@
     (def stop-ventilation (simple-action 'stop-ventilation))
     (def toggle-ventilation (toggle-action 'start-ventilation 'stop-ventilation))
     (def set-ventilation-intensity (value-action 'set-ventilation-intensity))
+
+    (def set-min-max-setpoint (min-max-action 'set-min-max-setpoint))
 
     (def run-script (simple-action 'run-script))
 )

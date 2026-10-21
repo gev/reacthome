@@ -47,24 +47,42 @@
         (column
             :spacing 8
             :children (
-                (heater-tile props)
+                (row
+                    :children (
+                        (heater-tile props)
+                        (entity-tile
+                            :icon (
+                                :symbol temperature.icon
+                                :color current-theme.color-scheme.outline
+                            )
+                            :label (
+                                :text (round-to-resolution
+                                    props.sensor.temperature temperature.resolution)
+                            )
+                            :status (
+                                :text (round-to-resolution
+                                    props.setpoint temperature.resolution)
+                            )
+                        )
+                    )
+                )
                 (horizontal-slider
-                    :value props.value
-                    :min 0
-                    :max 100
+                    :value props.setpoint
+                    :min 10
+                    :max 35
                     :width 168
                     :height 24
                     :focused-width 48
                     :border-radius 8
-                    :active-color current-theme.color-scheme.primary
+                    :active-color current-theme.color-scheme.secondary
                     :on-changed props.on-changed
                 )
             )
         )
     )
 
-    (def (regulator props on-changed value)
-        (if (value)
+    (def (regulator props on-changed sensor setpoint)
+        (if (props.value)
             (active-card
                 :key props.id
                 :tag props.id
@@ -72,10 +90,12 @@
                 :card-color current-theme.color-scheme.surface-bright
                 :elevation elevation-on
                 :child (dimmable-heater-tile
-                    :value value
+                    :sensor sensor
+                    :value props.value
                     :label props.label
+                    :setpoint setpoint
                     :icon props.icon
-                    :status (round-to-resolution value brightness.resolution)
+                    :status (select-locale i18n-on)
                     :on-changed on-changed
                 )
             )
@@ -86,8 +106,10 @@
                 :card-color current-theme.color-scheme.surface-dim
                 :elevation elevation-off
                 :child (dimmable-heater-tile
-                    :value props.brightness
+                    :sensor sensor
+                    :value props.value
                     :label props.label
+                    :setpoint setpoint
                     :icon props.icon
                     :status (select-locale i18n-off)
                     :on-changed on-changed
@@ -97,16 +119,18 @@
     )
     
     (def (dimmable-heater-regulator-card props)
-        (def dim-heater (dim props.id))
+        (def dim-heater (set-min-max-setpoint props.id))
+        (def setpoint (/ (+ (?? props.min 5) (?? props.max 5)) 2))
         (def state
             (optimistic
-                :value (to-percents props.brightness)
+                :value setpoint
                 :on-changed (\ (value)
-                    (throttle-200 (dim-heater (from-percents value)))
+                    (throttle-200 (dim-heater value))
                 )
             )
         )
-        (listen (regulator props state.set-value) state.value)
+        (def sensor (remote-persistent-state props.sensor))
+        (listen (regulator props state.set-value) sensor state.value)
     )
 
     (def (non-dimmable-heater-regulator-card props)
@@ -142,7 +166,7 @@
 
     (def (bound-heater-regulator-card props bind)
         (def card
-            (if bind.dimmable
+            (if props.sensor
                 dimmable-heater-regulator-card
                 non-dimmable-heater-regulator-card
             )
@@ -150,14 +174,13 @@
         (card
             :id props.id
             :label (title props)
+            :min props.min
+            :max props.max
+            :sensor props.sensor
             :icon (heater-icon props)
             :value (? props.inverse (! bind.value) bind.value)
             :turn-off (? props.inverse turn-on turn-off)
             :turn-on (? props.inverse turn-off turn-on)
-            :brightness (if (exists? bind.brightness)
-                (? bind.value bind.brightness 0)
-                bind.value
-            )
         )
     )
 
