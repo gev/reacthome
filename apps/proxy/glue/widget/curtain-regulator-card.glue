@@ -8,8 +8,6 @@
     (import lib.navigation)
     (import lib.parameter)
 
-    (import iconic.curtain)
-
     (import widget.card)
     (import widget.entity-tile)
     (import widget.iconic)

@@ -49,6 +49,8 @@
                 (select-in grid (curtain-regulator-card palette) props.curtains)
                 (select-in scroll-row (camera-card palette) props.camera)
                 (select-in scroll-row site-card props.site)
+                (select-in grid (heater-regulator-card palette) props.valve_heating)
+                (select-in grid (heater-regulator-card palette) props.warm_floor)
             )
         )
     )

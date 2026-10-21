@@ -3,8 +3,6 @@
 
     (import i18n.status)
 
-    (import iconic.heater)
-
     (import lib.action)
     (import lib.conversion)
     (import lib.data)
