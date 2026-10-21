@@ -79,7 +79,7 @@
         )
     )
 
-    (def (regulator props on-changed sensor setpoint)
+    (def (regulator props on-changed setpoint sensor)
         (if (props.value)
             (active-card
                 :key props.id
@@ -128,7 +128,7 @@
             )
         )
         (def sensor (remote-persistent-state props.sensor))
-        (listen (regulator props state.set-value) sensor state.value)
+        (listen (regulator props state.set-value) state.value sensor)
     )
 
     (def (non-dimmable-heater-regulator-card props)

@@ -19,10 +19,6 @@
     (def elevation-off 1)
     (def elevation-on 2)
 
-    (def throttle-200
-        (throttle (duration :milliseconds 200))
-    )
-    
     (def (heater-icon props)
         (if (== props.type "warm_floor")
             warm-floor.icon valve-heating.icon
@@ -64,27 +60,17 @@
                         )
                     )
                 )
-                (horizontal-slider
-                    :value props.setpoint
-                    :min 10
-                    :max 35
-                    :width 168
-                    :height 24
-                    :focused-width 48
-                    :border-radius 8
-                    :active-color current-theme.color-scheme.secondary
-                    :on-changed props.on-changed
-                )
             )
         )
     )
 
-    (def (regulator props on-changed sensor setpoint)
+    (def (regulator props setpoint sensor)
         (if (props.value)
             (active-card
                 :key props.id
                 :tag props.id
                 :on-pressed (props.turn-off props.id)
+                :on-long-press (go :target applet-navigator :route 'heater-regulator :id props.id :palette props.palette)
                 :card-color current-theme.color-scheme.surface-bright
                 :elevation elevation-on
                 :child (dimmable-heater-tile
@@ -94,13 +80,13 @@
                     :setpoint setpoint
                     :icon props.icon
                     :status (select-locale i18n-on)
-                    :on-changed on-changed
                 )
             )
             (active-card
                 :key props.id
                 :tag props.id
                 :on-pressed (props.turn-on props.id)
+                :on-long-press (go :target applet-navigator :route 'heater-regulator :id props.id :palette props.palette)
                 :card-color current-theme.color-scheme.surface-dim
                 :elevation elevation-off
                 :child (dimmable-heater-tile
@@ -110,25 +96,14 @@
                     :setpoint setpoint
                     :icon props.icon
                     :status (select-locale i18n-off)
-                    :on-changed on-changed
                 )
             )
         )
     )
     
     (def (dimmable-heater-regulator-card props)
-        (def dim-heater (set-min-max-setpoint props.id))
         (def setpoint (/ (+ (?? props.min 5) (?? props.max 5)) 2))
-        (def state
-            (optimistic
-                :value setpoint
-                :on-changed (\ (value)
-                    (throttle-200 (dim-heater value))
-                )
-            )
-        )
-        (def sensor (remote-persistent-state props.sensor))
-        (listen (regulator props state.set-value) sensor state.value)
+        (select (regulator props setpoint) props.sensor)
     )
 
     (def (non-dimmable-heater-regulator-card props)
@@ -162,7 +137,7 @@
         )
     )
 
-    (def (bound-heater-regulator-card props bind)
+    (def (bound-heater-regulator-card palette props bind)
         (def card
             (if props.sensor
                 dimmable-heater-regulator-card
@@ -179,6 +154,7 @@
             :value (? props.inverse (! bind.value) bind.value)
             :turn-off (? props.inverse turn-on turn-off)
             :turn-on (? props.inverse turn-off turn-on)
+            :palette palette
         )
     )
 
@@ -196,9 +172,9 @@
         )
     )
 
-    (def (heater-regulator-card props)
+    (def (heater-regulator-card palette props)
         (if (exists? props.bind)
-            (select (bound-heater-regulator-card props) props.bind)
+            (select (bound-heater-regulator-card palette props) props.bind)
             (unbound-heater-regulator-card props)
         )
     )
