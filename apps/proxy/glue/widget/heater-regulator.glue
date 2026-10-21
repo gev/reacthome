@@ -11,9 +11,9 @@
 
     (import widget.entity-modal)
     
-    (def (regulator-modal props on-changed value)
+    (def (regulator-modal props on-changed setpoint sensor)
         (def background-color
-            (if value
+            (if props.value
                 current-theme.color-scheme.surface-bright
                 current-theme.color-scheme.surface-dim
             )
@@ -22,17 +22,17 @@
             :site props.site
             :background-color background-color
             :title (title props)
-            :value (round-to-resolution value brightness.resolution)
-            :unit brightness.unit
+            :value (round-to-resolution setpoint temperature.resolution)
+            :unit temperature.unit
             :body (vertical-slider
-                :value value
-                :min 0
-                :max 100
+                :value setpoint
+                :min 10
+                :max 35
                 :width 60
                 :height 200
                 :focused-width 90
                 :border-radius 30
-                :active-color current-theme.color-scheme.primary
+                :active-color current-theme.color-scheme.secondary
                 :on-changed on-changed
             )
         )
@@ -43,15 +43,17 @@
     )
     
     (def (heater-regulator props bind)
-        (def dim-heater (dim props.id))
+        (def dim-heater (set-min-max-setpoint props.id))
+        (def setpoint (/ (+ (?? props.min 5) (?? props.max 5)) 2))
         (def state
             (optimistic
-                :value (to-percents bind.value)
+                :value setpoint
                 :on-changed (\ (value)
-                    (throttle-200 (dim-heater (from-percents value)))
+                    (throttle-200 (dim-heater value))
                 )
             )
         )
-        (listen (regulator-modal props state.set-value) state.value)
+        (def sensor (remote-persistent-state props.sensor))
+        (listen (regulator-modal props state.set-value) state.value sensor)
     )
 )

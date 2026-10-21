@@ -46,6 +46,7 @@
             :spacing 8
             :children (
                 (row
+                    :spacing 8
                     :children (
                         (heater-tile props)
                         (entity-tile

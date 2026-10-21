@@ -37,6 +37,7 @@
             :spacing 16
             :cross-axis-alignment cross-axis-alignment.start
             :children (
+                (select-in scroll-row (camera-card palette) props.camera)
                 (select-in grid (light-regulator-card palette) props.light_220)
                 (select-in grid (light-regulator-card palette) props.light_LED)
                 (scroll-row
@@ -50,7 +51,6 @@
                 (select-in grid (heater-regulator-card palette) props.valve_heating)
                 (select-in grid (heater-regulator-card palette) props.warm_floor)
                 (select-in grid (curtain-regulator-card palette) props.curtains)
-                (select-in scroll-row (camera-card palette) props.camera)
                 (select-in scroll-row site-card props.site)
             )
         )

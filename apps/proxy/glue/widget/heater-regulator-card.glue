@@ -38,26 +38,22 @@
     )
 
     (def (dimmable-heater-tile props)
-        (column
+        (row
             :spacing 8
             :children (
-                (row
-                    :children (
-                        (heater-tile props)
-                        (entity-tile
-                            :icon (
-                                :symbol temperature.icon
-                                :color current-theme.color-scheme.outline
-                            )
-                            :label (
-                                :text (round-to-resolution
-                                    props.sensor.temperature temperature.resolution)
-                            )
-                            :status (
-                                :text (round-to-resolution
-                                    props.setpoint temperature.resolution)
-                            )
-                        )
+                (heater-tile props)
+                (entity-tile
+                    :icon (
+                        :symbol temperature.icon
+                        :color current-theme.color-scheme.outline
+                    )
+                    :label (
+                        :text (round-to-resolution
+                            props.sensor.temperature temperature.resolution)
+                    )
+                    :status (
+                        :text (round-to-resolution
+                            props.setpoint temperature.resolution)
                     )
                 )
             )
