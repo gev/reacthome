@@ -1,0 +1,25 @@
+(module widget.ventilation-regulator-system-card
+    (export ventilation-regulator-system-card)
+
+    (import lib.parameter)
+
+    (import widget.regulator-title)
+    (import widget.regulator-active-card)
+    (import widget.ventilation-regulator)
+
+    (def (ventilation-regulator-system-card site regulator)
+        (with-seed-color
+            :key regulator.id
+            :seed-color ventilation-regulator-color
+            :dynamic-scheme-variant dynamic-scheme-variant.content
+            :child (regulator-active-card
+                :tag regulator.id
+                :title (regulator-title
+                    :param CO2
+                    :value (@ site CO2.property)
+                )
+                :body (ventilation-regulator regulator)
+            )
+        )
+    )
+)

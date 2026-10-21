@@ -7,18 +7,11 @@
 
     (import widget.systems)
     (import widget.systems-aggregate)
-    (import widget.humidity-regulator-active-card)
-
-    (def (wetting-card site props)
-        (sized-box
-            :width 360
-            :child (humidity-regulator-active-card site props)
-        )
-    )
+    (import widget.humidity-regulator-system-card)
 
     (def (wetting props)
         (wrap
-            :children (select-collection (wetting-card props) props.hygrostat)
+            :children (select-collection (humidity-regulator-system-card props) props.hygrostat)
         )
     )
 

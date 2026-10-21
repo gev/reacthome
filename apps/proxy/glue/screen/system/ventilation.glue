@@ -7,18 +7,11 @@
 
     (import widget.systems)
     (import widget.systems-aggregate)
-    (import widget.ventilation-regulator-active-card)
-
-    (def (ventilation-card site props)
-        (sized-box
-            :width 360
-            :child (ventilation-regulator-active-card site props)
-        )
-    )
+    (import widget.ventilation-regulator-system-card)
 
     (def (ventilation props)
         (wrap
-            :children (select-collection (ventilation-card props) props.co2_stat)
+            :children (select-collection (ventilation-regulator-system-card props) props.co2_stat)
         )
     )
 

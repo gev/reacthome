@@ -7,18 +7,11 @@
 
     (import widget.systems)
     (import widget.systems-aggregate)
-    (import widget.temperature-regulator-active-card)
-
-    (def (heating-card site props)
-        (sized-box
-            :width 360
-            :child (temperature-regulator-active-card site props)
-        )
-    )
+    (import widget.heating-regulator-system-card)
 
     (def (heating props)
         (wrap
-            :children (select-collection (heating-card props) props.thermostat)
+            :children (select-collection (heating-regulator-system-card props) props.thermostat)
         )
     )
 
