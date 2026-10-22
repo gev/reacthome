@@ -19,6 +19,8 @@
 
     (def (cameras props)
         (wrap
+            :spacing 8
+            :run-spacing 8
             :children (select-collection camera-card props.camera)
         )
     )

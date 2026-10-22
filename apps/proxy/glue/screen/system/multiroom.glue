@@ -11,6 +11,8 @@
 
     (def (multiroom props)
         (wrap
+            :spacing 8
+            :run-spacing 8
             :children (select-collection
                 multiroom-regulator-card props.multiroom)
         )

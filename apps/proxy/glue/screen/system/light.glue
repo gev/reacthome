@@ -20,9 +20,13 @@
         (column
             :children (
                 (wrap
+                    :spacing 8
+                    :run-spacing 8
                     :children (select-collection light-card props.light_220)
                 )
                 (wrap
+                    :spacing 8
+                    :run-spacing 8
                     :children (select-collection light-card props.light_LED)
                 )
             )

@@ -18,6 +18,8 @@
 
     (def (curtains props)
         (wrap
+            :spacing 8
+            :run-spacing 8
             :children (select-collection curtains-card props.curtains)
         )
     )

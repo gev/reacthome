@@ -11,6 +11,8 @@
 
     (def (cooling props)
         (wrap
+            :spacing 8
+            :run-spacing 8
             :children (select-collection (cooling-regulator-system-card props) props.thermostat)
         )
     )
