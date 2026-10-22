@@ -30,8 +30,10 @@
         )
     )
     
-    (def (bound-multiroom-regulator-card props bind)
+    (def (bound-multiroom-regulator-card props zone lanamp)
         (print props)
+        (print zone)
+        (print lanamp)
         (inactive-card
             :key props.id
             :elevation 1
@@ -58,7 +60,11 @@
 
     (def (multiroom-regulator-card props)
         (if (exists? props.bind)
-            (select (bound-multiroom-regulator-card props) props.bind)
+            (let
+                (def zone (remote-persistent-state props.bind))
+                (def lanamp (remote-persistent-state (take 23 props.bind)))
+                (listen (bound-multiroom-regulator-card props) zone lanamp)
+            )
             (unbound-multiroom-regulator-card props)
         )
     )
