@@ -3,14 +3,24 @@
 
     (import i18n.system)
 
-    (import lib.i18n)
+    (import lib.data)
+
+    (import widget.systems)
+    (import widget.systems-aggregate)
+    (import widget.multiroom-regulator-card)
+
+    (def (multiroom props)
+        (wrap
+            :children (select-collection
+                multiroom-regulator-card props.multiroom)
+        )
+    )
 
     (def (system-multiroom-screen props)
-        (center
-            :child (text
-                :text (select-locale i18n-multiroom)
-                :style current-theme.text-theme.display-medium
-            )
+        (systems-aggregate
+            :id props.id
+            :systems ("multiroom")
+            :build (systems i18n-light multiroom)
         )
     )
 )

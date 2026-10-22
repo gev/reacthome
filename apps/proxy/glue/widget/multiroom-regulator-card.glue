@@ -1,0 +1,65 @@
+(module widget.multiroom-regulator-card
+    (export multiroom-regulator-card)
+
+    (import i18n.status)
+
+    (import lib.action)
+    (import lib.conversion)
+    (import lib.data)
+    (import lib.i18n)
+    (import lib.navigation)
+    (import lib.parameter)
+    (import lib.system)
+
+    (import widget.card)
+    (import widget.entity-tile)
+    (import widget.iconic)
+
+    (def elevation-unbound 0)
+    (def elevation-off 1)
+    (def elevation-on 2)
+
+    (def (multiroom-tile props)
+        (entity-tile
+            :icon (
+                :symbol multiroom.icon
+                :color current-theme.color-scheme.primary
+                :fill (? props.value 1 0)
+            )
+            :label (:text props.label)
+        )
+    )
+    
+    (def (bound-multiroom-regulator-card props bind)
+        (print props)
+        (inactive-card
+            :key props.id
+            :elevation 1
+            :card-color current-theme.color-scheme.surface
+            :child (multiroom-tile
+                :label (title props)
+            )
+        )
+    )
+
+    (def (unbound-multiroom-regulator-card props)
+        (inactive-card
+            :key props.id
+            :tag props.id
+            :card-color current-theme.color-scheme.surface-variant
+            :elevation elevation-unbound
+            :child (disabled-entity-tile
+                :icon (:symbol multiroom.icon)
+                :label (:text (title props))
+                :status (:text (select-locale i18n-not-available))
+            )
+        )
+    )
+
+    (def (multiroom-regulator-card props)
+        (if (exists? props.bind)
+            (select (bound-multiroom-regulator-card props) props.bind)
+            (unbound-multiroom-regulator-card props)
+        )
+    )
+)
