@@ -67,7 +67,7 @@ fromAeson = \case
         Left f -> Float f
         Right i -> Integer i
     A.Bool b -> Symbol (if b then "true" else "false")
-    A.Null -> Symbol "nil"
+    A.Null -> Symbol "void"
 
 processKey :: A.Key -> A.Value -> Maybe AST
 -- Process as String
@@ -149,6 +149,7 @@ processKey "onHeatIntensity" = processKeyReference
 processKey "onVentilationIntensity" = processKeyReference
 -- Process as default
 processKey "palette" = processKeyDefault
+processKey "source" = processKeyDefault
 processKey "weather" = processKeyDefault
 -- Skip other
 processKey _ = const Nothing
