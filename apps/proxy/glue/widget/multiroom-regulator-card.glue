@@ -19,27 +19,59 @@
     (def elevation-off 1)
     (def elevation-on 2)
 
-    (def (multiroom-tile props)
-        (entity-tile
-            :icon (
-                :symbol multiroom.icon
-                :color current-theme.color-scheme.primary
-                :fill (? props.value 1 0)
+    (def (multiroom-title props)
+        (sized-box
+            :width 180
+            :child (entity-tile
+                :icon (
+                    :symbol multiroom.icon
+                    :color current-theme.color-scheme.primary
+                    :fill (? props.volume 1 0)
+                )
+                :label (:text props.label)
+                :status (:text (round (?? props.status 0)))
             )
-            :label (:text props.label)
+        )
+    )
+
+    (def (multiroom-tile props titles source index)
+        (def volume (to-percents source.volume))
+        (if source.active
+            (inactive-card
+                :key (concat props.id (concat "/" index))
+                :elevation 1
+                :card-color current-theme.color-scheme.surface
+                :child (column
+                    :spacing 8
+                    :children (
+                        (multiroom-title
+                            :label (@ titles index)
+                            :status volume
+                        )
+                        (horizontal-slider
+                            :value volume
+                            :min 0
+                            :max 100
+                            :width 168
+                            :height 24
+                            :focused-width 48
+                            :border-radius 8
+                            :active-color current-theme.color-scheme.primary
+                        )
+                    )
+                )
+            )
         )
     )
     
     (def (bound-multiroom-regulator-card props zone lanamp)
-        (print props)
-        (print zone)
-        (print lanamp)
-        (inactive-card
-            :key props.id
-            :elevation 1
-            :card-color current-theme.color-scheme.surface
-            :child (multiroom-tile
-                :label (title props)
+        (wrap
+            :spacing 8
+            :run-spacing 8
+            :children (zip-with
+                (multiroom-tile props lanamp.source)
+                zone.source
+                (range (length zone.source))
             )
         )
     )
