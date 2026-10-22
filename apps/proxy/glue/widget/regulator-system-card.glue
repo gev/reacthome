@@ -1,0 +1,20 @@
+(module widget.regulator-system-card
+    (export regulator-system-card)
+
+    (import widget.card)
+    (import widget.regulator-theme)
+
+    (def (regulator-system-card props)
+        (def color-scheme (regulator-color-scheme current-theme))
+        (inactive-card
+            :tag props.tag
+            :card-color color-scheme.surface
+            :child (column
+                :children (
+                    (props.title)
+                    (props.body)
+                )
+            )
+        )
+    )
+)

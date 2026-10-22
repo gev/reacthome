@@ -4,7 +4,7 @@
     (import lib.parameter)
 
     (import widget.regulator-title)
-    (import widget.regulator-active-card)
+    (import widget.regulator-system-card)
     (import widget.humidity-regulator)
 
     (def (humidity-regulator-system-card site regulator)
@@ -12,7 +12,7 @@
             :key regulator.id
             :seed-color humidity-regulator-color
             :dynamic-scheme-variant dynamic-scheme-variant.content
-            :child (regulator-active-card
+            :child (regulator-system-card
                 :tag regulator.id
                 :title (regulator-title
                     :param humidity

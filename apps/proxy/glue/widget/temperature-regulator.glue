@@ -4,6 +4,8 @@
         temperature-regulator-color
         temperature-regulator-modal
         temperature-regulator
+        cooling-regulator
+        heating-regulator
     )
 
     (import lib.action)
@@ -59,6 +61,26 @@
             :min 0
             :max (length (@ regulator mode.on-intensity))
             :on-changed (mode.set-intensity regulator.id)
+        )
+    )
+
+    (def (cooling-regulator regulator)
+        (column
+            :children (
+                (setpoint regulator)
+                (toggle regulator cooling-mode)
+                (intensity regulator cooling-mode)
+            )
+        )
+    )
+
+    (def (heating-regulator regulator)
+        (column
+            :children (
+                (setpoint regulator)
+                (toggle regulator heating-mode)
+                (intensity regulator heating-mode)
+            )
         )
     )
 
