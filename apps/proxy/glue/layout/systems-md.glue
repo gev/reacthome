@@ -19,7 +19,7 @@
                 :text (title props.project)
                 :style (text-style
                     :font-size current-theme.text-theme.headline-medium.font-size
-                    :color current-theme.color-scheme.on-primary-container
+                    :color current-theme.color-scheme.on-surface-container
                 )
             )
         )
@@ -39,7 +39,7 @@
     (def (right-panel props)
         (filled-card
             :clip-behavior clip.anti-alias
-            :color (current-theme.color-scheme.surface.with :a 0.4)
+            :color (current-theme.color-scheme.surface-container.with :a 0.7)
             :child (single-child-scroll-view
                 :padding (edge-insets-symmetric :vertical 16)
                 :child (column
@@ -47,7 +47,6 @@
                     :children (flatten
                         (
                             (project-title props)
-                            (divider _)
                             (zip-with (system props) systems (range (length systems)))
                         )
                     )

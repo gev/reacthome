@@ -11,7 +11,8 @@
                 )
                 :title (text :text props.label)
                 :selected props.selected
-                :selected-tile-color current-theme.color-scheme.primary-container
+                :selected-color current-theme.color-scheme.on-secondary
+                :selected-tile-color current-theme.color-scheme.secondary
             )
         )
     )
