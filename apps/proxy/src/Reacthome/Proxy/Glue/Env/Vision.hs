@@ -3,6 +3,7 @@ module Reacthome.Proxy.Glue.Env.Vision where
 import Data.UUID (UUID)
 import Glue.Eval (Eval)
 import Glue.IR (Env)
+import Glue.Lib.Bool (bool)
 import Glue.Lib.Builtin (builtin)
 import Glue.Module (envFromModules)
 import Reacthome.Proxy.Assets (Assets)
@@ -24,5 +25,6 @@ visionEnv =
     envFromModules
         [ builtin
         , actions
+        , bool
         , vision
         ]
