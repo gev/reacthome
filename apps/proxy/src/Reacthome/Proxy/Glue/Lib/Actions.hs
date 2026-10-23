@@ -33,5 +33,6 @@ actions =
         , ("start-ventilation", simpleAction "ACTION_START_VENTILATION")
         , ("stop-ventilation", simpleAction "ACTION_STOP_VENTILATION")
         , ("set-ventilation-intensity", valueAction "ACTION_INTENSITY" "ventilation")
+        , ("set-multiroom-zone-source", valueAction "ACTION_MULTIROOM_ZONE" "source")
         , ("run-script", simpleAction "ACTION_SCRIPT_RUN")
         ]
