@@ -8,6 +8,7 @@ import Glue.Eval.Exception (wrongArgumentType)
 import Glue.IR (IR (..))
 import Glue.IR qualified as IR
 import Reacthome.Proxy.Bridge.Downstream (Downstream (..))
+import Reacthome.Proxy.Daemon.Actions.Encode (encodeAction)
 import Reacthome.Proxy.Daemon.Actions.Encode qualified as E
 
 valueAction ::
@@ -28,13 +29,13 @@ valueActionImpl action key = \case
         pure $ IR.NativeFunc (matchValue uid)
     matchId _ = errId
 
-    matchValue uid (Float value) = go uid value
-    matchValue uid (Integer value) = go uid $ fromIntegral value
-    matchValue _ _ = errValue
+    matchValue uid = go uid . encodeAction
 
-    go uid value = do
-        void . liftIO $ ?downstream.send $ E.valueAction action key value uid
-        pure Void
+    go uid = \case
+        Right value -> do
+            void . liftIO $ ?downstream.send $ E.valueAction action key value uid
+            pure Void
+        Left e -> errValue e
 
     errId = throwError $ wrongArgumentType ["String `id` required"]
-    errValue = throwError $ wrongArgumentType ["`Double` or `Integer` `value` required"]
+    errValue e = throwError $ wrongArgumentType [e]
