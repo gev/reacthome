@@ -29,6 +29,7 @@
         toggle-ventilation
         set-ventilation-intensity
         set-min-max-setpoint
+        set-multiroom-zone-source
         run-script
     )
 
@@ -95,6 +96,6 @@
     (def set-ventilation-intensity (value-action 'set-ventilation-intensity))
 
     (def set-min-max-setpoint (min-max-action 'set-min-max-setpoint))
-
+    (def set-multiroom-zone-source (value-action 'set-multiroom-zone-source))
     (def run-script (simple-action 'run-script))
 )
