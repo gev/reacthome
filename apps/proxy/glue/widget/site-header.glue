@@ -8,18 +8,6 @@
     (import widget.site-breadcrumbs)
     (import widget.site-info)
 
-    (def (site-image props)
-        (if (exists? props.image)
-            (image
-                :height props.height
-                :width props.width
-                :fit box-fit.cover
-                :image (load-image :src props.image)
-            )
-            (sized-box :height (+ media-query.padding.top 48))
-        )
-    )
-
     (def (site-title props)
         (padding
             :padding (edge-insets-symmetric :horizontal 16)
@@ -30,7 +18,7 @@
         )
     )
 
-    (def (site-description props)
+    (def (site-header props)
         (column
             :spacing 16
             :main-axis-size main-axis-size.max
@@ -43,27 +31,6 @@
                     :action go-site
                 )
                 (site-info :site props.id)
-            )
-        )
-    )
-
-    (def (site-header props)
-        (sized-box
-            :width props.width
-            :height props.height
-            :child (stack
-                :children(
-                    (site-image props)
-                    (padding
-                        :padding (edge-insets-only
-                            :top (+ media-query.padding.top 96)
-                            :left 8
-                            :right 8
-                            :bottom 16
-                        )
-                        :child (site-description props)
-                    )
-                )
             )
         )
     )

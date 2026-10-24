@@ -2,14 +2,16 @@
     (export xs-site-layout)
 
     (import widget.app-bar)
-    (import widget.screen)
+    (import widget.background)
+    (import layout.screen-xs)
     (import widget.site-header)
     (import widget.site-body)
     
 
     (def (xs-site-layout palette props constraints)
-        (screen
+        (xs-screen-layout
             :app-bar (app-bar _)
+            :background (background _)
             :body (single-child-scroll-view
                 :padding (edge-insets-only :bottom 128)
                 :child (column

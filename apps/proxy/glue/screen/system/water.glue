@@ -3,14 +3,24 @@
 
     (import i18n.system)
 
-    (import lib.i18n)
+    (import lib.data)
+
+    (import widget.systems)
+    (import widget.systems-aggregate)
+    (import widget.water-regulator-active-card)
+
+    (def (water props)
+        (column
+            :spacing 16
+            :children (water-regulator-card water-card props.leakage)
+        )
+    )
 
     (def (system-water-screen props)
-        (center
-            :child (text
-                :text (select-locale i18n-water)
-                :style current-theme.text-theme.display-medium
-            )
+        (systems-aggregate
+            :id props.id
+            :systems ("leakage")
+            :build (systems i18n-water water)
         )
     )
 )

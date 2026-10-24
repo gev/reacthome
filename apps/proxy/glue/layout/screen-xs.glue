@@ -1,0 +1,82 @@
+(module layout.screen-xs
+    (export xs-screen-layout)
+
+    (import widget.app-bar)
+    (import widget.background)
+    (import widget.screen)
+
+    (def (header props)
+        (def color current-theme.color-scheme.tertiary-container)
+        (def begin (color.with :a 0.9))
+        (def end (color.with :a 0))
+        (positioned
+            :left 0 :right 0 :top 0
+            :child (container
+                :padding (edge-insets-only :top 80)
+                :decoration (box-decoration
+                    :gradient (linear-gradient
+                        :begin alignment.top-center
+                        :end alignment.bottom-center
+                        :colors (# begin end)
+                        :stops (0 1)
+                    )
+                )
+                :child props.header
+            )
+        )
+    )
+
+    (def (footer props)
+        (if (exists? props.footer)
+            (let
+                (def color current-theme.color-scheme.primary-container)
+                (def begin (color.with :a 0))
+                (def end (color.with :a 0.9))
+                (positioned
+                    :left 0 :right 0 :bottom 0
+                    :child (container
+                        :padding (edge-insets-only :top 16 :bottom 16)
+                        :decoration (box-decoration
+                            :gradient (linear-gradient
+                                :begin alignment.top-center
+                                :end alignment.bottom-center
+                                :colors (# begin end)
+                                :stops (0 1)
+                            )
+                        )
+                        :child props.footer
+                    )
+                )
+            )
+        )
+    )
+
+    (def (body props)
+        (if (exists? props.body)
+            (positioned
+                :left 0 :right 0 :top 0 :bottom 0
+                :child   (padding
+                    :padding (edge-insets-only
+                        :top (? props.top (+ props.top 80) 80)
+                        :bottom props.bottom
+                    )
+                    :child props.body
+                )
+            )
+        )
+    )
+
+    (def (xs-screen-layout props)
+        (screen
+            :app-bar (app-bar _)
+            :background (background _)
+            :body (stack
+                :children (
+                    (body props)
+                    (footer props)
+                    (header props)
+                )
+            )
+        )
+    )
+)
