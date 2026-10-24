@@ -5,6 +5,7 @@
         i18n-close
         i18n-open
         i18n-stop
+        i18n-reset
     )
 
     (def i18n-turn-on (
@@ -30,5 +31,10 @@
     (def i18n-stop (
             :en "Stop"
             :ru "Остановить"
+        ))
+
+    (def i18n-reset (
+            :en "Reset"
+            :ru "Сбросить"
         ))
 )
