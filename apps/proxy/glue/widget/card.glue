@@ -12,30 +12,19 @@
     )
 
     (def (inactive-card props)
-        (card
+        (hero
             :key props.key
-            :clip-behavior clip.anti-alias
-            :color props.card-color
-            :elevation props.elevation
-            :child (adopt props.child)
-        )
-    )
-
-    (def (active-card props)
-        (card
-            :key props.key
-            :clip-behavior clip.anti-alias
-            :color props.card-color
-            :child (ink-well
-                :on-tap props.on-pressed
-                :on-long-press props.on-long-press
+            :tag props.tag
+            :child (card
+                :clip-behavior clip.anti-alias
+                :color props.card-color
                 :elevation props.elevation
                 :child (adopt props.child)
             )
         )
     )
 
-    (def (hero-card props)
+    (def (active-card props)
         (hero
             :key props.key
             :tag props.tag
