@@ -9,11 +9,11 @@
     (def weather-theme (
             :sunny (
                 :background weather-type.sunny
-                :foreground dark
+                :foreground light
             )
             :sunny-night (
                 :background weather-type.sunny
-                :foreground dark
+                :foreground light
             )
             :cloudy (
                 :background weather-type.cloudy
