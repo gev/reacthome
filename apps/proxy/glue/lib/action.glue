@@ -30,6 +30,7 @@
         set-ventilation-intensity
         set-min-max-setpoint
         set-multiroom-zone-source
+        reset-leakage
         run-script
     )
 
@@ -97,5 +98,6 @@
 
     (def set-min-max-setpoint (min-max-action 'set-min-max-setpoint))
     (def set-multiroom-zone-source (value-action 'set-multiroom-zone-source))
+    (def reset-leakage (simple-action 'reset-leakage))
     (def run-script (simple-action 'run-script))
 )
