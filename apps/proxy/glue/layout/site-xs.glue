@@ -7,7 +7,6 @@
     (import widget.site-header)
     (import widget.site-body)
     
-
     (def (xs-site-layout palette props constraints)
         (xs-screen-layout
             :bottom 128
