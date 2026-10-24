@@ -6,6 +6,9 @@
         i18n-cameras
         i18n-multiroom
         i18n-water
+        i18n-leakage
+        i18n-leakage-sensor
+        i18n-water-valve
         i18n-heating
         i18n-cooling
         i18n-ventilation
@@ -41,6 +44,21 @@
     (def i18n-water (
             :en "Water"
             :ru "Вода"
+        ))
+
+    (def i18n-leakage (
+            :en "Leakage"
+            :ru "Протечка"
+        ))
+
+    (def i18n-leakage-sensor (
+            :en "Leakage sensor"
+            :ru "Датчик протечки"
+        ))
+
+    (def i18n-water-valve (
+            :en "Water valve"
+            :ru "Кран"
         ))
 
     (def i18n-heating (
