@@ -12,7 +12,7 @@
             :icon props.symbol
             :color props.color
             :fill (?? props.fill 0)
-            :size 32
+            :size 24
         )
     )
 
@@ -22,7 +22,7 @@
             :text props.text
             :style (text-style
                 :color props.color
-                :font-size current-theme.text-theme.label-medium.font-size
+                :font-size current-theme.text-theme.label-small.font-size
                 :font-weight font-weight.w400
             )
         )
@@ -33,7 +33,7 @@
             :text props.text
             :style (text-style
                 :color props.color
-                :font-size current-theme.text-theme.title-medium.font-size
+                :font-size current-theme.text-theme.body-small.font-size
                 :font-weight font-weight.w600
             )
         )

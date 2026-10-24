@@ -39,7 +39,7 @@
 
     (def (dimmable-heater-tile props)
         (row
-            :spacing 8
+            :spacing 4
             :children (
                 (heater-tile props)
                 (entity-tile
