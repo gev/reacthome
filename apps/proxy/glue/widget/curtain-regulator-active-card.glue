@@ -17,51 +17,31 @@
     (def elevation-on 2)
 
     (def (curtain-tile props)
-        (row
+        (def state (local-state 0.5))
+        (column
             :cross-axis-alignment cross-axis-alignment.start
-            :main-axis-size main-axis-size.max
             :spacing 8
             :children (
-                (expanded
-                    :flex 1
-                    :child (column
-                        :spacing 8
-                        :cross-axis-alignment cross-axis-alignment.stretch
-                        :children (
-                            (entity-tile
-                                :icon (
-                                    :symbol (? props.value curtains.icons.closed curtains.icons.opened)
-                                    :color current-theme.color-scheme.tertiary
-                                    :fill 1
-                                )
-                                :label (:text props.label)
-                                :status (:text props.status)
-                            )
-                            (button
-                                :child (text
-                                    :text (select-locale i18n-open)
-                                )
-                            )
-                            (button
-                                :child (text
-                                    :text (select-locale i18n-stop)
-                                )
-                            )
-                            (button
-                                :child (text
-                                    :text (select-locale i18n-close)
-                                )
-                            )
+                (entity-tile
+                    :icon (
+                        :symbol (? props.value curtains.icons.closed curtains.icons.opened)
+                        :color current-theme.color-scheme.tertiary
+                        :fill 1
+                    )
+                    :label (:text props.label)
+                    :status (:text props.status)
+                )
+                (listen
+                    (\ (value)
+                        (double-curtain
+                            :height 172
+                            :active-color current-theme.color-scheme.tertiary
+                            :jump-to-tap false
+                            :value value
+                            :on-changed (\ (value) (write state value))
                         )
                     )
-                )
-                (expanded
-                    :flex 2
-                    :child (double-curtain
-                        :height 172
-                        :active-color current-theme.color-scheme.tertiary
-                        :jump-to-tap false
-                    )
+                    state
                 )
             )
         )

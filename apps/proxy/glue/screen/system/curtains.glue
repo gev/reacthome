@@ -11,7 +11,7 @@
 
     (def (curtains-card props)
         (sized-box
-            :width 360
+            :width 300
             :child (curtain-regulator-active-card props)
         )
     )
