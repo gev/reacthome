@@ -1,0 +1,101 @@
+(module widget.leakage-sensor-card
+    (export leakage-sensor-card)
+
+    (import i18n.action)
+    (import i18n.status)
+
+    (import lib.action)
+    (import lib.i18n)
+    (import lib.data)
+    (import lib.system)
+
+    (import widget.card)
+    (import widget.entity-tile)
+
+    (def elevation-unbound 0)
+    (def elevation-ok 1)
+    (def elevation-alarm 2)
+
+
+    (def (leakage-sensor-card-ok props)
+        (def card-color current-theme.color-scheme.secondary)
+        (def color current-theme.color-scheme.on-secondary)
+        (inactive-card
+            :card-color card-color
+            :elevation elevation-ok
+            :child (entity-tile
+                :icon (
+                    :symbol leakage-sensor.icon
+                    :color color
+                )
+                :label (
+                    :text (title props)
+                    :color color
+                )
+                :status (
+                    :text (select-locale i18n-ok)
+                    :color color
+                )
+            )
+        )
+    )
+
+    (def (leakage-sensor-card-alarm props)
+        (def card-color current-theme.color-scheme.error)
+        (def color current-theme.color-scheme.on-error)
+        (inactive-card
+            :card-color card-color
+            :elevation elevation-alarm
+            :child (entity-tile
+                :icon (
+                    :symbol leakage-sensor.icon
+                    :color color
+                    :fill 1
+                )
+                :label (
+                    :text (title props)
+                    :color color
+                )
+                :status (
+                    :text (select-locale i18n-alarm)
+                    :color color
+                )
+            )
+        )
+    )
+
+    (def (bound-leakage-sensor-card props bind)
+        (def card (? bind.value leakage-sensor-card-alarm leakage-sensor-card-ok))
+        (sized-box
+            :key props.id
+            :tag props.id
+            :width 160
+            :child (card props)
+        )
+    )
+
+    (def (unbound-leakage-sensor-card props)
+        (sized-box
+            :key props.id
+            :tag props.id
+            :width 160
+            :child (inactive-card
+                :card-color current-theme.color-scheme.surface-variant
+                :elevation elevation-unbound
+                :child (disabled-entity-tile
+                    :icon (:symbol leakage-sensor.icon)
+                    :label (:text (title props))
+                    :status (:text (select-locale i18n-not-available))
+                )
+            )
+        )
+    )
+
+    (def (leakage-sensor-card  props)
+        (if (exists? props.bind)
+            (select (bound-leakage-sensor-card props) props.bind)
+            (unbound-leakage-sensor-card props)
+        )
+    )
+
+)

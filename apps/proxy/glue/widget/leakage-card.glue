@@ -1,0 +1,42 @@
+(module widget.leakage-card
+    (export leakage-card)
+
+    (import i18n.action)
+
+    (import lib.action)
+    (import lib.i18n)
+    (import lib.system)
+
+    (import widget.card)
+    (import widget.entity-tile)
+
+    (def (leakage-card props)
+        (def card-color current-theme.color-scheme.error)
+        (def color current-theme.color-scheme.on-error)
+        (sized-box
+            :key props.id
+            :tag props.id
+            :width 160
+            :child (active-card
+                :card-color card-color
+                :elevation 2
+                :on-pressed (reset-leakage props.id)
+                :child (entity-tile
+                    :icon (
+                        :symbol leakage.icon
+                        :color color
+                    )
+                    :label (
+                        :text (select-locale leakage.label)
+                        :color color
+                    )
+                    :status (
+                        :text (select-locale i18n-reset)
+                        :color color
+                    )
+                )
+            )
+        )
+
+    )
+)

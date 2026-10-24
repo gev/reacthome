@@ -1,0 +1,103 @@
+(module widget.water-valve-card
+    (export water-valve-card)
+
+    (import i18n.action)
+    (import i18n.status)
+
+    (import lib.action)
+    (import lib.i18n)
+    (import lib.data)
+    (import lib.system)
+
+    (import widget.card)
+    (import widget.entity-tile)
+
+    (def elevation-unbound 0)
+    (def elevation-opened 1)
+    (def elevation-closed 2)
+
+
+    (def (opened-water-valve-card props)
+        (def card-color current-theme.color-scheme.surface-dim)
+        (def color current-theme.color-scheme.on-surface)
+        (active-card
+            :card-color card-color
+            :elevation elevation-opened
+            :on-pressed (turn-on props.id)
+            :child (entity-tile
+                :icon (
+                    :symbol water-valve.icon
+                    :color color
+                    :fill 1
+                )
+                :label (
+                    :text (title props)
+                    :color color
+                )
+                :status (
+                    :text (select-locale i18n-opened)
+                    :color color
+                )
+            )
+        )
+    )
+
+    (def (closed-water-valve-card props)
+        (def card-color current-theme.color-scheme.surface-bright)
+        (def color current-theme.color-scheme.on-surface)
+        (active-card
+            :card-color card-color
+            :elevation elevation-closed
+            :on-pressed (turn-off props.id)
+            :child (entity-tile
+                :icon (
+                    :symbol water-valve.icon
+                    :color color
+                )
+                :label (
+                    :text (title props)
+                    :color color
+                )
+                :status (
+                    :text (select-locale i18n-closed)
+                    :color  color
+                )
+            )
+        )
+    )
+
+    (def (bound-water-valve-card props bind)
+        (def card (? bind.value closed-water-valve-card opened-water-valve-card))
+        (sized-box
+            :key props.id
+            :tag props.id
+            :width 160
+            :child (card props)
+        )
+    )
+
+    (def (unbound-water-valve-card props)
+        (sized-box
+            :key props.id
+            :tag props.id
+            :width 160
+            :child (inactive-card
+                :card-color current-theme.color-scheme.surface-variant
+                :elevation elevation-unbound
+                :child (disabled-entity-tile
+                    :icon (:symbol water-valve.icon)
+                    :label (:text (title props))
+                    :status (:text (select-locale i18n-not-available))
+                )
+            )
+        )
+    )
+
+    (def (water-valve-card  props)
+        (if (exists? props.bind)
+            (select (bound-water-valve-card props) props.bind)
+            (unbound-water-valve-card props)
+        )
+    )
+
+)

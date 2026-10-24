@@ -1,0 +1,31 @@
+(module widget.water-regulator-card
+    (export water-regulator-card)
+
+    (import lib.data)
+
+    (import widget.leakage-card)
+    (import widget.leakage-sensor-card)
+    (import widget.water-valve-card)
+
+    (def (water-regulator-card props)
+        (animated-size
+            :duration (duration :milliseconds 300)
+            :child (column
+                :spacing 8
+                :main-axis-size main-axis-size.min
+                :cross-axis-alignment cross-axis-alignment.start
+                :children (
+                    (? props.value (leakage-card props))
+                    (wrap
+                        :spacing 8
+                        :children (select-collection leakage-sensor-card props.leakage_sensor)
+                    )
+                    (wrap
+                        :spacing 8
+                        :children (select-collection water-valve-card props.valve_water)
+                    )
+                )
+            )
+        )
+    )
+)
