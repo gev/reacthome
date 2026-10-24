@@ -11,6 +11,7 @@
     (import widget.site-card)
     (import widget.site-info)
     (import widget.site-brief)
+    (import widget.scene-card)
     (import widget.light-regulator-active-card)
     (import widget.curtain-regulator-active-card)
     (import widget.camera-card)
@@ -40,27 +41,6 @@
         )
     )
 
-    (def (scene props)
-        (def label (text :text (title props)))
-        (if (exists? props.action)
-            (elevated-button
-                :style (button-style
-                    :foreground-color current-theme.color-scheme.on-surface
-                    :background-color current-theme.color-scheme.surface
-                )
-                :on-pressed  (run-script props.id)
-                :child label
-            )
-            (text-button
-                :style (button-style
-                    :elevation 0
-                    :foreground-color current-theme.color-scheme.on-surface-variant
-                )
-                :child label
-            )
-        )
-    )
-
     (def (site-title props)
         (padding
             :padding (edge-insets-symmetric :horizontal 16)
@@ -76,7 +56,7 @@
 
     (def (head props)
         (def scenes
-            (select-collection scene props.site.scene)
+            (select-collection scene-card props.site.scene)
         )
         (single-child-scroll-view
             :scroll-direction axis.horizontal

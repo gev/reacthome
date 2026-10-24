@@ -1,0 +1,27 @@
+(module widget.scene-card
+    (export scene-card)
+
+    (import lib.action)
+    (import lib.data)
+
+    (def (scene-card props)
+        (def label (text :text (title props)))
+        (if (exists? props.action)
+            (elevated-button
+                :style (button-style
+                    :foreground-color current-theme.color-scheme.on-surface
+                    :background-color current-theme.color-scheme.surface
+                )
+                :on-pressed (run-script props.id)
+                :child label
+            )
+            (text-button
+                :style (button-style
+                    :elevation 0
+                    :foreground-color current-theme.color-scheme.on-surface-variant
+                )
+                :child label
+            )
+        )
+    )
+)

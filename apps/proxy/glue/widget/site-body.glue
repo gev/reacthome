@@ -8,6 +8,7 @@
     (import widget.site-breadcrumbs)
     (import widget.site-info)
     (import widget.site-card)
+    (import widget.scene-card)
     (import widget.light-regulator-card)
     (import widget.curtain-regulator-card)
     (import widget.camera-card)
@@ -37,6 +38,7 @@
             :spacing 16
             :cross-axis-alignment cross-axis-alignment.start
             :children (
+                (select-in scroll-row scene-card props.scene)
                 (select-in scroll-row (camera-card palette) props.camera)
                 (select-in grid (light-regulator-card palette) props.light_220)
                 (select-in grid (light-regulator-card palette) props.light_LED)
