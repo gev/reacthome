@@ -5,6 +5,9 @@
         cameras
         multiroom
         water
+        leakage
+        leakage-sensor
+        water-valve
         cooling
         heating
         wetting
@@ -67,6 +70,21 @@
     (def water (
             :label i18n-water
             :icon (symbol 'water_drop)
+        ))
+
+    (def leakage (
+            :label i18n-leakage
+            :icon (symbol 'water_lock)
+        ))
+
+    (def leakage-sensor (
+            :label i18n-leakage-sensor
+            :icon (symbol 'water_drop)
+        ))
+
+    (def water-valve (
+            :label i18n-water-valve
+            :icon (symbol 'valve)
         ))
 
     (def valve-heating (
