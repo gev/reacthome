@@ -18,6 +18,7 @@
 
     (def (light props)
         (column
+            :cross-axis-alignment cross-axis-alignment.start
             :children (
                 (wrap
                     :spacing 8
