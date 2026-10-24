@@ -40,8 +40,10 @@
     )
 
     (def (regulator props titles index on-changed volume)
+        (def id (concat props.id (concat "/" index)))
         (inactive-card
-            :key (concat props.id (concat "/" index))
+            :key id
+            :tag id
             :elevation 1
             :card-color current-theme.color-scheme.surface
             :child (column

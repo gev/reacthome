@@ -7,12 +7,11 @@
 
     (import widget.systems)
     (import widget.systems-aggregate)
-    (import widget.water-regulator-active-card)
 
     (def (water props)
         (column
             :spacing 16
-            :children (water-regulator-card water-card props.leakage)
+            :children ()
         )
     )
 

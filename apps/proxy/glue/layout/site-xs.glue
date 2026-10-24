@@ -10,10 +10,11 @@
 
     (def (xs-site-layout palette props constraints)
         (xs-screen-layout
+            :bottom 128
             :app-bar (app-bar _)
+            :footer (sized-box :height 80)
             :background (background _)
             :body (single-child-scroll-view
-                :padding (edge-insets-only :bottom 128)
                 :child (column
                     :spacing 16
                     :cross-axis-alignment cross-axis-alignment.start
