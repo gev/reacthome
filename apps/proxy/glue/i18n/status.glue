@@ -5,6 +5,8 @@
         i18n-closed
         i18n-opened
         i18n-not-available
+        i18n-ok
+        i18n-alarm
     )
 
     (def i18n-on (
@@ -30,5 +32,15 @@
     (def i18n-not-available (
             :en "N/A"
             :ru "Н/Д"
+        ))
+
+    (def i18n-ok (
+            :en "Ok"
+            :ru "Ок"
+        ))
+
+    (def i18n-alarm (
+            :en "Alarm"
+            :ru "Авария"
         ))
 )
