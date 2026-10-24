@@ -3,17 +3,17 @@
 
     (import i18n.weather)
 
-    (def dark colors.blue-grey)
+    (def dark colors.black)
     (def light colors.white)
 
     (def weather-theme (
             :sunny (
                 :background weather-type.sunny
-                :foreground light
+                :foreground dark
             )
             :sunny-night (
                 :background weather-type.sunny
-                :foreground light
+                :foreground dark
             )
             :cloudy (
                 :background weather-type.cloudy
