@@ -10,9 +10,10 @@ import PubSub.Publisher (Publisher (..))
 import PubSub.Revision (Revision (..))
 import Reacthome.Proxy.Bridge.Cache (Cache (..))
 import Reacthome.Proxy.Config.App (ProxyConfig (..))
-import Reacthome.Proxy.Daemon.Actions.Decode (decodeAction)
+import Reacthome.Proxy.Daemon.Actions.Decode (Action (..), decodeAction)
 import Reacthome.Proxy.Discovery (Discovery (..))
 import Reacthome.Proxy.Glue.PubSub.Types (GluePublisher)
+import Reacthome.Proxy.Sink (SinkRegistry (..))
 
 newtype Upstream = Upstream
     { publish :: ByteString -> IO ()
@@ -20,6 +21,7 @@ newtype Upstream = Upstream
 
 makeUpstream ::
     ( ?cache :: Cache
+    , ?sinks :: SinkRegistry
     , ?pubsub :: GluePublisher
     , ?discovery :: Discovery
     ) =>
@@ -28,7 +30,7 @@ makeUpstream config = Upstream{..}
   where
     publish action =
         case decodeAction action of
-            Just (uid, delta, version) -> do
+            Just (Entity (uid, delta, version)) -> do
                 value <- ?cache.patch uid delta
                 when
                     (uid == daemon)
@@ -37,6 +39,9 @@ makeUpstream config = Upstream{..}
                     payload = encodeUtf8 $ serializeAST $ Object value
                     revision = Revision{..}
                 ?pubsub.publish key revision
+            Just (Action ast) -> do
+                let message = encodeUtf8 $ serializeAST ast
+                ?sinks.broadcast message
             Nothing -> pure ()
 
     daemon = pack config.daemon

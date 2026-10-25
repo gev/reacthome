@@ -12,17 +12,22 @@ import Data.Text (Text)
 import Data.Vector qualified as V
 import Glue.AST (AST (..))
 
-decodeAction :: ByteString -> Maybe (Text, [(Text, AST)], Int)
+data Action = Entity (Text, [(Text, AST)], Int) | Action AST
+
+decodeAction :: ByteString -> Maybe Action
 decodeAction = convert <=< A.decode
 
-convert :: A.Object -> Maybe (Text, [(Text, AST)], Int)
+convert :: A.Object -> Maybe Action
 convert o =
     lookupType o >>= \case
         "ACTION_SET" -> do
             id' <- lookupId o
             payload <- lookupPayload o
             let timestamp = lookupTimestamp payload
-            pure (id', ("id", reference id') : makeObject payload, timestamp)
+            pure $ Entity (id', ("id", reference id') : makeObject payload, timestamp)
+        "RING" -> do
+            id' <- lookupId o
+            pure $ Action (List [Symbol "ring", Symbol id'])
         _ -> Nothing
 
 lookupType :: A.Object -> Maybe Text
