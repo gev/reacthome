@@ -12,7 +12,7 @@
     (def (camera-card props)
         (camera-card _
             (concat props
-                (:width 360 :height 200)
+                (:width 320 :height 180)
             )
         )
     )

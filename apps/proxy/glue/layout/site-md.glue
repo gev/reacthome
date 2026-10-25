@@ -36,7 +36,7 @@
     (def (camera palette props)
         (camera-card palette
             (concat props
-                (:width 360 :height 200)
+                (:width 320 :height 180)
             )
         )
     )

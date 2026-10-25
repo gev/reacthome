@@ -11,12 +11,12 @@
 
     (def i18n-on (
             :en "On"
-            :ru "Включено"
+            :ru "Вкл."
         ))
 
     (def i18n-off (
             :en "Off"
-            :ru "Выключено"
+            :ru "Выкл."
         ))
 
     (def i18n-opened (
