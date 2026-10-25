@@ -22,7 +22,7 @@
             :text props.text
             :style (text-style
                 :color props.color
-                :font-size current-theme.text-theme.label-small.font-size
+                :font-size current-theme.text-theme.label-medium.font-size
                 :font-weight font-weight.w400
             )
         )
@@ -33,7 +33,7 @@
             :text props.text
             :style (text-style
                 :color props.color
-                :font-size current-theme.text-theme.body-small.font-size
+                :font-size current-theme.text-theme.body-medium.font-size
                 :font-weight font-weight.w600
             )
         )
@@ -44,7 +44,7 @@
             :text props.text
             :style (text-style
                 :color props.color
-                :font-size current-theme.text-theme.title-medium.font-size
+                :font-size current-theme.text-theme.body-medium.font-size
                 :font-weight font-weight.w400
             )
         )
@@ -52,7 +52,7 @@
 
     (def (tile props)
         (row
-            :spacing 8
+            :spacing 4
             :children (
                 (tile-leading props.icon)
                 (column

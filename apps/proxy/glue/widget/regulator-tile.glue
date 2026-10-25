@@ -30,7 +30,7 @@
                         (text
                             :text props.unit
                             :style (text-style
-                                :font-size current-theme.text-theme.title-small.font-size
+                                :font-size current-theme.text-theme.title-medium.font-size
                                 :color props.color
                             )
                         )

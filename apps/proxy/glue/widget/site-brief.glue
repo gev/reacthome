@@ -15,7 +15,7 @@
     (def (tile-value value)
         (text
             :text value
-            :style current-theme.text-theme.title-small
+            :style current-theme.text-theme.title-medium
         )
     )
 
@@ -23,7 +23,7 @@
         (text
             :text unit
             :style (text-style
-                :font-style current-theme.text-theme.title-small.font-size
+                :font-style current-theme.text-theme.title-medium.font-size
                 :color current-theme.color-scheme.on-surface-variant
             )
         )

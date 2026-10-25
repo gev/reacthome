@@ -136,46 +136,44 @@
         (single-child-scroll-view
             :scroll-direction axis.horizontal
             :child (row
-                :spacing 32
                 :cross-axis-alignment cross-axis-alignment.start
                 :children (
                     (scrolled-column
-                        :width 360
+                        :width 320
                         :children (prepend info (?? cameras ()))
                     )
                     (if (|| (exists? light-220) (exists? light-led))
                         (scrolled-column
-                            :width 200
+                            :width 180
                             :children (concat light-220 light-led)
                         )
                     )
                     (if (exists? temperature-regulator)
                         (scrolled-column
-                            :width 360
+                            :width 320
                             :children temperature-regulator
                         )
                     )
                     (if (|| (exists? valve-heating) (exists? warm-floor))
                         (scrolled-column
-                            :width 200
+                            :width 180
                             :children (concat valve-heating warm-floor)
                         )
                     )
                     (if (exists? humidity-regulator)
                         (scrolled-column
-                            :width 360
+                            :width 320
                             :children humidity-regulator
                         )
                     )
                     (if (exists? ventilation-regulator)
                         (scrolled-column
-                            :width 360
+                            :width 320
                             :children ventilation-regulator
                         )
                     )
                     (if (exists? curtains)
                         (scrolled-column
-                            :width 420
                             :children curtains
                         )
                     )

@@ -36,7 +36,7 @@
                         (text
                             :text param.unit
                             :style (text-style
-                                :font-size current-theme.text-theme.headline-small.font-size
+                                :font-size current-theme.text-theme.headline-medium.font-size
                                 :color color-scheme.variant
                             )
                         )

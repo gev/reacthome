@@ -45,7 +45,7 @@
 
     (def (body-style props)
         (text-style
-            :font-size current-theme.text-theme.headline-small.font-size
+            :font-size current-theme.text-theme.headline-medium.font-size
             :color (props.appearance.foreground.with :a 0.9)
         )
     )
