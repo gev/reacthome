@@ -1,7 +1,13 @@
 (module api
     (export ring)
 
+    (import lib.navigation)
+
     (def (ring id)
-        (print (# 'ring))
+        (push
+            :target applet-navigator
+            :route 'ring
+            :id id
+        )
     )
 )
