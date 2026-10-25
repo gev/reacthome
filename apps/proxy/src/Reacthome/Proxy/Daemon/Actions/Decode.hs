@@ -25,7 +25,7 @@ convert o =
             payload <- lookupPayload o
             let timestamp = lookupTimestamp payload
             pure $ Entity (id', ("id", reference id') : makeObject payload, timestamp)
-        "RING" -> do
+        "ring" -> do
             id' <- lookupId o
             pure $ Action (List [Symbol "ring", Symbol id'])
         _ -> Nothing

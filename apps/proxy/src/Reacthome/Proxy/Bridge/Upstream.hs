@@ -1,6 +1,7 @@
 module Reacthome.Proxy.Bridge.Upstream where
 
 import Control.Monad (when)
+import Data.ByteString.Builder qualified as B
 import Data.ByteString.Lazy (ByteString)
 import Data.Text (pack)
 import Data.Text.Lazy.Encoding (encodeUtf8)
@@ -40,7 +41,10 @@ makeUpstream config = Upstream{..}
                     revision = Revision{..}
                 ?pubsub.publish key revision
             Just (Action ast) -> do
-                let message = encodeUtf8 $ serializeAST ast
+                let message =
+                        B.toLazyByteString $
+                            B.word8 1
+                                <> B.lazyByteString (enc ast)
                 ?sinks.broadcast message
             Nothing -> pure ()
 
@@ -48,3 +52,5 @@ makeUpstream config = Upstream{..}
 
     extractPayload =
         filter $ (`elem` ["title", "code"]) . fst
+
+    enc = encodeUtf8 . serializeAST
