@@ -32,6 +32,7 @@
     (def (tile props)
         (row
             :spacing 4
+            :main-axis-size main-axis-size.min
             :children (
                 (tile-icon props)
                 (?> tile-value props.value)
@@ -41,7 +42,7 @@
     )
 
     (def (info props)
-        (row
+        (wrap
             :spacing 16
             :children props.children
         )

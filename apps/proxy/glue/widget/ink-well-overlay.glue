@@ -18,7 +18,7 @@
                 :text title
                 :style (text-style
                     :color colors.white
-                    :font-size current-theme.text-theme.title-medium.font-size
+                    :font-size current-theme.text-theme.title-large.font-size
                     :font-weight font-weight.w400
                 )
             )
@@ -44,7 +44,7 @@
                             )
                         )
                         (column
-                            :cross-axis-alignment cross-axis-alignment.start
+                            :cross-axis-alignment cross-axis-alignment.stretch
                             :children (
                                 (if (exists? props.title)
                                     (container
