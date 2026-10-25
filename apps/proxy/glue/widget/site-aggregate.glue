@@ -74,13 +74,13 @@
         (def lights_all (flatten (# lights_220 lights_LED)))
         (def children (flatten
                 (#
-                    (aggregate-sensors props temperature)
-                    (aggregate-sensors props humidity)
-                    (aggregate-sensors props CO2)
                     (if (exists? lights_all)
                         (listen (aggregate-lights props light) lights_all)
                         ()
                     )
+                    (aggregate-sensors props temperature)
+                    (aggregate-sensors props humidity)
+                    (aggregate-sensors props CO2)
                 )
             )
         )
