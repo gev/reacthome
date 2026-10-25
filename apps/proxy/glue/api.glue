@@ -1,0 +1,7 @@
+(module api
+    (export ring)
+
+    (def (ring id)
+        (print (# 'ring))
+    )
+)
