@@ -21,9 +21,12 @@
             :spacing 16
             :cross-axis-alignment cross-axis-alignment.start
             :children (
-                (site-breadcrumbs
-                    :site props.id
-                    :action go-site
+                (single-child-scroll-view
+                    :scroll-direction axis.horizontal
+                    :child (site-breadcrumbs
+                        :site props.id
+                        :action go-site
+                    )
                 )
                 (show props)
             )
