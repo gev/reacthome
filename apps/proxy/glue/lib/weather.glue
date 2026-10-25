@@ -12,8 +12,8 @@
                 :foreground dark
             )
             :sunny-night (
-                :background weather-type.sunny
-                :foreground dark
+                :background weather-type.sunny-night
+                :foreground light
             )
             :cloudy (
                 :background weather-type.cloudy
