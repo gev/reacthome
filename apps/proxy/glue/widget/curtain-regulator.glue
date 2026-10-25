@@ -16,6 +16,7 @@
     (import widget.entity-modal)
 
     (def (positioned-curtain-regulator props bind)
+        (def state (local-state 0.5))
         (def background-color
             (if bind.value
                 current-theme.color-scheme.surface-dim
@@ -28,42 +29,22 @@
             :title (title props)
             :display (select-locale (? bind.value i18n-closed i18n-opened))
             :unit position.unit
-            :body (column
-                :spacing 16
-                :main-axis-size main-axis-size.min
-                :children (
+            :body (listen
+                (\ (value)
                     (double-curtain
                         :active-color current-theme.color-scheme.tertiary
                         :jump-to-tap false
-                    )
-                    (wrap
-                        :spacing 16
-                        :run-spacing 8
-                        :main-axis-alignment main-axis-alignment.center
-                        :children (
-                            (button
-                                :child (text
-                                    :text (select-locale i18n-open)
-                                )
-                            )
-                            (button
-                                :child (text
-                                    :text (select-locale i18n-stop)
-                                )
-                            )
-                            (button
-                                :child (text
-                                    :text (select-locale i18n-close)
-                                )
-                            )
-                        )
+                        :value value
+                        :on-changed (\ (value) (write state value))
                     )
                 )
+                state
             )
         )
     )
 
     (def (non-positioned-curtain-regulator props bind)
+        (def state (local-state 0.5))
         (def background-color
             (if bind.value
                 current-theme.color-scheme.surface-dim
@@ -75,37 +56,16 @@
             :background-color background-color
             :title (title props)
             :display (select-locale (? bind.value i18n-closed i18n-opened))
-            :body (column
-                :spacing 16
-                :main-axis-size main-axis-size.min
-                :children (
+            :body (listen
+                (\ (value)
                     (double-curtain
                         :active-color current-theme.color-scheme.tertiary
                         :jump-to-tap false
-                    )
-                    (wrap
-                        :spacing 16
-                        :run-spacing 8
-                        :main-axis-alignment main-axis-alignment.center
-                        :children (
-                            (button
-                                :child (text
-                                    :text (select-locale i18n-open)
-                                )
-                            )
-                            (button
-                                :child (text
-                                    :text (select-locale i18n-stop)
-                                )
-                            )
-                            (button
-                                :child (text
-                                    :text (select-locale i18n-close)
-                                )
-                            )
-                        )
+                        :value value
+                        :on-changed (\ (value) (write state value))
                     )
                 )
+                state
             )
         )
     )
