@@ -48,7 +48,7 @@
                             :children (
                                 (if (exists? props.title)
                                     (container
-                                        :padding (edge-insets-only :left 16 :right 16)
+                                        :padding (edge-insets-only :left 16 :right 16 :bottom 8)
                                         :decoration (overlay-gradient color1 color2)
                                         :child (overlay-title props.title)
                                     )
