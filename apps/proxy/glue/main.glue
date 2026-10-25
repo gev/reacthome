@@ -1,6 +1,8 @@
 (module main
     (export main)
 
+    (import api)
+
     (import lib.navigation)
 
     (import screen.project)
@@ -10,6 +12,7 @@
     (import screen.light-regulator)
     (import screen.curtain-regulator)
     (import screen.heater-regulator)
+    (import screen.ring)
 
     (def (overlay screen args)
         (overlay-route
@@ -64,6 +67,10 @@
         (overlay heater-regulator-screen)
     )
 
+    (def ring-route
+        (overlay ring-screen)
+    )
+
     (def (main home)
         (def props (:home home))
         (app
@@ -81,6 +88,7 @@
                 :humidity-regulator humidity-regulator-route
                 :ventilation-regulator ventilation-regulator-route
                 :heater-regulator heater-regulator-route
+                :ring ring-route
             )
         )
     )

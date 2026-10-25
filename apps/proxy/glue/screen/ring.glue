@@ -1,0 +1,10 @@
+(module screen.ring
+    (export ring-screen)
+
+    (import lib.data)
+    (import layout.ring)
+
+    (def (ring-screen args)
+        (select ring-layout args.id)
+    )
+)
