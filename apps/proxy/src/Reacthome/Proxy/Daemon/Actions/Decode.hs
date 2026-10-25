@@ -27,7 +27,7 @@ convert o =
             pure $ Entity (id', ("id", reference id') : makeObject payload, timestamp)
         "ring" -> do
             id' <- lookupId o
-            pure $ Action (List [Symbol "ring", Symbol id'])
+            pure $ Action (List [Symbol "ring", reference id'])
         _ -> Nothing
 
 lookupType :: A.Object -> Maybe Text
