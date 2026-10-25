@@ -19,7 +19,7 @@
                     :param temperature
                     :value (@ site temperature.property)
                 )
-                :body (heating-regulator regulator)
+                :body (heating-regulator-system regulator)
             )
         )
     )

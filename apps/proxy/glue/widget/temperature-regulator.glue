@@ -4,8 +4,8 @@
         temperature-regulator-color
         temperature-regulator-modal
         temperature-regulator
-        cooling-regulator
-        heating-regulator
+        cooling-regulator-system
+        heating-regulator-system
     )
 
     (import lib.action)
@@ -64,22 +64,38 @@
         )
     )
 
-    (def (cooling-regulator regulator)
-        (column
+    (def (cooling-regulator-system regulator)
+        (row
             :children (
-                (setpoint regulator)
-                (toggle regulator cooling-mode)
-                (intensity regulator cooling-mode)
+                (expanded
+                    :child (setpoint regulator)
+                )
+                (expanded
+                    :child (column
+                        :children (
+                            (toggle regulator cooling-mode)
+                            (intensity regulator cooling-mode)
+                        )
+                    )
+                )
             )
         )
     )
 
-    (def (heating-regulator regulator)
-        (column
+    (def (heating-regulator-system regulator)
+        (row
             :children (
-                (setpoint regulator)
-                (toggle regulator heating-mode)
-                (intensity regulator heating-mode)
+                (expanded
+                    :child (setpoint regulator)
+                )
+                (expanded
+                    :child (column
+                        :children (
+                            (toggle regulator heating-mode)
+                            (intensity regulator heating-mode)
+                        )
+                    )
+                )
             )
         )
     )

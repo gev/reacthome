@@ -18,7 +18,7 @@
                     :param humidity
                     :value (@ site humidity.property)
                 )
-                :body (humidity-regulator regulator)
+                :body (humidity-regulator-system regulator)
             )
         )
     )

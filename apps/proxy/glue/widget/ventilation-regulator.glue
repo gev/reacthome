@@ -2,6 +2,7 @@
     (export
         ventilation-regulator-color
         ventilation-regulator-modal
+        ventilation-regulator-system
         ventilation-regulator
     )
 
@@ -36,6 +37,24 @@
             :min 0
             :max (length regulator.onVentilationIntensity)
             :on-changed (set-ventilation-intensity regulator.id)
+        )
+    )
+
+    (def (ventilation-regulator-system regulator)
+        (row
+            :children (
+                (expanded
+                    :child (setpoint regulator)
+                )
+                (expanded
+                    :child (column
+                        :children (
+                            (toggle regulator)
+                            (intensity regulator)
+                        )
+                    )
+                )
+            )
         )
     )
 

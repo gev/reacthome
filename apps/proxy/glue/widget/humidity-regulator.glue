@@ -2,6 +2,7 @@
     (export
         humidity-regulator-color
         humidity-regulator-modal
+        humidity-regulator-system
         humidity-regulator
     )
 
@@ -34,6 +35,19 @@
             :children (
                 (setpoint regulator)
                 (toggle regulator)
+            )
+        )
+    )
+
+    (def (humidity-regulator-system regulator)
+        (row
+            :children (
+                (expanded
+                    :child (setpoint regulator)
+                )
+                (expanded
+                    :child(toggle regulator)
+                )
             )
         )
     )
