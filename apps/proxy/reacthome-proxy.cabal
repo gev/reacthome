@@ -75,6 +75,7 @@ library
     filepath,
     fsnotify,
     glue,
+    list-t,
     network,
     proxy,
     pubsub,
