@@ -36,7 +36,7 @@
             (single-child-scroll-view
                 :child (column
                     :spacing 32
-                    :cross-axis-alignment cross-axis-alignment.start
+                    :cross-axis-alignment cross-axis-alignment.stretch
                     :children (map (system show) props)
                 )
             )
