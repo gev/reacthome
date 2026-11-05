@@ -46,7 +46,7 @@
             )
         )
         (if (exists? props.site)
-            (let
+            (do
                 (def site (remote-persistent-state props.site))
                 (listen go site)
             )

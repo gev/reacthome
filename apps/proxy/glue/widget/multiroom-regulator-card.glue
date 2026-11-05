@@ -71,7 +71,7 @@
 
     (def (multiroom-tile props on-changed titles source index)
         (if source.active
-            (let
+            (do
                 (def state
                     (optimistic
                         :value (to-percents source.volume)
@@ -134,7 +134,7 @@
 
     (def (multiroom-regulator-card props)
         (if (exists? props.bind)
-            (let
+            (do
                 (def zone (remote-persistent-state props.bind))
                 (def lanamp (remote-persistent-state (take 23 props.bind)))
                 (listen (bound-multiroom-regulator-card props) zone lanamp)

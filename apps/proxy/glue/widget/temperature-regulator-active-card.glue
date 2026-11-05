@@ -28,7 +28,7 @@
             (with-seed-color
                 :seed-color (temperature-regulator-color mode)
                 :dynamic-scheme-variant dynamic-scheme-variant.content
-                :child (let
+                :child (do
                     (def end-color current-theme.color-scheme.primary)
                     (hero
                         :tag regulator.id
@@ -60,7 +60,7 @@
             :key regulator.id
             :seed-color (temperature-regulator-color current-mode)
             :dynamic-scheme-variant dynamic-scheme-variant.content
-            :child (let
+            :child (do
                 (def title
                     (regulator-title
                         :param temperature

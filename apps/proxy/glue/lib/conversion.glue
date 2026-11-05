@@ -37,7 +37,7 @@
         (if (exists? val)
             (if (> res 0)
                 (if (< res 1)
-                    (let
+                    (do
                         (def frac (/ 1 res))
                         (/ (round (* val frac)) frac)
                     )

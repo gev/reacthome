@@ -28,7 +28,7 @@
 
     (def (footer props)
         (if (exists? props.footer)
-            (let
+            (do
                 (def color current-theme.color-scheme.primary-container)
                 (def begin (color.with :a 0))
                 (def end (color.with :a 0.9))

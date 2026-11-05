@@ -11,7 +11,7 @@
 
     (def (site-theme site props constraints)
         (if (exists? props.site.palette.vibrant)
-            (let
+            (do
                 (def palette (
                         :seed-color props.site.palette.vibrant
                         :dynamic-scheme-variant dynamic-scheme-variant.expressive
