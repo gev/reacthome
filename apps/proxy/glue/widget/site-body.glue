@@ -6,7 +6,6 @@
 
     (import widget.grid)
     (import widget.site-breadcrumbs)
-    (import widget.site-info)
     (import widget.site-card)
     (import widget.scene-card)
     (import widget.light-regulator-card)

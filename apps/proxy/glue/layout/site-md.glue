@@ -9,8 +9,6 @@
 
     (import widget.site-breadcrumbs)
     (import widget.site-card)
-    (import widget.site-info)
-    (import widget.site-brief)
     (import widget.scene-card)
     (import widget.light-regulator-active-card)
     (import widget.curtain-regulator-active-card)
@@ -87,9 +85,6 @@
     )
 
     (def (body palette props)
-        (def info
-            (site-info :site props.site.id)
-        )
         (def light-220
             (select-collection light-regulator-active-card props.site.light_220)
         )
@@ -138,9 +133,11 @@
             :child (row
                 :cross-axis-alignment cross-axis-alignment.start
                 :children (
-                    (scrolled-column
-                        :width 320
-                        :children (prepend info (?? cameras ()))
+                    (if (exists? cameras)
+                        (scrolled-column
+                            :width 320
+                            :children cameras
+                        )
                     )
                     (if (|| (exists? light-220) (exists? light-led))
                         (scrolled-column

@@ -5,7 +5,6 @@
     (import lib.navigation)
 
     (import widget.ink-well-overlay)
-    (import widget.site-brief)
 
     (def (site-image props)
         (aspect-ratio
@@ -20,7 +19,6 @@
     (def (site-ink-well props)
         (ink-well-overlay
             :title (title props)
-            :body (site-brief :site props.id)
             :on-tap (go :route 'site :id props.id)
         )
     )

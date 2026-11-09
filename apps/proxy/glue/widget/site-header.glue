@@ -6,7 +6,6 @@
 
     (import widget.floating-bar)
     (import widget.site-breadcrumbs)
-    (import widget.site-info)
 
     (def (site-title props)
         (padding
@@ -30,7 +29,6 @@
                     :site props.parent
                     :action go-site
                 )
-                (site-info :site props.id)
             )
         )
     )
