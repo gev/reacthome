@@ -21,7 +21,6 @@ makeRelayDispatcher :: (?options :: WebSocketOptions) => IO RelayDispatcher
 makeRelayDispatcher = do
     !sources <- newIORef empty
     !lock <- newMVar ()
-
     let
         getSource !uid = do
             takeMVar lock
