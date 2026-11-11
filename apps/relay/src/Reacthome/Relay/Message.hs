@@ -9,11 +9,13 @@ data RelayMessage = RelayMessage
     { header :: !RelayMessageHeader
     , content :: !LazyRaw
     }
+    deriving (Show)
 
 data RelayMessageHeader = RelayMessageHeader
-    { to :: !Uid
-    , from :: !Uid
+    { from :: !Uid
+    , to :: !Uid
     }
+    deriving (Show)
 
 serializeMessage :: RelayMessage -> LazyRaw
 serializeMessage message =
@@ -25,17 +27,17 @@ serializeMessage message =
 {-# INLINEABLE serializeMessage #-}
 
 getMessageDestination :: LazyRaw -> Uid
-getMessageDestination = L.toStrict . L.take 16
+getMessageDestination = L.toStrict . L.drop 16 . L.take 32
 {-# INLINEABLE getMessageDestination #-}
 
 getMessageSource :: StrictRaw -> Uid
-getMessageSource = S.drop 16 . S.take 32
+getMessageSource = S.take 16
 {-# INLINEABLE getMessageSource #-}
 
 getMessageHeader :: LazyRaw -> RelayMessageHeader
 getMessageHeader raw =
     let
-        (to, from) = S.splitAt 16 . L.toStrict . L.take 32 $ raw
+        (from, to) = S.splitAt 16 . L.toStrict . L.take 32 $ raw
      in
         RelayMessageHeader{..}
 {-# INLINEABLE getMessageHeader #-}

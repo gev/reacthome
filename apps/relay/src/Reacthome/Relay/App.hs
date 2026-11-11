@@ -9,16 +9,14 @@ import Data.Text (Text, pack)
 import Data.Text.Encoding (decodeUtf8', encodeUtf8)
 import Data.UUID (fromText, toByteString)
 import Network.HTTP.Types (Query, decodePath)
-import Reacthome.Relay.Dispatcher (makeRelayDispatcher)
 import Reacthome.Relay.Error (RelayError (..), logError)
-import Reacthome.Relay.Server (RelayServer (..), makeRelayServer)
-import WebSockets.Options (WebSocketOptions)
+import Reacthome.Relay.Server (RelayServer (..))
 import WebSockets.PendingConnection (WebSocketPendingConnection (..))
 import WebSockets.Server (WebSocketServerApplication)
 import Prelude hiding (length, splitAt, tail)
 
 application ::
-    (?options :: WebSocketOptions) =>
+    (?server :: RelayServer) =>
     WebSocketServerApplication
 application pending = do
     let (path, query) = decodePath pending.path
@@ -28,14 +26,12 @@ application pending = do
         _ -> rejectWith $ InvalidUri pending.path
 
 acceptV1 ::
-    (?options :: WebSocketOptions) =>
+    (?server :: RelayServer) =>
     Query -> WebSocketPendingConnection -> IO ()
 acceptV1 query pending = do
-    dispatcher <- makeRelayDispatcher
-    let server = makeRelayServer dispatcher
     pending & case lookupQuery "peer" query of
         Just peer -> case fromText peer of
-            Just uid -> server.accept $ toStrict $ toByteString uid
+            Just uid -> ?server.accept $ toStrict $ toByteString uid
             _ -> rejectWith $ InvalidPeer peer
         _ -> rejectWith NoPeerPresent
 
