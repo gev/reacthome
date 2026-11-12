@@ -1,5 +1,5 @@
 (module widget.systems-aggregate
-    (export systems-aggregate, aggregate)
+    (export systems-aggregate)
 
     (import lib.combinator)
 
@@ -36,29 +36,11 @@
         )
         (if (empty? props.sites)
             (props.build props.acc)
-            (listen go (map remote-persistent-state props.sites))
+            (go (map read (map remote-persistent-state props.sites)))
         )
     )
 
-    (def aggregate-z (Z aggregate-gen))
-
-    (def aggregate (props)
-        (def (go sites)
-            (import widget.systems-aggregate)
-            (def sites-with-children (filter has-children sites))
-            (def children (map get-children sites-with-children))
-            (aggregate
-                :build props.build
-                :systems props.systems
-                :sites (flatten children)
-                :acc (foldl (systems props) props.acc sites)
-            )
-        )
-        (if (empty? props.sites)
-            (props.build props.acc)
-            (listen go (map remote-persistent-state props.sites))
-        )
-    )
+    (def aggregate (Z aggregate-gen))
 
     (def (systems-aggregate props)
         (aggregate

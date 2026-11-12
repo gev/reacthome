@@ -1,5 +1,5 @@
 (module widget.site-aggregate
-    (export site-aggregate aggregate)
+    (export site-aggregate)
 
     (import lib.combinator)
     (import lib.conversion)
@@ -75,7 +75,7 @@
         (def children (flatten
                 (#
                     (if (exists? lights_all)
-                        (listen (aggregate-lights props light) lights_all)
+                        (aggregate-lights props light (map read lights_all))
                         ()
                     )
                     (aggregate-sensors props temperature)
@@ -111,28 +111,9 @@
         )
         (if (empty? props.sites)
             (aggregate props)
-            (listen go (map remote-persistent-state props.sites))
+            (go (map read (map remote-persistent-state props.sites)))
         )
     )
 
-    (def site-aggregate-z (Z aggregate-gen))
-
-    (def site-aggregate (props)
-        (def (go sites)
-            (import widget.site-aggregate)
-            (def sites-with-children (filter has-children sites))
-            (def children (map get-children sites-with-children))
-            (aggregate
-                :container props.container
-                :parameter props.parameter
-                :sites (flatten children)
-                :acc (concat props.acc sites)
-            )
-        )
-        (if (empty? props.sites)
-            (aggregate props)
-            (listen go (map remote-persistent-state props.sites))
-        )
-
-    )
+    (def site-aggregate (Z aggregate-gen))
 )

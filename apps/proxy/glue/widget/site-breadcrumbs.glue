@@ -1,5 +1,5 @@
 (module widget.site-breadcrumbs
-    (export site-breadcrumbs breadcrumbs)
+    (export site-breadcrumbs)
 
     (import lib.combinator)
     (import lib.data)
@@ -48,7 +48,7 @@
         (if (exists? props.site)
             (do
                 (def site (remote-persistent-state props.site))
-                (listen go site)
+                (go (read site))
             )
             (if (not (empty? props.acc))
                 (combine (map props.segment props.acc))
@@ -56,27 +56,7 @@
         )
     )
 
-    (def breadcrumbs-z (Z breadcrumbs-gen))
-
-    (def (breadcrumbs props)
-        (def (go i)
-            (import widget.site-breadcrumbs)
-            (breadcrumbs
-                :segment props.segment
-                :site i.parent
-                :acc (append props.acc i)
-            )
-        )
-        (if (exists? props.site)
-            (do
-                (def site (remote-persistent-state props.site))
-                (listen go site)
-            )
-            (if (not (empty? props.acc))
-                (combine (map props.segment props.acc))
-            )
-        )
-    )
+    (def breadcrumbs (Z breadcrumbs-gen))
 
     (def (site-breadcrumbs props)
         (def segment
