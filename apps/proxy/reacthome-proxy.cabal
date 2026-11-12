@@ -79,6 +79,7 @@ library
     network,
     proxy,
     pubsub,
+    reacthome-relay,
     scientific,
     stm,
     stm-containers,
