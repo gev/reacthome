@@ -49,6 +49,7 @@ parseProxyConfig = parseObject \p m -> do
 
 parseClientConfig :: [Text] -> IR Eval -> Eval ClientConfig
 parseClientConfig = parseObject \p m -> do
+    secure <- field p "secure" parseBool m
     host <- field p "host" parseString m
     port <- field p "port" parseInt m
     uri <- field p "uri" parseString m
@@ -96,6 +97,11 @@ parseString path = \case
     String s -> pure $ T.unpack s
     Symbol s -> pure $ T.unpack s
     got -> err path $ "Expected String, got " <> T.pack (show got)
+
+parseBool :: [Text] -> IR Eval -> Eval Bool
+parseBool path = \case
+    Bool b -> pure b
+    got -> err path $ "Expected Bool, got " <> T.pack (show got)
 
 parseInt :: [Text] -> IR Eval -> Eval Int
 parseInt path = \case

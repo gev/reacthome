@@ -1,11 +1,11 @@
 module Reacthome.Proxy.Relay where
 
 import Control.Concurrent (threadDelay)
-import Control.Monad (guard, unless, void, when)
+import Control.Monad (guard, void)
 import Data.ByteString.Lazy (empty)
 import Reacthome.Proxy.Config.App (ClientConfig (..), ProxyConfig (..))
 import Reacthome.Relay.Message (isMessageValid)
-import WebSockets.Client (runSecureWebSocketClient, runWebSocketClient)
+import WebSockets.Client (runWebSocketClient)
 import WebSockets.Options (defaultWebSocketOptions)
 
 runProxyRelay :: ClientConfig -> ProxyConfig -> IO ()
@@ -19,11 +19,8 @@ runProxyRelay config proxy = do
                 print message
     let ?source = pure (Nothing, threadDelay 100_000_000_000 >> pure empty)
     void $
-        -- runSecureWebSocketClient
-        --     config.host
-        --     config.port
-        --     uri
         runWebSocketClient
-            "127.0.0.1"
-            3003
+            config.secure
+            config.host
+            config.port
             uri

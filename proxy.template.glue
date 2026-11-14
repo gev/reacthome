@@ -5,11 +5,13 @@
         :daemon "00000000-0000-0000-0000-000000000000"
     )
     :daemon (
+        :secure false
         :host "server.local"
         :port 3000
         :uri "/"
     )
     :relay (
+        :secure false
         :host "relay.local"
         :port 3003
         :uri "/v1"

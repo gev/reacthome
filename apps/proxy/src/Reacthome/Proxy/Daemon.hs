@@ -20,6 +20,7 @@ runProxyDaemon config = do
     let ?source = ?downstream.receive
     void $
         runWebSocketClient
+            config.secure
             config.host
             config.port
             config.uri
