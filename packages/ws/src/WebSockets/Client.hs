@@ -2,6 +2,7 @@ module WebSockets.Client (
     WebSocketClient (..),
     runWebSocketClient,
     runSecureWebSocketClient,
+    runUnsecureWebSocketClient,
 ) where
 
 import Control.Concurrent (forkIO, threadDelay)
@@ -29,8 +30,19 @@ runWebSocketClient ::
     , ?sink :: WebSocketSink
     , ?source :: WebSocketSource
     ) =>
+    Bool -> String -> Int -> String -> IO WebSocketClient
+runWebSocketClient secure =
+    if secure
+        then runSecureWebSocketClient
+        else runUnsecureWebSocketClient
+
+runUnsecureWebSocketClient ::
+    ( ?options :: WebSocketOptions
+    , ?sink :: WebSocketSink
+    , ?source :: WebSocketSource
+    ) =>
     String -> Int -> String -> IO WebSocketClient
-runWebSocketClient host port path =
+runUnsecureWebSocketClient host port path =
     runWebSocketClientWith $
         runClient host port path
 
