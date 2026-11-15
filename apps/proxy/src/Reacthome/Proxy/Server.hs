@@ -51,7 +51,7 @@ proxyServer daemon pending = do
         then
             tryAccept query pending
         else
-            logError $ InvalidProxyDaemon pending.path
+            logError $ InvalidProxyDaemon (show pending.path)
 
 tryAccept ::
     ( ?pubsub :: GluePublisher
@@ -64,7 +64,7 @@ tryAccept query pending = do
     pending & case lookupQuery "peer" query of
         Just peer -> case fromText peer of
             Just uid -> justAccept uid
-            _ -> rejectWith (InvalidPeer $ encodeUtf8 peer)
+            _ -> rejectWith (InvalidPeer (show $ encodeUtf8 peer))
         _ -> rejectWith NoPeerPresent
 
 justAccept ::
@@ -78,12 +78,12 @@ justAccept uid pending = do
     pending.accept >>= \case
         Left !e -> logError $ WebSocketError e
         Right !connection -> do
-            (inChan, outChan) <- newChan 1_000
+            (inChan, outChan) <- newChan 10_000
             res <-
                 either id id <$> race
                     do
-                        let ?sink = writeChan inChan
                         let ?session = uid
+                        let ?sink = writeChan inChan
                         ?sinks.add uid ?sink
                         connection.runReceiveMessageLoop controller
                     do
