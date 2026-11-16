@@ -20,19 +20,14 @@ data RelayMessageHeader = RelayMessageHeader
 serializeMessage :: RelayMessage -> LazyRaw
 serializeMessage message =
     L.concat
-        [ L.fromStrict message.header.to
-        , L.fromStrict message.header.from
+        [ L.fromStrict message.header.from
+        , L.fromStrict message.header.to
         , message.content
         ]
 {-# INLINEABLE serializeMessage #-}
 
-getMessageDestination :: LazyRaw -> Uid
-getMessageDestination = L.toStrict . L.drop 16 . L.take 32
-{-# INLINEABLE getMessageDestination #-}
-
-getMessageSource :: StrictRaw -> Uid
-getMessageSource = S.take 16
-{-# INLINEABLE getMessageSource #-}
+getMessagePayload :: LazyRaw -> LazyRaw
+getMessagePayload = L.drop 32
 
 getMessageHeader :: LazyRaw -> RelayMessageHeader
 getMessageHeader raw =
@@ -41,6 +36,14 @@ getMessageHeader raw =
      in
         RelayMessageHeader{..}
 {-# INLINEABLE getMessageHeader #-}
+
+getMessageDestination :: LazyRaw -> Uid
+getMessageDestination = L.toStrict . L.drop 16 . L.take 32
+{-# INLINEABLE getMessageDestination #-}
+
+getMessageSource :: StrictRaw -> Uid
+getMessageSource = S.take 16
+{-# INLINEABLE getMessageSource #-}
 
 isMessageValid :: LazyRaw -> Bool
 isMessageValid = (> 32) . L.length

@@ -16,7 +16,8 @@ data ProxyConfig = ProxyConfig
     }
 
 data ClientConfig = ClientConfig
-    { host :: String
+    { secure :: Bool
+    , host :: String
     , port :: Int
     , uri :: String
     }
