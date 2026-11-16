@@ -25,7 +25,6 @@ makeRelayServer dispatcher =
         accept from pending = do
             let
                 dispatchMessage message = exceptT logError pure do
-                    lift $ print message
                     unless (isMessageValid message) do
                         throwE $ InvalidMessage message
                     let header = getMessageHeader message
