@@ -14,7 +14,7 @@ import Reacthome.Proxy.Config.App (ProxyConfig (..))
 import Reacthome.Proxy.Daemon.Actions.Decode (Action (..), decodeAction)
 import Reacthome.Proxy.Discovery (Discovery (..))
 import Reacthome.Proxy.Glue.PubSub.Types (GluePublisher)
-import Reacthome.Proxy.Sink (SinkRegistry (..))
+import Reacthome.Proxy.SinkRegistry (SinkRegistry (..))
 
 newtype Upstream = Upstream
     { publish :: ByteString -> IO ()

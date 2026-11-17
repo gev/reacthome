@@ -10,8 +10,11 @@ import Reacthome.Proxy.Config.App (ClientConfig (..), ProxyConfig (..))
 import Reacthome.Proxy.Error (ProxyError (InvalidPeer, InvalidProxyDaemon), logError)
 import Reacthome.Proxy.Glue.Controller (controller)
 import Reacthome.Proxy.Glue.PubSub.Types (GluePublisher)
-import Reacthome.Proxy.Sink (SinkRegistry (..))
-import Reacthome.Relay.Message (RelayMessage (..), RelayMessageHeader (..), getMessageHeader, getMessagePayload, isMessageValid, serializeMessage)
+import Reacthome.Proxy.Sink (fromRelaySink)
+import Reacthome.Proxy.Sink.RelaySink (makeRelaySink)
+import Reacthome.Proxy.Sink.RelaySinkRegistry (RelaySinkRegistry (add))
+import Reacthome.Proxy.SinkRegistry (SinkRegistry (..))
+import Reacthome.Relay.Message (RelayMessageHeader (..), getMessageHeader, getMessagePayload, isMessageValid)
 import WebSockets.Client (runWebSocketClient)
 import WebSockets.Options (defaultWebSocketOptions)
 
@@ -35,19 +38,10 @@ runProxyRelay config proxy =
                         let header = getMessageHeader message
                         case fromByteString (fromStrict header.from) of
                             Just uid -> do
+                                sink <- makeRelaySink from header.from $ writeChan inChan
+                                ?sinks.relaySinks.add uid sink
                                 let ?session = uid
-                                sink <-
-                                    ?sinks.lookup uid >>= \case
-                                        Just sink -> pure sink
-                                        Nothing -> do
-                                            let sink = writeChan inChan
-                                            ?sinks.add uid \content -> do
-                                                let to = header.from
-                                                let header = RelayMessageHeader{..}
-                                                let message = RelayMessage{..}
-                                                sink $ serializeMessage message
-                                            pure sink
-                                let ?sink = sink
+                                let ?sink = fromRelaySink sink
                                 controller $ getMessagePayload message
                             Nothing -> logError $ InvalidPeer (show header.from)
             let ?source =

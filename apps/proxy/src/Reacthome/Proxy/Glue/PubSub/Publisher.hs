@@ -10,7 +10,8 @@ import Reacthome.Proxy.Bridge.Downstream (Downstream)
 import Reacthome.Proxy.Glue.Dispatcher (dispatch)
 import Reacthome.Proxy.Glue.PubSub.Types (GluePublisher)
 import Reacthome.Proxy.Glue.Store (GlueStore)
-import Reacthome.Proxy.Sink (SinkRegistry (..))
+import Reacthome.Proxy.Sink (Sink (..))
+import Reacthome.Proxy.SinkRegistry (SinkRegistry (..))
 
 makeGluePublisher ::
     ( ?store :: GlueStore
@@ -35,7 +36,7 @@ makeGluePublisher =
                                 <> B.string8 " "
                                 <> B.lazyByteString value.payload
                                 <> B.string8 ")"
-                sink message
+                sink.send message
             Nothing -> print $ "Subscriber not found: " <> show subscriber
 
     enc = L.fromStrict . encodeUtf8 . T.intercalate "."

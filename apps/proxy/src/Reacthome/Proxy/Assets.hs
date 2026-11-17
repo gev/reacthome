@@ -10,7 +10,7 @@ import Data.Text (Text)
 import Data.Text qualified as T
 import Data.Text.Encoding qualified as T
 import Reacthome.Proxy.Config.App (AssetsConfig (..))
-import Reacthome.Proxy.Sink (Sink)
+import Reacthome.Proxy.Sink (Sink (send))
 import System.Directory (doesFileExist, getFileSize)
 import System.FilePath ((</>))
 
@@ -28,7 +28,7 @@ makeAssets config = Assets sendAsset
                 assetChunks <- L.toChunks <$> L.readFile assetPath
                 let offsets = scanl nextOffset 0 assetChunks
                 let chunks = zipWith (makeChunk assetSize) assetChunks offsets
-                traverse_ sink chunks
+                traverse_ sink.send chunks
       where
         makeChunk fileSize chunk offset =
             B.toLazyByteString $

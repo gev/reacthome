@@ -9,12 +9,12 @@ import Reacthome.Proxy.Bridge.Downstream (makeDownstream)
 import Reacthome.Proxy.Bridge.Upstream (makeUpstream)
 import Reacthome.Proxy.Config.App (AppConfig (..))
 import Reacthome.Proxy.Daemon (pingProxyDaemon, runProxyDaemon)
-import Reacthome.Proxy.Discovery
+import Reacthome.Proxy.Discovery (Discovery (runAnnouncer, runResponder), makeProxyDiscovery)
 import Reacthome.Proxy.Glue.PubSub.Publisher (makeGluePublisher)
 import Reacthome.Proxy.Glue.Store (GlueStore (..), makeGlueStore)
 import Reacthome.Proxy.Relay (runProxyRelay)
 import Reacthome.Proxy.Server (runProxyServer)
-import Reacthome.Proxy.Sink (makeSinkRegistry)
+import Reacthome.Proxy.SinkRegistry (makeSinkRegistry)
 
 runApp :: AppConfig -> IO ()
 runApp config = do
