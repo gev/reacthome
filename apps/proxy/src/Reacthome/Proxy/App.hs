@@ -44,8 +44,8 @@ runApp config = do
   let ?controller = controller
 
   fork do runProxyServer config.proxy
-  fork do runProxyDaemon config.daemon
   fork do runProxyRelay config.relay config.proxy
+  fork do runProxyDaemon config.daemon
 
   fork do discovery.runAnnouncer
   fork do discovery.runResponder
