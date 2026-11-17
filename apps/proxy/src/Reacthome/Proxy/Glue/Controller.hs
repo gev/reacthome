@@ -8,7 +8,7 @@ import Data.Word (Word8)
 import Reacthome.Proxy.Assets (Assets)
 import Reacthome.Proxy.Bridge.Downstream (Downstream)
 import Reacthome.Proxy.Glue.Env.Vision (visionEnv)
-import Reacthome.Proxy.Glue.Evaluator (run)
+import Reacthome.Proxy.Glue.Evaluator (evaluate)
 import Reacthome.Proxy.Glue.PubSub.Types (GluePublisher)
 import Reacthome.Proxy.Sink (Sink)
 
@@ -19,22 +19,30 @@ pattern Glue = 1
 pattern File :: Word8
 pattern File = 2
 
-controller ::
-    ( ?session :: UUID
-    , ?pubsub :: GluePublisher
+newtype Controller = Controller
+    { run :: UUID -> Sink -> ByteString -> IO ()
+    }
+
+makeController ::
+    ( ?pubsub :: GluePublisher
     , ?assets :: Assets
-    , ?sink :: Sink
     , ?downstream :: Downstream
     ) =>
-    ByteString -> IO ()
-controller message =
-    case uncons message of
-        Nothing -> putStrLn "Empty message"
-        Just (header, body) -> case header of
-            HeartBeat -> heartBeat
-            Glue -> runGlue body
-            File -> acceptFile body
-            _ -> putStrLn "Unknown header"
+    IO Controller
+makeController = do
+    let
+        run session sink message = do
+            let
+                ?session = session
+                ?sink = sink
+            case uncons message of
+                Nothing -> putStrLn "Empty message"
+                Just (header, body) -> case header of
+                    HeartBeat -> heartBeat
+                    Glue -> runGlue body
+                    File -> acceptFile body
+                    _ -> putStrLn "Unknown header"
+    pure Controller{..}
 
 heartBeat :: IO ()
 heartBeat = pure ()
@@ -51,7 +59,7 @@ runGlue message = do
     case decodeUtf8' message of
         Left err -> print err
         Right expression -> do
-            run (toStrict expression) visionEnv >>= \case
+            evaluate (toStrict expression) visionEnv >>= \case
                 Left err -> print err
                 _ -> pure ()
 

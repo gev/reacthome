@@ -10,6 +10,7 @@ import Reacthome.Proxy.Bridge.Upstream (makeUpstream)
 import Reacthome.Proxy.Config.App (AppConfig (..))
 import Reacthome.Proxy.Daemon (pingProxyDaemon, runProxyDaemon)
 import Reacthome.Proxy.Discovery (Discovery (runAnnouncer, runResponder), makeProxyDiscovery)
+import Reacthome.Proxy.Glue.Controller (makeController)
 import Reacthome.Proxy.Glue.PubSub.Publisher (makeGluePublisher)
 import Reacthome.Proxy.Glue.Store (GlueStore (..), makeGlueStore)
 import Reacthome.Proxy.Relay (runProxyRelay)
@@ -38,6 +39,9 @@ runApp config = do
   let ?upstream = makeUpstream config.proxy
 
   let ?assets = makeAssets config.assets
+
+  controller <- makeController
+  let ?controller = controller
 
   fork do runProxyServer config.proxy
   fork do runProxyDaemon config.daemon

@@ -7,8 +7,8 @@ import Glue.Eval (Eval, eval, runEvalSimple)
 import Glue.IR (Env, IR)
 import Glue.Parse (parseGlue)
 
-run :: Text -> Env Eval -> IO (Either GlueError (IR Eval))
-run expression env = case parseGlue expression of
+evaluate :: Text -> Env Eval -> IO (Either GlueError (IR Eval))
+evaluate expression env = case parseGlue expression of
     Left err -> pure . Left $ GlueError err
     Right ast -> do
         let irTree = compile ast

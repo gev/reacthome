@@ -14,7 +14,7 @@ import Reacthome.Proxy.Assets (Assets)
 import Reacthome.Proxy.Bridge.Downstream (Downstream)
 import Reacthome.Proxy.Config.App (ProxyConfig (..))
 import Reacthome.Proxy.Error (ProxyError (..), logError)
-import Reacthome.Proxy.Glue.Controller (controller)
+import Reacthome.Proxy.Glue.Controller (Controller (..))
 import Reacthome.Proxy.Glue.PubSub.Types (GluePublisher)
 import Reacthome.Proxy.Sink (fromDirectSink)
 import Reacthome.Proxy.Sink.DirectSink (makeDirectSink)
@@ -26,7 +26,8 @@ import WebSockets.PendingConnection (WebSocketPendingConnection (..))
 import WebSockets.Server (runWebSocketServer)
 
 runProxyServer ::
-    ( ?pubsub :: GluePublisher
+    ( ?controller :: Controller
+    , ?pubsub :: GluePublisher
     , ?assets :: Assets
     , ?sinks :: SinkRegistry
     , ?downstream :: Downstream
@@ -42,7 +43,8 @@ runProxyServer config = do
     daemon = fromString config.daemon
 
 proxyServer ::
-    ( ?pubsub :: GluePublisher
+    ( ?controller :: Controller
+    , ?pubsub :: GluePublisher
     , ?assets :: Assets
     , ?sinks :: SinkRegistry
     , ?downstream :: Downstream
@@ -57,7 +59,8 @@ proxyServer daemon pending = do
             logError $ InvalidProxyDaemon (show pending.path)
 
 tryAccept ::
-    ( ?pubsub :: GluePublisher
+    ( ?controller :: Controller
+    , ?pubsub :: GluePublisher
     , ?assets :: Assets
     , ?sinks :: SinkRegistry
     , ?downstream :: Downstream
@@ -71,7 +74,8 @@ tryAccept query pending = do
         _ -> rejectWith NoPeerPresent
 
 justAccept ::
-    ( ?pubsub :: GluePublisher
+    ( ?controller :: Controller
+    , ?pubsub :: GluePublisher
     , ?assets :: Assets
     , ?sinks :: SinkRegistry
     , ?downstream :: Downstream
@@ -87,9 +91,7 @@ justAccept uid pending = do
                     do
                         let sink = makeDirectSink $ writeChan inChan
                         ?sinks.directSinks.add uid sink
-                        let ?session = uid
-                        let ?sink = fromDirectSink sink
-                        connection.runReceiveMessageLoop controller
+                        connection.runReceiveMessageLoop $ ?controller.run uid (fromDirectSink sink)
                     do
                         connection.runSendMessageLoop do
                             (!element, !wait) <- tryReadChan outChan
