@@ -1,16 +1,18 @@
 module Reacthome.Proxy.Glue.Controller where
 
+import Data.ByteString.Builder qualified as Builder
 import Data.ByteString.Lazy as B (ByteString, uncons)
 import Data.Text.Lazy (toStrict)
 import Data.Text.Lazy.Encoding (decodeUtf8')
 import Data.UUID (UUID)
-import Data.Word (Word8)
+import Data.Word (Word32, Word8)
 import Reacthome.Proxy.Assets (Assets)
 import Reacthome.Proxy.Bridge.Downstream (Downstream)
 import Reacthome.Proxy.Glue.Env.Vision (visionEnv)
 import Reacthome.Proxy.Glue.Evaluator (evaluate)
 import Reacthome.Proxy.Glue.PubSub.Types (GluePublisher)
-import Reacthome.Proxy.Sink (Sink)
+import Reacthome.Proxy.Sink (Sink (..))
+import System.Random (randomIO)
 
 pattern HeartBeat :: Word8
 pattern HeartBeat = 0
@@ -30,6 +32,7 @@ makeController ::
     ) =>
     IO Controller
 makeController = do
+    hid <- randomIO
     let
         run session sink message = do
             let
@@ -38,14 +41,16 @@ makeController = do
             case uncons message of
                 Nothing -> putStrLn "Empty message"
                 Just (header, body) -> case header of
-                    HeartBeat -> heartBeat
+                    HeartBeat -> heartBeat hid
                     Glue -> runGlue body
                     File -> acceptFile body
                     _ -> putStrLn "Unknown header"
     pure Controller{..}
 
-heartBeat :: IO ()
-heartBeat = pure ()
+heartBeat :: (?sink :: Sink) => Word32 -> IO ()
+heartBeat hid =
+    ?sink.send . Builder.toLazyByteString $
+        Builder.word8 HeartBeat <> Builder.word32BE hid
 
 runGlue ::
     ( ?session :: UUID
