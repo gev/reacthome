@@ -9,7 +9,7 @@ data WebSocketOptions = WebSocketOptions
 defaultWebSocketOptions :: WebSocketOptions
 defaultWebSocketOptions =
     WebSocketOptions
-        { bound = 2
-        , chunkSize = 64
-        , delay = 300
+        { bound = 10
+        , chunkSize = 20
+        , delay = 30
         }
