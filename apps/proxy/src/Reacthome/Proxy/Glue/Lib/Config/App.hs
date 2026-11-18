@@ -38,6 +38,7 @@ parseAppConfig path m = do
     discovery <- field path "discovery" parseDiscoveryConfig m
     assets <- field path "assets" parseAssetsConfig m
     gluePath <- field path "glue-path" parseString m
+    watch <- field path "watch" parseBool m
     pure AppConfig{..}
 
 parseProxyConfig :: [Text] -> IR Eval -> Eval ProxyConfig
@@ -101,6 +102,7 @@ parseString path = \case
 parseBool :: [Text] -> IR Eval -> Eval Bool
 parseBool path = \case
     Bool b -> pure b
+    Void -> pure False
     got -> err path $ "Expected Bool, got " <> T.pack (show got)
 
 parseInt :: [Text] -> IR Eval -> Eval Int
