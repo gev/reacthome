@@ -35,4 +35,5 @@
         :proxy "/Users/evgenygazdovsky/workspace/reacthome-daemon-legacy/var/assets"
     )
     :glue-path "./apps/proxy/glue"
+    :watch true
 )

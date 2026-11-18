@@ -29,4 +29,5 @@
         :proxy "../reacthome-daemon/var/assets"
     )
     :glue-path "./glue"
+    :watch false
 )
