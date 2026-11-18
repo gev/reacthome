@@ -85,7 +85,7 @@ justAccept uid pending = do
     pending.accept >>= \case
         Left !e -> logError $ WebSocketError e
         Right !connection -> do
-            (inChan, outChan) <- newChan 10_000
+            (inChan, outChan) <- newChan 100
             res <-
                 either id id <$> race
                     do

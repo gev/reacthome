@@ -31,7 +31,7 @@ runProxyRelay config proxy =
         Nothing -> logError $ InvalidProxyDaemon (show proxy.daemon)
         Just from -> do
             let uri = "/v1?peer=" <> proxy.daemon
-            (inChan, outChan) <- newChan 10_000
+            (inChan, outChan) <- newChan 100
             let ?options = defaultWebSocketOptions
             let ?sink =
                     \message -> do
