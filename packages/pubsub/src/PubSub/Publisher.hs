@@ -51,13 +51,14 @@ makePublisher get send = do
             MM.deleteByKey subscriber subscribeKeys
 
         publish key value = do
-            maybesubscribers <- atomically do
-                MM.lookupByKey key keySubscribes
-            case maybesubscribers of
-                Just subscribers ->
-                    L.traverse_
-                        (\s -> send s key value)
-                        (S.listTNonAtomic subscribers)
-                Nothing -> pure ()
+            pure ()
+    -- maybesubscribers <- atomically do
+    --     MM.lookupByKey key keySubscribes
+    -- case maybesubscribers of
+    --     Just subscribers ->
+    --         L.traverse_
+    --             (\s -> send s key value)
+    --             (S.listTNonAtomic subscribers)
+    --     Nothing -> pure ()
 
     pure Publisher{..}
