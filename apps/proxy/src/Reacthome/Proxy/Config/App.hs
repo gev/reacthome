@@ -5,8 +5,9 @@ data AppConfig = AppConfig
     , daemon :: ClientConfig
     , relay :: ClientConfig
     , discovery :: DiscoveryConfig
-    , gluePath :: FilePath
     , assets :: AssetsConfig
+    , gluePath :: FilePath
+    , watch :: Bool
     }
 
 data ProxyConfig = ProxyConfig
