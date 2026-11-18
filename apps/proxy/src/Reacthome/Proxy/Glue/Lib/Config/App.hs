@@ -38,7 +38,7 @@ parseAppConfig path m = do
     discovery <- field path "discovery" parseDiscoveryConfig m
     assets <- field path "assets" parseAssetsConfig m
     gluePath <- field path "glue-path" parseString m
-    watch <- field path "watch" parseBool m
+    watch <- optionalField path "watch" parseBool m
     pure AppConfig{..}
 
 parseProxyConfig :: [Text] -> IR Eval -> Eval ProxyConfig
@@ -50,7 +50,7 @@ parseProxyConfig = parseObject \p m -> do
 
 parseClientConfig :: [Text] -> IR Eval -> Eval ClientConfig
 parseClientConfig = parseObject \p m -> do
-    secure <- field p "secure" parseBool m
+    secure <- optionalField p "secure" parseBool m
     host <- field p "host" parseString m
     port <- field p "port" parseInt m
     uri <- field p "uri" parseString m
@@ -83,6 +83,18 @@ field path key parser m = do
     case Map.lookup key m of
         Just val -> parser fieldPath val
         Nothing -> err fieldPath "Field is required"
+
+optionalField ::
+    [Text] ->
+    Text ->
+    ([Text] -> IR Eval -> Eval a) ->
+    Map Text (IR Eval) ->
+    Eval a
+optionalField path key parser m = do
+    let fieldPath = path <> [key]
+    case Map.lookup key m of
+        Just val -> parser fieldPath val
+        Nothing -> parser fieldPath Void
 
 parseObject ::
     ([Text] -> Map Text (IR Eval) -> Eval a) ->
