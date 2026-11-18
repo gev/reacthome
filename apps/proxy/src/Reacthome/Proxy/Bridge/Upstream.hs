@@ -30,27 +30,29 @@ makeUpstream ::
 makeUpstream config = Upstream{..}
   where
     publish action =
-        case decodeAction action of
-            Just (Entity (uid, delta, version)) -> do
-                value <- ?cache.patch uid delta
-                when
-                    (uid == daemon)
-                    do ?discovery.justAnnounce (extractPayload value)
-                let key = ["proxy", uid]
-                    payload = encodeUtf8 $ serializeAST $ Object value
-                    revision = Revision{..}
-                ?pubsub.publish key revision
-            Just (Action ast) -> do
-                let message =
-                        B.toLazyByteString $
-                            B.word8 1
-                                <> B.lazyByteString (enc ast)
-                ?sinks.broadcast message
-            Nothing -> pure ()
+        pure ()
 
-    daemon = pack config.daemon
+-- case decodeAction action of
+--     Just (Entity (uid, delta, version)) -> do
+--         value <- ?cache.patch uid delta
+--         when
+--             (uid == daemon)
+--             do ?discovery.justAnnounce (extractPayload value)
+--         let key = ["proxy", uid]
+--             payload = encodeUtf8 $ serializeAST $ Object value
+--             revision = Revision{..}
+--         ?pubsub.publish key revision
+--     Just (Action ast) -> do
+--         let message =
+--                 B.toLazyByteString $
+--                     B.word8 1
+--                         <> B.lazyByteString (enc ast)
+--         ?sinks.broadcast message
+--     Nothing -> pure ()
 
-    extractPayload =
-        filter $ (`elem` ["title", "code"]) . fst
+-- daemon = pack config.daemon
 
-    enc = encodeUtf8 . serializeAST
+-- extractPayload =
+--     filter $ (`elem` ["title", "code"]) . fst
+
+-- enc = encodeUtf8 . serializeAST
