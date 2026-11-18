@@ -14,13 +14,13 @@ makeCache :: IO Cache
 makeCache = do
     cache <- M.newIO
     let
-        patch key delta = atomically do
+        patch !key !delta = atomically do
             M.lookup key cache >>= \case
                 Nothing -> do
                     M.insert delta key cache
                     pure delta
-                Just value -> do
-                    let patched = map (\(k, v) -> (k, fromMaybe v $ lookup k delta)) value
+                Just !value -> do
+                    let !patched = map (\(k, v) -> (k, fromMaybe v $ lookup k delta)) value
                     M.insert patched key cache
                     pure patched
 
