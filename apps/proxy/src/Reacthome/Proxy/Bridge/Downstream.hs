@@ -1,6 +1,6 @@
 module Reacthome.Proxy.Bridge.Downstream where
 
-import Control.Concurrent.Chan.Unagi.Bounded (Element (tryRead), newChan, tryReadChan, writeChan)
+import Control.Concurrent.Chan.Unagi (Element (tryRead), newChan, tryReadChan, writeChan)
 import Data.Aeson qualified as A
 import WebSockets.Connection (WebSocketSource)
 
@@ -11,7 +11,7 @@ data Downstream = Downstream
 
 makeDownstream :: IO Downstream
 makeDownstream = do
-    (inChan, outChan) <- newChan 100
+    (inChan, outChan) <- newChan
     let send message = do
             writeChan inChan $ A.encode message
     let receive =

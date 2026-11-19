@@ -1,7 +1,7 @@
 module Reacthome.Proxy.Glue.Store where
 
 import Control.Concurrent (forkIO, threadDelay)
-import Control.Concurrent.Chan.Unagi.Bounded (newChan, readChan, writeChan)
+import Control.Concurrent.Chan.Unagi (newChan, readChan, writeChan)
 import Control.Exception (SomeException, catch)
 import Control.Monad (foldM, forever, void)
 import Data.ByteString.Lazy qualified as L
@@ -43,7 +43,7 @@ makeGlueStore folder = do
                             pure Nothing
 
         runWatcher publish = withManager \mgr -> do
-            (inChan, outChan) <- newChan 1_000
+            (inChan, outChan) <- newChan
 
             void . forkIO $ forever do
                 handle publish =<< readChan outChan

@@ -1,6 +1,6 @@
 module Reacthome.Proxy.Relay where
 
-import Control.Concurrent.Chan.Unagi.Bounded (Element (tryRead), newChan, tryReadChan, writeChan)
+import Control.Concurrent.Chan.Unagi (Element (tryRead), newChan, tryReadChan, writeChan)
 import Control.Monad (guard, void)
 import Data.ByteString (fromStrict, toStrict)
 import Data.UUID (fromByteString, fromString, toByteString)
@@ -30,7 +30,7 @@ runProxyRelay config proxy =
         Nothing -> logError $ InvalidProxyDaemon (show proxy.daemon)
         Just from -> do
             let uri = "/v1?peer=" <> proxy.daemon
-            (inChan, outChan) <- newChan 100
+            (inChan, outChan) <- newChan
             let ?options = defaultWebSocketOptions
             let ?sink =
                     \message -> do

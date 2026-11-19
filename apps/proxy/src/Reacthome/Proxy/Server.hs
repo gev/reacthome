@@ -1,7 +1,7 @@
 module Reacthome.Proxy.Server where
 
 import Control.Concurrent.Async (race)
-import Control.Concurrent.Chan.Unagi.Bounded (newChan, tryRead, tryReadChan, writeChan)
+import Control.Concurrent.Chan.Unagi (newChan, tryRead, tryReadChan, writeChan)
 import Control.Monad (join)
 import Data.ByteString (ByteString)
 import Data.Function ((&))
@@ -84,7 +84,7 @@ justAccept uid pending = do
     pending.accept >>= \case
         Left !e -> logError $ WebSocketError e
         Right !connection -> do
-            (inChan, outChan) <- newChan 100
+            (inChan, outChan) <- newChan
             res <-
                 either id id <$> race
                     do
