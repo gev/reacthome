@@ -16,8 +16,6 @@ data RelaySinkRegistry = RelaySinkRegistry
     , all :: IO [(UUID, Sink)]
     , add :: UUID -> Sink -> IO ()
     , actualize :: UUID -> IO ()
-    , delete :: UUID -> IO ()
-    , reset :: IO ()
     }
 
 makeRelaySinkRegistry :: IO RelaySinkRegistry
@@ -43,14 +41,8 @@ makeRelaySinkRegistry = do
             atomically do
                 M.insert ts uid timeouts
 
-        delete uid = atomically do
-            M.delete uid registry
-
-        reset = atomically do
-            M.reset registry
-
     void . forkIO $ forever do
-        threadDelay 10_000_000
+        threadDelay 1_000_000
         timestamp <- now
         let
             isSinkNotActual sink = timestamp - sink >= 30
