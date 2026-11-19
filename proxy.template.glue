@@ -24,10 +24,7 @@
         :probe-port 2027
         :timeout 1
     )
-    :assets (
-        :path "./assets"
-        :proxy "../reacthome-daemon/var/assets"
-    )
+    :assets "../reacthome-daemon/var/assets"
     :glue-path "./glue"
     :watch false
 )
