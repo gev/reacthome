@@ -30,7 +30,7 @@
         :probe-port 2027
         :timeout 1
     )
-    :assets "/Users/evgenygazdovsky/workspace/reacthome-daemon-legacy/var/assets"
+    :assets-path "/Users/evgenygazdovsky/workspace/reacthome-daemon-legacy/var/assets"
     :glue-path "./apps/proxy/glue"
     :watch true
 )
