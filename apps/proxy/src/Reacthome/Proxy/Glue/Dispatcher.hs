@@ -1,6 +1,7 @@
 module Reacthome.Proxy.Glue.Dispatcher where
 
-import Data.Text qualified as T
+import Control.Monad (when)
+import Data.Maybe (isNothing)
 import Reacthome.Proxy.Bridge.Downstream (Downstream (..))
 import Reacthome.Proxy.Daemon.Actions.Encode (getAction)
 import Reacthome.Proxy.Glue.PubSub.Types (GlueLookup)
@@ -12,14 +13,7 @@ dispatch ::
     ) =>
     GlueLookup
 dispatch key = do
-    let path = T.splitOn "." key
-    case path of
-        "i18n" : _ -> ?store.lookup key
-        "iconic" : _ -> ?store.lookup key
-        "layout" : _ -> ?store.lookup key
-        "lib" : _ -> ?store.lookup key
-        "screen" : _ -> ?store.lookup key
-        "widget" : _ -> ?store.lookup key
-        _ -> do
-            ?downstream.send $ getAction key
-            pure Nothing
+    glue <- ?store.lookup key
+    when (isNothing glue) do
+        ?downstream.send $ getAction key
+    pure glue
