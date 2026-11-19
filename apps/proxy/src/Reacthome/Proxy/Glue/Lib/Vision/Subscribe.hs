@@ -21,12 +21,12 @@ subscribeImpl ::
     ) =>
     [IR Eval] -> Eval (IR Eval)
 subscribeImpl [String key, Integer value] = do
-    liftIO $ ?pubsub.subscribe ?session (T.split (== '.') key) value
+    liftIO $ ?pubsub.subscribe ?session key value
     pure Void
 subscribeImpl [Symbol key, Integer value] = do
-    liftIO $ ?pubsub.subscribe ?session [key] value
+    liftIO $ ?pubsub.subscribe ?session key value
     pure Void
-subscribeImpl [DottedSymbol key, Integer value] = do
+subscribeImpl [DottedSymbol key _, Integer value] = do
     liftIO $ ?pubsub.subscribe ?session key value
     pure Void
 subscribeImpl _ =

@@ -2,7 +2,6 @@ module Reacthome.Proxy.Glue.PubSub.Publisher where
 
 import Data.ByteString.Builder qualified as B
 import Data.ByteString.Lazy qualified as L
-import Data.Text qualified as T
 import Data.Text.Encoding (encodeUtf8)
 import PubSub.Publisher (makePublisher)
 import PubSub.Revision (Revision (..))
@@ -39,4 +38,4 @@ makeGluePublisher =
                 sink.send message
             Nothing -> print $ "Subscriber not found: " <> show subscriber
 
-    enc = L.fromStrict . encodeUtf8 . T.intercalate "."
+    enc = L.fromStrict . encodeUtf8
