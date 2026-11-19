@@ -18,7 +18,7 @@ simpleActionImpl ::
 simpleActionImpl action = \case
     String uid -> go $ T.split (== '.') uid
     Symbol uid -> go $ T.split (== '.') uid
-    DottedSymbol uid -> go uid
+    DottedSymbol _ uid -> go uid
     _ -> err
   where
     go ["proxy", uid] = do

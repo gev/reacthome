@@ -5,7 +5,6 @@ import Control.Concurrent.Chan.Unagi.Bounded (newChan, readChan, writeChan)
 import Control.Exception (SomeException, catch)
 import Control.Monad (forever, void, when)
 import Data.ByteString.Lazy qualified as L
-import Data.List (intercalate)
 import Data.Text qualified as T
 import Data.Time.Clock (UTCTime)
 import Data.Time.Clock.POSIX (utcTimeToPOSIXSeconds)
@@ -13,7 +12,7 @@ import PubSub.Revision (Revision (..))
 import Reacthome.Proxy.Glue.PubSub.Types (GlueLookup, GluePublish)
 import System.Directory (canonicalizePath, getModificationTime)
 import System.FSNotify (Event (..), EventIsDirectory (..), watchTree, withManager)
-import System.FilePath (pathSeparator, splitDirectories, (</>))
+import System.FilePath (pathSeparator, (</>))
 import Prelude hiding (lookup)
 
 data GlueStore = GlueStore
@@ -24,8 +23,9 @@ data GlueStore = GlueStore
 makeGlueStore :: FilePath -> GlueStore
 makeGlueStore folder = GlueStore{..}
   where
-    lookup parts = do
-        let file = folder </> intercalate [pathSeparator] (T.unpack <$> parts) <> ".glue"
+    lookup key = do
+        let parts = replace '.' pathSeparator $ T.unpack key
+        let file = folder </> parts <> ".glue"
         catch @SomeException
             do
                 payload <- L.readFile file
@@ -55,13 +55,15 @@ makeGlueStore folder = GlueStore{..}
             let (key, ext) = splitAt (length file - 5) file
             when (ext == ".glue") do
                 payload <- L.readFile path
-                let parts = splitDirectories key
                 let version = utcTimeToMillis time
                 let value = Revision{..}
-                publish (T.pack <$> parts) value
+                publish (T.pack $ replace pathSeparator '.' key) value
         \err -> do
             print err
             pure ()
 
 utcTimeToMillis :: UTCTime -> Int
 utcTimeToMillis utc = round $ utcTimeToPOSIXSeconds utc * 1000
+
+replace :: (Eq a) => a -> a -> [a] -> [a]
+replace old new = map (\x -> if x == old then new else x)

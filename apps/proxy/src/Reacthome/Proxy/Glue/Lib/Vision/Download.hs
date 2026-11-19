@@ -25,7 +25,7 @@ downloadImpl [String key] = do
 downloadImpl [Symbol key] = do
     liftIO $ ?assets.sendAsset ?sink [key]
     pure Void
-downloadImpl [DottedSymbol key] = do
+downloadImpl [DottedSymbol _ key] = do
     liftIO $ ?assets.sendAsset ?sink key
     pure Void
 downloadImpl _ =

@@ -22,7 +22,7 @@ valueActionImpl ::
 valueActionImpl action key = \case
     String uid -> matchId $ T.split (== '.') uid
     Symbol uid -> matchId $ T.split (== '.') uid
-    DottedSymbol uid -> matchId uid
+    DottedSymbol _ uid -> matchId uid
     _ -> errId
   where
     matchId ["proxy", uid] = do

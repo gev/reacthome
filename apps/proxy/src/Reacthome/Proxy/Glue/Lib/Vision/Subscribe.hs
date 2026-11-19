@@ -1,6 +1,5 @@
 module Reacthome.Proxy.Glue.Lib.Vision.Subscribe where
 
-import Data.Text qualified as T
 import Data.UUID (UUID)
 import Glue.Eval (Eval, liftIO, throwError)
 import Glue.Eval.Exception (wrongArgumentType)

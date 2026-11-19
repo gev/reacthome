@@ -7,7 +7,6 @@ import Data.Aeson.KeyMap qualified as A
 import Data.Map qualified as M
 import Data.Scientific (fromFloatDigits)
 import Data.Text (Text)
-import Data.Text qualified as T
 import Data.Vector qualified as V
 import Glue.IR (IR (..))
 
@@ -21,7 +20,7 @@ encodeAction = \case
     String s -> Right (A.String s)
     Bool b -> Right (A.Bool b)
     Symbol s -> Right (A.String s)
-    DottedSymbol parts -> Right (A.String (T.intercalate "." parts))
+    DottedSymbol s _ -> Right (A.String s)
     List xs -> A.Array . V.fromList <$> mapM encodeAction xs
     Object ps -> A.Object . A.fromList <$> mapM encodePair (M.toAscList ps)
     Void -> Left "Cannot encode Void"
