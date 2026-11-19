@@ -5,7 +5,7 @@ data AppConfig = AppConfig
     , daemon :: ClientConfig
     , relay :: ClientConfig
     , discovery :: DiscoveryConfig
-    , assets :: AssetsConfig
+    , assetsPath :: FilePath
     , gluePath :: FilePath
     , watch :: Bool
     }
@@ -22,11 +22,6 @@ data ClientConfig = ClientConfig
     , port :: Int
     , uri :: String
     }
-data AssetsConfig = AssetsConfig
-    { path :: FilePath
-    , proxy :: String
-    }
-
 data DiscoveryConfig = DiscoveryConfig
     { announceInterval :: Int
     , announceGroup :: String

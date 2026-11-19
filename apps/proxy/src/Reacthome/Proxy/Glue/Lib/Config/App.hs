@@ -14,7 +14,6 @@ import Glue.Eval.Exception (wrongArgumentType)
 import Glue.IR (IR (..), hostValue)
 import Reacthome.Proxy.Config.App (
     AppConfig (..),
-    AssetsConfig (..),
     ClientConfig (..),
     DiscoveryConfig (..),
     ProxyConfig (..),
@@ -36,7 +35,7 @@ parseAppConfig path m = do
     daemon <- field path "daemon" parseClientConfig m
     relay <- field path "relay" parseClientConfig m
     discovery <- field path "discovery" parseDiscoveryConfig m
-    assets <- field path "assets" parseAssetsConfig m
+    assetsPath <- field path "assets-path" parseString m
     gluePath <- field path "glue-path" parseString m
     watch <- optionalField path "watch" parseBool m
     pure AppConfig{..}
@@ -55,12 +54,6 @@ parseClientConfig = parseObject \p m -> do
     port <- field p "port" parseInt m
     uri <- field p "uri" parseString m
     pure ClientConfig{..}
-
-parseAssetsConfig :: [Text] -> IR Eval -> Eval AssetsConfig
-parseAssetsConfig = parseObject \p m -> do
-    path <- field p "path" parseString m
-    proxy <- field p "proxy" parseString m
-    pure AssetsConfig{..}
 
 parseDiscoveryConfig :: [Text] -> IR Eval -> Eval DiscoveryConfig
 parseDiscoveryConfig = parseObject \p m -> do

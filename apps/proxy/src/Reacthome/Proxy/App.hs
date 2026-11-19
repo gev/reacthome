@@ -34,7 +34,7 @@ runApp config = do
 
   let ?upstream = makeUpstream config.proxy
 
-  let ?assets = makeAssets config.assets
+  let ?assets = makeAssets config
 
   controller <- makeController
   let ?controller = controller

@@ -9,14 +9,14 @@ import Data.Foldable (traverse_)
 import Data.Text (Text)
 import Data.Text qualified as T
 import Data.Text.Encoding qualified as T
-import Reacthome.Proxy.Config.App (AssetsConfig (..))
+import Reacthome.Proxy.Config.App (AppConfig (..))
 import Reacthome.Proxy.Sink (Sink (send))
 import System.Directory (doesFileExist, getFileSize)
 import System.FilePath ((</>))
 
 newtype Assets = Assets {sendAsset :: Sink -> [Text] -> IO ()}
 
-makeAssets :: AssetsConfig -> Assets
+makeAssets :: AppConfig -> Assets
 makeAssets config = Assets sendAsset
   where
     sendAsset sink parts = do
@@ -45,4 +45,4 @@ makeAssets config = Assets sendAsset
 
         assetPath = baseDir </> T.unpack (assetName remainingParts)
 
-        (baseDir, remainingParts) = (config.proxy, parts)
+        (baseDir, remainingParts) = (config.assetsPath, parts)
