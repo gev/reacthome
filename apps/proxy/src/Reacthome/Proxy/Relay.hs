@@ -45,6 +45,7 @@ runProxyRelay config proxy =
                                             pure s
                                         Nothing -> do
                                             let s = makeRelaySink from header.from $ writeChan inChan
+                                            ?sinks.relaySinks.add uid s
                                             pure s
                                 ?sinks.relaySinks.add uid sink
                                 ?controller.run uid sink $ getMessagePayload message
