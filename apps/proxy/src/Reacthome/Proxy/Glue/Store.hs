@@ -20,47 +20,49 @@ data GlueStore = GlueStore
     , runWatcher :: GluePublish
     }
 
-makeGlueStore :: FilePath -> GlueStore
-makeGlueStore folder = GlueStore{..}
-  where
-    lookup key = do
-        let parts = replace '.' pathSeparator $ T.unpack key
-        let file = folder </> parts <> ".glue"
-        catch @SomeException
+makeGlueStore :: FilePath -> IO GlueStore
+makeGlueStore folder = do
+    let
+        lookup key = do
+            let parts = replace '.' pathSeparator $ T.unpack key
+            let file = folder </> parts <> ".glue"
+            catch @SomeException
+                do
+                    payload <- L.readFile file
+                    version <- utcTimeToMillis <$> getModificationTime file
+                    pure $ Just Revision{..}
+                \err -> do
+                    print err
+                    pure Nothing
+
+        runWatcher publish = withManager \mgr -> do
+            (inChan, outChan) <- newChan 1_000
+
+            void . forkIO $ forever do
+                handle publish =<< readChan outChan
+
+            void $ watchTree mgr folder (const True) (writeChan inChan)
+            forever $ threadDelay 1_000_000
+
+        handle publish (Modified path time IsFile) = send publish path time
+        -- handle publish (Added path time IsFile) = send publish path time
+        handle _ _ = pure ()
+
+        send publish path time = catch @SomeException
             do
-                payload <- L.readFile file
-                version <- utcTimeToMillis <$> getModificationTime file
-                pure $ Just Revision{..}
+                absolute <- canonicalizePath folder
+                let file = drop (length absolute + 1) path
+                let (key, ext) = splitAt (length file - 5) file
+                when (ext == ".glue") do
+                    payload <- L.readFile path
+                    let version = utcTimeToMillis time
+                    let value = Revision{..}
+                    publish (T.pack $ replace pathSeparator '.' key) value
             \err -> do
                 print err
-                pure Nothing
+                pure ()
 
-    runWatcher publish = withManager \mgr -> do
-        (inChan, outChan) <- newChan 1_000
-
-        void . forkIO $ forever do
-            handle publish =<< readChan outChan
-
-        void $ watchTree mgr folder (const True) (writeChan inChan)
-        forever $ threadDelay 1_000_000
-
-    handle publish (Modified path time IsFile) = send publish path time
-    -- handle publish (Added path time IsFile) = send publish path time
-    handle _ _ = pure ()
-
-    send publish path time = catch @SomeException
-        do
-            absolute <- canonicalizePath folder
-            let file = drop (length absolute + 1) path
-            let (key, ext) = splitAt (length file - 5) file
-            when (ext == ".glue") do
-                payload <- L.readFile path
-                let version = utcTimeToMillis time
-                let value = Revision{..}
-                publish (T.pack $ replace pathSeparator '.' key) value
-        \err -> do
-            print err
-            pure ()
+    pure GlueStore{..}
 
 utcTimeToMillis :: UTCTime -> Int
 utcTimeToMillis utc = round $ utcTimeToPOSIXSeconds utc * 1000

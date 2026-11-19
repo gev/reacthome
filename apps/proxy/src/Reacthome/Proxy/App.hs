@@ -18,7 +18,8 @@ import Reacthome.Proxy.SinkRegistry (makeSinkRegistry)
 
 runApp :: AppConfig -> IO ()
 runApp config = do
-  let ?store = makeGlueStore config.gluePath
+  store <- makeGlueStore config.gluePath
+  let ?store = store
 
   sinks <- makeSinkRegistry
   let ?sinks = sinks
