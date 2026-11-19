@@ -40,8 +40,8 @@ runApp config = do
   controller <- makeController
   let ?controller = controller
 
-  print @String "Connect to relay..."
-  fork do runProxyRelay config.relay config.proxy
+  -- print @String "Connect to relay..."
+  -- fork do runProxyRelay config.relay config.proxy
   -- print @String "Connect to legacy daemon..."
   -- fork do runProxyDaemon config.daemon
 
