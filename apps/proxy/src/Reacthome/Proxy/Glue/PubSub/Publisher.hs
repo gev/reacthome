@@ -9,7 +9,6 @@ import Reacthome.Proxy.Bridge.Downstream (Downstream)
 import Reacthome.Proxy.Glue.Dispatcher (dispatch)
 import Reacthome.Proxy.Glue.PubSub.Types (GluePublisher)
 import Reacthome.Proxy.Glue.Store (GlueStore)
-import Reacthome.Proxy.Sink (Sink (..))
 import Reacthome.Proxy.Sink.SinkRegistry (SinkRegistry (..))
 
 makeGluePublisher ::
@@ -19,23 +18,20 @@ makeGluePublisher ::
     ) =>
     IO GluePublisher
 makeGluePublisher =
-    makePublisher dispatch send
+    makePublisher
+        dispatch
+        \subscriber key value -> do
+            let
+                message =
+                    B.toLazyByteString $
+                        B.word8 1
+                            <> B.string8 "(put \""
+                            <> B.lazyByteString (enc key)
+                            <> B.string8 "\" "
+                            <> B.intDec value.version
+                            <> B.string8 " "
+                            <> B.lazyByteString value.payload
+                            <> B.string8 ")"
+            ?sinks.send subscriber message
   where
-    send subscriber key value = do
-        maybeSink <- ?sinks.lookup subscriber
-        case maybeSink of
-            Just sink -> do
-                let message =
-                        B.toLazyByteString $
-                            B.word8 1
-                                <> B.string8 "(put \""
-                                <> B.lazyByteString (enc key)
-                                <> B.string8 "\" "
-                                <> B.intDec value.version
-                                <> B.string8 " "
-                                <> B.lazyByteString value.payload
-                                <> B.string8 ")"
-                sink.send message
-            Nothing -> print $ "Subscriber not found: " <> show subscriber
-
     enc = L.fromStrict . encodeUtf8
