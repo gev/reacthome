@@ -9,7 +9,6 @@ import Glue.AST (AST (..))
 import Glue.Serialize (serializeAST)
 import PubSub.Publisher (Publisher (..))
 import PubSub.Revision (Revision (..))
-import Reacthome.Proxy.Bridge.Cache (Cache (..))
 import Reacthome.Proxy.Config.App (ProxyConfig (..))
 import Reacthome.Proxy.Daemon.Actions.Decode (Action (..), decodeAction)
 import Reacthome.Proxy.Discovery (Discovery (..))
@@ -21,8 +20,7 @@ newtype Upstream = Upstream
     }
 
 makeUpstream ::
-    ( ?cache :: Cache
-    , ?sinks :: SinkRegistry
+    ( ?sinks :: SinkRegistry
     , ?pubsub :: GluePublisher
     , ?discovery :: Discovery
     ) =>
@@ -31,8 +29,7 @@ makeUpstream config = Upstream{..}
   where
     publish action =
         case decodeAction action of
-            Just (Entity (uid, delta, version)) -> do
-                value <- ?cache.patch uid delta
+            Just (Entity (uid, value, version)) -> do
                 when
                     (uid == daemon)
                     do ?discovery.justAnnounce (extractPayload value)
