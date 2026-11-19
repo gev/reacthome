@@ -18,7 +18,7 @@ package *
 source-repository-package
     type:     git
     location: https://github.com/gev/glue.git
-    tag:      b06e928d3b49049ba02c40ec1bb021612cdfc1f8
+    tag:      0603ca77b09503a47a5f0b69074106a39308126e
     subdir:   haskell/glue
 
 source-repository-package
