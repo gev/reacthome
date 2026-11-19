@@ -45,13 +45,13 @@ runApp config = do
   -- print @String "Connect to legacy daemon..."
   -- fork do runProxyDaemon config.daemon
 
-  -- print @String "Ping to legacy daemon..."
-  -- pingProxyDaemon config.proxy
+  print @String "Run discovery announcer..."
+  fork do discovery.runAnnouncer
+  print @String "Run discovery responder..."
+  fork do discovery.runResponder
 
-  -- print @String "Run discovery announcer..."
-  -- fork do discovery.runAnnouncer
-  -- print @String "Run discovery responder..."
-  -- fork do discovery.runResponder
+  print @String "Ping to legacy daemon..."
+  pingProxyDaemon config.proxy
 
   when config.watch do
     print @String "Run Glue modules watcher..."
