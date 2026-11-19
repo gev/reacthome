@@ -45,6 +45,4 @@ makeAssets config = Assets sendAsset
 
         assetPath = baseDir </> T.unpack (assetName remainingParts)
 
-        (baseDir, remainingParts) = case parts of
-            "proxy" : xs -> (config.proxy, xs)
-            _ -> (config.path, parts)
+        (baseDir, remainingParts) = (config.proxy, parts)

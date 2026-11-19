@@ -2,7 +2,6 @@ module Reacthome.Proxy.Glue.Lib.Actions.MinMaxAction where
 
 import Control.Monad (void)
 import Data.Aeson qualified as A
-import Data.Text qualified as T
 import Glue.Eval (Eval (..), liftIO, throwError)
 import Glue.Eval.Exception (wrongArgumentType)
 import Glue.IR (IR (..))
@@ -19,14 +18,12 @@ minMaxActionImpl ::
     (?downstream :: Downstream) =>
     A.Value -> IR Eval -> Eval (IR Eval)
 minMaxActionImpl action = \case
-    String uid -> matchId $ T.split (== '.') uid
-    Symbol uid -> matchId $ T.split (== '.') uid
-    DottedSymbol _ uid -> matchId uid
+    String uid -> matchId uid
+    Symbol uid -> matchId uid
+    DottedSymbol uid _ -> matchId uid
     _ -> errId
   where
-    matchId ["proxy", uid] = do
-        pure $ IR.NativeFunc (matchMinValue uid)
-    matchId _ = errId
+    matchId uid = pure $ IR.NativeFunc (matchMinValue uid)
 
     matchMinValue uid (Float minValue) = pure $ IR.NativeFunc (matchMaxValue uid minValue)
     matchMinValue uid (Integer minValue) = pure $ IR.NativeFunc (matchMaxValue uid $ fromIntegral minValue)

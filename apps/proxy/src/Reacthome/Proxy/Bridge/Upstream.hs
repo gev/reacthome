@@ -33,10 +33,10 @@ makeUpstream config = Upstream{..}
                 when
                     (uid == daemon)
                     do ?discovery.justAnnounce (extractPayload value)
-                let key = "proxy." <> uid
+                let
                     payload = encodeUtf8 $ serializeAST $ Object value
                     revision = Revision{..}
-                ?pubsub.publish key revision
+                ?pubsub.publish uid revision
             Just (Action ast) -> do
                 let message =
                         B.toLazyByteString $

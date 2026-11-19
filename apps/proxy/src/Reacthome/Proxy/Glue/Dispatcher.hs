@@ -11,9 +11,15 @@ dispatch ::
     , ?store :: GlueStore
     ) =>
     GlueLookup
-dispatch key =
-    case T.splitAt 6 key of
-        ("proxy.", uid) -> do
-            ?downstream.send $ getAction uid
+dispatch key = do
+    let path = T.splitOn "." key
+    case path of
+        "i18n" : _ -> ?store.lookup key
+        "iconic" : _ -> ?store.lookup key
+        "layout" : _ -> ?store.lookup key
+        "lib" : _ -> ?store.lookup key
+        "screen" : _ -> ?store.lookup key
+        "widget" : _ -> ?store.lookup key
+        _ -> do
+            ?downstream.send $ getAction key
             pure Nothing
-        _ -> ?store.lookup key

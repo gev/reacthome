@@ -2,7 +2,6 @@ module Reacthome.Proxy.Glue.Lib.Actions.ValueAction where
 
 import Control.Monad (void)
 import Data.Aeson qualified as A
-import Data.Text qualified as T
 import Glue.Eval (Eval (..), liftIO, throwError)
 import Glue.Eval.Exception (wrongArgumentType)
 import Glue.IR (IR (..))
@@ -20,14 +19,12 @@ valueActionImpl ::
     (?downstream :: Downstream) =>
     A.Value -> A.Key -> IR Eval -> Eval (IR Eval)
 valueActionImpl action key = \case
-    String uid -> matchId $ T.split (== '.') uid
-    Symbol uid -> matchId $ T.split (== '.') uid
-    DottedSymbol _ uid -> matchId uid
+    String uid -> matchId uid
+    Symbol uid -> matchId uid
+    DottedSymbol uid _ -> matchId uid
     _ -> errId
   where
-    matchId ["proxy", uid] = do
-        pure $ IR.NativeFunc (matchValue uid)
-    matchId _ = errId
+    matchId uid = pure $ IR.NativeFunc (matchValue uid)
 
     matchValue uid = go uid . encodeAction
 

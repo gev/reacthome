@@ -44,7 +44,6 @@
     )
 
     (def (project-screen props args)
-        (def id (concat "proxy." props.home.id))
-        (select (home props) id)
+        (select (home props) props.home.id)
     )
 )
