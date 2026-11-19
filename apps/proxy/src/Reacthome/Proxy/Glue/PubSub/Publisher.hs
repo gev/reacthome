@@ -10,7 +10,7 @@ import Reacthome.Proxy.Glue.Dispatcher (dispatch)
 import Reacthome.Proxy.Glue.PubSub.Types (GluePublisher)
 import Reacthome.Proxy.Glue.Store (GlueStore)
 import Reacthome.Proxy.Sink (Sink (..))
-import Reacthome.Proxy.SinkRegistry (SinkRegistry (..))
+import Reacthome.Proxy.Sink.SinkRegistry (SinkRegistry (..))
 
 makeGluePublisher ::
     ( ?store :: GlueStore

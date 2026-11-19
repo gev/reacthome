@@ -14,7 +14,7 @@ import Reacthome.Proxy.Glue.PubSub.Publisher (makeGluePublisher)
 import Reacthome.Proxy.Glue.Store (GlueStore (..), makeGlueStore)
 import Reacthome.Proxy.Relay (runProxyRelay)
 import Reacthome.Proxy.Server (runProxyServer)
-import Reacthome.Proxy.SinkRegistry (makeSinkRegistry)
+import Reacthome.Proxy.Sink.SinkRegistry (makeSinkRegistry)
 
 runApp :: AppConfig -> IO ()
 runApp config = do

@@ -10,10 +10,9 @@ import Reacthome.Proxy.Config.App (ClientConfig (..), ProxyConfig (..))
 import Reacthome.Proxy.Error (ProxyError (InvalidPeer, InvalidProxyDaemon), logError)
 import Reacthome.Proxy.Glue.Controller (Controller (..))
 import Reacthome.Proxy.Glue.PubSub.Types (GluePublisher)
-import Reacthome.Proxy.Sink (fromRelaySink)
-import Reacthome.Proxy.Sink.RelaySink (makeRelaySink)
-import Reacthome.Proxy.Sink.RelaySinkRegistry (RelaySinkRegistry (add))
-import Reacthome.Proxy.SinkRegistry (SinkRegistry (..))
+import Reacthome.Proxy.Sink (makeRelaySink)
+import Reacthome.Proxy.Sink.RelaySinkRegistry (RelaySinkRegistry (..))
+import Reacthome.Proxy.Sink.SinkRegistry (SinkRegistry (..))
 import Reacthome.Relay.Message (RelayMessageHeader (..), getMessageHeader, getMessagePayload, isMessageValid)
 import WebSockets.Client (runWebSocketClient)
 import WebSockets.Options (defaultWebSocketOptions)
@@ -39,12 +38,16 @@ runProxyRelay config proxy =
                         let header = getMessageHeader message
                         case fromByteString (fromStrict header.from) of
                             Just uid -> do
-                                sink <- makeRelaySink from header.from $ writeChan inChan
+                                sink <-
+                                    ?sinks.relaySinks.lookup uid >>= \case
+                                        Just s -> do
+                                            ?sinks.relaySinks.actualize uid
+                                            pure s
+                                        Nothing -> do
+                                            let s = makeRelaySink from header.from $ writeChan inChan
+                                            pure s
                                 ?sinks.relaySinks.add uid sink
-                                ?controller.run
-                                    uid
-                                    (fromRelaySink sink)
-                                    (getMessagePayload message)
+                                ?controller.run uid sink $ getMessagePayload message
                             Nothing -> logError $ InvalidPeer (show header.from)
             let ?source =
                     do

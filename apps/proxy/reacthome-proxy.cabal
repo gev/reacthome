@@ -63,11 +63,9 @@ library
     Reacthome.Proxy.Relay
     Reacthome.Proxy.Server
     Reacthome.Proxy.Sink
-    Reacthome.Proxy.Sink.DirectSink
     Reacthome.Proxy.Sink.DirectSinkRegistry
-    Reacthome.Proxy.Sink.RelaySink
     Reacthome.Proxy.Sink.RelaySinkRegistry
-    Reacthome.Proxy.SinkRegistry
+    Reacthome.Proxy.Sink.SinkRegistry
 
   build-depends:
     aeson,

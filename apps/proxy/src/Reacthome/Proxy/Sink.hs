@@ -1,15 +1,18 @@
 module Reacthome.Proxy.Sink where
 
-import Reacthome.Proxy.Sink.DirectSink (DirectSink (..))
-import Reacthome.Proxy.Sink.RelaySink (RelaySink (..))
-import Reacthome.Relay (LazyRaw)
+import Reacthome.Relay (LazyRaw, Uid)
+import Reacthome.Relay.Message (RelayMessage (..), RelayMessageHeader (..), serializeMessage)
 
 newtype Sink = Sink
     { send :: LazyRaw -> IO ()
     }
 
-fromDirectSink :: DirectSink -> Sink
-fromDirectSink sink = Sink sink.send
+makeDirectSink :: (LazyRaw -> IO ()) -> Sink
+makeDirectSink = Sink
 
-fromRelaySink :: RelaySink -> Sink
-fromRelaySink sink = Sink sink.send
+makeRelaySink :: Uid -> Uid -> (LazyRaw -> IO ()) -> Sink
+makeRelaySink from to send =
+    Sink \content -> do
+        let header = RelayMessageHeader{..}
+        let message = RelayMessage{..}
+        send $ serializeMessage message

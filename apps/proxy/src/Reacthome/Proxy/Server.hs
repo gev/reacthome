@@ -16,10 +16,9 @@ import Reacthome.Proxy.Config.App (ProxyConfig (..))
 import Reacthome.Proxy.Error (ProxyError (..), logError)
 import Reacthome.Proxy.Glue.Controller (Controller (..))
 import Reacthome.Proxy.Glue.PubSub.Types (GluePublisher)
-import Reacthome.Proxy.Sink (fromDirectSink)
-import Reacthome.Proxy.Sink.DirectSink (makeDirectSink)
+import Reacthome.Proxy.Sink (makeDirectSink)
 import Reacthome.Proxy.Sink.DirectSinkRegistry (DirectSinkRegistry (add, delete))
-import Reacthome.Proxy.SinkRegistry (SinkRegistry (directSinks))
+import Reacthome.Proxy.Sink.SinkRegistry (SinkRegistry (directSinks))
 import WebSockets.Connection (WebSocketConnection (..))
 import WebSockets.Options (defaultWebSocketOptions)
 import WebSockets.PendingConnection (WebSocketPendingConnection (..))
@@ -91,7 +90,7 @@ justAccept uid pending = do
                     do
                         let sink = makeDirectSink $ writeChan inChan
                         ?sinks.directSinks.add uid sink
-                        connection.runReceiveMessageLoop $ ?controller.run uid (fromDirectSink sink)
+                        connection.runReceiveMessageLoop $ ?controller.run uid sink
                     do
                         connection.runSendMessageLoop do
                             (!element, !wait) <- tryReadChan outChan
