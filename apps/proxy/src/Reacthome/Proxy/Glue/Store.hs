@@ -3,9 +3,9 @@ module Reacthome.Proxy.Glue.Store where
 import Control.Concurrent (forkIO, threadDelay)
 import Control.Concurrent.Chan.Unagi.Bounded (newChan, readChan, writeChan)
 import Control.Exception (SomeException, catch)
-import Control.Monad (foldM, forever, void, when)
+import Control.Monad (foldM, forever, void)
 import Data.ByteString.Lazy qualified as L
-import Data.IORef (newIORef, readIORef)
+import Data.IORef (atomicModifyIORef', newIORef, readIORef, writeIORef)
 import Data.Map qualified as M
 import Data.Text qualified as T
 import Data.Time.Clock (UTCTime)
@@ -14,7 +14,7 @@ import PubSub.Revision (Revision (..))
 import Reacthome.Proxy.Glue.PubSub.Types (GlueLookup, GluePublish)
 import System.Directory (canonicalizePath, doesDirectoryExist, getModificationTime, listDirectory)
 import System.FSNotify (Event (..), EventIsDirectory (..), watchTree, withManager)
-import System.FilePath (dropExtension, pathSeparator, takeExtension, (</>))
+import System.FilePath (dropExtension, makeRelative, pathSeparator, takeExtension, (</>))
 import Prelude hiding (lookup)
 
 data GlueStore = GlueStore
@@ -24,7 +24,8 @@ data GlueStore = GlueStore
 
 makeGlueStore :: FilePath -> IO GlueStore
 makeGlueStore folder = do
-    index <- newIORef =<< buildIndex folder
+    root <- canonicalizePath folder
+    index <- newIORef =<< buildIndex root
 
     let
         lookup key = do
@@ -47,27 +48,40 @@ makeGlueStore folder = do
             void . forkIO $ forever do
                 handle publish =<< readChan outChan
 
-            void $ watchTree mgr folder (const True) (writeChan inChan)
+            void $ watchTree mgr root (const True) (writeChan inChan)
             forever $ threadDelay 1_000_000
 
-        -- ToDo: update index: add new files and remove deleted
-        handle publish (Modified path time IsFile) = send publish path time
-        -- handle publish (Added path time IsFile) = send publish path time
+        handle publish (Modified path time IsFile) = updateAndPublish publish path time
+        handle publish (Added path time IsFile) = updateAndPublish publish path time
+        handle _ (Removed path _ IsFile) = removeFromIndex path
+        handle _ (Added _ _ IsDirectory) = rebuildIndex
+        handle _ (Removed _ _ IsDirectory) = rebuildIndex
         handle _ _ = pure ()
 
-        send publish path time = catch @SomeException
+        updateAndPublish publish path time = catch @SomeException
             do
-                absolute <- canonicalizePath folder
-                let file = drop (length absolute + 1) path
-                let (key, ext) = splitAt (length file - 5) file
-                when (ext == ".glue") do
-                    payload <- L.readFile path
-                    let version = utcTimeToMillis time
-                    let value = Revision{..}
-                    publish (T.pack $ replace pathSeparator '.' key) value
+                key <- keyForPath path
+                case key of
+                    Nothing -> pure ()
+                    Just key' -> do
+                        atomicModifyIORef' index (\current -> (M.insert key' path current, ()))
+                        payload <- L.readFile path
+                        let version = utcTimeToMillis time
+                        let value = Revision{..}
+                        publish key' value
             \err -> do
                 print err
                 pure ()
+
+        removeFromIndex path = do
+            key <- keyForPath path
+            case key of
+                Nothing -> pure ()
+                Just key' -> atomicModifyIORef' index (\current -> (M.delete key' current, ()))
+
+        rebuildIndex = buildIndex root >>= writeIORef index
+
+        keyForPath path = pure $ glueKey (makeRelative root path)
 
     pure GlueStore{..}
 
@@ -76,6 +90,12 @@ utcTimeToMillis utc = round $ utcTimeToPOSIXSeconds utc * 1000
 
 replace :: (Eq a) => a -> a -> [a] -> [a]
 replace old new = map (\x -> if x == old then new else x)
+
+glueKey :: FilePath -> Maybe T.Text
+glueKey path
+    | takeExtension path == ".glue" =
+        Just . T.pack $ replace pathSeparator '.' (dropExtension path)
+    | otherwise = Nothing
 
 buildIndex :: FilePath -> IO (M.Map T.Text FilePath)
 buildIndex root = go root
@@ -91,11 +111,6 @@ buildIndex root = go root
             then do
                 nested <- go path
                 pure $ M.union index nested
-            else
-                if takeExtension entry == ".glue"
-                    then do
-                        let relative = drop (length root + 1) path
-                            keyPath = dropExtension relative
-                            key = T.pack $ replace pathSeparator '.' keyPath
-                        pure $ M.insert key path index
-                    else pure index
+            else do
+                let relative = makeRelative root path
+                pure $ maybe index (\key -> M.insert key path index) (glueKey relative)
