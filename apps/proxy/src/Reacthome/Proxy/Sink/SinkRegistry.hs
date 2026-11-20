@@ -13,7 +13,7 @@ import Prelude hiding (lookup)
 data SinkRegistry = SinkRegistry
     { directSinks :: DirectSinkRegistry
     , relaySinks :: RelaySinkRegistry
-    , send :: UUID -> LazyRaw -> IO ()
+    , send :: UUID -> LazyRaw -> IO Bool
     , broadcast :: LazyRaw -> IO ()
     }
 
@@ -25,12 +25,15 @@ makeSinkRegistry = do
     let
         send uid message =
             directSinks.lookup uid >>= \case
-                Just sink -> sink.send message
+                Just sink -> do
+                    sink.send message
+                    pure True
                 Nothing ->
                     relaySinks.lookup uid >>= \case
-                        Just sink -> sink.send message
-                        Nothing -> do
-                            print $ "Subscriber not found: " <> show uid
+                        Just sink -> do
+                            sink.send message
+                            pure True
+                        Nothing -> pure False
 
         broadcast message = do
             (directs, relays) <-
