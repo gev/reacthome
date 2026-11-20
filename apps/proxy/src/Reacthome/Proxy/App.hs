@@ -40,24 +40,24 @@ runApp config = do
   controller <- makeController
   let ?controller = controller
 
-  print @String "Connect to relay..."
+  putStrLn "Connect to relay..."
   fork do runProxyRelay config.relay config.proxy
-  print @String "Connect to legacy daemon..."
+  putStrLn "Connect to legacy daemon..."
   fork do runProxyDaemon config.daemon
 
-  print @String "Run discovery announcer..."
+  putStrLn "Run discovery announcer..."
   fork do discovery.runAnnouncer
-  print @String "Run discovery responder..."
+  putStrLn "Run discovery responder..."
   fork do discovery.runResponder
 
-  print @String "Ping to legacy daemon..."
+  putStrLn "Ping to legacy daemon..."
   pingProxyDaemon config.proxy
 
   when config.watch do
-    print @String "Run Glue modules watcher..."
+    putStrLn "Run Glue modules watcher..."
     fork do ?store.runWatcher pubsub.publish
 
-  print @String "Run proxy server..."
+  putStrLn "Run proxy server..."
   runProxyServer config.proxy
  where
   fork = void . forkIO
