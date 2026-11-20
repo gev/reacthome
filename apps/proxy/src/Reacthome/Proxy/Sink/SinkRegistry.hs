@@ -34,7 +34,7 @@ makeSinkRegistry = do
                             sink.send message
                             pure True
                         Nothing -> do
-                            print $ "Subscriber not found: " <> show uid
+                            print $ "Sink not found: " <> show uid
                             pure False
 
         broadcast message = do
