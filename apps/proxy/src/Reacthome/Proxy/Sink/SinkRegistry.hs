@@ -33,7 +33,9 @@ makeSinkRegistry = do
                         Just sink -> do
                             sink.send message
                             pure True
-                        Nothing -> pure False
+                        Nothing -> do
+                            print $ "Subscriber not found: " <> show uid
+                            pure False
 
         broadcast message = do
             (directs, relays) <-
