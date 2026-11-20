@@ -1,6 +1,7 @@
 module Reacthome.Proxy.Sink.DirectSinkRegistry where
 
 import Control.Concurrent.STM (atomically)
+import Data.Maybe (isJust)
 import Data.UUID (UUID)
 import ListT qualified as L
 import Reacthome.Proxy.Sink (Sink)
@@ -11,6 +12,7 @@ data DirectSinkRegistry = DirectSinkRegistry
     { lookup :: UUID -> IO (Maybe Sink)
     , all :: IO [(UUID, Sink)]
     , add :: UUID -> Sink -> IO ()
+    , has :: UUID -> IO Bool
     , delete :: UUID -> IO ()
     }
 
@@ -24,6 +26,9 @@ makeDirectSinkRegistry = do
 
         all = atomically do
             L.toList $ M.listT registry
+
+        has uid = atomically do
+            isJust <$> M.lookup uid registry
 
         add uid sink = atomically do
             M.insert sink uid registry

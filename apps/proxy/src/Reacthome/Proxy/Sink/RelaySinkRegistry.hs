@@ -3,6 +3,7 @@ module Reacthome.Proxy.Sink.RelaySinkRegistry where
 import Control.Concurrent (threadDelay)
 import Control.Concurrent.STM (atomically)
 import Control.Monad (forever, void, when)
+import Data.Maybe (isJust)
 import Data.Time.Clock.POSIX (getPOSIXTime)
 import Data.UUID (UUID)
 import GHC.Conc (forkIO)
@@ -15,6 +16,7 @@ data RelaySinkRegistry = RelaySinkRegistry
     { lookup :: UUID -> IO (Maybe Sink)
     , all :: IO [(UUID, Sink)]
     , add :: UUID -> Sink -> IO ()
+    , has :: UUID -> IO Bool
     , actualize :: UUID -> IO ()
     }
 
@@ -35,6 +37,9 @@ makeRelaySinkRegistry = do
             atomically do
                 M.insert sink uid registry
                 M.insert ts uid timeouts
+
+        has uid = atomically do
+            isJust <$> M.lookup uid registry
 
         actualize uid = do
             ts <- now
