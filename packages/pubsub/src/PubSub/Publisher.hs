@@ -1,7 +1,7 @@
 module PubSub.Publisher where
 
 import Control.Concurrent.STM (atomically)
-import Control.Monad (mfilter)
+import Control.Monad (mfilter, unless)
 import Data.Foldable (traverse_)
 import Data.Hashable (Hashable)
 import ListT qualified as L
@@ -11,6 +11,7 @@ import StmContainers.Set qualified as S
 
 type Lookup k t v = k -> IO (Maybe (Revision t v))
 type Publish k t v = k -> Revision t v -> IO ()
+type TryPublish k t v = k -> Revision t v -> IO Bool
 
 data Publisher s k t v = Publisher
     { subscribe :: s -> k -> v -> IO ()
@@ -20,9 +21,9 @@ data Publisher s k t v = Publisher
     }
 
 makePublisher ::
-    (Hashable s, Hashable k, Ord v) =>
+    (Hashable s, Hashable k, Ord v, Show s) =>
     Lookup k t v ->
-    (s -> Publish k t v) ->
+    (s -> TryPublish k t v) ->
     IO (Publisher s k t v)
 makePublisher get send = do
     keySubscribes <- MM.newIO
@@ -56,7 +57,12 @@ makePublisher get send = do
             case maybesubscribers of
                 Just subscribers ->
                     L.traverse_
-                        (\s -> send s key value)
+                        ( \s -> do
+                            published <- send s key value
+                            unless published do
+                                unsubscribeAll s
+                                print $ "Subscriber not found: " <> show s
+                        )
                         (S.listTNonAtomic subscribers)
                 Nothing -> pure ()
 
