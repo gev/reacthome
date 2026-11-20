@@ -21,7 +21,7 @@ data Publisher s k t v = Publisher
     }
 
 makePublisher ::
-    (Hashable s, Hashable k, Ord v, Show s) =>
+    (Hashable s, Hashable k, Ord v) =>
     Lookup k t v ->
     (s -> TryPublish k t v) ->
     IO (Publisher s k t v)
@@ -61,7 +61,6 @@ makePublisher get send = do
                             published <- send s key value
                             unless published do
                                 unsubscribeAll s
-                                print $ "Subscriber not found: " <> show s
                         )
                         (S.listTNonAtomic subscribers)
                 Nothing -> pure ()
