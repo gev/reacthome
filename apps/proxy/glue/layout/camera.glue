@@ -7,7 +7,7 @@
     (def (camera-layout props)
         (stack
             :children (
-                (video-player
+                (rtsp-video-player
                     :width media-query.size.width
                     :height media-query.size.height
                     :url (?? props.main_URL props.preview_URL)

@@ -5,7 +5,7 @@
     (import widget.ink-well-overlay)
 
     (def (camera props)
-        (video-player
+        (rtsp-video-player
             :width media-query.size.width
             :height media-query.size.height
             :url (?? props.main_URL props.preview_URL)
