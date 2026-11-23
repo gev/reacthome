@@ -32,7 +32,7 @@ convert o =
             url <- processKeyString =<< A.lookup "url" o
             session_id <- processKeyString =<< A.lookup "session_id" o
             handle_id <- processKeyString =<< A.lookup "handle_id" o
-            jsep <- processKeyDefault =<< A.lookup "jsep" o
+            offer <- processKeyDefault =<< A.lookup "jsep" o
             pure $
                 Action
                     ( List
@@ -41,7 +41,7 @@ convert o =
                             [ ("url", url)
                             , ("session_id", session_id)
                             , ("handle_id", handle_id)
-                            , ("jsep", jsep)
+                            , ("offer", offer)
                             ]
                         ]
                     )
