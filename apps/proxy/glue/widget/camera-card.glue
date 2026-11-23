@@ -4,6 +4,7 @@
     (import lib.data)
     (import lib.navigation)
     (import widget.ink-well-overlay)
+    (import widget.video-player)
 
     (def (camera-card palette props)
         (if (props.active)
@@ -14,7 +15,7 @@
                     :clip-behavior clip.anti-alias
                     :child (stack
                         :children (
-                            (rtsp-video-player
+                            (video-player
                                 :url (?? props.preview_URL props.main_URL)
                                 :fit box-fit.cover
                                 :width (?? props.width 200)
