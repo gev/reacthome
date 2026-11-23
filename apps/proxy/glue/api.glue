@@ -1,5 +1,8 @@
 (module api
-    (export ring)
+    (export
+        ring
+        watch
+    )
 
     (import lib.navigation)
 
@@ -9,5 +12,9 @@
             :route 'ring
             :id id
         )
+    )
+
+    (def (watch props)
+        (print props)
     )
 )

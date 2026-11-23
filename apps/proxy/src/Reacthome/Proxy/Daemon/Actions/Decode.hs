@@ -30,8 +30,8 @@ convert o =
             pure $ Action (List [Symbol "ring", reference id'])
         "watch" -> do
             url <- processKeyString =<< A.lookup "url" o
-            session_id <- processKeyString =<< A.lookup "url" o
-            handle_id <- processKeyString =<< A.lookup "url" o
+            session_id <- processKeyString =<< A.lookup "session_id" o
+            handle_id <- processKeyString =<< A.lookup "handle_id" o
             jsep <- processKeyDefault =<< A.lookup "jsep" o
             pure $
                 Action

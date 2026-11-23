@@ -38,7 +38,6 @@ makeUpstream config = Upstream{..}
                     revision = Revision{..}
                 ?pubsub.publish uid revision
             Just (Action ast) -> do
-                print action
                 let message =
                         B.toLazyByteString $
                             B.word8 1
