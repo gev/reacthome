@@ -102,10 +102,5 @@
     (def reset-leakage (simple-action 'reset-leakage))
     (def run-script (simple-action 'run-script))
 
-    (def (webrtc-watch url)
-        (\ ()
-            (post (# 'watch url))
-        )
-    )
-
+    (def webrtc-watch (simple-action 'watch))
 )
