@@ -32,6 +32,7 @@
         set-multiroom-zone-source
         reset-leakage
         run-script
+        webrtc-watch
     )
 
     (def (simple-action action uid)
@@ -100,4 +101,11 @@
     (def set-multiroom-zone-source (value-action 'set-multiroom-zone-source))
     (def reset-leakage (simple-action 'reset-leakage))
     (def run-script (simple-action 'run-script))
+
+    (def (webrtc-watch url)
+        (\ ()
+            (post (# 'watch url))
+        )
+    )
+
 )

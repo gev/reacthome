@@ -1,12 +1,16 @@
 (module widget.video-player
     (export video-player)
 
+    (import lib.action)
+
     (def (video-player props)
-        (rtsp-video-player
-            :url props.url
+        (webrtc-video-player
+            :session-id props.url
             :width props.width
             :height props.height
             :fit props.fit
+            :on-start (webrtc-watch props.url)
         )
     )
 )
+ 
