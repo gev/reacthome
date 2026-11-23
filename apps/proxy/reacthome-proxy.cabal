@@ -51,6 +51,7 @@ library
     Reacthome.Proxy.Glue.Lib.Actions.MinMaxAction
     Reacthome.Proxy.Glue.Lib.Actions.SimpleAction
     Reacthome.Proxy.Glue.Lib.Actions.ValueAction
+    Reacthome.Proxy.Glue.Lib.Actions.WatchAction
     Reacthome.Proxy.Glue.Lib.Config
     Reacthome.Proxy.Glue.Lib.Config.App
     Reacthome.Proxy.Glue.Lib.Vision

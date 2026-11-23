@@ -64,3 +64,10 @@ minMaxAction action minValue maxValue uid =
         , ("min", A.Number $ fromFloatDigits minValue)
         , ("max", A.Number $ fromFloatDigits maxValue)
         ]
+
+watchAction :: Text -> A.Object
+watchAction url =
+    A.fromList
+        [ ("type", "watch")
+        , ("url", A.String url)
+        ]

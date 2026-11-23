@@ -6,6 +6,7 @@ import Reacthome.Proxy.Bridge.Downstream (Downstream)
 import Reacthome.Proxy.Glue.Lib.Actions.MinMaxAction (minMaxAction)
 import Reacthome.Proxy.Glue.Lib.Actions.SimpleAction (simpleAction)
 import Reacthome.Proxy.Glue.Lib.Actions.ValueAction (valueAction)
+import Reacthome.Proxy.Glue.Lib.Actions.WatchAction
 
 actions :: (?downstream :: Downstream) => ModuleInfo Eval
 actions =
@@ -36,4 +37,5 @@ actions =
         , ("set-multiroom-zone-source", valueAction "ACTION_MULTIROOM_ZONE" "source")
         , ("reset-leakage", simpleAction "ACTION_LEAKAGE_RESET")
         , ("run-script", simpleAction "ACTION_SCRIPT_RUN")
+        , ("watch", watchAction)
         ]
