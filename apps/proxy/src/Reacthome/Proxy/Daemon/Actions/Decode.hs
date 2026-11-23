@@ -29,8 +29,22 @@ convert o =
             id' <- lookupId o
             pure $ Action (List [Symbol "ring", reference id'])
         "watch" -> do
-            id' <- lookupId o
-            pure $ Action (List [Symbol "watch", reference id'])
+            url <- processKeyString =<< A.lookup "url" o
+            session_id <- processKeyString =<< A.lookup "url" o
+            handle_id <- processKeyString =<< A.lookup "url" o
+            jsep <- processKeyDefault =<< A.lookup "jsep" o
+            pure $
+                Action
+                    ( List
+                        [ Symbol "watch"
+                        , Object
+                            [ ("url", url)
+                            , ("session_id", session_id)
+                            , ("handle_id", handle_id)
+                            , ("jsep", jsep)
+                            ]
+                        ]
+                    )
         _ -> Nothing
 
 lookupType :: A.Object -> Maybe Text
