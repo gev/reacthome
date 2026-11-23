@@ -28,6 +28,9 @@ convert o =
         "ring" -> do
             id' <- lookupId o
             pure $ Action (List [Symbol "ring", reference id'])
+        "watch" -> do
+            id' <- lookupId o
+            pure $ Action (List [Symbol "watch", reference id'])
         _ -> Nothing
 
 lookupType :: A.Object -> Maybe Text
