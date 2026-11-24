@@ -4,6 +4,7 @@
         watch
     )
 
+    (import lib.action)
     (import lib.navigation)
 
     (def (ring id)
@@ -15,6 +16,7 @@
     )
 
     (def (watch props)
+        (print props)
         (await
             (lambda (answer)
                 (print answer)

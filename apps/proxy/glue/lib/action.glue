@@ -33,11 +33,13 @@
         reset-leakage
         run-script
         webrtc-watch
+        webrtc-start
+        webrtc-candidate
     )
 
-    (def (simple-action action uid)
+    (def (simple-action action it)
         (\ ()
-            (post (# action uid))
+            (post (# action it))
         )
     )
 
@@ -103,4 +105,6 @@
     (def run-script (simple-action 'run-script))
 
     (def webrtc-watch (simple-action 'watch))
+    (def webrtc-start (simple-action 'start))
+    (def webrtc-candidate (simple-action 'candidate))
 )
