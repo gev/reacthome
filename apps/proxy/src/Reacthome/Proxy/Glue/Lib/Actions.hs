@@ -4,6 +4,7 @@ import Glue.Eval (Eval)
 import Glue.Module (ModuleInfo, nativeModule)
 import Reacthome.Proxy.Bridge.Downstream (Downstream)
 import Reacthome.Proxy.Glue.Lib.Actions.MinMaxAction (minMaxAction)
+import Reacthome.Proxy.Glue.Lib.Actions.ObjectAction (objectAction)
 import Reacthome.Proxy.Glue.Lib.Actions.SimpleAction (simpleAction)
 import Reacthome.Proxy.Glue.Lib.Actions.ValueAction (valueAction)
 import Reacthome.Proxy.Glue.Lib.Actions.WebRTC.WatchAction (webrtcWatchAction)
@@ -38,4 +39,5 @@ actions =
         , ("reset-leakage", simpleAction "ACTION_LEAKAGE_RESET")
         , ("run-script", simpleAction "ACTION_SCRIPT_RUN")
         , ("webrtc-watch", webrtcWatchAction)
+        , ("webrtc-start", objectAction "start")
         ]

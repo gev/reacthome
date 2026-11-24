@@ -22,13 +22,16 @@ encodeAction = \case
     Symbol s -> Right (A.String s)
     DottedSymbol s _ -> Right (A.String s)
     List xs -> A.Array . V.fromList <$> mapM encodeAction xs
-    Object ps -> A.Object . A.fromList <$> mapM encodePair (M.toAscList ps)
+    Object ps -> A.Object <$> encodeObject ps
     Void -> Left "Cannot encode Void"
     Evaluable{} -> Left "Cannot encode Evaluable"
     NativeValue{} -> Left "Cannot encode NativeValue"
     NativeFunc{} -> Left "Cannot encode NativeFunc"
     Special{} -> Left "Cannot encode Special"
     Closure{} -> Left "Cannot encode Closure"
+
+encodeObject :: M.Map Text (IR m) -> Either Text A.Object
+encodeObject ps = A.fromList <$> mapM encodePair (M.toAscList ps)
   where
     encodePair (k, v) = case encodeAction v of
         Right val -> Right (A.fromText k, val)
@@ -55,6 +58,12 @@ valueAction action key value uid =
         , ("id", A.String uid)
         , (key, value)
         ]
+
+objectAction :: Text -> A.Object -> A.Object
+objectAction action payload =
+    A.fromList
+        [("type", A.String action)]
+        <> payload
 
 minMaxAction :: A.Value -> Double -> Double -> Text -> A.Object
 minMaxAction action minValue maxValue uid =
