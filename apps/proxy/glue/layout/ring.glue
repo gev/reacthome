@@ -15,7 +15,6 @@
     )
 
     (def (ring-layout props)
-        (print props)
         (stack
             :children (
                 (if (exists? props.camera)
