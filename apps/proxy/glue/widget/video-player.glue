@@ -4,7 +4,7 @@
     (import lib.action)
     (import ffi.vision.webrtc)
 
-    (def ace-servers (
+    (def ice-servers (
             (ice-server :urls "stun:gate.reacthome.net")
             (ice-server
                 :urls "turn:gate.reacthome.net"
