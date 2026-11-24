@@ -30,9 +30,10 @@ convert o =
             pure $ Action (List [Symbol "ring", reference id'])
         "watch" -> do
             url <- processKeyString =<< A.lookup "url" o
-            session_id <- processKeyString =<< A.lookup "session_id" o
-            handle_id <- processKeyString =<< A.lookup "handle_id" o
-            offer <- processKeyDefault =<< A.lookup "jsep" o
+            session_id <- processKeyInteger =<< A.lookup "session_id" o
+            handle_id <- processKeyInteger =<< A.lookup "handle_id" o
+            stream_id <- processKeyInteger =<< A.lookup "stream_id" o
+            jsep <- processKeyDefault =<< A.lookup "jsep" o
             pure $
                 Action
                     ( List
@@ -41,7 +42,8 @@ convert o =
                             [ ("url", url)
                             , ("session_id", session_id)
                             , ("handle_id", handle_id)
-                            , ("offer", offer)
+                            , ("stream_id", stream_id)
+                            , ("jsep", jsep)
                             ]
                         ]
                     )
