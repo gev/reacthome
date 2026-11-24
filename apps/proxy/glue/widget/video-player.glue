@@ -2,7 +2,6 @@
     (export video-player)
 
     (import lib.action)
-    (import ffi.vision.webrtc)
 
     (def ice-servers (
             (ice-server :urls "stun:gate.reacthome.net")
