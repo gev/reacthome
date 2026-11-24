@@ -15,6 +15,24 @@
     )
 
     (def (watch props)
-        (print props)
+        (await
+            (lambda (answer)
+                (print answer)
+                (webrtc-start
+                    :session_id props.session_id
+                    :handle_id props.handle_id
+                    :offer answer.description
+                )
+                (listen
+                    (lambda (candidate)
+                        :session_id props.session_id
+                        :handle_id props.handle_id
+                        :candidate candidate
+                    )
+                    answer.candidates
+                )
+            )
+            (webrtc-accept props.session_id props.offer)
+        )
     )
 )

@@ -2,6 +2,16 @@
     (export video-player)
 
     (import lib.action)
+    (import ffi.vision.webrtc)
+
+    (def ace-servers (
+            (ice-server :urls "stun:gate.reacthome.net")
+            (ice-server
+                :urls "turn:gate.reacthome.net"
+                :username "react"
+                :credential "home"
+            )
+        ))
 
     (def (video-player props)
         (webrtc-video-player
@@ -9,6 +19,8 @@
             :width props.width
             :height props.height
             :fit props.fit
+            :ice-servers ice-servers
+            :ice-transport-policy ice-transport-policy.all
             :on-start (webrtc-watch props.url)
         )
     )
