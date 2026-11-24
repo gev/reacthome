@@ -7,7 +7,6 @@ import Reacthome.Proxy.Glue.Lib.Actions.MinMaxAction (minMaxAction)
 import Reacthome.Proxy.Glue.Lib.Actions.ObjectAction (objectAction)
 import Reacthome.Proxy.Glue.Lib.Actions.SimpleAction (simpleAction)
 import Reacthome.Proxy.Glue.Lib.Actions.ValueAction (valueAction)
-import Reacthome.Proxy.Glue.Lib.Actions.WebRTC.WatchAction (webrtcWatchAction)
 
 actions :: (?downstream :: Downstream) => ModuleInfo Eval
 actions =
@@ -38,6 +37,9 @@ actions =
         , ("set-multiroom-zone-source", valueAction "ACTION_MULTIROOM_ZONE" "source")
         , ("reset-leakage", simpleAction "ACTION_LEAKAGE_RESET")
         , ("run-script", simpleAction "ACTION_SCRIPT_RUN")
-        , ("webrtc-watch", webrtcWatchAction)
+        , ("webrtc-watch", objectAction "watch")
         , ("webrtc-start", objectAction "start")
+        , ("webrtc-stop", objectAction "stop")
+        , ("webrtc-candidate", objectAction "candidate")
+        , ("webrtc-keep-alive", objectAction "keepalive")
         ]
