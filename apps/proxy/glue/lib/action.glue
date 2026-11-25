@@ -35,6 +35,7 @@
         webrtc-watch
         webrtc-start
         webrtc-candidate
+        webrtc-keep-alive
     )
 
     (def (simple-action action it)
@@ -111,4 +112,5 @@
     (def webrtc-watch (simple-callback 'webrtc-watch))
     (def webrtc-start (simple-action 'webrtc-start))
     (def webrtc-candidate (simple-action 'webrtc-candidate))
+    (def webrtc-keep-alive (simple-callback 'webrtc-keep-alive))
 )

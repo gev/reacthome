@@ -35,6 +35,9 @@
                         :candidate candidate
                     )
                 )
+                :on-heartbeat (webrtc-keep-alive
+                    :session_id props.session_id
+                )
             )
         )
     )
