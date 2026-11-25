@@ -47,6 +47,21 @@ convert o =
                             ]
                         ]
                     )
+        -- "candidate" -> do
+        --     url <- processKeyString =<< A.lookup "url" o
+        --     handle_id <- processKeyInteger =<< A.lookup "handle_id" o
+        --     candidate <- processKeyDefault =<< A.lookup "candidate" o
+        --     pure $
+        --         Action
+        --             ( List
+        --                 [ Symbol "watch"
+        --                 , Object
+        --                     [ ("url", url)
+        --                     , ("handle_id", handle_id)
+        --                     , ("candidate", candidate)
+        --                     ]
+        --                 ]
+        --             )
         _ -> Nothing
 
 lookupType :: A.Object -> Maybe Text

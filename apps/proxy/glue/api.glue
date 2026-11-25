@@ -22,13 +22,14 @@
                 (webrtc-start (
                         :session_id props.session_id
                         :handle_id props.handle_id
-                        :jsep answer.description
+                        :jsep answer
                     ))
             )
             (webrtc-accept
                 :session props.url
                 :offer props.jsep
                 :on-candidate (lambda (candidate)
+                    (print candidate)
                     (webrtc-candidate
                         :session_id props.session_id
                         :handle_id props.handle_id
