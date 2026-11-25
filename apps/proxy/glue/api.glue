@@ -23,25 +23,26 @@
                         :session_id props.session_id
                         :handle_id props.handle_id
                         :jsep answer.description
+                    ))
+            )
+            (webrtc-accept
+                :session props.url
+                :offer props.jsep
+                :on-candidate (lambda (candidate)
+                    (webrtc-candidate
+                        :session_id props.session_id
+                        :handle_id props.handle_id
+                        :candidate candidate
                     )
-                )
-                (listen
-                    (lambda (candidate)
-                        (webrtc-candidate
-                            :session_id props.session_id
-                            :handle_id props.handle_id
-                            :candidate candidate
-                        )
-                    )
-                    answer.candidates
                 )
             )
-            (webrtc-accept props.url props.jsep)
         )
     )
 
     (def (candidate props)
-        (print props)
-        (webrtc-add-candidate props.url props.jsep)
+        (webrtc-add-candidate
+            :session props.url
+            :candidate props.candidate
+        )
     )
 )
