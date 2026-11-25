@@ -1,6 +1,7 @@
 (module api
     (export
         ring
+        candidate
         watch
     )
 
@@ -37,5 +38,10 @@
             )
             (webrtc-accept props.url props.jsep)
         )
+    )
+
+    (def (candidate props)
+        (print props)
+        (webrtc-add-candidate props.url props.jsep)
     )
 )
