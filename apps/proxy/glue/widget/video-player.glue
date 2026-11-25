@@ -20,7 +20,7 @@
             :fit props.fit
             :ice-servers ice-servers
             :ice-transport-policy ice-transport-policy.all
-            :on-start (webrtc-watch props.url)
+            :on-start (webrtc-watch :url props.url)
         )
     )
 )
