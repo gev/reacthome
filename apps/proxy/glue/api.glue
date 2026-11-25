@@ -17,8 +17,10 @@
     )
 
     (def (watch props)
+        (print props.jsep)
         (await
             (lambda (answer)
+                (print answer)
                 (webrtc-start (
                         :session_id props.session_id
                         :handle_id props.handle_id
@@ -37,13 +39,6 @@
                     )
                 )
             )
-        )
-    )
-
-    (def (candidate props)
-        (webrtc-add-candidate
-            :session props.url
-            :candidate props.candidate
         )
     )
 )
