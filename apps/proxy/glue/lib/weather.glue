@@ -372,7 +372,7 @@
         (
             :time time
             :feels-like props.main.feels_like
-            :temperature props.main.feels_like
+            :temperature props.main.temp
             :humidity props.main.humidity
             :pressure props.main.pressure
             :wind props.wind
